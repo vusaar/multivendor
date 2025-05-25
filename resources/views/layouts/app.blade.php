@@ -27,10 +27,15 @@
                 </header>
             @endif
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <div class="flex">
+                
+                <div class="flex-1 w-5/5">
+                    <!-- Page Content -->
+                    <main>
+                        {{ $slot }}
+                    </main>
+                </div>
+            </div>
         </div>
     </body>
 </html>
