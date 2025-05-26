@@ -20,7 +20,7 @@
 
                function toggle_side_menu(){
                   
-                   var sidebarNode = document.querySelector('#side_bar_menu')
+                 var sidebarNode = document.querySelector('#side_bar_menu')
                    var sidebar = coreui.Sidebar.getInstance(sidebarNode)
                    sidebar.toggle()
 

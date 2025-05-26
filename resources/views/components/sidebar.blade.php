@@ -49,6 +49,12 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ route('admin.users.index') }}">
+                <i class="nav-icon cil-user"></i> Users
+              </a>
+            </li>
+
            
         </ul>
         <div class="sidebar-footer border-top d-flex">

@@ -53,5 +53,17 @@ Route::middleware('auth')->group(function () {
             'destroy' => 'admin.permissions.destroy',
         ]
     ]);
+
+    // Admin user management
+    Route::resource('/admin/users', \App\Http\Controllers\UserController::class, [
+        'names' => [
+            'index' => 'admin.users.index',
+            'create' => 'admin.users.create',
+            'store' => 'admin.users.store',
+            'edit' => 'admin.users.edit',
+            'update' => 'admin.users.update',
+            'destroy' => 'admin.users.destroy',
+        ]
+    ]);
 });
 require __DIR__.'/auth.php';
