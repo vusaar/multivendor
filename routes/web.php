@@ -26,6 +26,32 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
+    // Admin vendor listing (protected)
+    Route::get('/admin/vendors', [\App\Http\Controllers\AdminVendorController::class, 'show'])->name('admin.vendors.index');
+
+    // Admin role management
+    Route::resource('/admin/roles', \App\Http\Controllers\RoleController::class, [
+        'names' => [
+            'index' => 'admin.roles.index',
+            'create' => 'admin.roles.create',
+            'store' => 'admin.roles.store',
+            'edit' => 'admin.roles.edit',
+            'update' => 'admin.roles.update',
+            'destroy' => 'admin.roles.destroy',
+        ]
+    ]);
+
+    // Admin permission management
+    Route::resource('/admin/permissions', \App\Http\Controllers\PermissionController::class, [
+        'names' => [
+            'index' => 'admin.permissions.index',
+            'create' => 'admin.permissions.create',
+            'store' => 'admin.permissions.store',
+            'edit' => 'admin.permissions.edit',
+            'update' => 'admin.permissions.update',
+            'destroy' => 'admin.permissions.destroy',
+        ]
+    ]);
+});
 require __DIR__.'/auth.php';

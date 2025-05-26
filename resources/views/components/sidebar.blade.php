@@ -26,7 +26,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="{{ route('admin.vendors.index') }}">
                 <i class="nav-icon cil-house"></i> Vendors
               </a>
             </li>
@@ -34,6 +34,18 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">
                 <i class="nav-icon cil-speedometer"></i> Categories
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ route('admin.roles.index') }}">
+                <i class="nav-icon cil-speedometer"></i> Roles
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ route('admin.permissions.index') }}">
+                <i class="nav-icon cil-lock-unlocked"></i> Permissions
               </a>
             </li>
 
