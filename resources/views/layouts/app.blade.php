@@ -10,26 +10,44 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/@coreui/icons@3.0.1/css/all.min.css" rel="stylesheet">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
+        <script>
+
+               function toggle_side_menu(){
+                  
+                   var sidebarNode = document.querySelector('#side_bar_menu')
+                   var sidebar = coreui.Sidebar.getInstance(sidebarNode)
+                   sidebar.toggle()
+
+               }
+        </script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <body >
+        <div class="container-fluid min-vh-100 bg-light">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="bg-white shadow mb-3">
+                    <div class="container-fluid py-4 px-3">
                         {{ $header }}
                     </div>
-                </header>
+           </div>
             @endif
 
-            <div class="flex">
-                
-                <div class="flex-1 w-5/5">
+            <div class="row" style="display: flex;">
+                <div style="flex:0">
+                    
+                    @if (View::exists('components.sidebar'))
+                        @include('components.sidebar')
+                    @endif
+                </div>
+                <div style="flex:1">
                     <!-- Page Content -->
                     <main>
                         {{ $slot }}
