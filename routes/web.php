@@ -27,8 +27,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Admin vendor listing (protected)
-    Route::get('/admin/vendors', [\App\Http\Controllers\AdminVendorController::class, 'show'])->name('admin.vendors.index');
+    // Admin vendor management
+    Route::resource('/admin/vendors', \App\Http\Controllers\AdminVendorController::class, [
+        'names' => [
+            'index' => 'admin.vendors.index',
+            'create' => 'admin.vendors.create',
+            'store' => 'admin.vendors.store',
+            'edit' => 'admin.vendors.edit',
+            'update' => 'admin.vendors.update',
+            'destroy' => 'admin.vendors.destroy',
+        ]
+    ]);
 
     // Admin role management
     Route::resource('/admin/roles', \App\Http\Controllers\RoleController::class, [
