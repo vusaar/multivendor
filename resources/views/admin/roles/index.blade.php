@@ -8,7 +8,7 @@
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Roles</h5>
-            <a href="{{ route('admin.roles.create') }}" class="btn btn-primary"><i class="cil-plus"></i> New Role</a>
+            <a href="{{ route('admin.roles.create') }}" class="btn btn-outline active"><i class="cil-plus"></i> New Role</a>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -30,11 +30,11 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-warning"><i class="cil-pencil"></i> Edit</a>
+                                    <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-secondary"><i class="cil-pencil"></i> Edit</a>
                                     <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this role?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"><i class="cil-trash"></i> Delete</button>
+                                        <button class="btn btn-sm btn-dark" style="margin:2px;"><i class="cil-trash"></i> Delete</button>
                                     </form>
                                 </td>
                             </tr>

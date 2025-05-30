@@ -1,8 +1,8 @@
-<aside class="d-none d-md-block bg-white border-end p-0 h-100">
+<aside class="d-md-block bg-white border-end p-0 h-100">
     <div class="sidebar border-end" id="side_bar_menu">
 
         <div class="sidebar-header border-bottom">
-          <div class="sidebar-brand">Menu</div>
+          <div class="sidebar-brand"><b><small>Product Management</small></b></div>
         </div>
 
         <ul class="sidebar-nav">
@@ -32,10 +32,14 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="{{ route('admin.categories.index') }}">
                 <i class="nav-icon cil-speedometer"></i> Categories
               </a>
             </li>
+
+            <div class="sidebar-header border-bottom">
+               <div class="sidebar-brand"><b><small>Role Management</small></b></div>
+             </div>
 
             <li class="nav-item">
               <a class="nav-link active" href="{{ route('admin.roles.index') }}">

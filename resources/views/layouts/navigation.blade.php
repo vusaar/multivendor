@@ -2,7 +2,7 @@
     <div class="container-fluid" style="justify-content:normal !important;">
         <!-- humburger menu -->
          <span style="padding:8px !important;margin:5px;" class="d-lg-none d-sm-block d-xs-block">
-           <a href="#" onclick='toggle_side_menu()'><i class="cil-menu" ></i> </a>
+           <button type="button" class="btn" onclick='toggle_side_menu()'><i class="cil-menu" ></i> </button>
          </span>
 
          <!-- Brand/logo -->

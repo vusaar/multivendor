@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Permission Listing') }}
+            {{ __('Category Listing') }}
         </h2>
     </x-slot>
 <div class="container-fluid py-4">
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Permissions</h5>
-            <a href="{{ route('admin.permissions.create') }}" class="btn btn-outline active"><i class="cil-plus"></i> New Permission</a>
+            <h5 class="mb-0">Categories</h5>
+            <a href="{{ route('admin.categories.create') }}" class="btn btn-outline active"><i class="cil-plus"></i> New Category</a>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -16,16 +16,20 @@
                     <thead class="table-light">
                         <tr>
                             <th>Name</th>
+                            <th>Parent Category</th>
+                            <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($permissions as $permission)
+                        @forelse($categories as $category)
                             <tr>
-                                <td>{{ $permission->name }}</td>
+                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->parent_id ? optional($category->parent)->name : '-' }}</td>
+                                <td>{{ $category->description }}</td>
                                 <td>
-                                    <a href="{{ route('admin.permissions.edit', $permission) }}" class="btn btn-sm btn-secondary"><i class="cil-pencil"></i> Edit</a>
-                                    <form action="{{ route('admin.permissions.destroy', $permission) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this permission?')">
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-secondary"><i class="cil-pencil"></i> Edit</a>
+                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this category?')">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-dark"><i class="cil-trash"></i> Delete</button>
@@ -34,7 +38,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="2" class="text-center">No permissions found.</td>
+                                <td colspan="4" class="text-center">No categories found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -42,7 +46,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {{ $permissions->links('pagination::bootstrap-5') }}
+            {{ $categories->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

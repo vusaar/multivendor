@@ -8,7 +8,7 @@
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Users</h5>
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary"><i class="cil-plus"></i> New User</a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-outline active"><i class="cil-plus"></i> New User</a>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -38,11 +38,11 @@
                                 </td>
                                 <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning"><i class="cil-pencil"></i> Edit</a>
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-secondary"><i class="cil-pencil"></i> Edit</a>
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this user?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"><i class="cil-trash"></i> Delete</button>
+                                        <button class="btn btn-sm btn-dark"><i class="cil-trash"></i> Delete</button>
                                     </form>
                                 </td>
                             </tr>

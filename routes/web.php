@@ -65,5 +65,17 @@ Route::middleware('auth')->group(function () {
             'destroy' => 'admin.users.destroy',
         ]
     ]);
+
+    // Admin category management
+    Route::resource('/admin/categories', \App\Http\Controllers\CategoryController::class, [
+        'names' => [
+            'index' => 'admin.categories.index',
+            'create' => 'admin.categories.create',
+            'store' => 'admin.categories.store',
+            'edit' => 'admin.categories.edit',
+            'update' => 'admin.categories.update',
+            'destroy' => 'admin.categories.destroy',
+        ]
+    ]);
 });
 require __DIR__.'/auth.php';

@@ -20,9 +20,21 @@
 
                function toggle_side_menu(){
                   
-                 var sidebarNode = document.querySelector('#side_bar_menu')
-                   var sidebar = coreui.Sidebar.getInstance(sidebarNode)
-                   sidebar.toggle()
+                  console.log('toggle side menu clicked')
+                   // toggle the sidebar
+                  let sidebarNode = document.querySelector('#side_bar_menu')
+
+                    if (!sidebarNode) {
+                        console.log('Sidebar element not found');
+                        return;
+                    }
+                   let sidebar = coreui.Sidebar.getInstance(sidebarNode)
+
+                   if (!sidebar) {
+                        console.log('Sidebar is null');
+                        return;
+                    }
+                   sidebar.show()
 
                }
         </script>

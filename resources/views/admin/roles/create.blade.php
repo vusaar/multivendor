@@ -34,7 +34,7 @@
             </div>
             <div class="card-footer text-end">
                 <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-primary"><i class="cil-check"></i> Create</button>
+                <button type="submit" class="btn btn-outline active"><i class="cil-check"></i> Create</button>
             </div>
         </form>
     </div>
