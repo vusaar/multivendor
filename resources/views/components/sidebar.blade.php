@@ -14,7 +14,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="{{ route('admin.products.index') }}">
                 <i class="nav-icon cil-library"></i> Products
               </a>
             </li>
@@ -37,6 +37,7 @@
               </a>
             </li>
 
+            @role('super.admin')
             <div class="sidebar-header border-bottom">
                <div class="sidebar-brand"><b><small>Role Management</small></b></div>
              </div>
@@ -59,6 +60,19 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ route('admin.variation-attribute-values.index') }}">
+                <i class="nav-icon cil-list"></i> Variation Attribute Values
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ route('admin.variation-attributes.index') }}">
+                <i class="nav-icon cil-list"></i> Variation Attributes
+              </a>
+            </li>
+
+            @endrole
            
         </ul>
         <div class="sidebar-footer border-top d-flex">

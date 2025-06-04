@@ -13,8 +13,12 @@ class AdminVendorController extends Controller
     // Show form to create a new vendor
     public function create()
     {
+
+         /*
+            if user has vendor.admin role
+         */
             // Get only users with the vendor_admin role to select as administrator
-        $users = \App\Models\User::role('vendor admin')->get();
+        $users = \App\Models\User::role('vendor.admin')->get();
         return view('admin.vendors.create', compact('users'));
     }
 
@@ -54,10 +58,19 @@ class AdminVendorController extends Controller
     // List all vendors
     public function index()
     {
-        $vendors = Vendor::with('user')->paginate(10);
-
-       // dd($vendors);
-        
+        // If user has super.admin role, show all vendors
+        if (auth()->user()->hasRole('super.admin')) {
+            $vendors = Vendor::with('user')->paginate(10);
+        }
+        // If user has vendor.admin role, show only vendors associated with that admin
+        elseif (auth()->user()->hasRole('vendor.admin')) {
+            $vendors = Vendor::with('user')
+                ->where('user_id', auth()->id())
+                ->paginate(10);
+        } else {
+            // Optionally, restrict access for other roles
+            abort(403, 'Unauthorized');
+        }
         return view('admin.vendors.index', compact('vendors'));
     }
 

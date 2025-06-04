@@ -34,4 +34,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
 }
