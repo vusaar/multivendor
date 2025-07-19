@@ -10,32 +10,32 @@ class PermissionsSeeder extends Seeder
     {
         $permissions = [
             // Super Admin permissions (full access)
-            'manage all',
+            'manage.all',
 
             // Vendor Admin permissions
-            'manage own vendor',
-            'manage own products',
-            'manage own orders',
-            'view own sales',
+            'manage.own.vendor',
+            'manage.own.products',
+            'manage.own.orders',
+            'view.own.sales',
 
             // General CRUD for reference (can be assigned as needed)
-            'create vendor',
-            'edit vendor',
-            'delete vendor',
-            'view vendor',
-            'create product',
-            'edit product',
-            'delete product',
-            'view product',
-            'create order',
-            'edit order',
-            'delete order',
-            'view order',
-            'manage categories',
-            'manage brands',
-            'manage users',
-            'manage roles',
-            'manage permissions',
+            'create.vendor',
+            'edit.vendor',
+            'delete.vendor',
+            'view.vendor',
+            'create.product',
+            'edit.product',
+            'delete.product',
+            'view.product',
+            'create.order',
+            'edit.order',
+            'delete.order',
+            'view.order',
+            'manage.categories',
+            'manage.brands',
+            'manage.users',
+            'manage.roles',
+            'manage.permissions',
         ];
 
         foreach ($permissions as $permission) {
