@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "price": { "type": "string" },
+          "stock": { "type": "integer" },
+          "status": { "type": "string" },
+          "vendor": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "shop_name": { "type": "string" }
+            }
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" }
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    }
+  }
+}

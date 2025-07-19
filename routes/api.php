@@ -19,9 +19,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->prefix('storefront')->group(function () {
-    // List/search products
+
+//middleware('auth:sanctum')->
+
+Route::prefix('storefront')->group(function () {
+    // Flexible search endpoint
+    Route::get('products/search', [StorefrontProductController::class, 'search']);
+    // List/search products (original index)
     Route::get('products', [StorefrontProductController::class, 'index']);
-    // Show a single product by ID (now using controller method)
+    // Show a single product by ID
     Route::get('products/{product}', [StorefrontProductController::class, 'show']);
 });
