@@ -66,30 +66,47 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Product Variations</label>
-                                <div id="variation-list">
-                                    <div class="row g-2 mb-2 variation-row">
-                                        <div class="col-md-4">
-                                            <select class="form-select variation-attribute-select" name="variations[0][attribute_id]" required>
-                                                <option value="">-- Select Attribute --</option>
-                                                @foreach(App\Models\VariationAttribute::all() as $attr)
-                                                    <option value="{{ $attr->id }}">{{ $attr->name }}</option>
-                                                @endforeach
-                                            </select>
+                                <div id="variation-matrix-list">
+                                    <div class="row g-2 mb-2 variation-matrix-row">
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="variation_matrix[0][sku]" placeholder="SKU (optional)">
                                         </div>
-                                        <div class="col-md-4">
-                                            <select class="form-select variation-value-select" name="variations[0][value][]" multiple required disabled>
-                                                <option value="">-- Select Value --</option>
-                                            </select>
+                                        <div class="col-md-2">
+                                            <input type="number" class="form-control" name="variation_matrix[0][price]" placeholder="Price" step="0.01">
                                         </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" name="variations[0][sku]" placeholder="SKU (optional)">
+                                        <div class="col-md-1">
+                                            <input type="number" class="form-control" name="variation_matrix[0][stock]" placeholder="Stock">
                                         </div>
-                                        <div class="col-md-1 d-flex align-items-center">
-                                            <button type="button" class="btn btn-outline-danger btn-sm remove-variation-btn">&times;</button>
+                                        <div class="col-md-1 d-flex flex-column align-items-center">
+                                            <input type="file" class="form-control mb-1 variation-image-input" name="variation_matrix[0][image]" accept="image/*">
+                                            <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="variation-attributes-group">
+                                                <div class="row g-1 mb-1 variation-attribute-value-pair">
+                                                    <div class="col-md-5">
+                                                        <select class="form-select variation-attribute-select" name="variation_matrix[0][attributes][0][attribute_id]" required>
+                                                            <option value="">-- Select Attribute --</option>
+                                                            @foreach(App\Models\VariationAttribute::all() as $attr)
+                                                                <option value="{{ $attr->id }}">{{ $attr->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <select class="form-select variation-value-select" name="variation_matrix[0][attributes][0][value_id][]" multiple required disabled>
+                                                            <option value="">-- Select Value --</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 d-flex align-items-center">
+                                                        <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-variation-btn">Add Variation</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-variation-matrix-btn">Add Variation Combination</button>
                             </div>
                             <button type="submit" class="btn btn-success">Create Product</button>
                             <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Cancel</a>
@@ -292,8 +309,8 @@
         }
     });
 
-    // Variation attribute -> value dynamic loading
-    function loadVariationValues(attributeId, valueSelect, selectedValues = []) {
+    // Variation matrix dynamic loading
+    function loadVariationMatrixValues(attributeId, valueSelect, selectedValues = []) {
         if (!attributeId) {
             valueSelect.innerHTML = '<option value="">-- Select Value --</option>';
             valueSelect.disabled = true;
@@ -305,67 +322,136 @@
             .then(data => {
                 let options = '<option value="">-- Select Value --</option>';
                 data.forEach(function(val) {
-                    let selected = selectedValues && selectedValues.includes(val.value) ? ' selected' : '';
-                    options += `<option value="${val.value}"${selected}>${val.value}</option>`;
+                    let selected = selectedValues && selectedValues.includes(val.id) ? ' selected' : '';
+                    options += `<option value="${val.id}"${selected}>${val.value}</option>`;
                 });
                 valueSelect.innerHTML = options;
                 valueSelect.disabled = false;
                 $(valueSelect).select2({ theme: 'bootstrap-5', width: '100%' });
             });
     }
-
-    function bindVariationAttributeEvents() {
+    function bindVariationMatrixEvents() {
         document.querySelectorAll('.variation-attribute-select').forEach(function(select) {
             select.onchange = function() {
-                const row = select.closest('.variation-row');
-                const valueSelect = row.querySelector('.variation-value-select');
-                loadVariationValues(select.value, valueSelect, []);
+                const pair = select.closest('.variation-attribute-value-pair');
+                const valueSelect = pair.querySelector('.variation-value-select');
+                loadVariationMatrixValues(select.value, valueSelect, []);
             };
         });
         document.querySelectorAll('.variation-value-select').forEach(function(sel) {
             $(sel).select2({ theme: 'bootstrap-5', width: '100%' });
         });
     }
-
-    // Initial bind
     document.addEventListener('DOMContentLoaded', function() {
-        bindVariationAttributeEvents();
+        bindVariationMatrixEvents();
     });
-
-    // Add variation row with dynamic value select
-    let variationIndex = 1;
-    document.getElementById('add-variation-btn').addEventListener('click', function() {
-        var list = document.getElementById('variation-list');
+    let variationMatrixIndex = 1;
+    document.getElementById('add-variation-matrix-btn').addEventListener('click', function() {
+        var list = document.getElementById('variation-matrix-list');
         var row = document.createElement('div');
-        row.className = 'row g-2 mb-2 variation-row';
+        row.className = 'row g-2 mb-2 variation-matrix-row';
         row.innerHTML = `
-            <div class="col-md-4">
-                <select class="form-select variation-attribute-select" name="variations[${variationIndex}][attribute_id]" required>
-                    <option value="">-- Select Attribute --</option>
-                    @foreach(App\Models\VariationAttribute::all() as $attr)
-                        <option value="{{ $attr->id }}">{{ $attr->name }}</option>
-                    @endforeach
-                </select>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="variation_matrix[${variationMatrixIndex}][sku]" placeholder="SKU (optional)">
             </div>
-            <div class="col-md-4">
-                <select class="form-select variation-value-select" name="variations[${variationIndex}][value][]" multiple required disabled>
-                    <option value="">-- Select Value --</option>
-                </select>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="variation_matrix[${variationMatrixIndex}][price]" placeholder="Price" step="0.01">
             </div>
-            <div class="col-md-3">
-                <input type="text" class="form-control" name="variations[${variationIndex}][sku]" placeholder="SKU (optional)">
+            <div class="col-md-1">
+                <input type="number" class="form-control" name="variation_matrix[${variationMatrixIndex}][stock]" placeholder="Stock">
             </div>
-            <div class="col-md-1 d-flex align-items-center">
-                <button type="button" class="btn btn-outline-danger btn-sm remove-variation-btn">&times;</button>
+            <div class="col-md-1 d-flex flex-column align-items-center">
+                <input type="file" class="form-control mb-1 variation-image-input" name="variation_matrix[${variationMatrixIndex}][image]" accept="image/*">
+                <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+            </div>
+            <div class="col-md-6">
+                <div class="variation-attributes-group">
+                    <div class="row g-1 mb-1 variation-attribute-value-pair">
+                        <div class="col-md-5">
+                            <select class="form-select variation-attribute-select" name="variation_matrix[${variationMatrixIndex}][attributes][0][attribute_id]" required>
+                                <option value="">-- Select Attribute --</option>
+                                @foreach(App\Models\VariationAttribute::all() as $attr)
+                                    <option value="{{ $attr->id }}">{{ $attr->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-select variation-value-select" name="variation_matrix[${variationMatrixIndex}][attributes][0][value_id][]" multiple required disabled>
+                                <option value="">-- Select Value --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center">
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
             </div>
         `;
         list.appendChild(row);
-        bindVariationAttributeEvents();
-        variationIndex++;
+        bindVariationMatrixEvents();
+        variationMatrixIndex++;
     });
-    document.getElementById('variation-list').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-variation-btn')) {
-            e.target.closest('.variation-row').remove();
+    document.getElementById('variation-matrix-list').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-variation-matrix-btn')) {
+            e.target.closest('.variation-matrix-row').remove();
+        }
+        if (e.target.classList.contains('add-attribute-value-pair-btn')) {
+            const row = e.target.closest('.variation-matrix-row');
+            const group = row.querySelector('.variation-attributes-group');
+            const pairCount = group.querySelectorAll('.variation-attribute-value-pair').length;
+            const matrixIdx = Array.from(document.getElementById('variation-matrix-list').children).indexOf(row);
+            const pair = document.createElement('div');
+            pair.className = 'row g-1 mb-1 variation-attribute-value-pair';
+            pair.innerHTML = `
+                <div class="col-md-5">
+                    <select class="form-select variation-attribute-select" name="variation_matrix[${matrixIdx}][attributes][${pairCount}][attribute_id]" required>
+                        <option value="">-- Select Attribute --</option>
+                        @foreach(App\Models\VariationAttribute::all() as $attr)
+                            <option value="{{ $attr->id }}">{{ $attr->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-select variation-value-select" name="variation_matrix[${matrixIdx}][attributes][${pairCount}][value_id][]" multiple required disabled>
+                        <option value="">-- Select Value --</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                </div>
+            `;
+            group.appendChild(pair);
+            bindVariationMatrixEvents();
+        }
+        if (e.target.classList.contains('remove-attribute-value-pair-btn')) {
+            e.target.closest('.variation-attribute-value-pair').remove();
+        }
+    });
+    // Variation image preview (per row)
+    document.getElementById('variation-matrix-list').addEventListener('change', function(e) {
+        if (e.target.classList.contains('variation-image-input')) {
+            const input = e.target;
+            let preview = input.nextElementSibling;
+            if (!preview || !preview.classList.contains('variation-image-preview')) {
+                preview = document.createElement('img');
+                preview.className = 'variation-image-preview rounded border mt-1';
+                preview.style.height = '40px';
+                preview.style.width = '40px';
+                preview.style.objectFit = 'cover';
+                input.parentNode.insertBefore(preview, input.nextSibling);
+            }
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.title = input.files[0].name;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = '';
+                preview.title = '';
+            }
         }
     });
 </script>

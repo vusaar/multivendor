@@ -25,4 +25,9 @@ class ProductVariation extends Model
             'variation_attribute_value_id'
         );
     }
+
+    public function variationImages()
+    {
+        return $this->hasMany(ProductVariationImage::class, 'product_variation_id');
+    }
 }

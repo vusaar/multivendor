@@ -59,9 +59,9 @@ class ProductController extends Controller
     {
         $vendors = Vendor::all();
 
-       
-
+      
         $categories = Category::with('children')->whereNull('parent_id')->get();
+
         return view('admin.products.create', compact('vendors', 'categories'));
     }
 
@@ -84,6 +84,7 @@ class ProductController extends Controller
                 'vendor_id', 'category_id', 'name', 'description', 'price', 'stock', 'status'
             ]));
 
+            // Handle product images
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $path = $image->store('product_images', 'public');
@@ -94,29 +95,36 @@ class ProductController extends Controller
                 }
             }
 
-            // Handle product variations (multiple values per variation)
-            if ($request->has('variations')) {
-                foreach ($request->input('variations') as $variation) {
-                    if (empty($variation['attribute_id']) || empty($variation['value']) || !is_array($variation['value'])) continue;
-
-                    $attrValueIds = [];
-                    foreach ($variation['value'] as $val) {
-                        if (!$val) continue;
-                        $attrValue = \App\Models\VariationAttributeValue::firstOrCreate([
-                            'variation_attribute_id' => $variation['attribute_id'],
-                            'value' => $val,
-                        ]);
-                        $attrValueIds[] = $attrValue->id;
+            // Handle product variations (matrix)
+            if ($request->has('variation_matrix')) {
+                foreach ($request->input('variation_matrix') as $matrix) {
+                    // Save variation image if present
+                    $variationImagePath = null;
+                    if (isset($matrix['image']) && $request->file('variation_matrix') && isset($request->file('variation_matrix')[$matrix['image']])) {
+                        $variationImage = $request->file('variation_matrix')[$matrix['image']];
+                        if ($variationImage) {
+                            $variationImagePath = $variationImage->store('variation_images', 'public');
+                        }
                     }
-                    if (count($attrValueIds) === 0) continue;
-
-                    $productVariation = \App\Models\ProductVariation::create([
+                    $variation = \App\Models\ProductVariation::create([
                         'product_id' => $product->id,
-                        'sku' => $variation['sku'] ?? null,
-                        'price' => $request->price,
-                        'stock' => $request->stock,
+                        'sku' => $matrix['sku'] ?? null,
+                        'price' => $matrix['price'] ?? null,
+                        'stock' => $matrix['stock'] ?? 0,
+                        // If you have a column for image, add: 'image' => $variationImagePath
                     ]);
-                    $productVariation->attributeValues()->sync($attrValueIds);
+                    // Save attribute values for this variation
+                    $attrValueIds = [];
+                    if (isset($matrix['attributes']) && is_array($matrix['attributes'])) {
+                        foreach ($matrix['attributes'] as $pair) {
+                            if (empty($pair['attribute_id']) || empty($pair['value_id']) || !is_array($pair['value_id'])) continue;
+                            foreach ($pair['value_id'] as $valId) {
+                                if (!$valId) continue;
+                                $attrValueIds[] = $valId;
+                            }
+                        }
+                    }
+                    $variation->attributeValues()->sync($attrValueIds);
                 }
             }
         });
@@ -227,6 +235,19 @@ class ProductController extends Controller
                 }
                 $productVariation->attributeValues()->sync($attrValueIds);
                 $keepVariationIds[] = $productVariation->id;
+
+                // Save variation image using ProductVariationImage model
+                if (isset($variation['image']) && $request->file('variations') && isset($request->file('variations')[$variation['image']])) {
+                    $variationImage = $request->file('variations')[$variation['image']];
+                    if ($variationImage) {
+                        $variationImagePath = $variationImage->store('variation_images', 'public');
+                        \App\Models\ProductVariationImage::create([
+                            'product_variation_id' => $productVariation->id,
+                            'image_path' => $variationImagePath,
+                            'alt_text' => $variation['sku'] ?? null,
+                        ]);
+                    }
+                }
             }
             // Delete removed variations
             $product->variations()->whereNotIn('id', $keepVariationIds)->delete();
