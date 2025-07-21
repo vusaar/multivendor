@@ -80,6 +80,7 @@
                                     @php $variationIndex = 0; @endphp
                                     @foreach($product->variations as $variation)
                                         <div class="row g-2 mb-2 variation-matrix-row">
+                                            <input type="hidden" name="variations[{{ $variationIndex }}][id]" value="{{ $variation->id }}">
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" name="variations[{{ $variationIndex }}][sku]" value="{{ $variation->sku }}" placeholder="SKU (optional)">
                                             </div>
@@ -93,10 +94,15 @@
                                                 <input type="file" class="form-control mb-1 variation-image-input" name="variations[{{ $variationIndex }}][image]" accept="image/*">
                                                 @php
                                                     $variationImage = $variation->variationImages->first() ?? null;
+                                               
+                                                 $variation_image_path = $variationImage ? $variationImage->image_path : '';
+
+                                                 $variation_image_alt_text = $variationImage ? $variationImage->alt_text : '';
+
                                                 @endphp
-                                                @if($variationImage)
-                                                    <img src="{{ asset('storage/' . $variationImage->image_path) }}" class="variation-image-preview rounded border mt-1" style="height:40px;width:40px;object-fit:cover;" alt="{{ $variationImage->alt_text }}">
-                                                @endif
+
+                                                <img src="{{ asset('storage/'. $variation_image_path) }}" class="variation-image-preview rounded border mt-1" style="height:40px;width:40px;object-fit:cover;" alt="{{ $variation_image_alt_text }}">
+
                                                 <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
                                             </div>
                                             <div class="col-md-6">
@@ -146,6 +152,60 @@
    
     
     <script>
+    // Pass attribute list to JS
+    var variationAttributes = @json(App\Models\VariationAttribute::all(['id','name']));
+
+    // Add attribute-value pair to a variation row
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-attribute-value-pair-btn')) {
+            var row = e.target.closest('.variation-matrix-row');
+            var group = row.querySelector('.variation-attributes-group');
+            var pairCount = group.querySelectorAll('.variation-attribute-value-pair').length;
+            // Build the HTML for a new attribute-value pair
+            var attrSelectHtml = `<select class="form-select variation-attribute-select" name="${getVariationPrefix(row)}[attributes][${pairCount}][attribute_id]" required><option value="">-- Select Attribute --</option>`;
+            variationAttributes.forEach(function(attr) {
+                attrSelectHtml += `<option value="${attr.id}">${attr.name}</option>`;
+            });
+            attrSelectHtml += `</select>`;
+            var valueSelectHtml = `<select class="form-select variation-value-select" name="${getVariationPrefix(row)}[attributes][${pairCount}][value_id][]" multiple required><option value="">-- Select Value --</option></select>`;
+            var html = `<div class="row g-1 mb-1 variation-attribute-value-pair">
+                <div class="col-md-5">${attrSelectHtml}</div>
+                <div class="col-md-5">${valueSelectHtml}</div>
+                <div class="col-md-2 d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                </div>
+            </div>`;
+            group.insertAdjacentHTML('beforeend', html);
+            // Bind change event and load values for the new select
+            var newAttrSelect = group.querySelectorAll('.variation-attribute-select')[pairCount];
+            var newValueSelect = group.querySelectorAll('.variation-value-select')[pairCount];
+            $(newValueSelect).select2({ theme: 'bootstrap-5', width: '100%' });
+            newAttrSelect.addEventListener('change', function() {
+                loadVariationValues(newAttrSelect.value, newValueSelect, []);
+            });
+        }
+        // Remove attribute-value pair
+        if (e.target.classList.contains('remove-attribute-value-pair-btn')) {
+            var pair = e.target.closest('.variation-attribute-value-pair');
+            if (pair) pair.remove();
+        }
+    });
+
+    // Helper to get the correct prefix for variation inputs
+    function getVariationPrefix(row) {
+        var idInput = row.querySelector('input[type="hidden"][name^="variations["]');
+        if (idInput) {
+            var match = idInput.name.match(/variations\[(\d+)\]/);
+            if (match) return `variations[${match[1]}]`;
+        }
+        // fallback: find first input with name variations[xx]
+        var input = row.querySelector('input[name^="variations["]');
+        if (input) {
+            var match = input.name.match(/variations\[(\d+)\]/);
+            if (match) return `variations[${match[1]}]`;
+        }
+        return 'variations[0]';
+    }
         // Prepare category data for jsTree (up to 3 levels, with CoreUI icons)
         var categoryData = [];
         categoryData.push({
@@ -327,9 +387,10 @@
                 .then(res => res.json())
                 .then(data => {
                     let options = '<option value="">-- Select Value --</option>';
+                    console.log(data);
                     data.forEach(function(val) {
                         let selected = selectedValues && selectedValues.includes(val.value) ? ' selected' : '';
-                        options += `<option value="${val.value}"${selected}>${val.value}</option>`;
+                        options += `<option value="${val.id}"${selected}>${val.value}</option>`;
                     });
                     valueSelect.innerHTML = options;
                     valueSelect.disabled = false;
@@ -443,6 +504,36 @@
                 }
             });
         }
+    </script>
+    <script>
+    // Live preview for variation image selection
+    function bindVariationImagePreviewEvents() {
+        document.querySelectorAll('.variation-image-input').forEach(function(input) {
+            input.addEventListener('change', function(event) {
+                console.log('image change event fired');
+                var file = input.files[0];
+                if (file && file.type.match('image.*')) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Find the preview image in the same variation row
+                        var preview = input.closest('.variation-matrix-row').querySelector('.variation-image-preview');
+                        if (preview) {
+                            preview.src = e.target.result;
+                            preview.style.display = 'block';
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        bindVariationImagePreviewEvents();
+    });
+    // If variations are dynamically added, re-bind events
+    document.getElementById('add-variation-matrix-btn').addEventListener('click', function() {
+        setTimeout(bindVariationImagePreviewEvents, 100);
+    });
     </script>
     
     

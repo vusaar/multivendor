@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductVariationImage;
+use Illuminate\Support\Facades\Storage;
+use App\Models\ProductVariation;
 use App\Models\Vendor;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -68,6 +71,8 @@ class ProductController extends Controller
     // Store a newly created product in storage
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'vendor_id' => 'nullable|exists:vendors,id',
             'category_id' => 'nullable|exists:categories,id',
@@ -79,7 +84,9 @@ class ProductController extends Controller
             'images.*' => 'nullable|image|max:2048',
         ]);
 
-        DB::transaction(function () use ($request) {
+        try{
+
+        DB::beginTransaction(); 
             $product = Product::create($request->only([
                 'vendor_id', 'category_id', 'name', 'description', 'price', 'stock', 'status'
             ]));
@@ -98,22 +105,41 @@ class ProductController extends Controller
             // Handle product variations (matrix)
             if ($request->has('variation_matrix')) {
                 foreach ($request->input('variation_matrix') as $matrix) {
-                    // Save variation image if present
-                    $variationImagePath = null;
-                    if (isset($matrix['image']) && $request->file('variation_matrix') && isset($request->file('variation_matrix')[$matrix['image']])) {
-                        $variationImage = $request->file('variation_matrix')[$matrix['image']];
-                        if ($variationImage) {
-                            $variationImagePath = $variationImage->store('variation_images', 'public');
-                        }
-                    }
-                    $variation = \App\Models\ProductVariation::create([
+                    
+                    
+
+                    $variation = ProductVariation::create([
                         'product_id' => $product->id,
                         'sku' => $matrix['sku'] ?? null,
                         'price' => $matrix['price'] ?? null,
                         'stock' => $matrix['stock'] ?? 0,
-                        // If you have a column for image, add: 'image' => $variationImagePath
                     ]);
-                    // Save attribute values for this variation
+
+                   // dd($request->file('variation_matrix'));
+
+                    foreach($request->file('variation_matrix') as $variation_image){
+
+                    if ($variation_image['image']) {
+
+                        //dd($variation_image['image']);
+                        $variation_image_path = $variation_image['image']->store('variation_images', 'public');
+                        ProductVariationImage::create([
+                            'product_variation_id' => $variation->id,
+                            'image_path' => $variation_image_path,
+                            'alt_text' => $matrix['sku'] ?? null,
+                        ]);
+                    }
+                    }
+
+                   // dd($request->file('variation_matrix'));
+                    // Save variation image if present
+                   
+
+
+                    /* 
+                      Save attribute values for this variation
+                    */
+
                     $attrValueIds = [];
                     if (isset($matrix['attributes']) && is_array($matrix['attributes'])) {
                         foreach ($matrix['attributes'] as $pair) {
@@ -124,10 +150,27 @@ class ProductController extends Controller
                             }
                         }
                     }
+
+                   // dd($attrValueIds);
                     $variation->attributeValues()->sync($attrValueIds);
+
+
+                    
+
+
+
                 }
             }
-        });
+
+            DB::commit();
+
+            }catch(\Exception $e){
+                // Handle any exceptions that occur during the transaction
+                DB::rollBack();
+                return redirect()->back()->withErrors(['error' => 'Failed to create product: ' . $e->getMessage()]);
+            }
+
+        
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
@@ -174,8 +217,8 @@ class ProductController extends Controller
             $keepImageIds = $request->input('existing_images', []);
             $imagesToDelete = $product->images()->whereNotIn('id', $keepImageIds)->get();
             foreach ($imagesToDelete as $img) {
-                if (\Storage::disk('public')->exists($img->image)) {
-                    \Storage::disk('public')->delete($img->image);
+                if (Storage::disk('public')->exists($img->image)) {
+                    Storage::disk('public')->delete($img->image);
                 }
                 $img->delete();
             }
@@ -196,58 +239,86 @@ class ProductController extends Controller
             // Handle product variations update (multiple values per variation)
             $existingVariations = $product->variations()->get();
             $submitted = $request->input('variations', []);
-            $keepVariationIds = [];
-            foreach ($submitted as $variation) {
-                if (empty($variation['attribute_id']) || empty($variation['value']) || !is_array($variation['value'])) continue;
 
+           
+
+            $keepVariationIds = [];
+            $variation_count = 0;
+            foreach ($submitted as $variation) {
+
+                // Collect all attribute value IDs for this variation (Blade sends value IDs directly)
                 $attrValueIds = [];
-                foreach ($variation['value'] as $val) {
-                    if (!$val) continue;
-                    $attrValue = \App\Models\VariationAttributeValue::firstOrCreate([
-                        'variation_attribute_id' => $variation['attribute_id'],
-                        'value' => $val,
-                    ]);
-                    $attrValueIds[] = $attrValue->id;
+                if (isset($variation['attributes']) && is_array($variation['attributes'])) {
+                    foreach ($variation['attributes'] as $pair) {
+                        if (empty($pair['attribute_id']) || empty($pair['value_id']) || !is_array($pair['value_id'])) continue;
+                        foreach ($pair['value_id'] as $valId) {
+                            if (!$valId) continue;
+                            $attrValueIds[] = $valId;
+                        }
+                    }
                 }
                 if (count($attrValueIds) === 0) continue;
 
-                // Try to find an existing variation with this SKU and all these attribute values
-                $productVariation = $product->variations()
-                    ->where('sku', $variation['sku'] ?? null)
-                    ->whereHas('attributeValues', function($q) use ($attrValueIds) {
-                        $q->whereIn('variation_attribute_value_id', $attrValueIds);
-                    })
-                    ->first();
-
-                if ($productVariation) {
-                    $productVariation->update([
-                        'sku' => $variation['sku'] ?? null,
-                        'price' => $request->price,
-                        'stock' => $request->stock,
-                    ]);
+                // Use variation ID if present for update, else create new
+                if (!empty($variation['id'])) {
+                    $productVariation = ProductVariation::find($variation['id']);
+                    if ($productVariation) {
+                        $productVariation->update([
+                            'sku' => $variation['sku'] ?? null,
+                            'price' => $variation['price'] ?? $request->price,
+                            'stock' => $variation['stock'] ?? $request->stock,
+                        ]);
+                    } else {
+                        $productVariation = ProductVariation::create([
+                            'product_id' => $product->id,
+                            'sku' => $variation['sku'] ?? null,
+                            'price' => $variation['price'] ?? $request->price,
+                            'stock' => $variation['stock'] ?? $request->stock,
+                        ]);
+                    }
                 } else {
-                    $productVariation = \App\Models\ProductVariation::create([
+                    $productVariation = ProductVariation::create([
                         'product_id' => $product->id,
                         'sku' => $variation['sku'] ?? null,
-                        'price' => $request->price,
-                        'stock' => $request->stock,
+                        'price' => $variation['price'] ?? $request->price,
+                        'stock' => $variation['stock'] ?? $request->stock,
                     ]);
                 }
                 $productVariation->attributeValues()->sync($attrValueIds);
                 $keepVariationIds[] = $productVariation->id;
 
-                // Save variation image using ProductVariationImage model
-                if (isset($variation['image']) && $request->file('variations') && isset($request->file('variations')[$variation['image']])) {
-                    $variationImage = $request->file('variations')[$variation['image']];
-                    if ($variationImage) {
-                        $variationImagePath = $variationImage->store('variation_images', 'public');
-                        \App\Models\ProductVariationImage::create([
+                //  dd($productVariation->variationImages);
+                //  dd($request->file('variations')[$variation_count]);
+                // Save or update variation image
+                if (isset($request->file('variations')[$variation_count]) ) {
+                    // Delete old image if exists
+                    $oldImages = $productVariation->variationImages;
+
+                    //dd($oldImage);
+                    if ($oldImages) {
+                        foreach ($oldImages as $oldImage) {
+                        if (Storage::disk('public')->exists($oldImage->image_path)) {
+                            Storage::disk('public')->delete($oldImage->image_path);
+                        }
+                        $oldImage->delete();
+                      }
+                    }
+                    try {
+
+                        $variationImagePath = $request->file('variations')[$variation_count]['image']->store('variation_images', 'public');
+
+                        ProductVariationImage::create([
                             'product_variation_id' => $productVariation->id,
                             'image_path' => $variationImagePath,
                             'alt_text' => $variation['sku'] ?? null,
                         ]);
+
+                    } catch (\Exception $e) {
+                        // Optionally log error or handle as needed
                     }
                 }
+
+                $variation_count++;
             }
             // Delete removed variations
             $product->variations()->whereNotIn('id', $keepVariationIds)->delete();
