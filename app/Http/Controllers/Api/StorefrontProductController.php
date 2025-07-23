@@ -104,35 +104,91 @@ class StorefrontProductController extends Controller
     // Flexible search for products using only provided parameters
     public function search(Request $request)
     {
+
+        //dd($request->all());
         $query = Product::with(['vendor', 'category', 'images', 'variations.attributeValues']);
 
+        $where_added = false;
+        $variation_where_added = false;
+
         // Only search using fields that represent names
-        if ($request->filled('product_name')) {
-            $query->where('name', 'like', "%{$request->product_name}%");
+        if ($request->has('product_name')) {
+            $query->where('name', 'like', "%{$request->input('product_name')}%");
+
+            $where_added = true;
         }
-        if ($request->filled('vendor_name')) {
-            $query->whereHas('vendor', function ($q) use ($request) {
-                $q->where('shop_name', 'like', "%{$request->vendor_name}%");
+        if ($request->has('vendor_name')) {
+            $query->whereHas('vendor', function ($q) use ($request, $where_added) {
+                if($where_added)
+                  $q->orWhere('shop_name', 'like', "%{$request->input('vendor_name')}%");
+                else
+                  $q->where('shop_name', 'like', "%{$request->input('vendor_name')}%");
+
+                $where_added  = true;
             });
         }
-        if ($request->filled('category_name')) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('name', 'like', "%{$request->category_name}%");
+        if ($request->has('category_name')) {
+            $query->whereHas('category', function ($q) use ($request, $where_added) {
+                if($where_added)
+                  $q->orWhere('name', 'like', "%{$request->input('category_name')}%");
+                else
+                  $q->where('name', 'like', "%{$request->input('category_name')}%");
+
+                $where_added  = true;
             });
         }
         // Search by variation attribute name and/or value
-        if ($request->filled('attribute_name')) {
-            $query->whereHas('variations.attributeValues.attribute', function ($q) use ($request) {
-                $q->where('name', 'like', "%{$request->attribute_name}%");
-            });
-        }
-        if ($request->filled('attribute_value')) {
-            $query->whereHas('variations.attributeValues', function ($q) use ($request) {
-                $q->where('value', 'like', "%{$request->attribute_value}%");
-            });
+      
+
+        if($request->has('attributes')) {
+
+
+            foreach ($request->input('attributes') as $key => $value) {
+                $query->whereHas('variations.attributeValues.attribute', function ($q) use ($key, $value, $variation_where_added) {
+
+                    if (is_array($value)) {
+
+                        foreach ($value as $v) {
+                            
+                            if($variation_where_added) {
+                                $q->orWhere('variation_attributes.name', $key)
+                                  ->where('variation_attribute_values.value', 'like', "%{$v}%");
+                            } else {
+                                $q->where('variation_attributes.name', $key)
+                                  ->where('variation_attribute_values.value', 'like', "%{$v}%");
+                            }
+
+
+                            $variation_where_added  = true;
+
+                        }
+                        
+                    } else {
+
+
+                        if($variation_where_added) {
+                            $q->orWhere('variation_attributes.name', $key)
+                              ->where('variation_attribute_values.value', 'like', "%{$value}%");
+                        } else {
+                            $q->where('variation_attributes.name', $key)
+                              ->where('variation_attribute_values.value', 'like', "%{$value}%");
+                        }
+                       
+
+
+
+                    }
+                   
+                });
+            }
+
+
         }
 
-        $products = $query->paginate($request->get('per_page', 15))->appends($request->query());
+
+        //dd($query->toSql(), $query->getBindings());
+
+        $products = $query->paginate($request->input('per_page', 15))->appends($request->query());
 
         $products->getCollection()->transform(function ($product) {
             return [
