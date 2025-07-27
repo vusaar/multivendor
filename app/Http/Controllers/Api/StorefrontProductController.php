@@ -106,17 +106,57 @@ class StorefrontProductController extends Controller
     {
 
         //dd($request->all());
-        $query = Product::with(['vendor', 'category', 'images', 'variations.attributeValues']);
+        $big_query = Product::with(['vendor', 'category', 'images', 'variations.attributeValues']);
 
         $where_added = false;
         $variation_where_added = false;
 
+        if($request->has('product') || $request->has('item') || $request->has('brand') || $request->has('vendor_name') || $request->has('category_name') ) {
+           
+        $big_query->where(function ($query) use ($request, &$where_added) {    
         // Only search using fields that represent names
-        if ($request->has('product_name')) {
-            $query->where('name', 'like', "%{$request->input('product_name')}%");
+        if ($request->has('product')) {
+            $query->where('name', 'like', "%{$request->input('product')}%");
 
             $where_added = true;
         }
+
+
+        if($request->has('item')) {
+
+            if($where_added) {
+                $query->orWhere('name', 'like', "%{$request->input('item')}%")
+                ->orWhere('description', 'like', "%{$request->input('item')}%");
+            } else {
+                $query->where('name', 'like', "%{$request->input('item')}%")
+                ->orWhere('description', 'like', "%{$request->input('item')}%");
+            }
+            
+            $where_added = true;
+
+        }
+
+
+        /*
+            TO DOOOOOOO
+            add a brand field to the model and refactor the search by brand query
+        */
+
+        if($request->has('brand')){
+
+            if($where_added) {
+                $query->orWhere('name', 'like', "%{$request->input('brand')}%")
+                ->orWhere('description', 'like', "%{$request->input('brand')}%");
+            } else {
+                $query->where('name', 'like', "%{$request->input('brand')}%")
+                ->orWhere('description', 'like', "%{$request->input('brand')}%");
+            }
+            
+            $where_added = true;
+
+        }
+
+
         if ($request->has('vendor_name')) {
             $query->whereHas('vendor', function ($q) use ($request, $where_added) {
                 if($where_added)
@@ -137,11 +177,20 @@ class StorefrontProductController extends Controller
                 $where_added  = true;
             });
         }
+        }
+      );
+    
+     }
         // Search by variation attribute name and/or value
       
+    
+
+
 
         if($request->has('attributes')) {
 
+
+            $big_query->where(function ($query) use ($request, &$variation_where_added) {
 
             foreach ($request->input('attributes') as $key => $value) {
                 $query->whereHas('variations.attributeValues.attribute', function ($q) use ($key, $value, $variation_where_added) {
@@ -184,11 +233,13 @@ class StorefrontProductController extends Controller
 
 
         }
+    );
+}
 
 
-        //dd($query->toSql(), $query->getBindings());
+        //dd($big_query->toSql(), $big_query->getBindings());
 
-        $products = $query->paginate($request->input('per_page', 15))->appends($request->query());
+        $products = $big_query->paginate($request->input('per_page', 15))->appends($request->query());
 
         $products->getCollection()->transform(function ($product) {
             return [
