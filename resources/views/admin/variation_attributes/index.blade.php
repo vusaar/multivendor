@@ -8,11 +8,11 @@
         <div class="card mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h5 class="mb-0">Variation Attributes</h5>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAttributeModal">Add Attribute</button>
+                <button class="btn action-btn btn-new mb-3" data-bs-toggle="modal" data-bs-target="#addAttributeModal">Add Attribute</button>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover align-top mb-0">
+                <div class="table-responsive" style="overflow-x:unset; padding: 1rem 1rem;">
+                    <table class="table table-striped table-hover border align-top mb-0" style="font-size: 0.85rem; table-layout: fixed; word-break: break-word;">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -30,11 +30,11 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.variation-attributes.edit', $attribute) }}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                        <a href="{{ route('admin.variation-attributes.edit', $attribute) }}" class="btn btn-sm action-btn edit-btn btn-sm">Edit</a>
                                         <form action="{{ route('admin.variation-attributes.destroy', $attribute) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this attribute?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                            <button class="btn btn-sm action-btn delete-btn">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -73,12 +73,12 @@
                             <div id="values-list">
                                 <input type="text" class="form-control mb-2" name="values[]" placeholder="Enter value" required>
                             </div>
-                            <button type="button" class="btn btn-sm btn-outline-primary" id="add-value-btn">Add Another Value</button>
+                            <button type="button" class="btn btn-sm action-btn btn-new" id="add-value-btn">Add Another Value</button>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Add Attribute</button>
+                        <button type="button" class="btn action-btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn action-btn btn-save">Add Attribute</button>
                     </div>
                 </form>
             </div>

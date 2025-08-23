@@ -17,9 +17,11 @@
                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                 </div>
             </div>
-            <div class="card-footer text-end">
-                <a href="{{ route('admin.permissions.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-primary"><i class="cil-check"></i> Create</button>
+            <div class="card-footer text-start">
+                
+                <button type="submit" class="btn action-btn btn-save">Create</button>
+
+                <a href="{{ route('admin.permissions.index') }}" class="btn action-btn btn-cancel">Cancel</a>
             </div>
         </form>
     </div>

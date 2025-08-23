@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="col-md-1 d-flex flex-column align-items-center">
                                             <input type="file" class="form-control mb-1 variation-image-input" name="variation_matrix[0][image]" accept="image/*">
-                                            <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+                                            <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="variation-attributes-group">
@@ -98,18 +98,18 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-2 d-flex align-items-center">
-                                                        <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                                                        <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
+                                            <button type="button" class="btn product-action-btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-variation-matrix-btn">Add Variation Combination</button>
+                                <button type="button" class="btn product-action-btn btn-sm btn-outline-primary" id="add-variation-matrix-btn">Add Variation Combination</button>
                             </div>
-                            <button type="submit" class="btn btn-success">Create Product</button>
-                            <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn product-action-btn btn-new">Create Product</button>
+                            <a href="{{ route('admin.products.index') }}" class="btn product-action-btn btn-outline-secondary">Cancel</a>
                         </form>
                     </div>
                 </div>
@@ -362,7 +362,7 @@
             </div>
             <div class="col-md-1 d-flex flex-column align-items-center">
                 <input type="file" class="form-control mb-1 variation-image-input" name="variation_matrix[${variationMatrixIndex}][image]" accept="image/*">
-                <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+                <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
             </div>
             <div class="col-md-6">
                 <div class="variation-attributes-group">
@@ -381,11 +381,11 @@
                             </select>
                         </div>
                         <div class="col-md-2 d-flex align-items-center">
-                            <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                            <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
+                <button type="button" class="btn product-action-btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
             </div>
         `;
         list.appendChild(row);
@@ -418,7 +418,7 @@
                     </select>
                 </div>
                 <div class="col-md-2 d-flex align-items-center">
-                    <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                    <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
                 </div>
             `;
             group.appendChild(pair);

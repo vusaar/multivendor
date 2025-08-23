@@ -1,38 +1,38 @@
-<aside class="d-md-block bg-white border-end p-0 h-100">
-    <div class="sidebar border-end" id="side_bar_menu">
+<aside class="d-md-block bg-white border h-100">
+    <div class="sidebar" id="side_bar_menu">
 
         <div class="sidebar-header border-bottom">
-          <div class="sidebar-brand"><b><small>Product Management</small></b></div>
+          <div class="sidebar-brand cui-gray-900"><small><span style="color:#4a566d !important;font-weight:bolder;">Product Management</span></small></div>
         </div>
 
         <ul class="sidebar-nav">
 
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link" href="#">
                 <i class="nav-icon cil-bar-chart"></i> Dashboard
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.products.index') }}">
+              <a class="nav-link" href="{{ route('admin.products.index') }}">
                 <i class="nav-icon cil-library"></i> Products
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link" href="#">
                 <i class="nav-icon cil-cart"></i> Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.vendors.index') }}">
+              <a class="nav-link" href="{{ route('admin.vendors.index') }}">
                 <i class="nav-icon cil-house"></i> Vendors
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.categories.index') }}">
+              <a class="nav-link" href="{{ route('admin.categories.index') }}">
                 <i class="nav-icon cil-speedometer"></i> Categories
               </a>
             </li>
@@ -43,31 +43,31 @@
              </div>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.roles.index') }}">
+              <a class="nav-link" href="{{ route('admin.roles.index') }}">
                 <i class="nav-icon cil-speedometer"></i> Roles
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.permissions.index') }}">
+              <a class="nav-link" href="{{ route('admin.permissions.index') }}">
                 <i class="nav-icon cil-lock-unlocked"></i> Permissions
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.users.index') }}">
+              <a class="nav-link" href="{{ route('admin.users.index') }}">
                 <i class="nav-icon cil-user"></i> Users
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.variation-attribute-values.index') }}">
+              <a class="nav-link" href="{{ route('admin.variation-attribute-values.index') }}">
                 <i class="nav-icon cil-list"></i> Variation Attribute Values
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('admin.variation-attributes.index') }}">
+              <a class="nav-link" href="{{ route('admin.variation-attributes.index') }}">
                 <i class="nav-icon cil-list"></i> Variation Attributes
               </a>
             </li>

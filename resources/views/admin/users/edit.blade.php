@@ -41,9 +41,10 @@
                     <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple roles.</small>
                 </div>
             </div>
-            <div class="card-footer text-end">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-outline active"><i class="cil-check"></i> Update</button>
+            <div class="card-footer text-start">
+                
+                <button type="submit" class="btn action-btn btn-save"></i> Update</button>
+                <a href="{{ route('admin.users.index') }}" class="btn action-btn btn-cancel">Cancel</a>
             </div>
         </form>
     </div>

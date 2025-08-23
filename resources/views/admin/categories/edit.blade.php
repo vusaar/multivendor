@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 <div class="container-fluid py-4">
-    <div class="card mb-4">
+    <div class="card mb-0">
         <div class="card-header">
             <h5 class="mb-0">Edit Category</h5>
         </div>
@@ -31,9 +31,11 @@
                     </select>
                 </div>
             </div>
-            <div class="card-footer text-end">
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-outline active"><i class="cil-check"></i> Update</button>
+            <div class="card-footer text-start">
+                
+                <button type="submit" class="btn action-btn btn-save"> Update</button>
+
+                <a href="{{ route('admin.categories.index') }}" class="btn action-btn btn-cancel">Cancel</a>
             </div>
         </form>
     </div>

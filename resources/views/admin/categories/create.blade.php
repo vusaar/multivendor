@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 <div class="container-fluid py-4">
-    <div class="card mb-4">
+    <div class="col-md-12">
+    <div class="card ">
         <div class="card-header">
             <h5 class="mb-0">Create Category</h5>
         </div>
@@ -35,6 +36,7 @@
                 <button type="submit" class="btn btn-outline active"><i class="cil-check"></i> Create</button>
             </div>
         </form>
+    </div>
     </div>
 </div>
 @push('styles')

@@ -29,9 +29,11 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
                 </div>
             </div>
-            <div class="card-footer text-end">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn  btn-outline-secondary"><i class="cil-check"></i> Create</button>
+            <div class="card-footer text-start">
+                
+                <button type="submit" class="btn  action-btn btn-save"> Create</button>
+
+                <a href="{{ route('admin.users.index') }}" class="btn action-btn btn-cancel">Cancel</a>
             </div>
         </form>
     </div>

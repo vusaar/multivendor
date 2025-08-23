@@ -6,7 +6,7 @@
     </x-slot>
     <div class="container-fluid py-4">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">Edit Variation Attribute</div>
                     <div class="card-body">
@@ -32,14 +32,14 @@
                                     @foreach($variationAttribute->values as $val)
                                         <div class="input-group mb-2 value-row">
                                             <input type="text" class="form-control" name="values[{{ $val->id }}]" value="{{ old('values.'.$val->id, $val->value) }}" required>
-                                            <button type="button" class="btn btn-outline-danger remove-value-btn" data-id="{{ $val->id }}">Remove</button>
+                                            <button type="button" class="btn action-btn delete-btn remove-value-btn" data-id="{{ $val->id }}">Remove</button>
                                         </div>
                                     @endforeach
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-value-btn">Add New Value</button>
+                                <button type="button" class="btn btn-sm action-btn btn-new" id="add-value-btn">Add New Value</button>
                             </div>
-                            <button type="submit" class="btn btn-success">Update Attribute</button>
-                            <a href="{{ route('admin.variation-attributes.index') }}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn action-btn btn-save">Update Attribute</button>
+                            <a href="{{ route('admin.variation-attributes.index') }}" class="btn action-btn btn-cancel">Cancel</a>
                         </form>
                     </div>
                 </div>

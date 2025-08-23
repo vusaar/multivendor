@@ -8,7 +8,7 @@
          <!-- Brand/logo -->
         <a class="header-brand" href="{{ route('dashboard') }}">
             <x-application-logo class="me-2" style="height: 36px; width: auto; margin-left:0px !important;" />
-            <span class="fw-bold">{{ config('app.name', 'Multistore') }}</span>
+            <span class="fw-bold">{{ config('app.name', '') }}</span>
         </a>
 
         

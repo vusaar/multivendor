@@ -103,7 +103,7 @@
 
                                                 <img src="{{ asset('storage/'. $variation_image_path) }}" class="variation-image-preview rounded border mt-1" style="height:40px;width:40px;object-fit:cover;" alt="{{ $variation_image_alt_text }}">
 
-                                                <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn product-action-btn" title="Remove Variation">&times;</button>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="variation-attributes-group">
@@ -127,22 +127,22 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-2 d-flex align-items-center">
-                                                                <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                                                                <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn product-action-btn" title="Remove Attribute">&times;</button>
                                                             </div>
                                                         </div>
                                                         @php $pairCount++; @endphp
                                                     @endforeach
                                                 </div>
-                                                <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
+                                                <button type="button" class="btn btn-sm add-attribute-value-pair-btn mt-1 product-action-btn btn-new">Add Attribute</button>
                                             </div>
                                         </div>
                                         @php $variationIndex++; @endphp
                                     @endforeach
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-variation-matrix-btn">Add Variation Combination</button>
+                                <button type="button" class="btn btn-sm product-action-btn btn-new mb-3" id="add-variation-matrix-btn">Add Variation Combination</button>
                             </div>
-                            <button type="submit" class="btn btn-success">Update Product</button>
-                            <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-sm product-action-btn btn-save mb-3">Update Product</button>
+                            <a href="{{ route('admin.products.index') }}" class="btn btn-sm product-action-btn btn-cancel mb-3">Cancel</a>
                         </form>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                 <div class="col-md-5">${attrSelectHtml}</div>
                 <div class="col-md-5">${valueSelectHtml}</div>
                 <div class="col-md-2 d-flex align-items-center">
-                    <button type="button" class="btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                    <button type="button" class="btn btn-outline-danger product-action-btn btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
                 </div>
             </div>`;
             group.insertAdjacentHTML('beforeend', html);
@@ -432,12 +432,12 @@
                 <div class="col-md-1 d-flex flex-column align-items-center">
                     <input type="file" class="form-control mb-1 variation-image-input" name="variations[${variationIndex}][image]" accept="image/*">
                     <img src="" class="variation-image-preview rounded border mt-1" style="height:40px;width:40px;object-fit:cover;display:none;" alt="">
-                    <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-variation-matrix-btn product-action-btn" title="Remove Variation">&times;</button>
                 </div>
                 <div class="col-md-6">
                     <div class="variation-attributes-group">
                     </div>
-                    <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1 product-action-btn">Add Attribute</button>
                 </div>
             `;
             list.appendChild(row);
@@ -536,5 +536,8 @@
     });
     </script>
     
+   
+    
+
     
 </x-app-layout>
