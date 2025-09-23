@@ -6,7 +6,7 @@
     </x-slot>
     <div class="container-fluid py-4">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">Create Product</div>
                     <div class="card-body">
@@ -21,49 +21,104 @@
                         @endif
                         <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                            <div class="mb-6">
+
+                               <div class="row g-3 mb-3">
+                                      
+                                  <div class="col-md-12 col-xs-12">
+                                     <label for="vendor_id" class="form-label">Vendor</label>
+                                     <select class="form-select" id="vendor_id" name="vendor_id">
+                                         <option value="">-- Select Vendor --</option>
+                                         @foreach($vendors as $vendor)
+                                             <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ?      'selected' : '' }}>{{ $vendor->shop_name }}</option>
+                                         @endforeach
+                                     </select>
+                                  </div> 
+
+                               </div>
+                               
+                               <div class="row g-3 mb-3">
+                                  <div class="col-md-7 col-xs-12">
+                                    <label for="name" class="form-label">Item</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old  ('name') }}" required>
+                                  </div>
+  
+                                  <div class="col-md-5 col-xs-12">
+                                     <label for="brand_id" class="form-label">Brand</label>
+                                     <select  class="form-select" id="brand_id" name="brand_id" value="{{ old('name') }} "   required>
+                                         <option value="">-- Select Brand -- </option>
+                                         @foreach($brands as $brand)
+                                             <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ?      'selected' : '' }}>{{ $brand->name }}</option>
+                                         @endforeach
+                                     </select>
+                                  </div>
+                               </div>
+
+                                
                             </div>
+
+
                             <div class="mb-3">
-                                <label for="vendor_id" class="form-label">Vendor</label>
-                                <select class="form-select" id="vendor_id" name="vendor_id">
-                                    <option value="">-- Select Vendor --</option>
-                                    @foreach($vendors as $vendor)
-                                        <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>{{ $vendor->shop_name }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="row g-3">
+
+                                  
+
+                                  <div class="col-md-6 col-xs-12">
+
+                                      <label for="category_tree" class="form-label">Category</label>
+                                      <div id="category_breadcrumb" class="mb-2 text-secondary small"></div>
+                                      <div id="category_tree" style="max-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;"></div>
+                                      <input type="hidden" name="category_id" id="category_id" value="{{ old      ('category_id') }}">
+
+                                  </div> 
+                                  
+                                  
+                                   <div class="col-md-6 col-xs-12 ">
+                                   <label for="description" class="form-label">Description</label>
+                                   <textarea class="form-control mt-3" id="description" name="description" style="min-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;">{{ old('description') }}</textarea>
+                                    </div> 
+
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="category_tree" class="form-label">Category</label>
-                                <div id="category_breadcrumb" class="mb-2 text-secondary small"></div>
-                                <div id="category_tree"></div>
-                                <input type="hidden" name="category_id" id="category_id" value="{{ old('category_id') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
-                            </div>
-                            <div class="mb-3">
+
+
+                            <div class="row g-2 mb-3">
+
+                              <div class="col-md-6 col-xs-12">
                                 <label for="price" class="form-label">Price</label>
                                 <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ old('price') }}" required>
-                            </div>
-                            <div class="mb-3">
+                              </div> 
+                            
+                              <div class="col-md-6 col-xs-12">
                                 <label for="stock" class="form-label">Stock</label>
                                 <input type="number" class="form-control" id="stock" name="stock" value="{{ old('stock') }}" required>
+                              </div>
+
                             </div>
-                            <div class="mb-3">
+
+
+
+
+
+                            <div class="row g-2 mb-3">
+
+                               <div class="col-md-3 col-xs-4">
                                 <label for="status" class="form-label">Status</label>
                                 <select class="form-select" id="status" name="status" required>
                                     <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                     <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                 </select>
-                            </div>
-                            <div class="mb-3">
+                               </div>
+                            
+                               <div class="col-md-9 col-xs-8">
                                 <label for="images" class="form-label">Product Images</label>
                                 <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
                                 <div id="image-preview-list" class="mt-2 d-flex flex-wrap gap-2"></div>
+                               </div>
+                            
                             </div>
+
+
                             <div class="mb-3">
                                 <label class="form-label">Product Variations</label>
                                 <div id="variation-matrix-list">

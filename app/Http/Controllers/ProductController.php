@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\ProductVariation;
 use App\Models\Vendor;
 use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,10 +63,12 @@ class ProductController extends Controller
     {
         $vendors = Vendor::all();
 
+        $brands = Brand::all();
+
       
         $categories = Category::with('children')->whereNull('parent_id')->get();
 
-        return view('admin.products.create', compact('vendors', 'categories'));
+        return view('admin.products.create', compact('vendors', 'categories','brands'));
     }
 
     // Store a newly created product in storage
@@ -76,7 +79,9 @@ class ProductController extends Controller
         $request->validate([
             'vendor_id' => 'nullable|exists:vendors,id',
             'category_id' => 'nullable|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
             'name' => 'required|string|max:255',
+            
             'description' => 'nullable|string',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
@@ -88,7 +93,7 @@ class ProductController extends Controller
 
         DB::beginTransaction(); 
             $product = Product::create($request->only([
-                'vendor_id', 'category_id', 'name', 'description', 'price', 'stock', 'status'
+                'vendor_id', 'category_id','brand_id', 'name', 'description', 'price', 'stock', 'status'
             ]));
 
             // Handle product images
@@ -178,7 +183,7 @@ class ProductController extends Controller
     // Display the specified product
     public function show(Product $product)
     {
-        $product->load(['vendor', 'category', 'images']);
+        $product->load(['vendor','brand', 'category', 'images']);
         return view('admin.products.show', compact('product'));
     }
 

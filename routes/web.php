@@ -39,6 +39,18 @@ Route::middleware('auth')->group(function () {
             'destroy' => 'admin.vendors.destroy',
         ]
     ]);
+    
+        // Admin brand management
+        Route::resource('/admin/brands', \App\Http\Controllers\BrandController::class, [
+            'names' => [
+                'index' => 'admin.brands.index',
+                'create' => 'admin.brands.create',
+                'store' => 'admin.brands.store',
+                'edit' => 'admin.brands.edit',
+                'update' => 'admin.brands.update',
+                'destroy' => 'admin.brands.destroy',
+            ]
+        ]);
 
     // Admin role management
     Route::resource('/admin/roles', \App\Http\Controllers\RoleController::class, [

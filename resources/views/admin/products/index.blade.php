@@ -80,7 +80,13 @@
                         <tbody>
                             @forelse($products as $product)
                             <tr style="cursor:pointer;" onclick="window.location='{{ route('admin.products.show', $product) }}'">
-                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->name }} 
+                                    <br>
+                                   <small class="blockquote-footer">
+                                    {{ $product->brand?->name }}
+                                   </small>
+                                
+                                </td>
                                 <td>{{ $product->vendor?->shop_name }}</td>
                                 <td>{{ $product->category?->name }}</td>
                                 <td>{{ $product->price }}</td>

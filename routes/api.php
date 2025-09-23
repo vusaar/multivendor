@@ -29,4 +29,9 @@ Route::prefix('storefront')->group(function () {
     Route::get('products', [StorefrontProductController::class, 'index']);
     // Show a single product by ID
     Route::get('products/{product}', [StorefrontProductController::class, 'show']);
+    // List categories 
+    Route::get('categorieslist', [StorefrontProductController::class, 'categories']);
+
+    // list products
+    Route::get('productslist', [StorefrontProductController::class, 'products']); 
 });

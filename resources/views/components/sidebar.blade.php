@@ -18,6 +18,11 @@
                 <i class="nav-icon cil-library"></i> Products
               </a>
             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="{{ route('admin.brands.index') }}">
+                 <i class="nav-icon cil-tags"></i> Brands
+               </a>
+             </li>
 
             <li class="nav-item">
               <a class="nav-link" href="#">

@@ -13,7 +13,7 @@ class CommonCategoriesSeeder extends Seeder
                 'Mobile Phones', 'Computers & Accessories', 'Cameras', 'Audio', 'Wearables', 'TV & Video'
             ],
             'Fashion' => [
-                'Men', 'Women', 'Kids', 'Shoes', 'Bags', 'Accessories'
+                'Shirts','T-Shirts', 'Pants', 'Jackets', 'Dresses', 'Tops', 'Bottoms','Suits', 'Outerwear', 'Shoes', 'Accessories', 'Accessories'             
             ],
             'Home & Garden' => [
                 'Furniture', 'Kitchen', 'Bedding', 'Garden', 'Home Decor', 'Appliances'
@@ -39,12 +39,7 @@ class CommonCategoriesSeeder extends Seeder
             'Office & School Supplies' => [
                 'Stationery', 'Office Electronics', 'School Supplies', 'Art Supplies'
             ],
-            'Jewelry & Watches' => [
-                'Men', 'Women', 'Kids', 'Watches', 'Fine Jewelry', 'Fashion Jewelry'
-            ],
-            'Baby & Kids' => [
-                'Baby Gear', 'Feeding', 'Nursery', 'Toys', 'Clothing', 'Bath & Potty'
-            ],
+                   
             'Musical Instruments' => [
                 'Guitars', 'Keyboards', 'Drums', 'Wind Instruments', 'Accessories'
             ],

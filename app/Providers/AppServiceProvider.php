@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Query\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+
+
+          Builder::macro('orWherePGSimilarity', function (string $column, string $value) {
+            $this->orWhereRaw("{$column} % ?", [$value]);
+          });
+
+          Builder::macro('wherePGSimilarity', function (string $column, string $value) {
+            $this->whereRaw("{$column} % ?", [$value]);
+          });
     }
 }
