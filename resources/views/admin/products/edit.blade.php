@@ -22,57 +22,81 @@
                         <form method="POST" action="{{ route('admin.products.update', $product) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $product->name) }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="vendor_id" class="form-label">Vendor</label>
-                                <select class="form-select" id="vendor_id" name="vendor_id">
-                                    <option value="">-- Select Vendor --</option>
-                                    @foreach($vendors as $vendor)
-                                        <option value="{{ $vendor->id }}" {{ old('vendor_id', $product->vendor_id) == $vendor->id ? 'selected' : '' }}>{{ $vendor->shop_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="category_tree" class="form-label">Category</label>
-                                <div id="category_breadcrumb" class="mb-2 text-secondary small"></div>
-                                <div id="category_tree"></div>
-                                <input type="hidden" name="category_id" id="category_id" value="{{ old('category_id', $product->category_id) }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description">{{ old('description', $product->description) }}</textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="price" class="form-label">Price</label>
-                                <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ old('price', $product->price) }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="stock" class="form-label">Stock</label>
-                                <input type="number" class="form-control" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="form-select" id="status" name="status" required>
-                                    <option value="active" {{ old('status', $product->status) == 'active' ? 'selected' : '' }}>Active</option>
-                                    <option value="inactive" {{ old('status', $product->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="images" class="form-label">Product Images</label>
-                                <div id="existing-images-list" class="mb-2 d-flex flex-wrap gap-2">
-                                    @foreach($product->images as $image)
-                                        <div class="position-relative product-image-preview">
-                                            <img src="{{ asset('storage/' . $image->image) }}" class="rounded border" style="height:64px;width:64px;object-fit:cover;" title="{{ basename($image->image) }}">
-                                            <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill pointer remove-existing-image-btn" style="background:rgba(128,128,128,0.6);cursor:pointer;border:none;z-index:2;" title="Remove">&times;</span>
-                                            <input type="hidden" name="existing_images[]" value="{{ $image->id }}">
-                                        </div>
-                                    @endforeach
+                                     <div class="mb-6">
+                                         <div class="row g-3 mb-3">
+                                             <div class="col-md-12 col-xs-12">
+                                                 <label for="vendor_id" class="form-label">Vendor</label>
+                                                 <select class="form-select" id="vendor_id" name="vendor_id">
+                                                      <option value="">-- Select Vendor --</option>
+                                                      @foreach($vendors as $vendor)
+                                                            <option value="{{ $vendor->id }}" {{ old('vendor_id', $product->vendor_id) == $vendor->id ? 'selected' : '' }}>{{ $vendor->shop_name }}</option>
+                                                      @endforeach
+                                                 </select>
+                                             </div>
+                                         </div>
+                                         <div class="row g-3 mb-3">
+                                             <div class="col-md-7 col-xs-12">
+                                                <label for="name" class="form-label">Item</label>
+                                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $product->name) }}" required>
+                                             </div>
+                                             <div class="col-md-5 col-xs-12">
+                                                 <label for="brand_id" class="form-label">Brand</label>
+                                                 <select class="form-select" id="brand_id" name="brand_id" required>
+                                                      <option value="">-- Select Brand -- </option>
+                                                      @foreach($brands as $brand)
+                                                            <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                                                      @endforeach
+                                                 </select>
+                                             </div>
+                                         </div>
+                                     </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6 col-xs-12">
+                                    <label for="category_tree" class="form-label">Category</label>
+                                    <div id="category_breadcrumb" class="mb-2 text-secondary small"></div>
+                                    <div id="category_tree" style="max-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;"></div>
+                                    <input type="hidden" name="category_id" id="category_id" value="{{ old('category_id', $product->category_id) }}">
                                 </div>
-                                <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
-                                <div id="image-preview-list" class="mt-2 d-flex flex-wrap gap-2"></div>
+                                <div class="col-md-6 col-xs-12 ">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control mt-3" id="description" name="description" style="min-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;">{{ old('description', $product->description) }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-6 col-xs-12">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ old('price', $product->price) }}" required>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label for="stock" class="form-label">Stock</label>
+                                    <input type="number" class="form-control" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" required>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-3 col-xs-4">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-select" id="status" name="status" required>
+                                        <option value="active" {{ old('status', $product->status) == 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ old('status', $product->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-9 col-xs-8">
+                                    <label for="images" class="form-label">Product Images</label>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
+                                    <div id="existing-images-list" class="mb-2 d-flex flex-wrap gap-2">
+                                        @foreach($product->images as $image)
+                                            <div class="position-relative product-image-preview">
+                                                <img src="{{ asset('storage/' . $image->image) }}" class="rounded border" style="height:64px;width:64px;object-fit:cover;" title="{{ basename($image->image) }}">
+                                                <span class="position-absolute top-0 end-0 translate-middle badge rounded-pill pointer remove-existing-image-btn" style="background:rgba(128,128,128,0.6);cursor:pointer;border:none;z-index:2;" title="Remove">&times;</span>
+                                                <input type="hidden" name="existing_images[]" value="{{ $image->id }}">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    
+                                    <div id="image-preview-list" class="mt-2 d-flex flex-wrap gap-2"></div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Product Variations</label>

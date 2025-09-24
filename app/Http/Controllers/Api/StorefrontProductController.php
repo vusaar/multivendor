@@ -110,7 +110,7 @@ class StorefrontProductController extends Controller
     {
 
         //dd($request->all());
-        $big_query = Product::with(['vendor', 'category', 'images', 'variations.attributeValues']);
+        $big_query = Product::with(['vendor', 'brand','category', 'images', 'variations.attributeValues']);
 
         $big_query = $big_query->join('vendors', 'products.vendor_id', '=', 'vendors.id')
                     ->join('categories', 'products.category_id', '=', 'categories.id')
@@ -314,6 +314,10 @@ class StorefrontProductController extends Controller
                 'category' => $product->category ? [
                     'id' => $product->category->id,
                     'name' => $product->category->name,
+                ] : null,
+                'brand' => $product->brand ? [
+                    'id' => $product->brand->id,
+                    'name' => $product->brand->name,
                 ] : null,
                 'images' => $product->images->map(function ($img) {
                     return asset('storage/' . ($img->image ?? $img->image_path));

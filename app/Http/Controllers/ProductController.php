@@ -81,7 +81,6 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'name' => 'required|string|max:255',
-            
             'description' => 'nullable|string',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
@@ -190,10 +189,11 @@ class ProductController extends Controller
     // Show the form for editing the specified product
     public function edit(Product $product)
     {
-        $vendors = Vendor::all();
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        $product->load('images');
-        return view('admin.products.edit', compact('product', 'vendors', 'categories'));
+    $vendors = Vendor::all();
+    $categories = Category::with('children')->whereNull('parent_id')->get();
+    $brands = Brand::all();
+    $product->load('images');
+    return view('admin.products.edit', compact('product', 'vendors', 'categories', 'brands'));
     }
 
     // Update the specified product in storage
@@ -202,6 +202,7 @@ class ProductController extends Controller
         $request->validate([
             'vendor_id' => 'nullable|exists:vendors,id',
             'category_id' => 'nullable|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
@@ -215,7 +216,7 @@ class ProductController extends Controller
 
         DB::transaction(function () use ($request, $product) {
             $product->update($request->only([
-                'vendor_id', 'category_id', 'name', 'description', 'price', 'stock', 'status'
+                'vendor_id', 'category_id', 'brand_id','name', 'description', 'price', 'stock', 'status'
             ]));
 
             // Handle product images: delete removed images
