@@ -121,104 +121,176 @@ class StorefrontProductController extends Controller
 
         $similarity_column_entries = [];
 
+        $intermediate_queries = [] ;
+        
+
         if($request->has('product') || $request->has('item') || $request->has('brand') || $request->has('vendor_name') || $request->has('category') ) {
            
-        $big_query->where(function ($query) use ($request, &$where_added, &$similarity_column_entries) {    
-        // Only search using fields that represent names
-        if ($request->has('product')) {
-            $query->wherePGSimilarity('products.name', "{$request->input('product')}");
 
-            $where_added = true;
+            /*
+               if searching product name field
+            */
 
-            $similarity_column_entries["products.name"] = "similarity(products.name, '{$request->input('product')}')";
-
+           if($request->has('product')) {
            
-        }
+             $big_query->where(function ($query) use ($request, &$similarity_column_entries) {    
+             // Only search using fields that represent names
+               
+     
+                 $query->wherePGSimilarity('products.name', "{$request->input('product')}");
+                 
+                 $similarity_column_entries["products.name"] = "similarity(products.name, '{$request->input     ('product')}')";
+     
+                 
+               });
+
+             $where_added = true;  
+
+             $intermediate_queries['query_products'] = ['q'=>$big_query,'s'=>$similarity_column_entries];
+
+           }
 
 
-        if($request->has('item')) {
+           /*
+                if searching item description field
+           */
+            if($request->has('item')) {
 
-            if($where_added) {
-                $query->orWherePGSimilarity('products.name',  "{$request->input('item')}")
-                ->orWherePGSimilarity('products.description',  "{$request->input('item')}")
-                ->orWherePGSimilarity('categories.name',  "{$request->input('item')}");
 
-                
-
-            } else {
-                $query->wherePGSimilarity('products.name',  "{$request->input('item')}")
-                ->orWherePGSimilarity('products.description',  "{$request->input('item')}")
-                ->orWherePGSimilarity('categories.name',  "{$request->input('item')}");
-            }
+                $fn = function ($query) use ($request, &$where_added,&$similarity_column_entries) {    
+                            
+                 if($where_added) {
+     
+                     $query->orWherePGSimilarity('products.name',  "{$request->input('item')}")
+                     ->orWherePGSimilarity('products.description',  "{$request->input('item')}")
+                     ->orWherePGSimilarity('categories.name',  "{$request->input('item')}");            
+     
+                  } else {
+                    $query->wherePGSimilarity('products.name',  "{$request->input('item')}")
+                    ->orWherePGSimilarity('products.description',  "{$request->input('item')}")
+                    ->orWherePGSimilarity('categories.name',  "{$request->input('item')}");
+                 }
             
-            $where_added = true;
+                $where_added = true;
 
-            $similarity_column_entries['products.name'] = `similarity(products.name, '{$request->input('item')}')`;
+                $similarity_column_entries['products.name'] = `similarity(products.name, '{$request->input('item')}')`;
 
-             $similarity_column_entries['products.description'] = "similarity(products.description, '{$request->input('item')}')";
+                $similarity_column_entries['products.description'] = "similarity(products.description, '{$request->input('item')}')";
 
-             $similarity_column_entries['categories.name'] = "similarity(categories.name, '{$request->input('item')}')";
+                $similarity_column_entries['categories.name'] = "similarity(categories.name, '{$request->input('item')}')"; 
+               
+                };
+
+                if($where_added){
+                  $big_query->orWhere($fn);
+                } else {
+
+                   $big_query->where($fn);
+                }
+
+               $intermediate_queries['query_products'] = ['q'=>$big_query,'s'=>$similarity_column_entries];
+            
+           }
+                  
+
+           /*
+            If searching using category name
+           */
+             
+         if ($request->has('category')) {
+
+
+                $fn  = function ($query) use ($request, &$where_added, &$similarity_column_entries) {    
+             // Only search using fields that represent names
+               
+     
+                if($where_added){
+                  $query->orWherePGSimilarity('categories.name', "{$request->input('category')}");
+                } else {
+                  $query->wherePGSimilarity('categories.name', "{$request->input('category')}");
+                }
+
+                $where_added  = true;
+          
+                $similarity_column_entries['categories.name'] = "similarity(categories.name, '{$request->input('category')}')";
+                      
+               };
+                 
+
+                if($where_added){
+                    $big_query->orWhere($fn);
+                 } else {
+                   $big_query->where($fn);
+                 }
+    
+
+            $intermediate_queries['query_products'] = ['q'=>$big_query,'s'=>$similarity_column_entries];
+       
+       
+         }
+
+
+            /*
+               if searching using brand name
+            */
+            
+
+        if($request->has('brand')){
+
+
+
+               $big_query->where(function ($query) use ($request, &$where_added, &$similarity_column_entries) {  
+
+                 $query->where(function($q) use ($request) {
+                      $q->wherePGSimilarity('brands.name', "{$request->input('brand')}")
+                   ->orWherePGSimilarity('brands.description', "{$request->input('brand')}");
+                  });
+                        
+                 $where_added = true;
+
+                 $similarity_column_entries['brands.name'] = "similarity(brands.name, '{$request->input('brand')}')";
+            
+               });
+    
+            
+              $intermediate_queries['query_product_brand'] = ['q'=>$big_query,'s'=>$similarity_column_entries];
 
         }
 
 
         /*
-            TO DOOOOOOO
-            add a brand field to the model and refactor the search by brand query
+           if searching using vendor or shop name
+
         */
-
-        if($request->has('brand')){
-
-            if($where_added) {
-                $query->orWherePGSimilarity('brands.name', "{$request->input('brand')}")
-                ->orWherePGSimilarity('brands.description', "{$request->input('brand')}");
-            } else {
-                $query->wherePGSimilarity('brand.name', "{$request->input('brand')}")
-                ->orWherePGSimilarity('brands.description', "{$request->input('brand')}");
-            }
-            
-            $where_added = true;
-
-            $similarity_column_entries['brands.name'] = "similarity(brands.name, '{$request->input('brand')}')";
-
-        }
-
-
-        if ($request->has('category')) {
-
-            $query->orwhereHas('category', function ($q) use ($request, &$where_added, &$similarity_column_entries) {
-                if($where_added)
-                  $q->orWherePGSimilarity('categories.name', "{$request->input('category')}");
-                else
-                  $q->wherePGSimilarity('categories.name', "{$request->input('category')}");
-
-                $where_added  = true;
-
-                
-            });
-
-            $similarity_column_entries['categories.name'] = "similarity(categories.name, '{$request->input('category')}')";
-        }
-
-
 
         if ($request->has('vendor')) {
 
+
+                $big_query->where(function ($query) use ($request, &$where_added, &$similarity_column_entries) {    
+             // Only search using fields that represent names
+               
+     
+                $query->orWhereHas('vendor', function ($q) use ($request, &$where_added, &$similarity_column_entries) {
+
+                  if($where_added)
+                    $q->orWherePGSimilarity('shop_name', "{$request->input('vendor')}");
+                  else
+                    $q->wherePGSimilarity('shop_name', "{$request->input('vendor')}");
+  
+                  $where_added  = true;
+
+                  $similarity_column_entries['vendors.name'] = "similarity(vendors.shop_name, '{$request->input('vendor')}')";
+               
+                });
+                      
+               });
+
              
-            $query->whereHas('vendor', function ($q) use ($request, &$where_added, &$similarity_column_entries) {
-                if($where_added)
-                  $q->orWherePGSimilarity('shop_name', "{$request->input('vendor')}");
-                else
-                  $q->wherePGSimilarity('shop_name', "{$request->input('vendor')}");
-
-                $where_added  = true;
-
-                $similarity_column_entries['vendors.name'] = "similarity(vendors.shop_name, '{$request->input('vendor')}')";
-            });
+            
         }
 
-        }
-      );
+
+
     
      }
         // Search by variation attribute name and/or value
@@ -230,10 +302,10 @@ class StorefrontProductController extends Controller
         if($request->has('attributes')) {
 
 
-            $big_query->where(function ($query) use ($request, &$variation_where_added) {
+            $big_query->where(function ($query) use ($request, &$variation_where_added,&$similarity_column_entries,&$intermediate_queries) {
 
             foreach ($request->input('attributes') as $key => $value) {
-                $query->whereHas('variations.attributeValues.attribute', function ($q) use ($key, $value, $variation_where_added, &$similarity_column_entries) {
+                $query->orWhereHas('variations.attributeValues.attribute', function ($q) use ($key, $value, $variation_where_added, &$similarity_column_entries) {
 
                     if (is_array($value)) {
 
@@ -270,13 +342,13 @@ class StorefrontProductController extends Controller
 
                     }
                    
-                });
-            }
+                  });
+                }
+              }
+          );
 
-
-        }
-    );
-}
+        $intermediate_queries['query_product_brand_attribute'] = ['q'=>$big_query,'s'=>$similarity_column_entries];
+     }
 
 
      /*
@@ -291,13 +363,38 @@ class StorefrontProductController extends Controller
 
         //dd($similarity_column_entries);
 
-       //dd($big_query->select('products.*,'.$similarity_score_sql)->toSql(), $big_query->getBindings());
+    //   dd($big_query->select(DB::raw('products.*,'.$similarity_score_sql))->toSql(), $big_query->getBindings());
 
        //dd($big_query->get());
 
+        
+       
         $products = $big_query->select(DB::raw('products.*,'.$similarity_score_sql))->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', 15))->appends($request->query());
 
-        //dd($products);
+       
+
+        while($products->count()==0 && count($intermediate_queries)>0){
+
+            $last_query = array_pop($intermediate_queries);
+
+           
+
+            if($last_query){
+
+                $similarity_score_sql = count($last_query['s'])>0?implode(' + ', $last_query['s']):'';
+
+                $similarity_score_sql = $similarity_score_sql != '' ?  '( 0 '.$similarity_score_sql.') as similarity_score' : '0 as similarity_score';
+
+                $products = $last_query['q']->select(DB::raw('products.*,'.$similarity_score_sql))->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', 15))->appends($request->query());
+
+                
+
+            }
+
+
+        }
+
+         //dd($products->getCollection());
 
         $products->getCollection()->transform(function ($product) {
             return [
