@@ -25,7 +25,17 @@
                         @forelse($categories as $category)
                             <tr>
                                 <td>{{ $category->name }}</td>
-                                <td>{{ $category->parent_id ? optional($category->parent)->name : '-' }}</td>
+                                <td>
+                                    @php
+                                        $parents = [];
+                                        $current = $category->parent;
+                                        while ($current) {
+                                            array_unshift($parents, $current->name);
+                                            $current = $current->parent;
+                                        }
+                                    @endphp
+                                    {{ count($parents) ? implode(' / ', $parents) : '-' }}
+                                </td>
                                 <td>{{ $category->description }}</td>
                                 <td>
                                     <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm action-btn edit-btn"><i class="cil-pencil"></i> </a>

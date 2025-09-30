@@ -10,7 +10,7 @@ class CategoryController extends Controller
     // List all categories
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::paginate(50);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
         ]);
@@ -48,7 +48,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
         ]);
