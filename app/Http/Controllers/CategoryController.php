@@ -24,6 +24,10 @@ class CategoryController extends Controller
     // Store a new category
     public function store(Request $request)
     {
+        if ($request->parent_id === '' || $request->parent_id === 'null') {
+            $request->merge(['parent_id' => null]);
+        }
+         
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -47,6 +51,11 @@ class CategoryController extends Controller
     // Update a category
     public function update(Request $request, Category $category)
     {
+
+       if ($request->parent_id === '' || $request->parent_id === 'null') {
+            $request->merge(['parent_id' => null]);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',

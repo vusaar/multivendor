@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3a0f6f346b50724d07cf47d943cafca",
+    "content-hash": "50192d96fdc649f94f23de30cf1f95c0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1749,16 +1749,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v10.19.0",
+            "version": "v10.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "996b2a8b5ccc583e7df667c8aac924a46bc8bdd3"
+                "reference": "5f629471eed80c97a1fa2f12a2fb213c7e09f729"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/996b2a8b5ccc583e7df667c8aac924a46bc8bdd3",
-                "reference": "996b2a8b5ccc583e7df667c8aac924a46bc8bdd3",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/5f629471eed80c97a1fa2f12a2fb213c7e09f729",
+                "reference": "5f629471eed80c97a1fa2f12a2fb213c7e09f729",
                 "shasum": ""
             },
             "require": {
@@ -1826,7 +1826,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2025-08-26T14:24:24+00:00"
+            "time": "2025-11-12T17:00:55+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -2401,6 +2401,73 @@
                 }
             ],
             "time": "2025-08-26T08:37:51+00:00"
+        },
+        {
+            "name": "meilisearch/meilisearch-php",
+            "version": "v1.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meilisearch/meilisearch-php.git",
+                "reference": "04f7e5454dcd21b968771ec7c05a88ef852f501c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meilisearch/meilisearch-php/zipball/04f7e5454dcd21b968771ec7c05a88ef852f501c",
+                "reference": "04f7e5454dcd21b968771ec7c05a88ef852f501c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0",
+                "php-http/discovery": "^1.7",
+                "psr/http-client": "^1.0"
+            },
+            "require-dev": {
+                "http-interop/http-factory-guzzle": "^1.2.0",
+                "php-cs-fixer/shim": "^3.59.3",
+                "phpstan/phpstan": "^2.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-strict-rules": "^2.0",
+                "phpunit/phpunit": "^9.5 || ^10.5",
+                "symfony/http-client": "^5.4|^6.0|^7.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Use Guzzle ^7 as HTTP client",
+                "http-interop/http-factory-guzzle": "Factory for guzzlehttp/guzzle",
+                "symfony/http-client": "Use Symfony Http client"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MeiliSearch\\": "src/",
+                    "Meilisearch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Clementine",
+                    "email": "clementine@meilisearch.com"
+                }
+            ],
+            "description": "PHP wrapper for the Meilisearch API",
+            "keywords": [
+                "api",
+                "client",
+                "instant",
+                "meilisearch",
+                "php",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/meilisearch/meilisearch-php/issues",
+                "source": "https://github.com/meilisearch/meilisearch-php/tree/v1.16.0"
+            },
+            "time": "2025-09-10T08:50:58+00:00"
         },
         {
             "name": "monolog/monolog",

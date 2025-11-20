@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\VariationAttributeValue;
+use App\Models\VariationAttribute;
 use Illuminate\Http\Request;
 
 class StorefrontProductController extends Controller
@@ -105,16 +107,38 @@ class StorefrontProductController extends Controller
 
     // Flexible search for products using only provided parameters
 
+    private static function cleanInput($input) {
+        if (is_array($input)) {
+            return array_map([self::class, 'cleanInput'], $input);
+        }
+        // For SQL, escape single quotes by doubling them
+        return is_string($input) ? str_replace("'", "''", trim($input)) : $input;
+    }
     
     public function search(Request $request)
     {
 
-        //dd($request->all());
+        // Clean and escape all request input in-place
+        // function cleanInput($input) {
+        //     if (is_array($input)) {
+        //         return array_map('cleanInput', $input);
+        //     }
+        //     return is_string($input) ? addslashes(trim($input)) : $input;
+        // }
+        
+        $request->merge(self::cleanInput($request->all()));
+
         $big_query = Product::with(['vendor', 'brand','category', 'images', 'variations.attributeValues']);
 
         $big_query = $big_query->join('vendors', 'products.vendor_id', '=', 'vendors.id')
                     ->join('categories', 'products.category_id', '=', 'categories.id')
-                    ->leftJoin('brands', 'products.brand_id', '=', 'brands.id');
+                    ->leftJoin('categories as parent_categories', 'categories.parent_id', '=', 'parent_categories.id')
+                    ->leftJoin('categories as grandparent_categories', 'parent_categories.parent_id', '=', 'grandparent_categories.id')
+                    ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
+                    ->leftJoin('product_variations', 'products.id', '=', 'product_variations.product_id')
+                    ->leftJoin('product_variation_attribute_value', 'product_variations.id', '=', 'product_variation_attribute_value.product_variation_id')
+                    ->leftJoin('variation_attribute_values', 'product_variation_attribute_value.variation_attribute_value_id', '=', 'variation_attribute_values.id')
+                    ->leftJoin('variation_attributes', 'variation_attribute_values.variation_attribute_id', '=', 'variation_attributes.id');
 
         $where_added = false;
         $variation_where_added = false;
@@ -131,15 +155,18 @@ class StorefrontProductController extends Controller
                if searching product name field
             */
 
-           if($request->has('product')) {
+           if($request->has('product') && trim($request->input('product'))!='') {
            
              $big_query->where(function ($query) use ($request, &$similarity_column_entries) {    
              // Only search using fields that represent names
                
      
-                 $query->wherePGSimilarity('products.name', "{$request->input('product')}");
+                 $query->wherePGSimilarity('products.name', "{$request->input('product')}")
+                 ->orWherePGSimilarity('products.description',  "{$request->input('product')}");;
                  
-                 $similarity_column_entries["products.name"] = "similarity(products.name, '{$request->input     ('product')}')";
+                 $similarity_column_entries["products.name"] = "similarity(products.name, '{$request->input('product')}')";
+                
+                 $similarity_column_entries["products.description"] = "similarity(products.description, '{$request->input('product')}')";
      
                  
                });
@@ -154,7 +181,7 @@ class StorefrontProductController extends Controller
            /*
                 if searching item description field
            */
-            if($request->has('item')) {
+            if($request->has('item') && trim($request->input('item'))!='') {
 
 
                 $fn = function ($query) use ($request, &$where_added,&$similarity_column_entries) {    
@@ -162,13 +189,14 @@ class StorefrontProductController extends Controller
                  if($where_added) {
      
                      $query->orWherePGSimilarity('products.name',  "{$request->input('item')}")
-                     ->orWherePGSimilarity('products.description',  "{$request->input('item')}")
-                     ->orWherePGSimilarity('categories.name',  "{$request->input('item')}");            
+                     ->orWherePGSimilarity('products.description',  "{$request->input('item')}");
+                     //->orWherePGSimilarity('categories.name',  "{$request->input('item')}");            
      
                   } else {
+
                     $query->wherePGSimilarity('products.name',  "{$request->input('item')}")
-                    ->orWherePGSimilarity('products.description',  "{$request->input('item')}")
-                    ->orWherePGSimilarity('categories.name',  "{$request->input('item')}");
+                    ->orWherePGSimilarity('products.description',  "{$request->input('item')}");
+                    //->orWherePGSimilarity('categories.name',  "{$request->input('item')}");
                  }
             
                 $where_added = true;
@@ -177,7 +205,7 @@ class StorefrontProductController extends Controller
 
                 $similarity_column_entries['products.description'] = "similarity(products.description, '{$request->input('item')}')";
 
-                $similarity_column_entries['categories.name'] = "similarity(categories.name, '{$request->input('item')}')"; 
+               // $similarity_column_entries['categories.name.item'] = "similarity(categories.name, '{$request->input('item')}')";
                
                 };
 
@@ -197,7 +225,7 @@ class StorefrontProductController extends Controller
             If searching using category name
            */
              
-         if ($request->has('category')) {
+         if ($request->has('category') && trim($request->input('category'))!='') {
 
 
                 $fn  = function ($query) use ($request, &$where_added, &$similarity_column_entries) {    
@@ -206,19 +234,49 @@ class StorefrontProductController extends Controller
      
                 if($where_added){
                   $query->orWherePGSimilarity('categories.name', "{$request->input('category')}");
+                  $query->orWherePGSimilarity('parent_categories.name', "{$request->input('category')}");
+                   $query->orWherePGSimilarity('grandparent_categories.name', "{$request->input('category')}");
+
+                   $query->orWherePGSimilarity('categories.description', "{$request->input('category')}");
+                  $query->orWherePGSimilarity('parent_categories.description', "{$request->input('category')}");
+                   $query->orWherePGSimilarity('grandparent_categories.description', "{$request->input('category')}");
+
+
                 } else {
                   $query->wherePGSimilarity('categories.name', "{$request->input('category')}");
+                  $query->orWherePGSimilarity('parent_categories.name', "{$request->input('category')}");
+                  $query->orWherePGSimilarity('grandparent_categories.name', "{$request->input('category')}");
+
+
+                   $query->orWherePGSimilarity('categories.description', "{$request->input('category')}");
+                  $query->orWherePGSimilarity('parent_categories.description', "{$request->input('category')}");
+                   $query->orWherePGSimilarity('grandparent_categories.description', "{$request->input('category')}");
+                
                 }
 
                 $where_added  = true;
           
                 $similarity_column_entries['categories.name'] = "similarity(categories.name, '{$request->input('category')}')";
+
+                $similarity_column_entries['parent_categories.name'] = "similarity(parent_categories.name, '{$request->input('category')}')";
+
+                $similarity_column_entries['grandparent_categories.name'] = "similarity(grandparent_categories.name, '{$request->input('category')}')";
+
+
+                $similarity_column_entries['categories.description'] = "similarity(categories.description, '{$request->input('category')}')";
+
+                $similarity_column_entries['parent_categories.description'] = "similarity(parent_categories.description, '{$request->input('category')}')";
+
+                $similarity_column_entries['grandparent_categories.description'] = "similarity(grandparent_categories.description, '{$request->input('category')}')";
                       
                };
                  
 
+                 /*
+                    use the and clause instead of the or clause because the the catergory search query is exactly the same as the database field being searched
+                 */
                 if($where_added){
-                    $big_query->orWhere($fn);
+                    $big_query->where($fn);
                  } else {
                    $big_query->where($fn);
                  }
@@ -235,7 +293,7 @@ class StorefrontProductController extends Controller
             */
             
 
-        if($request->has('brand')){
+        if($request->has('brand') && trim($request->input('brand'))!='') {
 
 
 
@@ -263,7 +321,7 @@ class StorefrontProductController extends Controller
 
         */
 
-        if ($request->has('vendor')) {
+        if ($request->has('vendor') && trim($request->input('vendor'))!='') {
 
 
                 $big_query->where(function ($query) use ($request, &$where_added, &$similarity_column_entries) {    
@@ -299,12 +357,20 @@ class StorefrontProductController extends Controller
 
 
 
-        if($request->has('attributes')) {
+        if($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes'))>0) {
 
 
-            $big_query->where(function ($query) use ($request, &$variation_where_added,&$similarity_column_entries,&$intermediate_queries) {
+            $big_query->where(function ($query) use ($request, &$variation_where_added,&$similarity_column_entries) {
 
-            foreach ($request->input('attributes') as $key => $value) {
+            foreach ($request->input('attributes') as $attribute_name => $value) {
+
+
+                 //get variattion attribute name corresponding to value
+
+                 $variation_attribute = VariationAttributeValue::where('value', $value)->first()->attribute()->first();
+                 
+                 $key = $variation_attribute ? $variation_attribute->name : $attribute_name;
+
                 $query->orWhereHas('variations.attributeValues.attribute', function ($q) use ($key, $value, $variation_where_added, &$similarity_column_entries) {
 
                     if (is_array($value)) {
@@ -322,7 +388,9 @@ class StorefrontProductController extends Controller
 
                             $variation_where_added  = true;
 
-                           
+                           $similarity_column_entries['variation_attribute_values.value'] = "similarity(variation_attribute_values.value, '{$v}')";
+
+                           $similarity_column_entries['products.description_variation'] = "similarity(products.description, '{$v}')";
 
                         }
                         
@@ -337,7 +405,7 @@ class StorefrontProductController extends Controller
                               ->wherePGSimilarity('variation_attribute_values.value', "{$value}");
                         }
                        
-
+                         $similarity_column_entries['variation_attribute_values.value'] = "similarity(variation_attribute_values.value, '{$value}')";
                        
 
                     }
@@ -363,14 +431,38 @@ class StorefrontProductController extends Controller
 
         //dd($similarity_column_entries);
 
-    //   dd($big_query->select(DB::raw('products.*,'.$similarity_score_sql))->toSql(), $big_query->getBindings());
+        
 
        //dd($big_query->get());
 
-        
-       
-        $products = $big_query->select(DB::raw('products.*,'.$similarity_score_sql))->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', 15))->appends($request->query());
+        $page_size = $request->input('per_page', 33);
 
+        $page = intval($request->input('page', 1));
+
+        //dd($page);
+       
+        // $products = $big_query->select(DB::raw('distinct on (products.id) products.*,parent_categories as parent_category_id, grandparent_categories.id as grandparent_category_id,'.$similarity_score_sql))->orderBy('similarity_score', 'desc')->orderBy('products.id')->paginate($request->input('per_page', $page_size), $page)->appends($request->query());
+
+
+         //dd($big_query->select(DB::raw('distinct products.*,parent_categories as parent_category_id, grandparent_categories.id as grandparent_category_id,'.$similarity_score_sql))->toSql(), $big_query->getBindings());
+
+        // dd($big_query->select('')->toSql());
+
+
+        $sub = $big_query->select(DB::raw('distinct on (products.id) products.*, parent_categories.id as parent_category_id, grandparent_categories.id as grandparent_category_id, '.$similarity_score_sql));
+
+
+
+        $final_query = Product::fromSub($sub, 'sq')
+              ->select('sq.*')
+              ->with(['vendor', 'brand', 'category', 'images', 'variations.attributeValues'])
+              ->orderBy('sq.similarity_score', 'desc');
+
+       // dd( $final_query->toSql(), $final_query->getBindings());
+
+       $products = $final_query
+            ->paginate($request->input('per_page', $page_size), ['*'], 'page', $page)
+            ->appends($request->query());
        
 
         while($products->count()==0 && count($intermediate_queries)>0){
@@ -378,14 +470,13 @@ class StorefrontProductController extends Controller
             $last_query = array_pop($intermediate_queries);
 
            
-
             if($last_query){
 
                 $similarity_score_sql = count($last_query['s'])>0?implode(' + ', $last_query['s']):'';
 
                 $similarity_score_sql = $similarity_score_sql != '' ?  '( 0 '.$similarity_score_sql.') as similarity_score' : '0 as similarity_score';
 
-                $products = $last_query['q']->select(DB::raw('products.*,'.$similarity_score_sql))->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', 15))->appends($request->query());
+                $products = $last_query['q']->select(DB::raw('distinct on (products.id) products.*,parent_categories as parent_category_id, grandparent_categories.id as grandparent_category_id,'.$similarity_score_sql))->orderBy('products.id')->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', $page_size),$page)->appends($request->query());
 
                 
 
@@ -395,6 +486,13 @@ class StorefrontProductController extends Controller
         }
 
          //dd($products->getCollection());
+         /*
+            Remove duplicate product entries from current page (keeps pagination totals unchanged)
+
+            duplicate products can arise from joins above, when multiple variation/attribute matches exist for a product
+         */
+         $unique = $products->getCollection()->unique('id')->values();
+         $products->setCollection($unique);
 
         $products->getCollection()->transform(function ($product) {
             return [
@@ -411,6 +509,14 @@ class StorefrontProductController extends Controller
                 'category' => $product->category ? [
                     'id' => $product->category->id,
                     'name' => $product->category->name,
+                    'parent_category' => $product->category->parent_id ?[
+                        'id' => $product->category->parent ? $product->category->parent->id : null,
+                        'name' => $product->category->parent ? $product->category->parent->name : null,
+                        'grandparent_category' => $product->category->parent && $product->category->parent->parent_id ? [
+                            'id' => $product->category->parent->parent ? $product->category->parent->parent->id : null,
+                            'name' => $product->category->parent->parent ? $product->category->parent->parent->name : null,
+                        ] : null,
+                    ]:null,
                 ] : null,
                 'brand' => $product->brand ? [
                     'id' => $product->brand->id,
@@ -468,19 +574,25 @@ class StorefrontProductController extends Controller
     public function products(Request $request)
     {
 
-        $products = Product::with(['vendor', 'category', 'images', 'variations.attributeValues']);
+        $big_query = Product::with(['vendor', 'category', 'images', 'variations.attributeValues']);
 
          if($request->has('field')){
 
               $field = $request->input('field');
               $value = $request->input('value');
 
-               $products = $products->whereHas($field, function($q) use ($field, $value) {
+               $big_query = $big_query->whereHas($field, function($q) use ($field, $value) {
                    $q->where('id', '=', "{$value}");
                });
          }
+         
+         $page_size = $request->input('per_page', 3);
+         $page = intval($request->input('page', 1));
 
-          $products = $products->paginate($request->input('per_page', 15))->appends($request->query());
+          //$products = $products->paginate($request->input('per_page', $page_size), $page)->appends($request->query());
+
+          $products = $big_query->select(DB::raw('products.*'))->orderBy('products.name', 'desc')->paginate($request->input('per_page', $page_size), $page)->appends($request->query());
+
 
            $products->getCollection()->transform(function ($product) {
             return [
