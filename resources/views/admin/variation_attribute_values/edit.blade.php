@@ -6,7 +6,7 @@
     </x-slot>
     <div class="container-fluid py-4">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">Edit Variation Attribute Value</div>
                     <div class="card-body">
@@ -35,7 +35,7 @@
                                 <label for="value" class="form-label">Value</label>
                                 <input type="text" class="form-control" id="value" name="value" value="{{ old('value', $variationAttributeValue->value) }}" required>
                             </div>
-                            <button type="submit" class="btn btn-success">Update Value</button>
+                            <button type="submit" class="btn action-btn btn-save">Update Value</button>
                             <a href="{{ route('admin.variation-attribute-values.index') }}" class="btn btn-outline-secondary">Cancel</a>
                         </form>
                     </div>

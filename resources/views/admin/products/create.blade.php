@@ -6,7 +6,7 @@
     </x-slot>
     <div class="container-fluid py-4">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">Create Product</div>
                     <div class="card-body">
@@ -21,78 +21,155 @@
                         @endif
                         <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                            <div class="mb-6">
+
+                               <div class="row g-3 mb-3">
+                                      
+                                  <div class="col-md-12 col-xs-12">
+                                     <label for="vendor_id" class="form-label">Vendor</label>
+                                     <select class="form-select" id="vendor_id" name="vendor_id">
+                                         <option value="">-- Select Vendor --</option>
+                                         @foreach($vendors as $vendor)
+                                             <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ?      'selected' : '' }}>{{ $vendor->shop_name }}</option>
+                                         @endforeach
+                                     </select>
+                                  </div> 
+
+                               </div>
+                               
+                               <div class="row g-3 mb-3">
+                                  <div class="col-md-7 col-xs-12">
+                                    <label for="name" class="form-label">Item / Product Name</label>
+                                    <select class="form-select select2-tags" id="name" name="name" required>
+                                        <option value="">-- Type to search or create --</option>
+                                        @if(old('name'))
+                                            <option value="{{ old('name') }}" selected>{{ old('name') }}</option>
+                                        @endif
+                                    </select>
+                                  </div>
+  
+                                  <div class="col-md-5 col-xs-12">
+                                     <label for="brand_id" class="form-label">Brand</label>
+                                     <select  class="form-select" id="brand_id" name="brand_id" value="{{ old('name') }} "   required>
+                                         <option value="">-- Select Brand -- </option>
+                                         @foreach($brands as $brand)
+                                             <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ?      'selected' : '' }}>{{ $brand->name }}</option>
+                                         @endforeach
+                                     </select>
+                                  </div>
+                               </div>
+
+                                
                             </div>
+
+
                             <div class="mb-3">
-                                <label for="vendor_id" class="form-label">Vendor</label>
-                                <select class="form-select" id="vendor_id" name="vendor_id">
-                                    <option value="">-- Select Vendor --</option>
-                                    @foreach($vendors as $vendor)
-                                        <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>{{ $vendor->shop_name }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="row g-3">
+
+                                  
+
+                                  <div class="col-md-6 col-xs-12">
+
+                                      <label for="category_tree" class="form-label">Category</label>
+                                      <div id="category_breadcrumb" class="mb-2 text-secondary small"></div>
+                                      <div id="category_tree" style="max-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;"></div>
+                                      <input type="hidden" name="category_id" id="category_id" value="{{ old      ('category_id') }}">
+
+                                  </div> 
+                                  
+                                  
+                                   <div class="col-md-6 col-xs-12 ">
+                                   <label for="description" class="form-label">Description</label>
+                                   <textarea class="form-control mt-3" id="description" name="description" style="min-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;">{{ old('description') }}</textarea>
+                                    </div> 
+
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="category_tree" class="form-label">Category</label>
-                                <div id="category_breadcrumb" class="mb-2 text-secondary small"></div>
-                                <div id="category_tree"></div>
-                                <input type="hidden" name="category_id" id="category_id" value="{{ old('category_id') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
-                            </div>
-                            <div class="mb-3">
+
+
+                            <div class="row g-2 mb-3">
+
+                              <div class="col-md-6 col-xs-12">
                                 <label for="price" class="form-label">Price</label>
                                 <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ old('price') }}" required>
-                            </div>
-                            <div class="mb-3">
+                              </div> 
+                            
+                              <div class="col-md-6 col-xs-12">
                                 <label for="stock" class="form-label">Stock</label>
                                 <input type="number" class="form-control" id="stock" name="stock" value="{{ old('stock') }}" required>
+                              </div>
+
                             </div>
-                            <div class="mb-3">
+
+
+
+
+
+                            <div class="row g-2 mb-3">
+
+                               <div class="col-md-3 col-xs-4">
                                 <label for="status" class="form-label">Status</label>
                                 <select class="form-select" id="status" name="status" required>
                                     <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                     <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                 </select>
-                            </div>
-                            <div class="mb-3">
+                               </div>
+                            
+                               <div class="col-md-9 col-xs-8">
                                 <label for="images" class="form-label">Product Images</label>
                                 <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
                                 <div id="image-preview-list" class="mt-2 d-flex flex-wrap gap-2"></div>
+                               </div>
+                            
                             </div>
+
+
                             <div class="mb-3">
                                 <label class="form-label">Product Variations</label>
-                                <div id="variation-list">
-                                    <div class="row g-2 mb-2 variation-row">
-                                        <div class="col-md-4">
-                                            <select class="form-select variation-attribute-select" name="variations[0][attribute_id]" required>
-                                                <option value="">-- Select Attribute --</option>
-                                                @foreach(App\Models\VariationAttribute::all() as $attr)
-                                                    <option value="{{ $attr->id }}">{{ $attr->name }}</option>
-                                                @endforeach
-                                            </select>
+                                <div id="variation-matrix-list">
+                                    <div class="row g-2 mb-2 variation-matrix-row">
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="variation_matrix[0][sku]" placeholder="SKU (optional)">
                                         </div>
-                                        <div class="col-md-4">
-                                            <select class="form-select variation-value-select" name="variations[0][value][]" multiple required disabled>
-                                                <option value="">-- Select Value --</option>
-                                            </select>
+                                        <div class="col-md-2">
+                                            <input type="number" class="form-control" name="variation_matrix[0][price]" placeholder="Price" step="0.01">
                                         </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" name="variations[0][sku]" placeholder="SKU (optional)">
+                                        <div class="col-md-1">
+                                            <input type="number" class="form-control" name="variation_matrix[0][stock]" placeholder="Stock">
                                         </div>
-                                        <div class="col-md-1 d-flex align-items-center">
-                                            <button type="button" class="btn btn-outline-danger btn-sm remove-variation-btn">&times;</button>
+                                        <div class="col-md-1 d-flex flex-column align-items-center">
+                                            <input type="file" class="form-control mb-1 variation-image-input" name="variation_matrix[0][image]" accept="image/*">
+                                            <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="variation-attributes-group">
+                                                <div class="row g-1 mb-1 variation-attribute-value-pair">
+                                                    <div class="col-md-5">
+                                                        <select class="form-select variation-attribute-select" name="variation_matrix[0][attributes][0][attribute_id]" required>
+                                                            <option value="">-- Select Attribute --</option>
+                                                            @foreach(App\Models\VariationAttribute::all() as $attr)
+                                                                <option value="{{ $attr->id }}">{{ $attr->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <select class="form-select variation-value-select" name="variation_matrix[0][attributes][0][value_id][]" multiple required disabled>
+                                                            <option value="">-- Select Value --</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 d-flex align-items-center">
+                                                        <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn product-action-btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-variation-btn">Add Variation</button>
+                                <button type="button" class="btn product-action-btn btn-sm btn-outline-primary" id="add-variation-matrix-btn">Add Variation Combination</button>
                             </div>
-                            <button type="submit" class="btn btn-success">Create Product</button>
-                            <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn product-action-btn btn-new">Create Product</button>
+                            <a href="{{ route('admin.products.index') }}" class="btn product-action-btn btn-outline-secondary">Cancel</a>
                         </form>
                     </div>
                 </div>
@@ -238,6 +315,72 @@
             // ...existing code...
             updateBreadcrumb();
         });
+
+        // Initialize Select2 for Product Name with tagging (client-side search)
+        $('.select2-tags').select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            tags: true,
+                ajax: {
+                url: '{{ route("admin.master-products.search") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name + (item.synonyms ? ' (' + item.synonyms + ')' : ''),
+                                id: item.name, // Use name as ID because controller expects name string
+                                synonyms: item.synonyms
+                            }
+                        })
+                    };
+                },
+                cache: true
+            },
+            templateResult: function(data) {
+                if (data.loading) return data.text;
+                
+                // If it's a new tag user is typing
+                if (data.newTag) {
+                    return $('<div><strong>Create New:</strong> ' + data.text + '</div>');
+                }
+                
+                // Standard result
+                var name = data.id || data.text; 
+                if(data.text && data.text.indexOf('(') !== -1){
+                     // Use the pre-formatted text from processResults
+                     return $('<div>' + data.text + '</div>');
+                }
+
+                return $('<div>' + name + '</div>');
+            },
+            templateSelection: function(data) {
+                 // When selected, just show the NAME part (remove synonyms logic if present in text)
+                 var text = data.text || data.id;
+                 var match = text.match(/^(.+?)\s*\(/);
+                 if (match) {
+                     return match[1];
+                 }
+                 return text;
+            },
+            createTag: function (params) {
+                var term = $.trim(params.term);
+                if (term === '') {
+                    return null;
+                }
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                };
+            }
+        });
     });
 
     // Image preview for product images with delete icon
@@ -292,8 +435,8 @@
         }
     });
 
-    // Variation attribute -> value dynamic loading
-    function loadVariationValues(attributeId, valueSelect, selectedValues = []) {
+    // Variation matrix dynamic loading
+    function loadVariationMatrixValues(attributeId, valueSelect, selectedValues = []) {
         if (!attributeId) {
             valueSelect.innerHTML = '<option value="">-- Select Value --</option>';
             valueSelect.disabled = true;
@@ -305,77 +448,139 @@
             .then(data => {
                 let options = '<option value="">-- Select Value --</option>';
                 data.forEach(function(val) {
-                    let selected = selectedValues && selectedValues.includes(val.value) ? ' selected' : '';
-                    options += `<option value="${val.value}"${selected}>${val.value}</option>`;
+                    let selected = selectedValues && selectedValues.includes(val.id) ? ' selected' : '';
+                    options += `<option value="${val.id}"${selected}>${val.value}</option>`;
                 });
                 valueSelect.innerHTML = options;
                 valueSelect.disabled = false;
                 $(valueSelect).select2({ theme: 'bootstrap-5', width: '100%' });
             });
     }
-
-    function bindVariationAttributeEvents() {
+    function bindVariationMatrixEvents() {
         document.querySelectorAll('.variation-attribute-select').forEach(function(select) {
             select.onchange = function() {
-                const row = select.closest('.variation-row');
-                const valueSelect = row.querySelector('.variation-value-select');
-                loadVariationValues(select.value, valueSelect, []);
+                const pair = select.closest('.variation-attribute-value-pair');
+                const valueSelect = pair.querySelector('.variation-value-select');
+                loadVariationMatrixValues(select.value, valueSelect, []);
             };
         });
         document.querySelectorAll('.variation-value-select').forEach(function(sel) {
             $(sel).select2({ theme: 'bootstrap-5', width: '100%' });
         });
     }
-
-    // Initial bind
     document.addEventListener('DOMContentLoaded', function() {
-        bindVariationAttributeEvents();
+        bindVariationMatrixEvents();
     });
-
-    // Add variation row with dynamic value select
-    let variationIndex = 1;
-    document.getElementById('add-variation-btn').addEventListener('click', function() {
-        var list = document.getElementById('variation-list');
+    let variationMatrixIndex = 1;
+    document.getElementById('add-variation-matrix-btn').addEventListener('click', function() {
+        var list = document.getElementById('variation-matrix-list');
         var row = document.createElement('div');
-        row.className = 'row g-2 mb-2 variation-row';
+        row.className = 'row g-2 mb-2 variation-matrix-row';
         row.innerHTML = `
-            <div class="col-md-4">
-                <select class="form-select variation-attribute-select" name="variations[${variationIndex}][attribute_id]" required>
-                    <option value="">-- Select Attribute --</option>
-                    @foreach(App\Models\VariationAttribute::all() as $attr)
-                        <option value="{{ $attr->id }}">{{ $attr->name }}</option>
-                    @endforeach
-                </select>
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="variation_matrix[${variationMatrixIndex}][sku]" placeholder="SKU (optional)">
             </div>
-            <div class="col-md-4">
-                <select class="form-select variation-value-select" name="variations[${variationIndex}][value][]" multiple required disabled>
-                    <option value="">-- Select Value --</option>
-                </select>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="variation_matrix[${variationMatrixIndex}][price]" placeholder="Price" step="0.01">
             </div>
-            <div class="col-md-3">
-                <input type="text" class="form-control" name="variations[${variationIndex}][sku]" placeholder="SKU (optional)">
+            <div class="col-md-1">
+                <input type="number" class="form-control" name="variation_matrix[${variationMatrixIndex}][stock]" placeholder="Stock">
             </div>
-            <div class="col-md-1 d-flex align-items-center">
-                <button type="button" class="btn btn-outline-danger btn-sm remove-variation-btn">&times;</button>
+            <div class="col-md-1 d-flex flex-column align-items-center">
+                <input type="file" class="form-control mb-1 variation-image-input" name="variation_matrix[${variationMatrixIndex}][image]" accept="image/*">
+                <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-variation-matrix-btn" title="Remove Variation">&times;</button>
+            </div>
+            <div class="col-md-6">
+                <div class="variation-attributes-group">
+                    <div class="row g-1 mb-1 variation-attribute-value-pair">
+                        <div class="col-md-5">
+                            <select class="form-select variation-attribute-select" name="variation_matrix[${variationMatrixIndex}][attributes][0][attribute_id]" required>
+                                <option value="">-- Select Attribute --</option>
+                                @foreach(App\Models\VariationAttribute::all() as $attr)
+                                    <option value="{{ $attr->id }}">{{ $attr->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-select variation-value-select" name="variation_matrix[${variationMatrixIndex}][attributes][0][value_id][]" multiple required disabled>
+                                <option value="">-- Select Value --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center">
+                            <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn product-action-btn btn-outline-secondary btn-sm add-attribute-value-pair-btn mt-1">Add Attribute</button>
             </div>
         `;
         list.appendChild(row);
-        bindVariationAttributeEvents();
-        variationIndex++;
+        bindVariationMatrixEvents();
+        variationMatrixIndex++;
     });
-    document.getElementById('variation-list').addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-variation-btn')) {
-            e.target.closest('.variation-row').remove();
+    document.getElementById('variation-matrix-list').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-variation-matrix-btn')) {
+            e.target.closest('.variation-matrix-row').remove();
+        }
+        if (e.target.classList.contains('add-attribute-value-pair-btn')) {
+            const row = e.target.closest('.variation-matrix-row');
+            const group = row.querySelector('.variation-attributes-group');
+            const pairCount = group.querySelectorAll('.variation-attribute-value-pair').length;
+            const matrixIdx = Array.from(document.getElementById('variation-matrix-list').children).indexOf(row);
+            const pair = document.createElement('div');
+            pair.className = 'row g-1 mb-1 variation-attribute-value-pair';
+            pair.innerHTML = `
+                <div class="col-md-5">
+                    <select class="form-select variation-attribute-select" name="variation_matrix[${matrixIdx}][attributes][${pairCount}][attribute_id]" required>
+                        <option value="">-- Select Attribute --</option>
+                        @foreach(App\Models\VariationAttribute::all() as $attr)
+                            <option value="{{ $attr->id }}">{{ $attr->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-select variation-value-select" name="variation_matrix[${matrixIdx}][attributes][${pairCount}][value_id][]" multiple required disabled>
+                        <option value="">-- Select Value --</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-center">
+                    <button type="button" class="btn product-action-btn btn-outline-danger btn-sm remove-attribute-value-pair-btn" title="Remove Attribute">&times;</button>
+                </div>
+            `;
+            group.appendChild(pair);
+            bindVariationMatrixEvents();
+        }
+        if (e.target.classList.contains('remove-attribute-value-pair-btn')) {
+            e.target.closest('.variation-attribute-value-pair').remove();
+        }
+    });
+    // Variation image preview (per row)
+    document.getElementById('variation-matrix-list').addEventListener('change', function(e) {
+        if (e.target.classList.contains('variation-image-input')) {
+            const input = e.target;
+            let preview = input.nextElementSibling;
+            if (!preview || !preview.classList.contains('variation-image-preview')) {
+                preview = document.createElement('img');
+                preview.className = 'variation-image-preview rounded border mt-1';
+                preview.style.height = '40px';
+                preview.style.width = '40px';
+                preview.style.objectFit = 'cover';
+                input.parentNode.insertBefore(preview, input.nextSibling);
+            }
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.title = input.files[0].name;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = '';
+                preview.title = '';
+            }
         }
     });
 </script>
-
-@push('styles')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@endpush
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@endpush
 
 
 

@@ -1,0 +1,11 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  override existing env vars with { override: true }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+Query: "products under 20 dollars"
+[AGENT] Starting custom router for: "products under 20 dollars"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: products under 20 dollars
+[PERF] Embedding generation took: 1703ms
+[PERF] DB query took: 2638ms
+[PERF] Total hybrid_product_search tool took: 4344ms
+Final Results Count: 10

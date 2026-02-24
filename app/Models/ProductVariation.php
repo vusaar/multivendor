@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class ProductVariation extends Model
 {
     use HasFactory;
@@ -24,5 +25,10 @@ class ProductVariation extends Model
             'product_variation_id',
             'variation_attribute_value_id'
         );
+    }
+
+    public function variationImages()
+    {
+        return $this->hasMany(ProductVariationImage::class, 'product_variation_id');
     }
 }

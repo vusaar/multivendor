@@ -8,11 +8,11 @@
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Users</h5>
-            <a href="{{ route('admin.users.create') }}" class="btn btn-outline active"><i class="cil-plus"></i> New User</a>
+            <a href="{{ route('admin.users.create') }}" class="btn action-btn btn-new mb-3"><i class="cil-plus"></i> New User</a>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+            <div class="table-responsive" style="overflow-x:unset; padding: 1rem 1rem;">
+                <table class="table table-striped table-hover align-top border mb-3" style="font-size: 0.85rem; table-layout: fixed; word-break: break-word;">
                     <thead class="table-light">
                         <tr>
                             <th>Name</th>
@@ -30,7 +30,7 @@
                                 <td>
                                     @if(method_exists($user, 'getRoleNames'))
                                         @foreach($user->getRoleNames() as $role)
-                                            <span class="badge bg-info text-dark">{{ $role }}</span>
+                                            <span class="badge bg-secondary text-light">{{ $role }}</span>
                                         @endforeach
                                     @else
                                         <span class="text-muted">-</span>
@@ -38,11 +38,11 @@
                                 </td>
                                 <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-secondary"><i class="cil-pencil"></i> Edit</a>
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm action-btn edit-btn"><i class="cil-pencil"></i> </a>
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this user?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-dark"><i class="cil-trash"></i> Delete</button>
+                                        <button class="btn btn-sm action-btn delete-btn"><i class="cil-trash"></i> </button>
                                     </form>
                                 </td>
                             </tr>

@@ -8,10 +8,13 @@
         "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
+        "http-interop/http-factory-guzzle": "^1.2",
         "inertiajs/inertia-laravel": "0.6.3",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
+        "laravel/scout": "^10.22",
         "laravel/tinker": "^2.7",
+        "meilisearch/meilisearch-php": "^1.16",
         "spatie/laravel-permission": "^6.18"
     },
     "require-dev": {
@@ -58,7 +61,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

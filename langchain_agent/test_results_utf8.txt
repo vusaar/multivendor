@@ -1,0 +1,81 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env -- tip: ≡ƒùé∩╕Å backup and recover secrets: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+--- Starting Search Agent Filter Tests ---
+
+Query: "products under 20 dollars"
+[AGENT] Starting custom router for: "products under 20 dollars"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: products under 20 dollars
+[PERF] Embedding generation took: 519ms
+[PERF] DB query took: 2262ms
+[PERF] Total hybrid_product_search tool took: 2786ms
+Response Time: 5473ms
+Found 10 results.
+Top 2 results:
+ - ID: 68, Name: T-Shirt, Price: 2.00
+ - ID: 6, Name: Sneaker, Price: 20.00
+
+------------------------------------------
+
+Query: "blue shirts size small"
+[AGENT] Starting custom router for: "blue shirts size small"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: blue shirts size small
+[PERF] Embedding generation took: 1044ms
+[PERF] DB query took: 529ms
+[PERF] Total hybrid_product_search tool took: 1576ms
+Response Time: 1877ms
+Found 10 results.
+Top 2 results:
+ - ID: 32, Name: Shirt, Price: 39.99
+ - ID: 35, Name: Shirt, Price: 33.00
+
+------------------------------------------
+
+Query: "mens t-shirt size XL under 50"
+[AGENT] Starting custom router for: "mens t-shirt size XL under 50"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: mens t-shirt size XL under 50
+[PERF] Embedding generation took: 1234ms
+[PERF] DB query took: 441ms
+[PERF] Total hybrid_product_search tool took: 1678ms
+Response Time: 2178ms
+Found 10 results.
+Top 2 results:
+ - ID: 1, Name: T-Shirt, Price: 5.00
+ - ID: 2, Name: T-Shirt, Price: 10.00
+
+------------------------------------------
+
+Query: "White sneakers size 42"
+[AGENT] Starting custom router for: "White sneakers size 42"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: White sneakers size 42
+[PERF] Embedding generation took: 1014ms
+[PERF] DB query took: 364ms
+[PERF] Total hybrid_product_search tool took: 1381ms
+Response Time: 1685ms
+Found 10 results.
+Top 2 results:
+ - ID: 8, Name: Sneaker, Price: 29.99
+ - ID: 4, Name: Sneaker, Price: 30.00
+
+------------------------------------------
+
+Query: "black hoodie under 30"
+[AGENT] Starting custom router for: "black hoodie under 30"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: black hoodie under 30
+[PERF] Embedding generation took: 818ms
+[PERF] DB query took: 500ms
+[PERF] Total hybrid_product_search tool took: 1321ms
+Response Time: 1870ms
+Found 10 results.
+Top 2 results:
+ - ID: 54, Name: T-Shirt, Price: 10.00
+ - ID: 4, Name: Sneaker, Price: 30.00
+
+------------------------------------------
+
+Tests completed.

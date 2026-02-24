@@ -1,0 +1,798 @@
+{
+  "migrations": [
+    {
+      "name": "id",
+      "type": "integer"
+    },
+    {
+      "name": "migration",
+      "type": "character varying"
+    },
+    {
+      "name": "batch",
+      "type": "integer"
+    }
+  ],
+  "password_resets": [
+    {
+      "name": "email",
+      "type": "character varying"
+    },
+    {
+      "name": "token",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "failed_jobs": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "uuid",
+      "type": "character varying"
+    },
+    {
+      "name": "connection",
+      "type": "text"
+    },
+    {
+      "name": "queue",
+      "type": "text"
+    },
+    {
+      "name": "payload",
+      "type": "text"
+    },
+    {
+      "name": "exception",
+      "type": "text"
+    },
+    {
+      "name": "failed_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "personal_access_tokens": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "tokenable_type",
+      "type": "character varying"
+    },
+    {
+      "name": "tokenable_id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "token",
+      "type": "character varying"
+    },
+    {
+      "name": "abilities",
+      "type": "text"
+    },
+    {
+      "name": "last_used_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "categories": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "parent_id",
+      "type": "bigint"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "users": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "email",
+      "type": "character varying"
+    },
+    {
+      "name": "email_verified_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "password",
+      "type": "character varying"
+    },
+    {
+      "name": "remember_token",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "product_images": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "product_id",
+      "type": "bigint"
+    },
+    {
+      "name": "image",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "orders": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "user_id",
+      "type": "bigint"
+    },
+    {
+      "name": "total",
+      "type": "numeric"
+    },
+    {
+      "name": "status",
+      "type": "character varying"
+    },
+    {
+      "name": "payment_status",
+      "type": "character varying"
+    },
+    {
+      "name": "shipping_address_id",
+      "type": "bigint"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "order_items": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "order_id",
+      "type": "bigint"
+    },
+    {
+      "name": "product_id",
+      "type": "bigint"
+    },
+    {
+      "name": "vendor_id",
+      "type": "bigint"
+    },
+    {
+      "name": "quantity",
+      "type": "integer"
+    },
+    {
+      "name": "price",
+      "type": "numeric"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "products": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "vendor_id",
+      "type": "bigint"
+    },
+    {
+      "name": "category_id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "price",
+      "type": "numeric"
+    },
+    {
+      "name": "stock",
+      "type": "integer"
+    },
+    {
+      "name": "status",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "brand_id",
+      "type": "bigint"
+    },
+    {
+      "name": "master_product_id",
+      "type": "bigint"
+    }
+  ],
+  "reviews": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "user_id",
+      "type": "bigint"
+    },
+    {
+      "name": "product_id",
+      "type": "bigint"
+    },
+    {
+      "name": "rating",
+      "type": "smallint"
+    },
+    {
+      "name": "comment",
+      "type": "text"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "payments": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "order_id",
+      "type": "bigint"
+    },
+    {
+      "name": "amount",
+      "type": "numeric"
+    },
+    {
+      "name": "method",
+      "type": "character varying"
+    },
+    {
+      "name": "status",
+      "type": "character varying"
+    },
+    {
+      "name": "transaction_id",
+      "type": "character varying"
+    },
+    {
+      "name": "paid_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "permissions": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "guard_name",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "model_has_permissions": [
+    {
+      "name": "permission_id",
+      "type": "bigint"
+    },
+    {
+      "name": "model_type",
+      "type": "character varying"
+    },
+    {
+      "name": "model_id",
+      "type": "bigint"
+    }
+  ],
+  "roles": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "guard_name",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "model_has_roles": [
+    {
+      "name": "role_id",
+      "type": "bigint"
+    },
+    {
+      "name": "model_type",
+      "type": "character varying"
+    },
+    {
+      "name": "model_id",
+      "type": "bigint"
+    }
+  ],
+  "role_has_permissions": [
+    {
+      "name": "permission_id",
+      "type": "bigint"
+    },
+    {
+      "name": "role_id",
+      "type": "bigint"
+    }
+  ],
+  "vendors": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "user_id",
+      "type": "bigint"
+    },
+    {
+      "name": "shop_name",
+      "type": "character varying"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "logo",
+      "type": "character varying"
+    },
+    {
+      "name": "address",
+      "type": "character varying"
+    },
+    {
+      "name": "status",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "city",
+      "type": "character varying"
+    },
+    {
+      "name": "country",
+      "type": "character varying"
+    },
+    {
+      "name": "longitude",
+      "type": "numeric"
+    },
+    {
+      "name": "latitude",
+      "type": "numeric"
+    }
+  ],
+  "brands": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "logo",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "product_variations": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "product_id",
+      "type": "bigint"
+    },
+    {
+      "name": "sku",
+      "type": "character varying"
+    },
+    {
+      "name": "price",
+      "type": "numeric"
+    },
+    {
+      "name": "stock",
+      "type": "integer"
+    },
+    {
+      "name": "status",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "product_variation_images": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "product_variation_id",
+      "type": "bigint"
+    },
+    {
+      "name": "image_path",
+      "type": "character varying"
+    },
+    {
+      "name": "alt_text",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "variation_attributes": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "variation_attribute_values": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "variation_attribute_id",
+      "type": "bigint"
+    },
+    {
+      "name": "value",
+      "type": "character varying"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "product_variation_attribute_value": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "product_variation_id",
+      "type": "bigint"
+    },
+    {
+      "name": "variation_attribute_value_id",
+      "type": "bigint"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "addresses": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "vendor_id",
+      "type": "bigint"
+    },
+    {
+      "name": "street",
+      "type": "character varying"
+    },
+    {
+      "name": "city",
+      "type": "character varying"
+    },
+    {
+      "name": "state",
+      "type": "character varying"
+    },
+    {
+      "name": "country",
+      "type": "character varying"
+    },
+    {
+      "name": "postal_code",
+      "type": "character varying"
+    },
+    {
+      "name": "longitude",
+      "type": "numeric"
+    },
+    {
+      "name": "latitude",
+      "type": "numeric"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "application_logs": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "level",
+      "type": "character varying"
+    },
+    {
+      "name": "source",
+      "type": "character varying"
+    },
+    {
+      "name": "message",
+      "type": "json"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "telescope_entries": [
+    {
+      "name": "sequence",
+      "type": "bigint"
+    },
+    {
+      "name": "uuid",
+      "type": "uuid"
+    },
+    {
+      "name": "batch_id",
+      "type": "uuid"
+    },
+    {
+      "name": "family_hash",
+      "type": "character varying"
+    },
+    {
+      "name": "should_display_on_index",
+      "type": "boolean"
+    },
+    {
+      "name": "type",
+      "type": "character varying"
+    },
+    {
+      "name": "content",
+      "type": "text"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    }
+  ],
+  "telescope_entries_tags": [
+    {
+      "name": "entry_uuid",
+      "type": "uuid"
+    },
+    {
+      "name": "tag",
+      "type": "character varying"
+    }
+  ],
+  "telescope_monitoring": [
+    {
+      "name": "tag",
+      "type": "character varying"
+    }
+  ],
+  "master_products": [
+    {
+      "name": "id",
+      "type": "bigint"
+    },
+    {
+      "name": "name",
+      "type": "character varying"
+    },
+    {
+      "name": "synonyms",
+      "type": "text"
+    },
+    {
+      "name": "is_synced",
+      "type": "boolean"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp without time zone"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp without time zone"
+    }
+  ]
+}

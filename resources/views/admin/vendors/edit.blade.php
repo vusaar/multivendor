@@ -69,11 +69,11 @@
                             <input type="text" class="form-control" id="latitude" name="latitude" value="{{ old('latitude', $vendor->latitude) }}">
                         </div>
 
-                        <div class="text-end">
-                         
-                          <a href="{{ route('admin.vendors.index') }}" class="btn btn-secondary">Cancel</a>
+                        <div class="text-start">
+                         <button type="submit" class="btn action-btn btn-save">Update Vendor</button>
+                          <a href="{{ route('admin.vendors.index') }}" class="btn action-btn btn-cancel">Cancel</a>
 
-                           <button type="submit" class="btn btn-outline active">Update Vendor</button>
+                           
                         </div>
 
                     </form>
