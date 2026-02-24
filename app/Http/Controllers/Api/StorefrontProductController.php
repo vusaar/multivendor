@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\VariationAttributeValue;
 use App\Models\VariationAttribute;
 use Illuminate\Http\Request;
+use App\Services\SearchAgentService;
+use Illuminate\Support\Facades\Log;
 
 class StorefrontProductController extends Controller
 {
@@ -37,7 +39,7 @@ class StorefrontProductController extends Controller
         }
         // Add more filters as needed (e.g., stock, featured, etc.)
 
-        $products = $query->paginate($request->get('per_page', 15))->appends($request->query());
+        $products = $query->paginate($request->get('per_page', 5))->appends($request->query());
 
         // Format the response for API consumers
         $products->getCollection()->transform(function ($product) {
@@ -117,6 +119,25 @@ class StorefrontProductController extends Controller
     
     public function search(Request $request)
     {
+        // Try Hybrid Search first if it's a general query
+        if ($request->has('product') || $request->has('item')) {
+            $queryText = $request->input('product') ?: $request->input('item');
+            
+            // --- FAST PATH: Try direct DB search for simple queries to avoid LLM latency ---
+            $fastProductIds = $this->tryFastSearch($queryText);
+            if (!empty($fastProductIds)) {
+                Log::info("Using Fast Path Search for: $queryText");
+                return $this->hydrateAndResponse($fastProductIds, $request);
+            }
+            // ------------------------------------------------------------------------------
+
+            $searchService = app(SearchAgentService::class);
+            $productIds = $searchService->search($queryText);
+
+            if ($productIds !== null && !empty($productIds)) {
+                return $this->hydrateAndResponse($productIds, $request);
+            }
+        }
 
         // Clean and escape all request input in-place
         // function cleanInput($input) {
@@ -135,10 +156,7 @@ class StorefrontProductController extends Controller
                     ->leftJoin('categories as parent_categories', 'categories.parent_id', '=', 'parent_categories.id')
                     ->leftJoin('categories as grandparent_categories', 'parent_categories.parent_id', '=', 'grandparent_categories.id')
                     ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
-                    ->leftJoin('product_variations', 'products.id', '=', 'product_variations.product_id')
-                    ->leftJoin('product_variation_attribute_value', 'product_variations.id', '=', 'product_variation_attribute_value.product_variation_id')
-                    ->leftJoin('variation_attribute_values', 'product_variation_attribute_value.variation_attribute_value_id', '=', 'variation_attribute_values.id')
-                    ->leftJoin('variation_attributes', 'variation_attribute_values.variation_attribute_id', '=', 'variation_attributes.id');
+                    ->leftJoin('product_variation_metadata', 'products.id', '=', 'product_variation_metadata.product_id');
 
         $where_added = false;
         $variation_where_added = false;
@@ -201,7 +219,7 @@ class StorefrontProductController extends Controller
             
                 $where_added = true;
 
-                $similarity_column_entries['products.name'] = `similarity(products.name, '{$request->input('item')}')`;
+                $similarity_column_entries['products.name'] = "similarity(products.name, '{$request->input('item')}')";
 
                 $similarity_column_entries['products.description'] = "similarity(products.description, '{$request->input('item')}')";
 
@@ -225,7 +243,7 @@ class StorefrontProductController extends Controller
             If searching using category name
            */
              
-         if ($request->has('category') && trim($request->input('category'))!='') {
+         if ($request->has('categories') && trim($request->input('categories'))!='') {
 
 
                 $fn  = function ($query) use ($request, &$where_added, &$similarity_column_entries) {    
@@ -371,46 +389,28 @@ class StorefrontProductController extends Controller
                  
                  $key = $variation_attribute ? $variation_attribute->name : $attribute_name;
 
-                $query->orWhereHas('variations.attributeValues.attribute', function ($q) use ($key, $value, $variation_where_added, &$similarity_column_entries) {
-
+                $query->where(function ($q) use ($key, $value, $variation_where_added, &$similarity_column_entries) {
                     if (is_array($value)) {
-
                         foreach ($value as $v) {
-                            
+                            $searchText = $key . ': ' . $v;
                             if($variation_where_added) {
-                                $q->orWherePGSimilarity('variation_attributes.name', $key)
-                                  ->wherePGSimilarity('variation_attribute_values.value', "{$v}");
+                                $q->orWherePGSimilarity('product_variation_metadata.variation_search_text', "{$searchText}");
                             } else {
-                                $q->wherePGSimilarity('variation_attributes.name', $key)
-                                  ->wherePGSimilarity('variation_attribute_values.value', "{$v}");
+                                $q->wherePGSimilarity('product_variation_metadata.variation_search_text', "{$searchText}");
                             }
-
-
                             $variation_where_added  = true;
-
-                           $similarity_column_entries['variation_attribute_values.value'] = "similarity(variation_attribute_values.value, '{$v}')";
-
-                           $similarity_column_entries['products.description_variation'] = "similarity(products.description, '{$v}')";
-
+                            $similarity_column_entries['product_variation_metadata.variation_search_text'] = "similarity(product_variation_metadata.variation_search_text, '{$searchText}')";
                         }
-                        
                     } else {
-
-
+                        $searchText = $key . ': ' . $value;
                         if($variation_where_added) {
-                            $q->orWherePGSimilarity('variation_attributes.name', $key)
-                              ->wherePGSimilarity('variation_attribute_values.value', "{$value}");
+                            $q->orWherePGSimilarity('product_variation_metadata.variation_search_text', "{$searchText}");
                         } else {
-                            $q->wherePGSimilarity('variation_attributes.name', $key)
-                              ->wherePGSimilarity('variation_attribute_values.value', "{$value}");
+                            $q->wherePGSimilarity('product_variation_metadata.variation_search_text', "{$searchText}");
                         }
-                       
-                         $similarity_column_entries['variation_attribute_values.value'] = "similarity(variation_attribute_values.value, '{$value}')";
-                       
-
+                        $similarity_column_entries['product_variation_metadata.variation_search_text'] = "similarity(product_variation_metadata.variation_search_text, '{$searchText}')";
                     }
-                   
-                  });
+                });
                 }
               }
           );
@@ -424,9 +424,8 @@ class StorefrontProductController extends Controller
     
      */
 
-        $similarity_score_sql = count($similarity_column_entries)>0?implode(' + ', $similarity_column_entries):'';
-        
-        $similarity_score_sql = $similarity_score_sql != '' ?  '( 0 '.$similarity_score_sql.') as similarity_score' : '0 as similarity_score';
+        $scores = array_values($similarity_column_entries);
+        $similarity_select = empty($scores) ? '0 as similarity_score' : '(' . implode(' + ', $scores) . ') as similarity_score';
 
 
         //dd($similarity_column_entries);
@@ -435,7 +434,7 @@ class StorefrontProductController extends Controller
 
        //dd($big_query->get());
 
-        $page_size = $request->input('per_page', 33);
+        $page_size = $request->input('per_page', 5);
 
         $page = intval($request->input('page', 1));
 
@@ -449,7 +448,7 @@ class StorefrontProductController extends Controller
         // dd($big_query->select('')->toSql());
 
 
-        $sub = $big_query->select(DB::raw('distinct on (products.id) products.*, parent_categories.id as parent_category_id, grandparent_categories.id as grandparent_category_id, '.$similarity_score_sql));
+        $sub = $big_query->select(DB::raw('distinct on (products.id) products.*, parent_categories.id as parent_category_id, grandparent_categories.id as grandparent_category_id, '.$similarity_select));
 
 
 
@@ -472,11 +471,10 @@ class StorefrontProductController extends Controller
            
             if($last_query){
 
-                $similarity_score_sql = count($last_query['s'])>0?implode(' + ', $last_query['s']):'';
+                $scores = array_values($last_query['s']);
+                $similarity_select_last = empty($scores) ? '0 as similarity_score' : '(' . implode(' + ', $scores) . ') as similarity_score';
 
-                $similarity_score_sql = $similarity_score_sql != '' ?  '( 0 '.$similarity_score_sql.') as similarity_score' : '0 as similarity_score';
-
-                $products = $last_query['q']->select(DB::raw('distinct on (products.id) products.*,parent_categories as parent_category_id, grandparent_categories.id as grandparent_category_id,'.$similarity_score_sql))->orderBy('products.id')->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', $page_size),$page)->appends($request->query());
+                $products = $last_query['q']->select(DB::raw('distinct on (products.id) products.*,parent_categories as parent_category_id, grandparent_categories.id as grandparent_category_id,'.$similarity_select_last))->orderBy('products.id')->orderBy('similarity_score', 'desc')->paginate($request->input('per_page', $page_size),$page)->appends($request->query());
 
                 
 
@@ -634,5 +632,365 @@ class StorefrontProductController extends Controller
         return response()->json($products);
 
        // return response()->json($products);
+    }
+
+    public function search2(Request $request)
+    {    
+
+           /*
+              example category filter
+              'category' => ['Electronics', 'Home Appliances']
+           */
+
+              $category_names = [];
+
+           if( $request->has('category') && is_array($request->input('category')) && count($request->input('category'))>0 ) {
+
+              //search
+
+            foreach($request->input('category') as $category){
+
+                $category_names[] = $category;
+         
+            }
+        }
+
+
+
+
+         $search_string = $request->input('item','').' '.$request->input('product','');
+
+         foreach($category_names as $cat_name){
+
+            $search_string .= ' '.$cat_name;
+
+         }
+
+
+         if($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes'))>0) {
+
+                $attributes = $request->input('attributes');
+
+                //dd($attributes);
+
+                foreach($attributes as $attribute => $values) {
+                    
+                    foreach($values as $value){
+
+                         //echo "Filtering attribute: ".$attribute." with value: ".$v."\n"; die;
+
+                        $search_string .= ' '.$value;
+
+                    }
+                   
+                }
+
+            }
+
+         //dd($search_string); die;
+
+         $search_query = Product::search($search_string)->options([
+        'showRankingScore' => true,
+        'showMatchesPosition' => true // You can combine both
+        ]);
+
+
+
+          foreach($category_names as $cat_name){
+
+                $search_query = $search_query->whereIn('categories',$cat_name);
+
+          }
+
+
+
+            if($request->has('vendor') && trim($request->input('vendor'))!='') {
+
+                $search_query = $search_query->where('vendor', $request->input('vendor'));
+
+            }
+
+
+            if($request->has('brand') && trim($request->input('brand'))!='') {
+
+                $search_query = $search_query->where('brand', $request->input('brand'));
+
+            }
+
+
+            if($request->has('price') && trim($request->input('price'))!='' && $request->input('price')>0) {
+
+                $search_query = $search_query->where('price', $request->input('price'));
+
+            }
+
+            /*
+                attribute eg
+                'attributes' => [
+                    'Color' => ['Red', 'Blue'],
+                    'Size' => ['M', 'L']
+               ]
+
+            */
+
+            if($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes'))>0) {
+
+                $attributes = $request->input('attributes');
+
+                //dd($attributes);
+
+                foreach($attributes as $attribute => $values) {
+                    
+                    foreach($values as $value){
+
+                         //echo "Filtering attribute: ".$attribute." with value: ".$v."\n"; die;
+
+                         if($attribute=='Color'){
+                           
+                            $search_query = $search_query->whereIn('variations.Color', $values);
+                         }else if($attribute=='Size'){
+                           $search_query = $search_query->whereIn('variations.Size', $values);
+                         }else if($attribute=='Material'){
+                           $search_query = $search_query->whereIn('variations.Material', $values);
+                         }else{
+
+                         }
+
+                    }
+                   
+                }
+
+
+                //dd($search_query);
+
+                // $search_query = $search_query->query(function ($query) use ($attributes) {
+                //     foreach ($attributes as $attribute => $values) {
+
+                //     $exactMatchCondition = "JSONB_CONTAINS(variations->attributeValues, JSONB_ARRAY('" . implode("','", $values) . "'))";
+
+                //    $partialMatchCondition = "JSONB_EXISTS_ANY(variations->attributeValues, JSONB_ARRAY('" . implode("','", $values) . "'))";
+
+
+                //     $query->with(['variations.attributeValues'])->orderByRaw("
+                //       CASE
+                //          WHEN $exactMatchCondition THEN 2
+                //          WHEN $partialMatchCondition THEN 1
+                //          ELSE 0
+                //       END DESC
+                //    ");
+                       
+                //        // dd($query->toSql());
+
+                //         return $query;
+
+                //     }   
+                
+                // });
+
+            }
+
+
+
+            
+
+    //     if ($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes')) > 0) {
+    //     $attributes = $request->input('attributes');
+
+    //     foreach ($attributes as $attribute => $values) {
+
+    //            //print_r($values);
+    //         $search_query = $search_query->orderByRaw("
+    //             CASE
+    //                 WHEN JSON_CONTAINS(variations->'$.attribute_values', JSON_ARRAY('" . implode("','", $values) . "')) THEN 1
+    //                 ELSE 0
+    //             END DESC
+    //         ");
+    //       }
+    //   }
+
+            //dd($search_query->get())
+              $raw_results = null;
+              
+            if($request->input('debug')){
+
+                $raw_results  = $search_query->raw();
+
+                
+            }
+
+              $search_results = $search_query->paginate($request->input('per_page', 5))->appends($request->query());
+
+              //$search_results->getCollection()->load('vendor','brand','category','images','variations.attributeValues');
+
+              $search_results->getCollection()->transform(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'stock' => $product->stock,
+                'status' => $product->status,
+                'vendor' => $product->vendor ? [
+                    'id' => $product->vendor->id,
+                    'shop_name' => $product->vendor->shop_name,
+                ] : null,
+                'category' => $product->category ? [
+                    'id' => $product->category->id,
+                    'name' => $product->category->name,
+                    'parent_category' => $product->category->parent_id ?[
+                        'id' => $product->category->parent ? $product->category->parent->id : null,
+                        'name' => $product->category->parent ? $product->category->parent->name : null,
+                        'grandparent_category' => $product->category->parent && $product->category->parent->parent_id ? [
+                            'id' => $product->category->parent->parent ? $product->category->parent->parent->id : null,
+                            'name' => $product->category->parent->parent ? $product->category->parent->parent->name : null,
+                        ] : null,
+                    ]:null,
+                ] : null,
+                'brand' => $product->brand ? [
+                    'id' => $product->brand->id,
+                    'name' => $product->brand->name,
+                ] : null,
+                'images' => $product->images->map(function ($img) {
+                    return asset('storage/' . ($img->image ?? $img->image_path));
+                }),
+                'variations' => $product->variations->map(function ($variation) {
+                    return [
+                        'id' => $variation->id,
+                        'sku' => $variation->sku,
+                        'price' => $variation->price,
+                        'stock' => $variation->stock,
+                        'attribute_values' => $variation->attributeValues->map(function ($attrValue) {
+                            return [
+                                'id' => $attrValue->id,
+                                'value' => $attrValue->value,
+                                'attribute_id' => $attrValue->variation_attribute_id,
+                            ];
+                        }),
+                    ];
+                }),
+                
+            ];
+        });
+
+            
+         if($request->input('debug')){
+
+            return response()->json([
+                'raw_results' => $raw_results,
+                'search_results' => $search_results,
+            ]);
+         }
+
+              return response()->json($search_results);
+          
+    }
+
+    /**
+     * Hydrate a list of product IDs into full JSON response, preserving order.
+     */
+    private function hydrateAndResponse(array $productIds, Request $request)
+    {
+        $idsString = implode(',', array_map('intval', $productIds));
+        
+        $products = Product::with(['vendor', 'brand', 'category', 'images', 'variations.attributeValues'])
+            ->whereIn('products.id', $productIds)
+            // PostgreSQL specific ordering to preserve ranking from agent
+            ->orderByRaw("array_position(ARRAY[$idsString]::integer[], products.id)")
+            ->paginate($request->input('per_page', 5))
+            ->appends($request->query());
+
+        $products->getCollection()->transform(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'stock' => $product->stock,
+                'status' => $product->status,
+                'vendor' => $product->vendor ? [
+                    'id' => $product->vendor->id,
+                    'shop_name' => $product->vendor->shop_name,
+                ] : null,
+                'category' => $product->category ? [
+                    'id' => $product->category->id,
+                    'name' => $product->category->name,
+                    'parent_category' => $product->category->parent_id ?[
+                        'id' => $product->category->parent ? $product->category->parent->id : null,
+                        'name' => $product->category->parent ? $product->category->parent->name : null,
+                        'grandparent_category' => $product->category->parent && $product->category->parent->parent_id ? [
+                            'id' => $product->category->parent->parent ? $product->category->parent->parent->id : null,
+                            'name' => $product->category->parent->parent ? $product->category->parent->parent->name : null,
+                        ] : null,
+                    ]:null,
+                ] : null,
+                'brand' => $product->brand ? [
+                    'id' => $product->brand->id,
+                    'name' => $product->brand->name,
+                ] : null,
+                'images' => $product->images->map(function ($img) {
+                    return asset('storage/' . ($img->image ?? $img->image_path));
+                }),
+                'variations' => $product->variations->map(function ($variation) {
+                    return [
+                        'id' => $variation->id,
+                        'sku' => $variation->sku,
+                        'price' => $variation->price,
+                        'stock' => $variation->stock,
+                        'attribute_values' => $variation->attributeValues->map(function ($attrValue) {
+                            return [
+                                'id' => $attrValue->id,
+                                'value' => $attrValue->value,
+                                'attribute_id' => $attrValue->variation_attribute_id,
+                            ];
+                        }),
+                    ];
+                }),
+                'similarity_score' => 1.0, // Placeholder for hybrid search
+            ];
+        });
+
+        return response()->json($products);
+    }
+
+    /**
+     * Attempts a fast database search for simple keyword/price queries.
+     * Bypasses the AI agent to avoid rate limits and latency.
+     */
+    private function tryFastSearch($query)
+    {
+        $priceMax = null;
+
+        // Extract simple price filter: "under 10", "less than 50", etc.
+        if (preg_match('/(?:under|less than|below|max|for less than)\s*[$€£]?\s*(\d+(?:\.\d{2})?)/i', $query, $matches)) {
+            $priceMax = floatval($matches[1]);
+            $query = trim(str_replace($matches[0], '', $query));
+        }
+
+        // Only handle queries that are relatively simple (keywords only, no complex variation logic)
+        $isComplex = preg_match('/size|xl|xxl|small|medium|large|color|material/i', $query) || str_word_count($query) > 5;
+
+        if ($isComplex) {
+            return null;
+        }
+
+        $dbQuery = Product::leftJoin('product_variation_metadata', 'products.id', '=', 'product_variation_metadata.product_id')
+            ->where('products.status', 'active');
+
+        if ($priceMax !== null) {
+            $dbQuery->where('products.price', '<=', $priceMax);
+        }
+
+        if (!empty($query)) {
+            $dbQuery->where(function($q) use ($query) {
+                // Use the % operator for the most efficient GIN index usage
+                $q->whereRaw("products.search_context % ?", [$query])
+                  ->orWhereRaw("product_variation_metadata.variation_search_text % ?", [$query]);
+            })
+            ->orderByRaw("similarity(products.search_context, ?) DESC", [$query]);
+        } else if ($priceMax === null) {
+            return null; // Empty query with no price filter
+        }
+
+        return $dbQuery->limit(10)->pluck('products.id')->toArray();
     }
 }

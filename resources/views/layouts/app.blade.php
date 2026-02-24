@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jstree@3.3.15/dist/themes/default/style.min.css" />
 
     <!-- Global app.css styles -->
-    <link rel="stylesheet" href="{{ config('app.url').'/resources/css/app.css' }}">
+    <link rel="stylesheet" href="{{ config('app.url').'/css/app2.css' }}">
 
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -81,5 +81,6 @@
         
         <script src="https://cdn.jsdelivr.net/npm/jstree@3.3.15/dist/jstree.min.js"></script>
 
+        @stack('scripts')
     </body>
 </html>

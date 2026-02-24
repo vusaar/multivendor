@@ -36,8 +36,17 @@
                                          </div>
                                          <div class="row g-3 mb-3">
                                              <div class="col-md-7 col-xs-12">
-                                                <label for="name" class="form-label">Item</label>
-                                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $product->name) }}" required>
+                                                <label for="name" class="form-label">Item / Product Name</label>
+                                                <select class="form-select select2-tags" id="name" name="name" required>
+                                                    @if(old('name', $product->name))
+                                                        <option value="{{ old('name', $product->name) }}" selected>
+                                                            {{ old('name', $product->name) }}
+                                                            @if($product->masterProduct && $product->masterProduct->synonyms)
+                                                                ({{ $product->masterProduct->synonyms }})
+                                                            @endif
+                                                        </option>
+                                                    @endif
+                                                </select>
                                              </div>
                                              <div class="col-md-5 col-xs-12">
                                                  <label for="brand_id" class="form-label">Brand</label>
@@ -137,7 +146,7 @@
                                                             <div class="col-md-5">
                                                                 <select class="form-select variation-attribute-select" name="variations[{{ $variationIndex }}][attributes][{{ $pairCount }}][attribute_id]" required>
                                                                     <option value="">-- Select Attribute --</option>
-                                                                    @foreach(App\Models\VariationAttribute::all() as $attr)
+                                                                    @foreach($variationAttributes as $attr)
                                                                         <option value="{{ $attr->id }}" {{ $attr->id == $attributeId ? 'selected' : '' }}>{{ $attr->name }}</option>
                                                                     @endforeach
                                                                 </select>
@@ -145,7 +154,12 @@
                                                             <div class="col-md-5">
                                                                 <select class="form-select variation-value-select" name="variations[{{ $variationIndex }}][attributes][{{ $pairCount }}][value_id][]" multiple required>
                                                                     <option value="">-- Select Value --</option>
-                                                                    @foreach(App\Models\VariationAttributeValue::where('variation_attribute_id', $attributeId)->get() as $val)
+                                                                    @php
+                                                                        // Find the attribute model from the collection we passed
+                                                                        $currentAttribute = $variationAttributes->firstWhere('id', $attributeId);
+                                                                        $currentValues = $currentAttribute ? $currentAttribute->values : collect([]);
+                                                                    @endphp
+                                                                    @foreach($currentValues as $val)
                                                                         <option value="{{ $val->id }}" {{ in_array($val->id, $values->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $val->value }}</option>
                                                                     @endforeach
                                                                 </select>
@@ -177,7 +191,7 @@
     
     <script>
     // Pass attribute list to JS
-    var variationAttributes = @json(App\Models\VariationAttribute::all(['id','name']));
+    var variationAttributes = @json($variationAttributes);
 
     // Add attribute-value pair to a variation row
     document.addEventListener('click', function(e) {
@@ -348,6 +362,68 @@
                 var breadcrumb = buildBreadcrumb(tree, node);
                 $('#category_breadcrumb').text(breadcrumb);
             }
+
+            // Initialize Select2 for Product Name with tagging (client-side search)
+            $('.select2-tags').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                tags: true,
+                ajax: {
+                    url: '{{ route("admin.master-products.search") }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name + (item.synonyms ? ' (' + item.synonyms + ')' : ''),
+                                    id: item.name, 
+                                    synonyms: item.synonyms
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                templateResult: function(data) {
+                    if (data.loading) return data.text;
+                    
+                    if (data.newTag) {
+                        return $('<div><strong>Create New:</strong> ' + data.text + '</div>');
+                    }
+                    
+                    var name = data.id || data.text; 
+                    if(data.text && data.text.indexOf('(') !== -1){
+                        return $('<div>' + data.text + '</div>');
+                    }
+
+                    return $('<div>' + name + '</div>');
+                },
+                templateSelection: function(data) {
+                     var text = data.text || data.id;
+                     var match = text.match(/^(.+?)\s*\(/);
+                     if (match) {
+                         return match[1];
+                     }
+                     return text;
+                },
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    return {
+                        id: term,
+                        text: term,
+                        newTag: true
+                    };
+                }
+            });
         });
         // Image preview for product images with delete icon (new uploads)
         document.getElementById('images').addEventListener('change', function(event) {
@@ -407,23 +483,25 @@
                 $(valueSelect).select2({ theme: 'bootstrap-5', width: '100%' });
                 return;
             }
-            fetch('/admin/variation-attributes/' + attributeId + '/values')
-                .then(res => res.json())
-                .then(data => {
-                    let options = '<option value="">-- Select Value --</option>';
-                    console.log(data);
-                    data.forEach(function(val) {
-                        let selected = selectedValues && selectedValues.includes(val.value) ? ' selected' : '';
-                        options += `<option value="${val.id}"${selected}>${val.value}</option>`;
-                    });
-                    valueSelect.innerHTML = options;
-                    valueSelect.disabled = false;
-                    $(valueSelect).select2({ theme: 'bootstrap-5', width: '100%' });
-                });
+            
+            // Use client-side data instead of fetch
+            var attribute = variationAttributes.find(a => a.id == attributeId);
+            var values = attribute ? attribute.values : [];
+            
+            let options = '<option value="">-- Select Value --</option>';
+            values.forEach(function(val) {
+                let selected = selectedValues && selectedValues.includes(val.value) ? ' selected' : '';
+                options += `<option value="${val.id}"${selected}>${val.value}</option>`;
+            });
+            valueSelect.innerHTML = options;
+            valueSelect.disabled = false;
+            $(valueSelect).select2({ theme: 'bootstrap-5', width: '100%' });
         }
 
         function bindVariationAttributeEvents() {
             document.querySelectorAll('.variation-attribute-select').forEach(function(select) {
+                // Remove old listener to avoid duplicates if re-binding
+                select.onchange = null;
                 select.onchange = function() {
                     const row = select.closest('.variation-matrix-row');
                     const valueSelect = row.querySelector('.variation-value-select');
@@ -563,5 +641,4 @@
    
     
 
-    
 </x-app-layout>

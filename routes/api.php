@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('storefront')->group(function () {
     // Flexible search endpoint
     Route::post('products/search', [StorefrontProductController::class, 'search']);
+
+    Route::post('products/search2', [StorefrontProductController::class, 'search2']);
     // List/search products (original index)
     Route::get('products', [StorefrontProductController::class, 'index']);
     // Show a single product by ID

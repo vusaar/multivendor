@@ -1,0 +1,300 @@
+﻿#2 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2705): Illuminate\\Database\\Connection->select('select count(*)...', Array, true)
+#3 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2694): Illuminate\\Database\\Query\\Builder->runSelect()
+#4 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3230): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#5 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2693): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#6 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2844): Illuminate\\Database\\Query\\Builder->get()
+#7 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2803): Illuminate\\Database\\Query\\Builder->runPaginationCountQuery(Array)
+#8 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(891): Illuminate\\Database\\Query\\Builder->getCountForPagination()
+#9 C:\\xampp4\\htdocs\\multistore\\app\\Http\\Controllers\\Api\\StorefrontProductController.php(476): Illuminate\\Database\\Eloquent\\Builder->paginate(33, Array, 'page', 1)
+#10 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\StorefrontProductController->search(Object(Illuminate\\Http\\Request))
+#11 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('search', Array)
+#12 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\StorefrontProductController), 'search')
+#13 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#14 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#15 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#16 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(92): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#20 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#21 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#22 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#24 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#25 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#26 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#28 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\xampp4\\htdocs\\multistore\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#45 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#46 C:\\xampp4\\htdocs\\multistore\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#47 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\xampp4\\\\htdoc...')
+#48 {main}
+
+[previous exception] [object] (PDOException(code: 42601): SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near \"similarity\"
+LINE 1: ...ent_categories.id as grandparent_category_id, ( 0 similarity...
+                                                             ^ at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:419)
+[stacktrace]
+#0 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(419): PDOStatement->execute()
+#1 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(753): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('select count(*)...', Array)
+#2 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback('select count(*)...', Array, Object(Closure))
+#3 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(405): Illuminate\\Database\\Connection->run('select count(*)...', Array, Object(Closure))
+#4 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2705): Illuminate\\Database\\Connection->select('select count(*)...', Array, true)
+#5 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2694): Illuminate\\Database\\Query\\Builder->runSelect()
+#6 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3230): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#7 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2693): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#8 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2844): Illuminate\\Database\\Query\\Builder->get()
+#9 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2803): Illuminate\\Database\\Query\\Builder->runPaginationCountQuery(Array)
+#10 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(891): Illuminate\\Database\\Query\\Builder->getCountForPagination()
+#11 C:\\xampp4\\htdocs\\multistore\\app\\Http\\Controllers\\Api\\StorefrontProductController.php(476): Illuminate\\Database\\Eloquent\\Builder->paginate(33, Array, 'page', 1)
+#12 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\StorefrontProductController->search(Object(Illuminate\\Http\\Request))
+#13 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('search', Array)
+#14 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\StorefrontProductController), 'search')
+#15 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#16 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#17 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(92): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#22 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#23 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#24 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#26 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#27 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#28 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#30 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 C:\\xampp4\\htdocs\\multistore\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#47 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#48 C:\\xampp4\\htdocs\\multistore\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#49 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\xampp4\\\\htdoc...')
+#50 {main}
+"} 
+[2026-02-22 15:40:31] local.INFO: Calling Hybrid Search Agent for: short sleeve shirts for men  
+[2026-02-22 15:43:28] local.INFO: Calling Hybrid Search Agent for: elegant summer dress  
+[2026-02-22 15:48:51] local.INFO: Calling Hybrid Search Agent for: short sleeve shirts for men  
+[2026-02-22 15:51:12] local.INFO: Calling Hybrid Search Agent for: elegant summer dress  
+[2026-02-22 15:51:18] local.INFO: Hybrid Search: No results found for 'elegant summer dress'  
+[2026-02-22 15:51:57] local.INFO: Calling Hybrid Search Agent for: elegant summer dress  
+[2026-02-22 15:52:03] local.INFO: Hybrid Search: No results found for 'elegant summer dress'  
+[2026-02-22 15:52:37] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 15:52:43] local.INFO: Hybrid Search: No results found for 'red tshirt'  
+[2026-02-22 15:53:02] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 15:53:23] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 15:53:29] local.INFO: Hybrid Search: No results found for 'red tshirt'  
+[2026-02-22 16:18:02] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 16:18:12] local.ERROR: Hybrid Search Exception: cURL error 28: Operation timed out after 10001 milliseconds with 0 bytes received (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3001/api/search  
+[2026-02-22 16:18:48] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 16:18:58] local.ERROR: Hybrid Search Exception: cURL error 28: Operation timed out after 10009 milliseconds with 0 bytes received (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3001/api/search  
+[2026-02-22 16:20:34] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 16:24:47] local.INFO: Calling Hybrid Search Agent for: red tshirt  
+[2026-02-22 16:26:08] local.INFO: Calling Hybrid Search Agent for: blue tshirt  
+[2026-02-22 16:39:53] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 16:52:48] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-22 17:18:55] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:21:49] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:21:52] local.ERROR: Hybrid Search Exception: cURL error 7: Failed to connect to localhost port 3001 after 2243 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3001/api/search  
+[2026-02-22 17:22:44] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:23:59] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:26:10] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:27:38] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:29:52] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-22 17:32:32] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:34:17] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:36:42] local.INFO: Calling Hybrid Search Agent for: Clothing  
+[2026-02-22 17:37:26] local.INFO: Calling Hybrid Search Agent for: shirts under 50  
+[2026-02-22 17:37:42] local.ERROR: Hybrid Search Exception: cURL error 28: Operation timed out after 60005 milliseconds with 0 bytes received (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3001/api/search  
+[2026-02-22 17:38:26] local.ERROR: Hybrid Search Exception: cURL error 28: Operation timed out after 60012 milliseconds with 0 bytes received (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:3001/api/search  
+[2026-02-22 17:39:32] local.INFO: Calling Hybrid Search Agent for: shirts under 50  
+[2026-02-22 17:42:48] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-22 17:47:48] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-22 17:49:48] local.ERROR: Maximum execution time of 120 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 120 seconds exceeded at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:421)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-22 17:52:39] local.INFO: Calling Hybrid Search Agent for: shirts under 50  
+[2026-02-22 17:54:22] local.INFO: Calling Hybrid Search Agent for: shirts under 50  
+[2026-02-22 17:57:30] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-22 18:03:57] local.ERROR: Maximum execution time of 120 seconds exceeded {"userId":1,"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 120 seconds exceeded at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:421)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-23 17:46:48] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-23 17:48:07] local.INFO: Calling Hybrid Search Agent for: white ladies tops  
+[2026-02-23 17:50:34] local.INFO: Calling Hybrid Search Agent for: floral ladies tops  
+[2026-02-23 17:57:41] local.INFO: Calling Hybrid Search Agent for: ladies tops for less than $10  
+[2026-02-23 17:59:07] local.INFO: Calling Hybrid Search Agent for: ladies tops for less than 10  
+[2026-02-23 18:11:53] local.INFO: Calling Hybrid Search Agent for: ladies tops for less than 10  
+[2026-02-23 18:13:49] local.INFO: Calling Hybrid Search Agent for: ladies tops for less than $10  
+[2026-02-23 18:24:20] local.INFO: Calling Hybrid Search Agent for: ladies tops for less than $10  
+[2026-02-23 18:26:56] local.INFO: Calling Hybrid Search Agent for: ladies tops for less than $5  
+[2026-02-23 18:36:05] local.INFO: Calling Hybrid Search Agent for: ladies tops red in color  
+[2026-02-23 18:38:47] local.ERROR: Maximum execution time of 120 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 120 seconds exceeded at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:421)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-23 18:39:12] local.INFO: Calling Hybrid Search Agent for: ladies tops red in color  
+[2026-02-23 18:41:48] local.ERROR: Maximum execution time of 120 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 120 seconds exceeded at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:421)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-23 18:50:00] local.INFO: Calling Hybrid Search Agent for: ladies tops red in color  
+[2026-02-23 18:54:00] local.ERROR: Maximum execution time of 120 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 120 seconds exceeded at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:421)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-23 19:02:51] local.INFO: Calling Hybrid Search Agent for: ladies tops red in color  
+[2026-02-23 19:04:51] local.ERROR: Maximum execution time of 120 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 120 seconds exceeded at C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:421)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-23 19:07:54] local.INFO: Calling Hybrid Search Agent for: ladies tops red in color  
+[2026-02-23 19:09:52] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-23 19:20:29] local.INFO: Calling Hybrid Search Agent for: ladies tops  
+[2026-02-23 19:23:02] local.INFO: Calling Hybrid Search Agent for: blue ladies tops  
+[2026-02-24 11:22:16] local.INFO: Calling Hybrid Search Agent for: blue ladies tops  
+[2026-02-24 11:23:57] local.INFO: Calling Hybrid Search Agent for: blue ladies tops  
+[2026-02-24 11:31:01] local.INFO: Calling Hybrid Search Agent for: blue ladies tops  
+[2026-02-24 11:46:42] local.INFO: Using Fast Path Search for: ladies tops for less than $10  
+[2026-02-24 11:52:35] local.ERROR: cURL error 7: Failed to connect to 127.0.0.1 port 7700 after 2042 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:7700/indexes/products/search {"exception":"[object] (Meilisearch\\Exceptions\\CommunicationException(code: 0): cURL error 7: Failed to connect to 127.0.0.1 port 7700 after 2042 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:7700/indexes/products/search at C:\\xampp4\\htdocs\\multistore\\vendor\\meilisearch\\meilisearch-php\\src\\Http\\Client.php:175)
+[stacktrace]
+#0 C:\\xampp4\\htdocs\\multistore\\vendor\\meilisearch\\meilisearch-php\\src\\Http\\Client.php(99): Meilisearch\\Http\\Client->execute(Object(GuzzleHttp\\Psr7\\Request), Array)
+#1 C:\\xampp4\\htdocs\\multistore\\vendor\\meilisearch\\meilisearch-php\\src\\Endpoints\\Indexes.php(207): Meilisearch\\Http\\Client->post('/indexes/produc...', '{\"q\":\" ladies t...')
+#2 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\scout\\src\\Engines\\MeilisearchEngine.php(172): Meilisearch\\Endpoints\\Indexes->rawSearch(' ladies tops fo...', Array)
+#3 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\scout\\src\\Engines\\MeilisearchEngine.php(131): Laravel\\Scout\\Engines\\MeilisearchEngine->performSearch(Object(Laravel\\Scout\\Builder), Array)
+#4 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\scout\\src\\Builder.php(475): Laravel\\Scout\\Engines\\MeilisearchEngine->paginate(Object(Laravel\\Scout\\Builder), 5, 1)
+#5 C:\\xampp4\\htdocs\\multistore\\app\\Http\\Controllers\\Api\\StorefrontProductController.php(823): Laravel\\Scout\\Builder->paginate(5)
+#6 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\StorefrontProductController->search2(Object(Illuminate\\Http\\Request))
+#7 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('search2', Array)
+#8 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\StorefrontProductController), 'search2')
+#9 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#10 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#11 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(92): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#16 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#17 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#18 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#20 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#21 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#22 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#24 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\xampp4\\htdocs\\multistore\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#41 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#42 C:\\xampp4\\htdocs\\multistore\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#43 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\xampp4\\\\htdoc...')
+#44 {main}
+
+[previous exception] [object] (GuzzleHttp\\Exception\\ConnectException(code: 0): cURL error 7: Failed to connect to 127.0.0.1 port 7700 after 2042 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:7700/indexes/products/search at C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php:275)
+[stacktrace]
+#0 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php(205): GuzzleHttp\\Handler\\CurlFactory::createRejection(Object(GuzzleHttp\\Handler\\EasyHandle), Array)
+#1 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlFactory.php(157): GuzzleHttp\\Handler\\CurlFactory::finishError(Object(GuzzleHttp\\Handler\\CurlHandler), Object(GuzzleHttp\\Handler\\EasyHandle), Object(GuzzleHttp\\Handler\\CurlFactory))
+#2 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\CurlHandler.php(47): GuzzleHttp\\Handler\\CurlFactory::finish(Object(GuzzleHttp\\Handler\\CurlHandler), Object(GuzzleHttp\\Handler\\EasyHandle), Object(GuzzleHttp\\Handler\\CurlFactory))
+#3 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\Proxy.php(28): GuzzleHttp\\Handler\\CurlHandler->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#4 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Handler\\Proxy.php(48): GuzzleHttp\\Handler\\Proxy::GuzzleHttp\\Handler\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#5 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\PrepareBodyMiddleware.php(64): GuzzleHttp\\Handler\\Proxy::GuzzleHttp\\Handler\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#6 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Middleware.php(31): GuzzleHttp\\PrepareBodyMiddleware->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#7 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\RedirectMiddleware.php(55): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#8 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Middleware.php(63): GuzzleHttp\\RedirectMiddleware->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#9 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\HandlerStack.php(75): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Request), Array)
+#10 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(333): GuzzleHttp\\HandlerStack->__invoke(Object(GuzzleHttp\\Psr7\\Request), Array)
+#11 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(106): GuzzleHttp\\Client->transfer(Object(GuzzleHttp\\Psr7\\Request), Array)
+#12 C:\\xampp4\\htdocs\\multistore\\vendor\\guzzlehttp\\guzzle\\src\\Client.php(138): GuzzleHttp\\Client->sendAsync(Object(GuzzleHttp\\Psr7\\Request), Array)
+#13 C:\\xampp4\\htdocs\\multistore\\vendor\\meilisearch\\meilisearch-php\\src\\Http\\Client.php(173): GuzzleHttp\\Client->sendRequest(Object(GuzzleHttp\\Psr7\\Request))
+#14 C:\\xampp4\\htdocs\\multistore\\vendor\\meilisearch\\meilisearch-php\\src\\Http\\Client.php(99): Meilisearch\\Http\\Client->execute(Object(GuzzleHttp\\Psr7\\Request), Array)
+#15 C:\\xampp4\\htdocs\\multistore\\vendor\\meilisearch\\meilisearch-php\\src\\Endpoints\\Indexes.php(207): Meilisearch\\Http\\Client->post('/indexes/produc...', '{\"q\":\" ladies t...')
+#16 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\scout\\src\\Engines\\MeilisearchEngine.php(172): Meilisearch\\Endpoints\\Indexes->rawSearch(' ladies tops fo...', Array)
+#17 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\scout\\src\\Engines\\MeilisearchEngine.php(131): Laravel\\Scout\\Engines\\MeilisearchEngine->performSearch(Object(Laravel\\Scout\\Builder), Array)
+#18 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\scout\\src\\Builder.php(475): Laravel\\Scout\\Engines\\MeilisearchEngine->paginate(Object(Laravel\\Scout\\Builder), 5, 1)
+#19 C:\\xampp4\\htdocs\\multistore\\app\\Http\\Controllers\\Api\\StorefrontProductController.php(823): Laravel\\Scout\\Builder->paginate(5)
+#20 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\StorefrontProductController->search2(Object(Illuminate\\Http\\Request))
+#21 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('search2', Array)
+#22 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\StorefrontProductController), 'search2')
+#23 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#24 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#25 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(92): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#30 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#31 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#32 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#34 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#35 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#36 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#37 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 C:\\xampp4\\htdocs\\multistore\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#55 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#56 C:\\xampp4\\htdocs\\multistore\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#57 C:\\xampp4\\htdocs\\multistore\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\xampp4\\\\htdoc...')
+#58 {main}
+"} 

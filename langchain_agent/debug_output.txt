@@ -1,0 +1,20 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent building .env in docker: https://dotenvx.com/prebuild
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent building .env in docker: https://dotenvx.com/prebuild
+Deep Debug Query: "ladies tops for less than $10"
+[AGENT] Starting custom router for: "ladies tops for less than $10"
+[AGENT] Triggering fallback search
+[AGENT] Tool hybrid_product_search called with query: ladies tops for less than $10, min: undefined, max: 10
+[PERF] Embedding generation took: 763ms
+[PERF] DB query took: 3765ms
+[PERF] Total hybrid_product_search tool took: 4533ms
+Top 20 Results:
+1. [ID: 69] Name: T-Shirt, Price: 3.00, Description: ladies tshirt
+2. [ID: 59] Name: T-Shirt, Price: 10.00, Description: Ladies tshirt
+3. [ID: 68] Name: T-Shirt, Price: 2.00, Description: null
+4. [ID: 16] Name: T-Shirt, Price: 5.00, Description: Alegent blouse for summer wear
+5. [ID: 54] Name: T-Shirt, Price: 10.00, Description: Black womans tshirt
+6. [ID: 65] Name: Blouse, Price: 8.00, Description: Green blouse
+7. [ID: 67] Name: Blouse, Price: 10.00, Description: White Blouse
+8. [ID: 2] Name: T-Shirt, Price: 10.00, Description: Round neck Plain Tshirts
+9. [ID: 1] Name: T-Shirt, Price: 5.00, Description: Round neck printed tshirt

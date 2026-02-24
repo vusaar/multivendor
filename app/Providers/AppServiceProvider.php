@@ -39,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
             $this->whereRaw("{$column} % ?", [$value]);
           });
 
+          // Register MasterProduct observer
+          \App\Models\MasterProduct::observe(\App\Observers\MasterProductObserver::class);
           
     }
 }

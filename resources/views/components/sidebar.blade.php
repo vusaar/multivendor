@@ -13,10 +13,34 @@
               </a>
             </li>
 
+
             <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.products.index') }}">
                 <i class="nav-icon cil-library"></i> Products
               </a>
+            </li>
+            
+            <li class="nav-group">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="nav-icon cil-list-rich"></i> Master Products
+                </a>
+                <ul class="nav-group-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.master-products.index') }}">
+                            <span class="nav-icon"></span> Manage All
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.product-integrity.index') }}">
+                            <span class="nav-icon"></span> Integrity Check
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.search-debug.index') }}">
+                            <span class="nav-icon"></span> Search Debugger
+                        </a>
+                    </li>
+                </ul>
             </li>
              <li class="nav-item">
                <a class="nav-link" href="{{ route('admin.brands.index') }}">
@@ -90,3 +114,19 @@
 <div class="d-md-none">
     <!-- You can implement a Bootstrap offcanvas here for mobile if needed -->
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fallback for CoreUI nav-group toggling
+        var toggles = document.querySelectorAll('.nav-group-toggle');
+        toggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                var group = this.closest('.nav-group');
+                if (group) {
+                    group.classList.toggle('show');
+                }
+            });
+        });
+    });
+</script>

@@ -39,8 +39,13 @@
                                
                                <div class="row g-3 mb-3">
                                   <div class="col-md-7 col-xs-12">
-                                    <label for="name" class="form-label">Item</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ old  ('name') }}" required>
+                                    <label for="name" class="form-label">Item / Product Name</label>
+                                    <select class="form-select select2-tags" id="name" name="name" required>
+                                        <option value="">-- Type to search or create --</option>
+                                        @if(old('name'))
+                                            <option value="{{ old('name') }}" selected>{{ old('name') }}</option>
+                                        @endif
+                                    </select>
                                   </div>
   
                                   <div class="col-md-5 col-xs-12">
@@ -310,6 +315,72 @@
             // ...existing code...
             updateBreadcrumb();
         });
+
+        // Initialize Select2 for Product Name with tagging (client-side search)
+        $('.select2-tags').select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            tags: true,
+                ajax: {
+                url: '{{ route("admin.master-products.search") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name + (item.synonyms ? ' (' + item.synonyms + ')' : ''),
+                                id: item.name, // Use name as ID because controller expects name string
+                                synonyms: item.synonyms
+                            }
+                        })
+                    };
+                },
+                cache: true
+            },
+            templateResult: function(data) {
+                if (data.loading) return data.text;
+                
+                // If it's a new tag user is typing
+                if (data.newTag) {
+                    return $('<div><strong>Create New:</strong> ' + data.text + '</div>');
+                }
+                
+                // Standard result
+                var name = data.id || data.text; 
+                if(data.text && data.text.indexOf('(') !== -1){
+                     // Use the pre-formatted text from processResults
+                     return $('<div>' + data.text + '</div>');
+                }
+
+                return $('<div>' + name + '</div>');
+            },
+            templateSelection: function(data) {
+                 // When selected, just show the NAME part (remove synonyms logic if present in text)
+                 var text = data.text || data.id;
+                 var match = text.match(/^(.+?)\s*\(/);
+                 if (match) {
+                     return match[1];
+                 }
+                 return text;
+            },
+            createTag: function (params) {
+                var term = $.trim(params.term);
+                if (term === '') {
+                    return null;
+                }
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                };
+            }
+        });
     });
 
     // Image preview for product images with delete icon
@@ -510,13 +581,6 @@
         }
     });
 </script>
-
-@push('styles')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@endpush
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@endpush
 
 
 

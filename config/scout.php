@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'collection'),
+    'driver' => env('SCOUT_DRIVER', 'meilisearch'),
 
     /*
     |--------------------------------------------------------------------------
@@ -143,6 +143,12 @@ return [
             // 'users' => [
             //     'filterableAttributes'=> ['id', 'name', 'email'],
             // ],
+
+             \App\Models\Product::class => [
+               'filterableAttributes' => ['categories','variations','vendor','brand','price'],
+               'sortableAttributes' => ['price','variations'],
+           ],
+
         ],
     ],
 

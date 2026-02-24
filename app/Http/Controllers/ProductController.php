@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\MasterProduct;
 
 class ProductController extends Controller
 {
@@ -67,6 +68,8 @@ class ProductController extends Controller
 
       
         $categories = Category::with('children')->whereNull('parent_id')->get();
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+        // $masterProducts = MasterProduct::all(); // Usage of AJAX for scalability
 
         return view('admin.products.create', compact('vendors', 'categories','brands'));
     }
@@ -91,9 +94,15 @@ class ProductController extends Controller
         try{
 
         DB::beginTransaction(); 
-            $product = Product::create($request->only([
+            // Handle MasterProduct logic
+            $masterProduct = MasterProduct::firstOrCreate(['name' => $request->name]);
+            
+            $productData = $request->only([
                 'vendor_id', 'category_id','brand_id', 'name', 'description', 'price', 'stock', 'status'
-            ]));
+            ]);
+            $productData['master_product_id'] = $masterProduct->id;
+
+            $product = Product::create($productData);
 
             // Handle product images
             if ($request->hasFile('images')) {
@@ -176,7 +185,7 @@ class ProductController extends Controller
 
         
 
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
+        return url()->back()->with('success', 'Product created successfully.');
     }
 
     // Display the specified product
@@ -192,8 +201,12 @@ class ProductController extends Controller
     $vendors = Vendor::all();
     $categories = Category::with('children')->whereNull('parent_id')->get();
     $brands = Brand::all();
-    $product->load('images');
-    return view('admin.products.edit', compact('product', 'vendors', 'categories', 'brands'));
+   
+    // $masterProducts = MasterProduct::all(); // Performance Fix: Do NOT load all. Use AJAX.
+    $product->load(['images', 'variations.attributeValues', 'variations.variationImages']);
+    $variationAttributes = \App\Models\VariationAttribute::with('values')->get();
+    
+    return view('admin.products.edit', compact('product', 'vendors', 'categories', 'brands', 'variationAttributes'));
     }
 
     // Update the specified product in storage
@@ -215,9 +228,15 @@ class ProductController extends Controller
         //dd($request->all());
 
         DB::transaction(function () use ($request, $product) {
-            $product->update($request->only([
+            // Handle MasterProduct logic
+            $masterProduct = MasterProduct::firstOrCreate(['name' => $request->name]);
+            
+            $updateData = $request->only([
                 'vendor_id', 'category_id', 'brand_id','name', 'description', 'price', 'stock', 'status'
-            ]));
+            ]);
+            $updateData['master_product_id'] = $masterProduct->id;
+
+            $product->update($updateData);
 
             // Handle product images: delete removed images
             $keepImageIds = $request->input('existing_images', []);
@@ -345,5 +364,17 @@ class ProductController extends Controller
     {
         $image->delete();
         return back()->with('success', 'Product image deleted successfully.');
+    }
+
+    // Search master products for autocomplete
+    public function masterProductSearch(Request $request)
+    {
+        $term = $request->input('q');
+        $masterProducts = MasterProduct::where('name', 'ilike', "%{$term}%")
+            ->orWhere('synonyms', 'ilike', "%{$term}%")
+            ->limit(20)
+            ->get(['id', 'name', 'synonyms']);
+
+        return response()->json($masterProducts);
     }
 }
