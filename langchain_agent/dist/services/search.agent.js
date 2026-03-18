@@ -2,79 +2,157 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.processUserQuery = void 0;
 const llm_1 = require("../config/llm");
-const sql_tool_1 = require("../tools/sql.tool");
 const vector_search_tool_1 = require("../tools/vector_search.tool");
 const messages_1 = require("@langchain/core/messages");
-const systemPrompt = `You are a shopping assistant.
-Find products using these tools:
-- hybrid_product_search: Use for name, category, OR price searches. 
-- execute_sql: MANDATORY for complex variation-specific sizes (e.g. "size XL").
+const session_service_1 = require("./session.service");
+const search_context_util_1 = require("../utils/search_context.util");
+const embeddings_service_1 = require("./embeddings.service");
+const systemPrompt = `You are an expert shopping assistant. 
+YOUR ONLY JOB is to call the 'hybrid_product_search' tool with the correct parameters extracted from the user's query.
 
-Rules:
-1. ALWAYS respond in valid JSON.
-2. Return: [{"id": "...", "name": "...", "price": "..."}]
-3. If not found: {"status": "no_results", "message": "..."}
-4. NO conversational text.`;
+DATABASE MAPPING RULES:
+1. 'categories': Use for departments, demographics, or high-level classifications. 
+   Examples: "men", "women", "kids", "beauty", "electronics", "home & garden", "sports".
+   Rule: Identify ANY high-level classification (gender, department, etc.) and include it in 'categories'.
+2. 'entity': Use for the specific product type.
+   Examples: "tshirt", "mascara", "smartwatch", "drill", "football".
+3. 'attributes': Use for technical specs, color, size, brand, or material.
+   Examples: "blue", "XL", "waterproof", "nike", "leather".
+
+EXAMPLES:
+- User: "gents tshirt" -> categories=["men", "gents"], entity="tshirt"
+- User: "beauty product" -> categories=["beauty"]
+- User: "luxury mascara" -> categories=["beauty"], entity="mascara", attributes=["luxury"]
+- User: "waterproof sports watch" -> categories=["sports"], entity="watch", attributes=["waterproof"]
+- User: "blue jeans for women" -> categories=["women"], entity="jeans", attributes=["blue"]
+
+CRITICAL: 
+- ALWAYS expand synonyms (gents -> men, ladies -> women).
+- If a high-level department (e.g., beauty, electronics) is mentioned or implied, include it in 'categories'.
+- ALWAYS call the tool. NEVER respond with text first.`;
 const toolsByName = {
-    execute_sql: sql_tool_1.sqlTool,
     hybrid_product_search: vector_search_tool_1.hybridSearchTool,
-    search_categories_semantically: vector_search_tool_1.categorySearchTool,
 };
-const processUserQuery = async (userQuery, _threadId = "default") => {
+const processUserQuery = async (userQuery, userId = "default") => {
     const totalStart = Date.now();
-    console.log(`[AGENT] Starting custom router for: "${userQuery}"`);
+    console.log(`[AGENT] Starting stateful router for: "${userQuery}" (User: ${userId})`);
     try {
-        // 1. Initial reasoning step (Single Model Call)
-        const modelWithTools = llm_1.model.bindTools([sql_tool_1.sqlTool, vector_search_tool_1.hybridSearchTool, vector_search_tool_1.categorySearchTool]);
+        const session = await session_service_1.sessionService.getSession(userId);
+        // --- Tier 1: Continuation/Pagination Bypass ---
+        const isRepeat = session.lastSearchPlan && userQuery.toLowerCase() === session.lastSearchPlan.originalQuery.toLowerCase();
+        if (((0, search_context_util_1.isContinuationQuery)(userQuery) || isRepeat) && session.lastSearchPlan) {
+            console.log(`[ROUTER] Bypass triggered (Continuation: ${(0, search_context_util_1.isContinuationQuery)(userQuery)}, Repeat: ${isRepeat}).`);
+            const plan = session.lastSearchPlan;
+            // Return a larger set (50) so Laravel's secondary pagination has data to work with
+            const results = await (0, vector_search_tool_1.executeHybridSearch)({
+                ...plan.parsedIntent,
+                embedding: plan.embedding,
+                limit: 50,
+                offset: 0
+            });
+            if (results.length > 0) {
+                console.log(`[PERF] Bypass search took: ${Date.now() - totalStart}ms`);
+                return results;
+            }
+            else {
+                console.log(`[ROUTER] No results found in bypass.`);
+                return { status: "no_results", message: "No products found." };
+            }
+        }
+        // --- Tier 2: New Search (Standard Path) ---
+        const modelWithTools = llm_1.model.bindTools([vector_search_tool_1.hybridSearchTool]);
         const reasoningStart = Date.now();
-        // Race the model call against a timeout
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => reject(new Error("Timeout")), 30000);
         });
         const modelPromise = modelWithTools.invoke([
-            { role: "system", content: systemPrompt },
+            { role: "system", content: systemPrompt + "\nCRITICAL: You must call a tool. Do NOT answer from memory." },
             new messages_1.HumanMessage(userQuery)
         ]);
         const response = await Promise.race([modelPromise, timeoutPromise]);
         console.log(`[PERF] Initial reasoning took: ${Date.now() - reasoningStart}ms`);
-        console.log("[AGENT] Raw Response from Google:", JSON.stringify(response, null, 2));
-        // 2. Extract tool calls
+        console.log(`[AGENT] Model Response Tool Calls:`, response.tool_calls);
         const toolCalls = response.tool_calls || [];
         if (toolCalls.length === 0) {
-            console.log("[AGENT] No tools called, parsing direct response");
-            return parseResponse(response.content, userQuery);
+            console.log("[AGENT] No tools called. Falling back to simple query.");
+            return fallbackSearch(userQuery, userId);
         }
-        // 3. Execute first tool call (usually enough for search)
         const toolCall = toolCalls[0];
-        const tool = toolsByName[toolCall.name];
-        if (!tool) {
-            console.warn(`[AGENT] Tool ${toolCall.name} not found, falling back`);
-            return fallbackSearch(userQuery);
+        if (toolCall.name === "hybrid_product_search") {
+            const args = { ...toolCall.args, limit: 50, offset: 0 };
+            console.log(`[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.`);
+            // We call the tool's invoke method. This will trigger the tool's internal func, 
+            // which contains the console.log at line 183 of vector_search.tool.ts.
+            const toolResult = await vector_search_tool_1.hybridSearchTool.invoke(args);
+            const results = JSON.parse(toolResult);
+            if (results.status === "error") {
+                console.error("[AGENT] Tool execution error:", results.message);
+                return fallbackSearch(userQuery, userId);
+            }
+            // If it returned { status: "no_results", ... }, we handle it
+            if (results.status === "no_results") {
+                console.log(`[AGENT] Tool returned no results.`);
+                return [];
+            }
+            // We still need the embedding for stateful pagination/bypass later.
+            // The tool generated it, but it's not returning it in the results.
+            // For now, we'll re-generate it to store the plan, or optimize later.
+            const embedding = await embeddings_service_1.embeddingsService.generateEmbedding(args.query || userQuery);
+            const newPlan = {
+                originalQuery: userQuery,
+                parsedIntent: toolCall.args,
+                embedding,
+                pagination: { offset: 0, limit: 5 },
+                timestamp: Date.now()
+            };
+            await session_service_1.sessionService.updateSession(userId, { lastSearchPlan: newPlan });
+            console.log(`[PERF] Total processUserQuery took: ${Date.now() - totalStart} ms`);
+            return results;
         }
-        console.log(`[AGENT] Executing tool: ${toolCall.name} `);
+        // Handle other tools (like category search) if needed
+        const tool = toolsByName[toolCall.name];
+        if (!tool)
+            return fallbackSearch(userQuery, userId);
         const toolResult = await tool.invoke(toolCall.args);
-        console.log(`[PERF] Total processUserQuery took: ${Date.now() - totalStart} ms`);
         return JSON.parse(toolResult);
     }
     catch (error) {
         console.error("[AGENT] Router Error:", error.message);
-        return fallbackSearch(userQuery);
+        return fallbackSearch(userQuery, userId);
     }
 };
 exports.processUserQuery = processUserQuery;
-async function fallbackSearch(query) {
+async function fallbackSearch(query, userId) {
     console.log("[AGENT] Triggering fallback search");
-    const result = await vector_search_tool_1.hybridSearchTool.invoke({ query, limit: 10 });
-    return JSON.parse(result);
+    const embedding = await embeddings_service_1.embeddingsService.generateEmbedding(query);
+    // Safety net: Extract demographics even in fallback
+    const categories = extractDemographics(query);
+    const results = await (0, vector_search_tool_1.executeHybridSearch)({
+        query,
+        embedding,
+        limit: 50,
+        offset: 0,
+        categories: categories.length > 0 ? categories : undefined
+    });
+    const newPlan = {
+        originalQuery: query,
+        parsedIntent: { query, categories },
+        embedding,
+        pagination: { offset: 0, limit: 10 },
+        timestamp: Date.now()
+    };
+    await session_service_1.sessionService.updateSession(userId, { lastSearchPlan: newPlan });
+    return results;
 }
-function parseResponse(content, userQuery) {
-    const jsonMatch = content.match(/(\[[\s\S]*\]|\{[\s\S]*\})/);
-    const jsonStr = jsonMatch ? jsonMatch[0] : content;
-    try {
-        return JSON.parse(jsonStr);
+function extractDemographics(query) {
+    const categories = [];
+    const q = query.toLowerCase();
+    // Use word boundaries or specific patterns to avoid "men" matching "women"
+    if (/\b(men|gents|male|boys|man)\b/i.test(q)) {
+        categories.push("men");
     }
-    catch (e) {
-        console.warn("[AGENT] JSON Parse failed, falling back");
-        return fallbackSearch(userQuery);
+    if (/\b(women|ladies|female|girls|woman)\b/i.test(q)) {
+        categories.push("women");
     }
+    return categories;
 }

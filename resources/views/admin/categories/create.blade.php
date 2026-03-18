@@ -5,72 +5,87 @@
         </h2>
     </x-slot>
 <div class="container-fluid py-4">
-    <div class="col-md-12">
-    <div class="card ">
-        <div class="card-header">
-            <h5 class="mb-0">Create Category</h5>
-        </div>
-        <form method="POST" action="{{ route('admin.categories.store') }}">
-            @csrf
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Category Name</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="glass-card mb-4">
+                <div class="card-header bg-transparent border-0 p-4 pb-0">
+                    <h4 class="mb-0 fw-bold" style="color: var(--midnight)">Create Category</h4>
                 </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="description" id="description" class="form-control" rows="3">{{ old('description') }}</textarea>
-                </div>
-                <div class="mb-3">
-                    <div class="row g-3">
-                        <div class="col-md-6 col-xs-12">
-                            <label for="parent_id" class="form-label">Parent Category</label>
-                            <div id="category_jstree" style="max-height:200px;overflow:auto; border:1px solid #cfd4de; border-radius:6px; padding:5px;"></div>
-                            <input type="hidden" name="parent_id" id="parent_id" value="{{ old('parent_id') }}">
-                        </div>
-                    </div>
-@php
-    $categoryData = [
-        [
-            'id' => 'none',
-            'parent' => '#',
-            'text' => 'None',
-            'icon' => '<svg class="cil-ban text-secondary" width="1em" height="1em"><use xlink:href="/icons/coreui.svg#cil-ban"/></svg>',
-            'state' => [
-                'opened' => true,
-                'selected' => old('parent_id') ? false : true,
-            ],
-        ]
-    ];
-    $categoryIds = $categories->pluck('id')->toArray();
-    $parentIds = $categories->pluck('parent_id')->filter()->unique()->toArray();
-    foreach ($categories as $cat) {
-        $parent = $cat->parent_id ? (string)$cat->parent_id : '#';
-        $id = (string)$cat->id === '#' ? 'cat_' . $cat->id : (string)$cat->id;
-        $isParent = in_array($cat->id, $parentIds);
-        $icon = $isParent
-            ? '<svg class="cil-folder text-warning" width="1em" height="1em"><use xlink:href="/icons/coreui.svg#cil-folder"/></svg>'
-            : '<svg class="cil-tag text-info" width="1em" height="1em"><use xlink:href="/icons/coreui.svg#cil-tag"/></svg>';
-        $categoryData[] = [
-            'id' => $id,
-            'parent' => $parent,
-            'text' => $cat->name,
-            'icon' => $icon,
-            'state' => [
-                'selected' => old('parent_id') == $cat->id,
-            ],
-        ];
-    }
-@endphp
+                <form method="POST" action="{{ route('admin.categories.store') }}">
+                    @csrf
+                    <div class="card-body p-4">
+                        @if ($errors->any())
+                            <div class="alert alert-danger rounded-3 border-0 shadow-sm mb-4">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-                </div>
+                        <div class="mb-4">
+                            <label for="name" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Category Name</label>
+                            <input type="text" name="name" id="name" class="form-control form-control-lg border-0 bg-light rounded-3" value="{{ old('name') }}" required placeholder="e.g. Men's Fashion">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Description</label>
+                            <textarea name="description" id="description" class="form-control border-0 bg-light rounded-3" rows="3" placeholder="Describe this category...">{{ old('description') }}</textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="parent_id" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Parent Category</label>
+                            <div class="glass-panel p-3 rounded-3" style="background: rgba(var(--midnight-rgb), 0.02)">
+                                <div id="category_jstree" style="max-height:250px; overflow:auto;"></div>
+                            </div>
+                            <input type="hidden" name="parent_id" id="parent_id" value="{{ old('parent_id') }}">
+                            <div class="form-text small mt-2">Select "None" if this is a top-level category.</div>
+                        </div>
+
+                        @php
+                            $categoryData = [
+                                [
+                                    'id' => 'none',
+                                    'parent' => '#',
+                                    'text' => 'None (Root Category)',
+                                    'icon' => '<svg class="cil-ban text-secondary" width="1em" height="1em"><use xlink:href="/icons/coreui.svg#cil-ban"/></svg>',
+                                    'state' => [
+                                        'opened' => true,
+                                        'selected' => old('parent_id') ? false : true,
+                                    ],
+                                ]
+                            ];
+                            $categoryIds = $categories->pluck('id')->toArray();
+                            $parentIds = $categories->pluck('parent_id')->filter()->unique()->toArray();
+                            foreach ($categories as $cat) {
+                                $parent = $cat->parent_id ? (string)$cat->parent_id : '#';
+                                $id = (string)$cat->id === '#' ? 'cat_' . $cat->id : (string)$cat->id;
+                                $isParent = in_array($cat->id, $parentIds);
+                                $icon = $isParent
+                                    ? '<svg class="cil-folder text-warning" width="1em" height="1em"><use xlink:href="/icons/coreui.svg#cil-folder"/></svg>'
+                                    : '<svg class="cil-tag text-info" width="1em" height="1em"><use xlink:href="/icons/coreui.svg#cil-tag"/></svg>';
+                                $categoryData[] = [
+                                    'id' => $id,
+                                    'parent' => $parent,
+                                    'text' => $cat->name,
+                                    'icon' => $icon,
+                                    'state' => [
+                                        'selected' => old('parent_id') == $cat->id,
+                                    ],
+                                ];
+                            }
+                        @endphp
+                    </div>
+                    <div class="card-footer bg-transparent border-0 p-4 pt-0 d-flex justify-content-end gap-3">
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary px-4 py-2 rounded-3 fw-bold">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-5 py-2 rounded-3 fw-bold shadow-sm">
+                            <i class="cil-check"></i> Create Category
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="card-footer text-end">
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-outline active"><i class="cil-check"></i> Create</button>
-            </div>
-        </form>
-    </div>
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,7 @@
+Query: white tshirt
+
+Semantic Distances (Lower is better):
+ID: 2 | Name: T-Shirt | Distance: 0.09757807197047996
+ID: 50 | Name: T-Shirt | Distance: 0.10910261977941593
+ID: 12 | Name: Shirt | Distance: 0.13958437014398928
+ID: 8 | Name: Sneaker | Distance: 0.15939366817471978

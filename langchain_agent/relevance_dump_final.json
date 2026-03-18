@@ -1,0 +1,222 @@
+[
+  {
+    "id": "4",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Adidas sneaker | Brand: Adidas | Attributes: Black",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8814113402787255,
+    "s_rank": "1",
+    "rrf_score": "0.02439024390243902439"
+  },
+  {
+    "id": "3",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Original Jordan 11 sneakers | Brand: Air Jordan | Attributes: Black, M",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8698403316831407,
+    "s_rank": "2",
+    "rrf_score": "0.02380952380952380952"
+  },
+  {
+    "id": "5",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Adidas Campus sneaker | Brand: Adidas | Attributes: Black, M, Green",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8698030114173889,
+    "s_rank": "3",
+    "rrf_score": "0.02325581395348837209"
+  },
+  {
+    "id": "9",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Brand new  Jordan 31 sneakers | Brand: Air Jordan | Attributes: Black, Red",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8681631448560755,
+    "s_rank": "4",
+    "rrf_score": "0.02272727272727272727"
+  },
+  {
+    "id": "7",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Original Adidas ZX750 | Brand: Adidas | Attributes: Blue",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8674670615831602,
+    "s_rank": "5",
+    "rrf_score": "0.02222222222222222222"
+  },
+  {
+    "id": "10",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Origian brand new Jordan 1 sneakers | Brand: Air Jordan | Attributes: Red, Grey",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8667219360636527,
+    "s_rank": "6",
+    "rrf_score": "0.02173913043478260870"
+  },
+  {
+    "id": "8",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Brand new jordan 3 sneakers | Brand: Air Jordan | Attributes: White",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8638295693600753,
+    "s_rank": "7",
+    "rrf_score": "0.02127659574468085106"
+  },
+  {
+    "id": "6",
+    "name": "Sneaker",
+    "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Adidas Prophere | Brand: Adidas | Attributes: Grey",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8614183664321899,
+    "s_rank": "8",
+    "rrf_score": "0.02083333333333333333"
+  },
+  {
+    "id": "1",
+    "name": "T-Shirt",
+    "search_context": "Name: T-Shirt | CategoryPath: Casual clothing > Men > Clothing | Description: Round neck printed tshirt | Brand: Nike | Attributes: Blue, Printed",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8277335372288838,
+    "s_rank": "9",
+    "rrf_score": "0.02040816326530612245"
+  },
+  {
+    "id": "2",
+    "name": "T-Shirt",
+    "search_context": "Name: T-Shirt | CategoryPath: Casual clothing > Men > Clothing | Description: Round neck Plain Tshirts | Brand: Nike | Attributes: White, Plain",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8262713344420652,
+    "s_rank": "10",
+    "rrf_score": "0.02000000000000000000"
+  },
+  {
+    "id": "32",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Slim fit long sleeve shirt | Brand: Generic | Attributes: Blue, Long Sleeve, Slim",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8259118095583817,
+    "s_rank": "11",
+    "rrf_score": "0.01960784313725490196"
+  },
+  {
+    "id": "14",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Casual clothing > Men > Clothing | Description: Mens Casual Shirt | Brand: Generic | Attributes: Blue, Checked, Long Sleeve",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8243603811049249,
+    "s_rank": "12",
+    "rrf_score": "0.01923076923076923077"
+  },
+  {
+    "id": "68",
+    "name": "T-Shirt",
+    "search_context": "Name: T-Shirt | CategoryPath: Tops > Women > Clothing | Brand: Generic | Attributes: Floral, White",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8230812760494677,
+    "s_rank": "13",
+    "rrf_score": "0.01886792452830188679"
+  },
+  {
+    "id": "35",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: long sleeved mens shirt | Brand: Generic | Attributes: Blue, Long Sleeve",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.822982907295227,
+    "s_rank": "14",
+    "rrf_score": "0.01851851851851851852"
+  },
+  {
+    "id": "25",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Long sleeve Polo shirt | Brand: Generic | Attributes: Blue, Long Sleeve, Regular",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8219280242919922,
+    "s_rank": "15",
+    "rrf_score": "0.01818181818181818182"
+  },
+  {
+    "id": "31",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Striped shirt | Brand: Generic | Attributes: Blue, Long Sleeve, Striped",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8213108809755656,
+    "s_rank": "16",
+    "rrf_score": "0.01785714285714285714"
+  },
+  {
+    "id": "19",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Checkered long sleeved shirt | Brand: Generic | Attributes: Blue, Checked, Long Sleeve, Regular",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8209363924898881,
+    "s_rank": "17",
+    "rrf_score": "0.01754385964912280702"
+  },
+  {
+    "id": "11",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Formal Clothing > Men > Clothing | Description: Short sleeve oxford shirt | Brand: Generic | Attributes: Blue, Denim, Short Sleeve",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8202932125417359,
+    "s_rank": "18",
+    "rrf_score": "0.01724137931034482759"
+  },
+  {
+    "id": "57",
+    "name": "Blouse",
+    "search_context": "Name: Blouse | CategoryPath: Tops > Women > Clothing | Description: Blouse | Brand: Generic | Attributes: Blue, Long Sleeve",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.820113252394603,
+    "s_rank": "19",
+    "rrf_score": "0.01694915254237288136"
+  },
+  {
+    "id": "48",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Striped man shirt | Brand: Generic | Attributes: Black, Long Sleeve, White",
+    "name_sim": null,
+    "context_sim": null,
+    "k_rank": null,
+    "sem_sim": 0.8185605054664766,
+    "s_rank": "20",
+    "rrf_score": "0.01666666666666666667"
+  }
+]

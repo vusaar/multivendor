@@ -1,0 +1,140 @@
+[dotenv@17.2.3] injecting env (11) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+
+==============================================
+QUERY: "ladies shirt for summer"
+==============================================
+[AGENT] Starting stateful router for: "ladies shirt for summer" (User: test-user-1)
+[PERF] Initial reasoning took: 1814ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '7e5a3ae4-f802-40bb-ae58-852633f33494',
+    name: 'hybrid_product_search',
+    args: {
+      categories: [Array],
+      query: 'ladies shirt for summer',
+      entity: 'shirt',
+      attributes: [Array]
+    }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: ladies shirt for summer, Entity: shirt, Cats: women, Attrs: summer
+[DB] executeHybridSearch Params: {"query":"ladies shirt for summer","limit":50,"offset":0,"entity":"shirt","categories":["women"],"attributes":["summer"]}
+[DB] Ran Query with 9 params.
+[PERF] Total processUserQuery took: 3503 ms
+Found 45 results. Top 5:
+  1. [ID: 17] tshirt
+Error testing query: TypeError: r.rrf_score?.toFixed is not a function
+    at C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:30:61
+    at Array.forEach (<anonymous>)
+    at runTests (C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:27:37)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+==============================================
+QUERY: "gents casual wear"
+==============================================
+[AGENT] Starting stateful router for: "gents casual wear" (User: test-user-1)
+[PERF] Initial reasoning took: 1170ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: 'e04c8482-e927-4504-b5e3-bc3305c19392',
+    name: 'hybrid_product_search',
+    args: { entity: 'casual wear', categories: [Array] }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Router Error: Received tool input did not match expected schema
+
+✖ Invalid input: expected string, received undefined
+  → at query
+[AGENT] Triggering fallback search
+[DB] executeHybridSearch Params: {"query":"gents casual wear","limit":50,"offset":0,"categories":["men"]}
+[DB] Ran Query with 7 params.
+Found 46 results. Top 5:
+  1. [ID: 38] Shirt
+Error testing query: TypeError: r.rrf_score?.toFixed is not a function
+    at C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:30:61
+    at Array.forEach (<anonymous>)
+    at runTests (C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:27:37)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+==============================================
+QUERY: "gucci apparel"
+==============================================
+[AGENT] Starting stateful router for: "gucci apparel" (User: test-user-1)
+[PERF] Initial reasoning took: 1023ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: 'e44896cd-3fbe-4ced-99b0-775a17fd4001',
+    name: 'hybrid_product_search',
+    args: {
+      categories: [Array],
+      attributes: [Array],
+      query: 'gucci apparel'
+    }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: gucci apparel, Entity: undefined, Cats: apparel, Attrs: gucci
+[DB] executeHybridSearch Params: {"query":"gucci apparel","limit":50,"offset":0,"categories":["apparel"],"attributes":["gucci"]}
+[DB] Ran Query with 8 params.
+[PERF] Total processUserQuery took: 2679 ms
+Found 46 results. Top 5:
+  1. [ID: 10] Gucci Bloom Eau de
+Error testing query: TypeError: r.rrf_score?.toFixed is not a function
+    at C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:30:61
+    at Array.forEach (<anonymous>)
+    at runTests (C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:27:37)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+==============================================
+QUERY: "floral top"
+==============================================
+[AGENT] Starting stateful router for: "floral top" (User: test-user-1)
+[PERF] Initial reasoning took: 1141ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '31e3ccdf-6437-4698-9d41-a65554a11298',
+    name: 'hybrid_product_search',
+    args: { query: 'floral top', attributes: [Array], entity: 'top' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: floral top, Entity: top, Cats: undefined, Attrs: floral
+[DB] executeHybridSearch Params: {"query":"floral top","limit":50,"offset":0,"entity":"top","attributes":["floral"]}
+[DB] Ran Query with 7 params.
+[PERF] Total processUserQuery took: 2614 ms
+Found 47 results. Top 5:
+  1. [ID: 21] Blouse
+Error testing query: TypeError: r.rrf_score?.toFixed is not a function
+    at C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:30:61
+    at Array.forEach (<anonymous>)
+    at runTests (C:\xampp4\htdocs\multistore\langchain_agent\test_suite.ts:27:37)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+==============================================
+QUERY: "smartwatch"
+==============================================
+[AGENT] Starting stateful router for: "smartwatch" (User: test-user-1)
+[PERF] Initial reasoning took: 831ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: 'e2fb4ad1-f513-4791-b573-8f0df49013b7',
+    name: 'hybrid_product_search',
+    args: { query: 'smartwatch', entity: 'smartwatch' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: smartwatch, Entity: smartwatch, Cats: undefined, Attrs: undefined
+[DB] executeHybridSearch Params: {"query":"smartwatch","limit":50,"offset":0,"entity":"smartwatch"}
+[DB] Ran Query with 6 params.
+[AGENT] Tool returned no results.
+No results array returned.

@@ -1,27 +1,157 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.categorySearchTool = exports.hybridSearchTool = void 0;
+exports.executeHybridSearch = executeHybridSearch;
 const tools_1 = require("@langchain/core/tools");
 const zod_1 = require("zod");
 const database_1 = require("../config/database");
 const embeddings_service_1 = require("../services/embeddings.service");
+/**
+ * Core search logic that executes the SQL query.
+ * Can be called by the tool or directly by the agent for stateful bypass.
+ */
+async function executeHybridSearch(params) {
+    const { query, embedding, limit, offset = 0, min_price, max_price, entity, categories, attributes } = params;
+    console.log(`[DB] executeHybridSearch Params:`, JSON.stringify({ query, limit, offset, entity, categories, attributes }));
+    const k = 40;
+    let priceFilter = "";
+    const sqlParams = [query, embedding, k, limit, offset];
+    if (min_price !== undefined) {
+        sqlParams.push(min_price);
+        priceFilter += ` AND price >= $${sqlParams.length}`;
+    }
+    if (max_price !== undefined) {
+        sqlParams.push(max_price);
+        priceFilter += ` AND price <= $${sqlParams.length}`;
+    }
+    // Weights configuration
+    const weightRoot = 15.0; // Level 0 (Demographic)
+    const weightSub = 5.0; // Level 1+
+    const weightEntity = 7.0;
+    const weightAttr = 3.0;
+    // Build custom SQL function for hyphen-agnostic comparison
+    // We'll use regexp_replace(LOWER(str), '[^a-z0-9]', '', 'g')
+    const cleanSql = (col) => `regexp_replace(LOWER(${col}), '[^a-z0-9]', '', 'g')`;
+    let weightedScoreSql = `(similarity(products.name, $1) * 3 + similarity(products.search_context, $1))`;
+    if (entity) {
+        sqlParams.push(entity.toLowerCase().replace(/[^a-z0-9]/g, ''));
+        const pIdx = sqlParams.length;
+        weightedScoreSql += ` + (CASE WHEN ${cleanSql('products.name')} ILIKE '%' || $${pIdx} || '%' THEN ${weightEntity} ELSE 0 END)`;
+    }
+    let categoriesTextArrayIdx = -1;
+    if (categories && categories.length > 0) {
+        const cleanedCats = categories.map(c => c.toLowerCase());
+        sqlParams.push(cleanedCats);
+        categoriesTextArrayIdx = sqlParams.length;
+        // Apply weights for individual categories in keyword score
+        cleanedCats.forEach(cat => {
+            sqlParams.push(cat);
+            const pIdx = sqlParams.length;
+            weightedScoreSql += ` + (CASE 
+                WHEN LOWER(products.search_context) ILIKE '%categorypath: ' || $${pIdx} || ' %' THEN ${weightRoot}
+                WHEN LOWER(products.search_context) ILIKE '% > ' || $${pIdx} || ' %' THEN ${weightSub}
+                WHEN LOWER(products.search_context) ILIKE '% | ' || $${pIdx} || ' %' THEN ${weightSub}
+                ELSE 0 END)`;
+        });
+    }
+    if (attributes && attributes.length > 0) {
+        attributes.forEach(attr => {
+            sqlParams.push(attr);
+            const pIdx = sqlParams.length;
+            weightedScoreSql += ` + (CASE WHEN products.search_context ILIKE '%' || $${pIdx} || '%' THEN ${weightAttr} ELSE 0 END)`;
+        });
+    }
+    // Build the WHERE clause
+    let whereClause = `status = 'active' AND (similarity(name, $1) > 0.2 OR (name ILIKE '%' || $1 || '%') OR (search_context ILIKE '%' || $1 || '%'))`;
+    if (entity) {
+        const entityVal = entity.toLowerCase().replace(/[^a-z0-9]/g, '');
+        // We look for existing param or add a new one if needed, but we already added it.
+        const entityIdx = sqlParams.indexOf(entityVal) + 1;
+        whereClause += ` OR (${cleanSql('name')} ILIKE '%' || $${entityIdx} || '%') OR (${cleanSql('search_context')} ILIKE '%' || $${entityIdx} || '%')`;
+    }
+    if (categories && categories.length > 0) {
+        categories.forEach(cat => {
+            const catIdx = sqlParams.indexOf(cat.toLowerCase()) + 1;
+            if (catIdx > 0) {
+                // We use a more specific ILIKE here as well
+                whereClause += ` OR (LOWER(products.search_context) ILIKE '%categorypath: ' || $${catIdx} || ' %')`;
+                whereClause += ` OR (LOWER(products.search_context) ILIKE '% > ' || $${catIdx} || ' %')`;
+                whereClause += ` OR (LOWER(products.search_context) ILIKE '% | ' || $${catIdx} || ' %')`;
+                whereClause += ` OR (LOWER(products.search_context) ILIKE '%categorypath: ' || $${catIdx} || '|')`;
+            }
+        });
+    }
+    const boostSql = categoriesTextArrayIdx > 0
+        ? `(CASE 
+                WHEN EXISTS (
+                    SELECT 1 FROM UNNEST($${categoriesTextArrayIdx}::text[]) c
+                    WHERE LOWER(p.search_context) ILIKE '%categorypath: ' || c || ' %'
+                       OR LOWER(p.search_context) ILIKE '% > ' || c || ' %'
+                       OR LOWER(p.search_context) ILIKE '% | ' || c || ' %'
+                       OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '|%'
+                       OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '>'
+                ) THEN 1.0 
+                ELSE 0.0 
+            END)`
+        : `0.0`;
+    const sql = `
+        WITH keyword_results AS (
+            SELECT id, name, 
+                   ROW_NUMBER() OVER (ORDER BY (
+                        ${weightedScoreSql} +
+                        (CASE WHEN name ILIKE '%' || $1 || '%' THEN 2.0 ELSE 0 END) +
+                        (CASE WHEN search_context ILIKE '%' || $1 || '%' THEN 1.0 ELSE 0 END)
+                   ) DESC) as rank
+            FROM products
+            WHERE ${whereClause}
+            ${priceFilter}
+            LIMIT 100
+        ),
+        semantic_results AS (
+            SELECT id, name,
+                   ROW_NUMBER() OVER (ORDER BY embedding <=> $2::float8[]::vector) as rank
+            FROM products
+            WHERE status = 'active' AND embedding IS NOT NULL
+              AND (1 - (embedding <=> $2::float8[]::vector)) > 0.80
+            ${priceFilter}
+            LIMIT 100
+        )
+        SELECT 
+            p.id, p.name, p.price, p.description,
+            (COALESCE(1.0 / ($3 + kr.rank), 0.0) + COALESCE(1.0 / ($3 + sr.rank), 0.0)) +
+            -- GLOBAL BOOST (+1.0)
+            ${boostSql} as rrf_score
+        FROM products p
+        LEFT JOIN keyword_results kr ON p.id = kr.id
+        LEFT JOIN semantic_results sr ON p.id = sr.id
+        WHERE kr.id IS NOT NULL OR sr.id IS NOT NULL
+        ORDER BY rrf_score DESC
+        LIMIT $4 OFFSET $5;
+    `;
+    const res = await database_1.db.query(sql, sqlParams);
+    console.log(`[DB] Ran Query with ${sqlParams.length} params.`);
+    return res.rows;
+}
 /**
  * Hybrid search combining Trigram (Keyword) and Vector (Semantic) search.
  * Uses Reciprocal Rank Fusion (RRF) for ranking.
  */
 exports.hybridSearchTool = new tools_1.DynamicStructuredTool({
     name: "hybrid_product_search",
-    description: "Search for products using both keyword matches and semantic concepts. Best for vague or multi-attribute queries.",
+    description: "Search for products using both keyword matches and semantic concepts. Handles hierarchy and attributes.",
     schema: zod_1.z.object({
-        query: zod_1.z.string().describe("The user's search query (e.g., 'warm winter jacket' or 'blue electronics')"),
+        query: zod_1.z.string().describe("The user's search query (e.g., 'warm winter jacket')"),
+        entity: zod_1.z.string().optional().describe("The primary product type (e.g., 'tshirt', 'jeans', 'laptop')"),
+        categories: zod_1.z.array(zod_1.z.string()).optional().describe("Target demographics, departments, or high-level categories (e.g., ['men', 'beauty', 'electronics'])"),
+        attributes: zod_1.z.array(zod_1.z.string()).optional().describe("Specific attributes like color, size, brand, or material (e.g., ['blue', 'XL', 'nike', 'cotton'])"),
         limit: zod_1.z.number().optional().default(5).describe("Number of results to return"),
-        min_price: zod_1.z.number().optional().describe("Strict minimum price (e.g., if user says 'above 10', pass 10)"),
-        max_price: zod_1.z.number().optional().describe("Strict maximum price (e.g., if user says 'less than 50', pass 50)"),
+        min_price: zod_1.z.number().optional().describe("Minimum price"),
+        max_price: zod_1.z.number().optional().describe("Maximum price"),
     }),
-    func: async ({ query, limit, min_price, max_price }) => {
+    func: async ({ query, entity, categories, attributes, limit, min_price, max_price }) => {
         let finalMin = min_price;
         let finalMax = max_price;
-        // Auto-extract price from query if not provided as parameters
+        // Auto-extract price from query if not provided
         if (finalMax === undefined) {
             const underMatch = query.match(/(?:under|less than|below|max)\s*[$€£]?\s*(\d+(?:\.\d{2})?)/i);
             if (underMatch)
@@ -32,60 +162,23 @@ exports.hybridSearchTool = new tools_1.DynamicStructuredTool({
             if (aboveMatch)
                 finalMin = parseFloat(aboveMatch[1]);
         }
-        console.log(`[AGENT] Tool hybrid_product_search called with query: ${query}, min: ${finalMin}, max: ${finalMax}`);
-        const totalStart = Date.now();
+        console.log(`[AGENT] Tool hybrid_product_search called. Query: ${query}, Entity: ${entity}, Cats: ${categories}, Attrs: ${attributes}`);
         try {
-            const embStart = Date.now();
             const queryEmbedding = await embeddings_service_1.embeddingsService.generateEmbedding(query);
-            console.log(`[PERF] Embedding generation took: ${Date.now() - embStart}ms`);
-            const embeddingStr = `[${queryEmbedding.join(",")}]`;
-            // RRF Algorithm implementation in SQL
-            const k = 60;
-            let priceFilter = "";
-            const params = [query, embeddingStr, k, limit];
-            if (finalMin !== undefined) {
-                params.push(finalMin);
-                priceFilter += ` AND price >= $${params.length}`;
-            }
-            if (finalMax !== undefined) {
-                params.push(finalMax);
-                priceFilter += ` AND price <= $${params.length}`;
-            }
-            const sql = `
-                WITH keyword_results AS (
-                    SELECT id, name, 
-                           ROW_NUMBER() OVER (ORDER BY similarity(search_context, $1) DESC) as rank
-                    FROM products
-                    WHERE status = 'active' AND similarity(search_context, $1) > 0.05
-                    ${priceFilter}
-                    LIMIT 50
-                ),
-                semantic_results AS (
-                    SELECT id, name,
-                           ROW_NUMBER() OVER (ORDER BY embedding <=> $2::vector) as rank
-                    FROM products
-                    WHERE status = 'active' AND embedding IS NOT NULL
-                    ${priceFilter}
-                    LIMIT 50
-                )
-                SELECT 
-                    p.id, p.name, p.price, p.description,
-                    COALESCE(1.0 / ($3 + kr.rank), 0.0) + COALESCE(1.0 / ($3 + sr.rank), 0.0) as rrf_score
-                FROM products p
-                LEFT JOIN keyword_results kr ON p.id = kr.id
-                LEFT JOIN semantic_results sr ON p.id = sr.id
-                WHERE kr.id IS NOT NULL OR sr.id IS NOT NULL
-                ORDER BY rrf_score DESC
-                LIMIT $4;
-            `;
-            const dbStart = Date.now();
-            const res = await database_1.db.query(sql, params);
-            console.log(`[PERF] DB query took: ${Date.now() - dbStart}ms`);
-            console.log(`[PERF] Total hybrid_product_search tool took: ${Date.now() - totalStart}ms`);
-            if (res.rows.length === 0) {
+            const rows = await executeHybridSearch({
+                query,
+                embedding: queryEmbedding,
+                limit,
+                min_price: finalMin,
+                max_price: finalMax,
+                entity,
+                categories,
+                attributes
+            });
+            if (rows.length === 0) {
                 return JSON.stringify({ status: "no_results", message: `No products found for "${query}"` });
             }
-            return JSON.stringify(res.rows);
+            return JSON.stringify(rows);
         }
         catch (error) {
             console.error("Hybrid Search Error:", error);

@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { whatsappService } from '../services/whatsapp.service';
-import { processUserQuery } from '../services/search.agent';
-import { sessionService } from '../services/session.service';
+import { messageProcessorService } from '../services/message.processor.service';
 
 export const whatsappController = {
     /**
@@ -34,59 +32,28 @@ export const whatsappController = {
 
             // Check if it's a WhatsApp message notification
             if (body.object === 'whatsapp_business_account') {
-                if (
-                    body.entry &&
-                    body.entry[0].changes &&
-                    body.entry[0].changes[0].value.messages &&
-                    body.entry[0].changes[0].value.messages[0]
-                ) {
-                    const message = body.entry[0].changes[0].value.messages[0];
-                    const from = message.from; // User's phone number
-                    const msgBody = message.text ? message.text.body : null;
+                const entry = body.entry?.[0];
+                const change = entry?.changes?.[0];
+                const value = change?.value;
+                const message = value?.messages?.[0];
 
-                    if (msgBody) {
-                        console.log(`[WHATSAPP] Received message from ${from}: ${msgBody}`);
+                if (message) {
+                    const from = message.from;
+                    const msgBody = message.text?.body || null;
+                    const interactive = message.interactive || null;
 
-                        // Sync session
-                        await sessionService.getSession(from);
+                    // Acknowledge receipt immediately to Meta to prevent retries
+                    res.status(200).send('EVENT_RECEIVED');
 
-                        // Call Laravel Search API
-                        const laravelUrl = process.env.LARAVEL_API_URL || 'http://localhost/multistore/api/storefront/products/search';
+                    // Process asynchronously via service
+                    // Note: We don't await here to keep the webhook fast
+                    messageProcessorService.handleIncomingMessage(from, msgBody, interactive)
+                        .catch(err => console.error('[WHATSAPP] Async Error:', err));
 
-                        try {
-                            const response = await fetch(laravelUrl, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json',
-                                },
-                                body: JSON.stringify({ product: msgBody })
-                            });
-
-                            const searchData = await response.json();
-                            const products = searchData.data || [];
-
-                            if (products.length === 0) {
-                                await whatsappService.sendMessage(from, "Sorry, I couldn't find any products matching your search.");
-                            } else {
-                                // Loop through results and send each as a separate message
-                                for (const product of products) {
-                                    const imageUrl = product.images && product.images.length > 0 ? product.images[0] : null;
-                                    const caption = whatsappService.formatProductCaption(product);
-
-                                    if (imageUrl) {
-                                        await whatsappService.sendImageMessage(from, imageUrl, caption);
-                                    } else {
-                                        await whatsappService.sendMessage(from, caption);
-                                    }
-                                }
-                            }
-                        } catch (apiError: any) {
-                            console.error('[WHATSAPP] Laravel API Error:', apiError.message);
-                            await whatsappService.sendMessage(from, "Sorry, I encountered an error while searching for products.");
-                        }
-                    }
+                    return;
                 }
+
+                // If no message but valid structure, still acknowledge
                 return res.status(200).send('EVENT_RECEIVED');
             } else {
                 return res.status(404).send();

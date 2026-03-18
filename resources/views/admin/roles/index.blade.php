@@ -4,52 +4,75 @@
             {{ __('Roles Listing') }}
         </h2>
     </x-slot>
-<div class="container-fluid py-4">
-    <div class="card mb-4">
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Roles</h5>
-            <a href="{{ route('admin.roles.create') }}" class="btn action-btn btn-new mb-3"><i class="cil-plus"></i> New Role</a>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive" style="overflow-x:unset; padding: 1rem 1rem;">
-                <table class="table table-striped table-hover align-top border mb-3" style="font-size: 0.85rem; table-layout: fixed; word-break: break-word;">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Name</th>
-                            <th>Permissions</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($roles as $role)
+    <div class="container-fluid py-4">
+        <div class="glass-card mb-4">
+            <div class="card-header bg-transparent border-0 d-flex align-items-center justify-content-between p-4">
+                <h4 class="mb-0 fw-bold" style="color: var(--midnight)">Roles</h4>
+                <a href="{{ route('admin.roles.create') }}" class="btn btn-primary">
+                    <i class="cil-plus"></i> New Role
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
                             <tr>
-                                <td>{{ $role->name }}</td>
+                                <th class="ps-4">Role Name</th>
+                                <th>Permissions</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($roles as $role)
+                            <tr>
+                                <td class="ps-4"><span class="fw-bold text-dark">{{ $role->name }}</span></td>
                                 <td>
-                                    @foreach($role->permissions as $permission)
-                                        <span class="badge bg-secondary">{{ $permission->name }}</span>
-                                    @endforeach
+                                    <div class="d-flex flex-wrap gap-1">
+                                        @foreach($role->permissions as $permission)
+                                            <span class="badge bg-soft-primary text-primary">{{ $permission->name }}</span>
+                                        @endforeach
+                                    </div>
                                 </td>
-                                <td>
-                                    <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm action-btn edit-btn"><i class="cil-pencil"></i></a>
-                                    <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this role?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm action-btn delete-btn" style="margin:2px;"><i class="cil-trash"></i></button>
-                                    </form>
+                                <td class="text-end pe-4">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <a href="{{ route('admin.roles.edit', $role) }}" class="btn-action btn-action-edit" title="Edit">
+                                            <i class="cil-pencil"></i>
+                                        </a>
+                                        <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this role?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-action btn-action-delete" title="Delete">
+                                                <i class="cil-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
-                        @empty
+                            @empty
                             <tr>
-                                <td colspan="3" class="text-center">No roles found.</td>
+                                <td colspan="3" class="text-center py-5 text-muted">No roles found.</td>
                             </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 px-4 pb-4 text-end">
+                {{ $roles->links('pagination::bootstrap-5') }}
             </div>
         </div>
-        <div class="card-footer">
-            {{ $roles->links('pagination::bootstrap-5') }}
-        </div>
     </div>
-</div>
+
+    @push('styles')
+    <style>
+        .bg-soft-primary {
+            background-color: rgba(225, 29, 72, 0.1) !important;
+            color: var(--primary) !important;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.4em 0.8em;
+            border-radius: 6px;
+        }
+    </style>
+    @endpush
 </x-app-layout>

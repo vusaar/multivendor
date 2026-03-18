@@ -22,6 +22,7 @@
 
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ config('app.url').'/css/premium-design.css' }}">
        
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -50,7 +51,7 @@
         @stack('styles')
     </head>
     <body >
-        <div class="container-fluid min-vh-100 bg-light">
+        <div class="container-fluid min-vh-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

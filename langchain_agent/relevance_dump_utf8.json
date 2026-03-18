@@ -1,0 +1,60 @@
+﻿[dotenv@17.2.3] injecting env (11) from .env -- tip: ≡ƒæÑ sync secrets across teammates & machines: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  override existing env vars with { override: true }
+[
+  {
+    "id": "23",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Striped mens shirt | Brand: Generic | Attributes: Grey, Long Sleeve, Striped",
+    "name_sim": 0.31578946,
+    "context_sim": 0.15,
+    "k_rank": "2",
+    "sem_sim": 0.9099324616769694,
+    "s_rank": "2",
+    "rrf_score": "0.09090909090909090910"
+  },
+  {
+    "id": "28",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Long sleeve Polo Shirt | Brand: Generic | Attributes: Grey, Long Sleeve",
+    "name_sim": 0.31578946,
+    "context_sim": 0.15306123,
+    "k_rank": "1",
+    "sem_sim": 0.9067535344811417,
+    "s_rank": "4",
+    "rrf_score": "0.08928571428571428572"
+  },
+  {
+    "id": "39",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Boohooman short sleeve shirt | Brand: Generic | Attributes: Grey, Short Sleeve",
+    "name_sim": 0.31578946,
+    "context_sim": 0.14851485,
+    "k_rank": "4",
+    "sem_sim": 0.9070963970307895,
+    "s_rank": "3",
+    "rrf_score": "0.08514492753623188406"
+  },
+  {
+    "id": "36",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Ben Sheman long sleeve shirt | Brand: Generic | Attributes: Grey, Long Sleeve",
+    "name_sim": 0.31578946,
+    "context_sim": 0.15,
+    "k_rank": "3",
+    "sem_sim": 0.9042121171951294,
+    "s_rank": "6",
+    "rrf_score": "0.08193979933110367893"
+  },
+  {
+    "id": "43",
+    "name": "Shirt",
+    "search_context": "Name: Shirt | CategoryPath: Shirts > Men > Clothing | Description: Short sleeved baggy shirt | Brand: Generic | Attributes: Grey, Oversized, Short Sleeve",
+    "name_sim": 0.31578946,
+    "context_sim": 0.1388889,
+    "k_rank": "6",
+    "sem_sim": 0.9060737490653992,
+    "s_rank": "5",
+    "rrf_score": "0.07846153846153846154"
+  }
+]

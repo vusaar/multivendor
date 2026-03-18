@@ -7,12 +7,14 @@
 
 <div class="container-fluid py-4">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-header">Edit Vendor</div>
-                <div class="card-body text-secondary">
+        <div class="col-md-10">
+            <div class="glass-card mb-4">
+                <div class="card-header bg-transparent border-0 p-4 pb-0">
+                    <h4 class="mb-0 fw-bold" style="color: var(--midnight)">Edit Vendor</h4>
+                </div>
+                <div class="card-body p-4">
                     @if ($errors->any())
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger rounded-3 border-0 shadow-sm mb-4">
                             <ul class="mb-0">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -23,59 +25,69 @@
                     <form method="POST" action="{{ route('admin.vendors.update', $vendor) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="mb-3">
-                            <label for="shop_name" class="form-label">Shop Name</label>
-                            <input type="text" class="form-control" id="shop_name" name="shop_name" value="{{ old('shop_name', $vendor->shop_name) }}" required>
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-12">
+                                <label for="shop_name" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Shop Name</label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light rounded-3" id="shop_name" name="shop_name" value="{{ old('shop_name', $vendor->shop_name) }}" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="description" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Description</label>
+                                <textarea class="form-control border-0 bg-light rounded-3" id="description" name="description" rows="3">{{ old('description', $vendor->description) }}</textarea>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description">{{ old('description', $vendor->description) }}</textarea>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label for="logo" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Shop Logo</label>
+                                @if($vendor->logo)
+                                    <div class="mb-3 p-2 bg-white rounded-3 border d-inline-block">
+                                        <img src="{{ asset('storage/' . $vendor->logo) }}" alt="Logo" style="max-height: 80px; border-radius: 8px;">
+                                    </div>
+                                @endif
+                                <input type="file" class="form-control border-0 bg-light rounded-3" id="logo" name="logo" accept="image/*">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="status" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Account Status</label>
+                                <select class="form-select form-select-lg border-0 bg-light rounded-3" id="status" name="status" required>
+                                    <option value="pending" {{ old('status', $vendor->status) == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="approved" {{ old('status', $vendor->status) == 'approved' ? 'selected' : '' }}>Approved</option>
+                                    <option value="rejected" {{ old('status', $vendor->status) == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="logo" class="form-label">Logo</label>
-                            @if($vendor->logo)
-                                <div class="mb-2">
-                                    <img src="{{ asset('storage/' . $vendor->logo) }}" alt="Logo" style="max-height: 80px;">
+
+                        <div class="glass-panel p-4 mb-4 rounded-4" style="background: rgba(var(--midnight-rgb), 0.02)">
+                            <h6 class="fw-bold mb-3" style="color: var(--midnight)">Location Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-12 mb-2">
+                                    <label for="address" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Address</label>
+                                    <input type="text" class="form-control border-0 bg-white rounded-3" id="address" name="address" value="{{ old('address', $vendor->address) }}">
                                 </div>
-                            @endif
-                            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $vendor->address) }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city" name="city" value="{{ old('city', $vendor->city) }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="country" class="form-label">Country</label>
-                            <input type="text" class="form-control" id="country" name="country" value="{{ old('country', $vendor->country) }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option value="pending" {{ old('status', $vendor->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="approved" {{ old('status', $vendor->status) == 'approved' ? 'selected' : '' }}>Approved</option>
-                                <option value="rejected" {{ old('status', $vendor->status) == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="longitude" class="form-label">Longitude</label>
-                            <input type="text" class="form-control" id="longitude" name="longitude" value="{{ old('longitude', $vendor->longitude) }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="latitude" class="form-label">Latitude</label>
-                            <input type="text" class="form-control" id="latitude" name="latitude" value="{{ old('latitude', $vendor->latitude) }}">
+                                <div class="col-md-4">
+                                    <label for="city" class="form-label fw-600 small text-uppercase tracking-wider text-muted">City</label>
+                                    <input type="text" class="form-control border-0 bg-white rounded-3" id="city" name="city" value="{{ old('city', $vendor->city) }}">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="country" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Country</label>
+                                    <input type="text" class="form-control border-0 bg-white rounded-3" id="country" name="country" value="{{ old('country', $vendor->country) }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="longitude" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Long</label>
+                                    <input type="text" class="form-control border-0 bg-white rounded-3" id="longitude" name="longitude" value="{{ old('longitude', $vendor->longitude) }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="latitude" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Lat</label>
+                                    <input type="text" class="form-control border-0 bg-white rounded-3" id="latitude" name="latitude" value="{{ old('latitude', $vendor->latitude) }}">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="text-start">
-                         <button type="submit" class="btn action-btn btn-save">Update Vendor</button>
-                          <a href="{{ route('admin.vendors.index') }}" class="btn action-btn btn-cancel">Cancel</a>
-
-                           
+                        <div class="d-flex justify-content-end gap-3 pt-3">
+                            <a href="{{ route('admin.vendors.index') }}" class="btn btn-outline-secondary px-4 py-2 rounded-3 fw-bold">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-5 py-2 rounded-3 fw-bold shadow-sm">
+                                Save Changes
+                            </button>
                         </div>
-
                     </form>
                 </div>
             </div>
