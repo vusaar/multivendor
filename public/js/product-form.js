@@ -132,6 +132,7 @@ const ProductForm = {
         const container = document.getElementById('variation-container');
         const row = document.createElement('div');
         row.className = 'variation-row';
+        row.dataset.index = this.variationIndex;
         row.innerHTML = `
             <div class="row g-3">
                 <div class="col-md-3">
@@ -153,6 +154,7 @@ const ProductForm = {
                     </div>
                     <input type="file" name="variations[${this.variationIndex}][image]" class="d-none var-img-input" accept="image/*">
                     <button type="button" class="btn btn-sm btn-outline-secondary var-img-btn">Select</button>
+                    ${data.id ? `<input type="hidden" name="variations[${this.variationIndex}][id]" value="${data.id}">` : ''}
                 </div>
                 <div class="col-md-4">
                     <label class="pm-label">Attributes</label>
@@ -197,9 +199,10 @@ const ProductForm = {
         this.variationIndex++;
     },
 
-    addAttributeValuePair(row, data = {}) {
-        const container = row.querySelector('.attr-container');
-        const idx = container.querySelectorAll('.attr-pair-row').length;
+    addAttributeValuePair(container, data = {}) {
+        const variationIndex = container.dataset.index;
+        const attrContainer = container.querySelector('.attr-container');
+        const idx = attrContainer.querySelectorAll('.attr-pair-row').length;
         const div = document.createElement('div');
         div.className = 'attr-pair-row row g-2 mb-1';
 
@@ -210,12 +213,12 @@ const ProductForm = {
 
         div.innerHTML = `
             <div class="col-6">
-                <select name="variations[${this.variationIndex - 1}][attributes][${idx}][attribute_id]" class="pm-select attr-select">
+                <select name="variations[${variationIndex}][attributes][${idx}][attribute_id]" class="pm-select attr-select">
                     ${options}
                 </select>
             </div>
             <div class="col-5">
-                <select name="variations[${this.variationIndex - 1}][attributes][${idx}][value_id][]" class="pm-select value-select" multiple disabled>
+                <select name="variations[${variationIndex}][attributes][${idx}][value_id][]" class="pm-select value-select" multiple disabled>
                     <option value="">- Value -</option>
                 </select>
             </div>
@@ -223,7 +226,7 @@ const ProductForm = {
                 <button type="button" class="remove-attr-btn text-danger border-0 bg-transparent">&times;</button>
             </div>
         `;
-        container.appendChild(div);
+        attrContainer.appendChild(div);
 
         const attrSelect = div.querySelector('.attr-select');
         const valueSelect = div.querySelector('.value-select');

@@ -16,14 +16,14 @@
                 <!-- Sticky Sidebar Navigation -->
                 <aside class="pm-sidebar d-none d-lg-block">
                     <div class="pm-side-nav">
-                        <a href="#section-general" class="pm-side-link active">
+                        <a href="#section-media" class="pm-side-link active">
+                            <i class="cil-image"></i> Media
+                        </a>
+                        <a href="#section-general" class="pm-side-link">
                             <i class="cil-info"></i> Basic Info
                         </a>
                         <a href="#section-inventory" class="pm-side-link">
                             <i class="cil-money"></i> Pricing & Stock
-                        </a>
-                        <a href="#section-media" class="pm-side-link">
-                            <i class="cil-image"></i> Media
                         </a>
                         <a href="#section-variations" class="pm-side-link">
                             <i class="cil-layers"></i> Variations
@@ -40,6 +40,34 @@
 
                 <!-- Scrollable Content -->
                 <main class="pm-content">
+                    <!-- Section: Media -->
+                    <section id="section-media" class="pm-card">
+                        <div class="pm-card-header">
+                            <i class="cil-image"></i> Product Media
+                        </div>
+                        <div class="pm-card-body">
+                            <div id="existing-images-container" class="pm-preview-container mb-4">
+                                @foreach($product->images as $image)
+                                    <div class="pm-preview-item existing-image" data-id="{{ $image->id }}">
+                                        <img src="{{ asset('storage/' . $image->image) }}">
+                                        <div class="pm-preview-remove" onclick="removeExistingImage(this, {{ $image->id }})">&times;</div>
+                                        <input type="hidden" name="existing_images[]" value="{{ $image->id }}">
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="pm-upload-zone" id="image-upload-zone">
+                                <input type="file" name="images[]" id="images-main" multiple accept="image/*" class="d-none">
+                                <div class="mb-3">
+                                    <i class="cil-cloud-upload" style="font-size: 2rem; color: var(--pm-primary);"></i>
+                                </div>
+                                <h6 class="fw-bold">Drag and drop images here</h6>
+                                <p class="text-muted small">or click to browse from your computer</p>
+                            </div>
+                            <div id="main-previews" class="pm-preview-container"></div>
+                        </div>
+                    </section>
+
                     <!-- Section: General Info -->
                     <section id="section-general" class="pm-card">
                         <div class="pm-card-header">
@@ -116,34 +144,6 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-
-                    <!-- Section: Media -->
-                    <section id="section-media" class="pm-card">
-                        <div class="pm-card-header">
-                            <i class="cil-image"></i> Product Media
-                        </div>
-                        <div class="pm-card-body">
-                            <div id="existing-images-container" class="pm-preview-container mb-4">
-                                @foreach($product->images as $image)
-                                    <div class="pm-preview-item existing-image" data-id="{{ $image->id }}">
-                                        <img src="{{ asset('storage/' . $image->image) }}">
-                                        <div class="pm-preview-remove" onclick="removeExistingImage(this, {{ $image->id }})">&times;</div>
-                                        <input type="hidden" name="existing_images[]" value="{{ $image->id }}">
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <div class="pm-upload-zone" id="image-upload-zone">
-                                <input type="file" name="images[]" id="images-main" multiple accept="image/*" class="d-none">
-                                <div class="mb-3">
-                                    <i class="cil-cloud-upload" style="font-size: 3rem; color: var(--pm-primary);"></i>
-                                </div>
-                                <h5 class="fw-bold">Upload new images</h5>
-                                <p class="text-muted">Drag and drop or click to browse</p>
-                            </div>
-                            <div id="main-previews" class="pm-preview-container"></div>
                         </div>
                     </section>
 
@@ -237,7 +237,8 @@
 
             // Init
             const attributes = @json($variationAttributes);
-            const existingVariations = @json($product->variations->map(function($v) {
+            @php
+            $formattedVariations = $product->variations->map(function($v) {
                 return [
                     'id' => $v->id,
                     'sku' => $v->sku,
@@ -251,7 +252,9 @@
                         ];
                     })->values()
                 ];
-            }));
+            });
+            @endphp
+            const existingVariations = @json($formattedVariations);
 
             const categoryData = [];
              categoryData.push({
@@ -279,19 +282,12 @@
             ProductForm.init({
                 attributes: attributes,
                 categoryData: categoryData,
-                initialVariationIndex: existingVariations.length
+                initialVariationIndex: 0
             });
 
             // Load existing
             existingVariations.forEach((data, index) => {
                 ProductForm.addVariationRow(data);
-                const rows = document.querySelectorAll('.variation-row');
-                const lastRow = rows[rows.length - 1];
-                const hiddenId = document.createElement('input');
-                hiddenId.type = 'hidden';
-                hiddenId.name = `variations[${index}][id]`;
-                hiddenId.value = data.id;
-                lastRow.appendChild(hiddenId);
             });
 
             // Generator UI

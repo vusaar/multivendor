@@ -80,7 +80,7 @@ class ProductController extends Controller
             $this->productService->createProduct(
                 $request->all(),
                 $request->file('images', []),
-                $request->input('variations', [])
+                $request->all()['variations'] ?? []
             );
         } catch(\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Failed to create product: ' . $e->getMessage()]);
@@ -135,7 +135,7 @@ class ProductController extends Controller
                 $request->all(),
                 $request->input('existing_images', []),
                 $request->file('images', []),
-                $request->input('variations', [])
+                $request->all()['variations'] ?? []
             );
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Failed to update product: ' . $e->getMessage()]);

@@ -12,6 +12,18 @@ class ProductVariation extends Model
         'product_id', 'sku', 'price', 'stock'
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($variation) {
+            foreach ($variation->variationImages as $image) {
+                if (\Storage::disk('public')->exists($image->image_path)) {
+                    \Storage::disk('public')->delete($image->image_path);
+                }
+                $image->delete();
+            }
+        });
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);
