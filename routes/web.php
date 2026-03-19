@@ -148,22 +148,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/api-tokens', [ApiTokenController::class, 'store'])->name('admin.api-tokens.store');
 
 
-    Route::get('/admin/master-products/search', [App\Http\Controllers\ProductController::class, 'masterProductSearch'])->name('admin.master-products.search');
-    
-    // Admin Master Product Management
-    Route::post('/admin/master-products/sync', [\App\Http\Controllers\MasterProductController::class, 'sync'])->name('admin.master-products.sync');
-    Route::resource('/admin/master-products', \App\Http\Controllers\MasterProductController::class, [
-        'names' => 'admin.master-products'
-    ]);
 
-    // Product Integrity
-    Route::get('/admin/product-integrity', [\App\Http\Controllers\Admin\ProductIntegrityController::class, 'index'])->name('admin.product-integrity.index');
-    Route::post('/admin/product-integrity/auto-fix', [\App\Http\Controllers\Admin\ProductIntegrityController::class, 'autoFix'])->name('admin.product-integrity.auto-fix');
-    Route::post('/admin/product-integrity/{product}/detach', [\App\Http\Controllers\Admin\ProductIntegrityController::class, 'detach'])->name('admin.product-integrity.detach');
 
-    // Search Debugger
-    Route::get('/admin/search-debug', [App\Http\Controllers\Admin\SearchDebugController::class, 'index'])->name('admin.search-debug.index');
-    Route::post('/admin/search-debug/replay/{id}', [App\Http\Controllers\Admin\SearchDebugController::class, 'replay'])->name('admin.search-debug.replay');
+
 });
 
 Route::prefix('admin')->middleware(['web', 'auth', 'role:super.admin|admin'])->group(function () {

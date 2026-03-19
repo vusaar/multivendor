@@ -5,27 +5,30 @@
         </h2>
     </x-slot>
 <div class="container-fluid py-4">
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">Edit Permission</h5>
-        </div>
-        <form method="POST" action="{{ route('admin.permissions.update', $permission) }}">
-            @csrf
-            @method('PUT')
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Permission Name</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $permission->name) }}" required>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="glass-card mb-4">
+                <div class="card-header bg-transparent border-0 p-4 pb-0">
+                    <h4 class="mb-0 fw-bold" style="color: var(--midnight)">Edit Permission: {{ $permission->name }}</h4>
                 </div>
+                <form method="POST" action="{{ route('admin.permissions.update', $permission) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body p-4">
+                        <div class="mb-0">
+                            <label for="name" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Permission Name</label>
+                            <input type="text" name="name" id="name" class="form-control form-control-lg border-0 bg-light rounded-3" value="{{ old('name', $permission->name) }}" required>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 p-4 pt-0 d-flex justify-content-end gap-3">
+                        <a href="{{ route('admin.permissions.index') }}" class="btn btn-outline-secondary px-4 py-2 rounded-3 fw-bold">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-5 py-2 rounded-3 fw-bold shadow-sm">
+                             Update Permission
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="card-footer text-start">
-                
-                <button type="submit" class="btn action-btn btn-save"> Update</button>
-
-                <a href="{{ route('admin.permissions.index') }}" class="btn action-btn btn-cancel">Cancel</a>
-
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 </x-app-layout>

@@ -1,0 +1,14 @@
+Query: 'white tshirt'
+
+ID: 50 | Name: T-Shirt | Score: 0.125 | % Match: NO
+Context: Name: T-Shirt | CategoryPath: Tops > Women > Clothing | Description: Womens striped tshirt | Brand: Generic | Attributes: Short Sleeve, White
+
+ID: 2 | Name: T-Shirt | Score: 0.12871288 | % Match: NO
+Context: Name: T-Shirt | CategoryPath: Casual clothing > Men > Clothing | Description: Round neck Plain Tshirts | Brand: Nike | Attributes: White, Plain
+
+ID: 12 | Name: Shirt | Score: 0.094339624 | % Match: NO
+Context: Name: Shirt | CategoryPath: Formal Clothing > Men > Clothing | Description: Long sleeve Checked shirt | Brand: Generic | Attributes: Checked, Long Sleeve, White
+
+ID: 8 | Name: Sneaker | Score: 0.06122449 | % Match: NO
+Context: Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Brand new jordan 3 sneakers | Brand: Air Jordan | Attributes: White
+

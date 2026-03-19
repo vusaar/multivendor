@@ -4,21 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Vendor;
 use App\Models\User;
+use App\Services\VendorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class AdminVendorController extends Controller
 {
+    protected $vendorService;
+
+    public function __construct(VendorService $vendorService)
+    {
+        $this->vendorService = $vendorService;
+    }
+
     // Show form to create a new vendor
     public function create()
     {
-
-         /*
-            if user has vendor.admin role
-         */
-            // Get only users with the vendor_admin role to select as administrator
-        $users = \App\Models\User::role('vendor.admin')->get();
+        // Get only users with the vendor_admin role to select as administrator
+        $users = User::role('vendor.admin')->get();
         return view('admin.vendors.create', compact('users'));
     }
 
@@ -36,21 +40,7 @@ class AdminVendorController extends Controller
             'latitude' => 'nullable|numeric',
         ]);
 
-        $logoPath = null;
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('vendor_logos', 'public');
-        }
-
-        \App\Models\Vendor::create([
-            'user_id' => $request->user_id,
-            'shop_name' => $request->shop_name,
-            'description' => $request->description,
-            'logo' => $logoPath,
-            'address' => $request->address,
-            'status' => $request->status,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-        ]);
+        $this->vendorService->createVendor($request->all());
 
         return redirect()->route('admin.vendors.index')->with('success', 'Vendor created successfully.');
     }
@@ -58,38 +48,27 @@ class AdminVendorController extends Controller
     // List all vendors
     public function index()
     {
-        // If user has super.admin role, show all vendors
-        if (auth()->user()->hasRole('super.admin')) {
-            $vendors = Vendor::with('user')->paginate(10);
-        }
+        $filters = [];
         // If user has vendor.admin role, show only vendors associated with that admin
-        elseif (auth()->user()->hasRole('vendor.admin')) {
-            $vendors = Vendor::with('user')
-                ->where('user_id', auth()->id())
-                ->paginate(10);
-        } else {
-            // Optionally, restrict access for other roles
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $filters['user_id'] = auth()->id();
+        } elseif (!auth()->user()->hasRole('super.admin')) {
             abort(403, 'Unauthorized');
         }
+
+        $vendors = $this->vendorService->getFilteredVendors($filters);
+
         return view('admin.vendors.index', compact('vendors'));
     }
 
     // Show all vendors and their administrators with filtering and pagination
     public function show(Request $request)
     {
-        $query = Vendor::with('user');
-        if ($request->filled('shop_name')) {
-            $query->where('shop_name', 'like', '%' . $request->shop_name . '%');
-        }
-        if ($request->filled('admin_email')) {
-            $query->whereHas('user', function ($q) use ($request) {
-                $q->where('email', 'like', '%' . $request->admin_email . '%');
-            });
-        }
-        if ($request->filled('address')) {
-            $query->where('address', 'like', '%' . $request->address . '%');
-        }
-        $vendors = $query->paginate($request->get('per_page', 10))->appends($request->all());
+        $filters = $request->only(['shop_name', 'admin_email', 'address']);
+        $vendors = $this->vendorService->getFilteredVendors($filters, $request->get('per_page', 10));
+        
+        $vendors->appends($request->all());
+
         if ($request->wantsJson()) {
             return response()->json($vendors);
         }
@@ -112,18 +91,16 @@ class AdminVendorController extends Controller
             'address' => 'nullable|string|max:255',
             'status' => 'required|in:pending,approved,rejected',
         ]);
-        $data = $request->only(['shop_name', 'description', 'address', 'status']);
-        if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->store('vendor_logos', 'public');
-        }
-        $vendor->update($data);
+
+        $this->vendorService->updateVendor($vendor, $request->all());
+
         return redirect()->route('admin.vendors.index')->with('success', 'Vendor updated successfully.');
     }
 
     // Delete a vendor
     public function destroy(Vendor $vendor)
     {
-        $vendor->delete();
+        $this->vendorService->deleteVendor($vendor);
         return redirect()->route('admin.vendors.index')->with('success', 'Vendor deleted successfully.');
     }
 }

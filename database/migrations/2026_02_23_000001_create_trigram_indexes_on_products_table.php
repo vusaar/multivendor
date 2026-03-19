@@ -17,8 +17,8 @@ return new class extends Migration
 
         // Add GIST trigram indexes for faster similarity searching
         DB::statement('CREATE INDEX IF NOT EXISTS products_name_trgm_idx ON products USING gist (name gist_trgm_ops)');
+        // DB::statement("CREATE INDEX trigram_idx_search_context ON products USING gist (search_context gist_trgm_ops)");
         DB::statement('CREATE INDEX IF NOT EXISTS products_description_trgm_idx ON products USING gist (description gist_trgm_ops)');
-        DB::statement('CREATE INDEX IF NOT EXISTS products_search_context_trgm_idx ON products USING gist (search_context gist_trgm_ops)');
     }
 
     /**
@@ -28,6 +28,6 @@ return new class extends Migration
     {
         DB::statement('DROP INDEX IF EXISTS products_name_trgm_idx');
         DB::statement('DROP INDEX IF EXISTS products_description_trgm_idx');
-        DB::statement('DROP INDEX IF EXISTS products_search_context_trgm_idx');
+        // DB::statement('DROP INDEX IF EXISTS products_search_context_trgm_idx');
     }
 };

@@ -43,7 +43,15 @@ class SearchAgentService
                 }
 
                 if (is_array($results)) {
-                    return collect($results)->pluck('id')->toArray();
+                    // Return both ID and RRF score, ensuring ID is numeric
+                    return collect($results)
+                        ->filter(fn($result) => isset($result['id']) && is_numeric($result['id']))
+                        ->map(function ($result) {
+                            return [
+                                'id' => (int)$result['id'],
+                                'score' => $result['rrf_score'] ?? 0
+                            ];
+                        })->toArray();
                 }
             }
 

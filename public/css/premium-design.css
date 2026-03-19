@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #E11D48;
+    --primary-hover: #BE123C;
+    --midnight: #0F172A;
+    --slate-text: #334155;
+    --emerald: #10B981;
+    --emerald-dark: #059669;
+    --canvas: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --emerald-glass: rgba(16, 185, 129, 0.1);
+    --crimson-glass-border: rgba(225, 29, 72, 0.15);
+    --radius-xl: 1.5rem;
+    --radius-lg: 1rem;
+    --depth-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Outfit', sans-serif !important;
+    background-color: var(--canvas) !important;
+    color: var(--midnight);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--depth-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--crimson-glass-border);
+}
+
+/* Sidebar Redesign */
+aside {
+    border-right: 1px solid var(--glass-border) !important;
+    background: var(--canvas) !important;
+}
+
+#side_bar_menu {
+    padding: 1.5rem 1rem;
+}
+
+.sidebar-nav .nav-link {
+    border-radius: 0.75rem;
+    margin: 0.25rem 0;
+    padding: 0.75rem 1rem;
+    color: var(--slate-text) !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-link i {
+    color: var(--slate-text);
+    transition: color 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover {
+    background: rgba(225, 29, 72, 0.05) !important;
+    color: var(--primary) !important;
+}
+
+.sidebar-nav .nav-link:hover i {
+    color: var(--primary);
+}
+
+.sidebar-nav .nav-link.active {
+    background: var(--primary) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+}
+
+.sidebar-nav .nav-link.active i {
+    color: white !important;
+}
+
+/* Header Redesign */
+.header {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border) !important;
+    padding: 0.75rem 0;
+    z-index: 1030 !important;
+    position: sticky !important;
+    top: 0 !important;
+}
+
+.header .dropdown-menu {
+    z-index: 1050 !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--depth-shadow) !important;
+}
+
+.header-brand {
+    color: var(--midnight) !important;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+/* Dashboard Widgets */
+.stat-widget {
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--slate-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--midnight);
+    margin: 0.5rem 0;
+}
+
+.stat-trend {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.trend-up {
+    color: #10B981;
+}
+
+.trend-down {
+    color: #EF4444;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px 0 rgba(225, 29, 72, 0.39) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(225, 29, 72, 0.23) !important;
+}
+
+/* Crimson Glass Pagination */
+.pagination {
+    margin: 1.5rem 0 !important;
+    gap: 0.4rem !important;
+    justify-content: center !important;
+}
+
+.pagination .page-item .page-link {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--slate-text) !important;
+    border-radius: 10px !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: none !important;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
+}
+
+.pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+    background: rgba(225, 29, 72, 0.05) !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    transform: translateY(-2px) !important;
+}
+
+.pagination .page-item.disabled .page-link {
+    opacity: 0.5 !important;
+    background: rgba(0, 0, 0, 0.02) !important;
+    border-color: var(--glass-border) !important;
+    color: var(--slate-text) !important;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    border-radius: 10px !important;
+}
+
+/* Emerald Accents */
+.text-emerald {
+    color: var(--emerald) !important;
+}
+
+.badge-emerald {
+    background: var(--emerald-glass) !important;
+    color: var(--emerald-dark) !important;
+    border: 1px solid rgba(16, 185, 129, 0.2) !important;
+    border-radius: 2rem !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.2rem !important;
+}
+
+.bg-emerald {
+    background-color: var(--emerald) !important;
+}
+
+/* Standardized Action Buttons */
+.btn-action {
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 10px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid var(--glass-border) !important;
+    background: var(--glass-bg) !important;
+    color: var(--slate-text) !important;
+    font-size: 1rem !important;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.btn-action-edit:hover {
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+    background: rgba(225, 29, 72, 0.05) !important;
+}
+
+.btn-action-delete:hover {
+    border-color: var(--primary) !important;
+    color: #FFFFFF !important;
+    background: var(--primary) !important;
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
+}
+
+/* Global Color Overrides */
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+.badge-crimson {
+    background: rgba(225, 29, 72, 0.1) !important;
+    color: var(--primary) !important;
+    border: 1px solid rgba(225, 29, 72, 0.2) !important;
+    border-radius: 2rem !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Glass Badge Variant */
+.badge-glass {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--slate-text) !important;
+    border-radius: 2rem !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+}

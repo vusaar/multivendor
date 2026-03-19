@@ -1,8 +1,8 @@
-<aside class="d-md-block bg-white border h-100">
+<aside class="d-md-block glass-panel h-100">
     <div class="sidebar" id="side_bar_menu">
 
-        <div class="sidebar-header border-bottom">
-          <div class="sidebar-brand cui-gray-900"><small><span style="color:#4a566d !important;font-weight:bolder;">Product Management</span></small></div>
+        <div class="sidebar-header">
+          <div class="sidebar-brand"><span style="color:var(--midnight);font-weight:700;letter-spacing:-0.01em;">EYAMI ADMIN</span></div>
         </div>
 
         <ul class="sidebar-nav">
@@ -20,28 +20,6 @@
               </a>
             </li>
             
-            <li class="nav-group">
-                <a class="nav-link nav-group-toggle" href="#">
-                    <i class="nav-icon cil-list-rich"></i> Master Products
-                </a>
-                <ul class="nav-group-items">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.master-products.index') }}">
-                            <span class="nav-icon"></span> Manage All
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.product-integrity.index') }}">
-                            <span class="nav-icon"></span> Integrity Check
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.search-debug.index') }}">
-                            <span class="nav-icon"></span> Search Debugger
-                        </a>
-                    </li>
-                </ul>
-            </li>
              <li class="nav-item">
                <a class="nav-link" href="{{ route('admin.brands.index') }}">
                  <i class="nav-icon cil-tags"></i> Brands

@@ -119,10 +119,12 @@ class StorefrontProductController extends Controller
     
     public function search(Request $request)
     {
+        Log::info("Search Request Parameters: " . json_encode($request->all()));
         // Try Hybrid Search first if it's a general query
         if ($request->has('product') || $request->has('item')) {
             $queryText = $request->input('product') ?: $request->input('item');
             
+            /*
             // --- FAST PATH: Try direct DB search for simple queries to avoid LLM latency ---
             $fastProductIds = $this->tryFastSearch($queryText);
             if (!empty($fastProductIds)) {
@@ -130,12 +132,13 @@ class StorefrontProductController extends Controller
                 return $this->hydrateAndResponse($fastProductIds, $request);
             }
             // ------------------------------------------------------------------------------
+            */
 
             $searchService = app(SearchAgentService::class);
-            $productIds = $searchService->search($queryText);
+            $results = $searchService->search($queryText);
 
-            if ($productIds !== null && !empty($productIds)) {
-                return $this->hydrateAndResponse($productIds, $request);
+            if ($results !== null && !empty($results)) {
+                return $this->hydrateAndResponse($results, $request);
             }
         }
 
@@ -634,264 +637,31 @@ class StorefrontProductController extends Controller
        // return response()->json($products);
     }
 
-    public function search2(Request $request)
-    {    
-
-           /*
-              example category filter
-              'category' => ['Electronics', 'Home Appliances']
-           */
-
-              $category_names = [];
-
-           if( $request->has('category') && is_array($request->input('category')) && count($request->input('category'))>0 ) {
-
-              //search
-
-            foreach($request->input('category') as $category){
-
-                $category_names[] = $category;
-         
-            }
-        }
-
-
-
-
-         $search_string = $request->input('item','').' '.$request->input('product','');
-
-         foreach($category_names as $cat_name){
-
-            $search_string .= ' '.$cat_name;
-
-         }
-
-
-         if($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes'))>0) {
-
-                $attributes = $request->input('attributes');
-
-                //dd($attributes);
-
-                foreach($attributes as $attribute => $values) {
-                    
-                    foreach($values as $value){
-
-                         //echo "Filtering attribute: ".$attribute." with value: ".$v."\n"; die;
-
-                        $search_string .= ' '.$value;
-
-                    }
-                   
-                }
-
-            }
-
-         //dd($search_string); die;
-
-         $search_query = Product::search($search_string)->options([
-        'showRankingScore' => true,
-        'showMatchesPosition' => true // You can combine both
-        ]);
-
-
-
-          foreach($category_names as $cat_name){
-
-                $search_query = $search_query->whereIn('categories',$cat_name);
-
-          }
-
-
-
-            if($request->has('vendor') && trim($request->input('vendor'))!='') {
-
-                $search_query = $search_query->where('vendor', $request->input('vendor'));
-
-            }
-
-
-            if($request->has('brand') && trim($request->input('brand'))!='') {
-
-                $search_query = $search_query->where('brand', $request->input('brand'));
-
-            }
-
-
-            if($request->has('price') && trim($request->input('price'))!='' && $request->input('price')>0) {
-
-                $search_query = $search_query->where('price', $request->input('price'));
-
-            }
-
-            /*
-                attribute eg
-                'attributes' => [
-                    'Color' => ['Red', 'Blue'],
-                    'Size' => ['M', 'L']
-               ]
-
-            */
-
-            if($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes'))>0) {
-
-                $attributes = $request->input('attributes');
-
-                //dd($attributes);
-
-                foreach($attributes as $attribute => $values) {
-                    
-                    foreach($values as $value){
-
-                         //echo "Filtering attribute: ".$attribute." with value: ".$v."\n"; die;
-
-                         if($attribute=='Color'){
-                           
-                            $search_query = $search_query->whereIn('variations.Color', $values);
-                         }else if($attribute=='Size'){
-                           $search_query = $search_query->whereIn('variations.Size', $values);
-                         }else if($attribute=='Material'){
-                           $search_query = $search_query->whereIn('variations.Material', $values);
-                         }else{
-
-                         }
-
-                    }
-                   
-                }
-
-
-                //dd($search_query);
-
-                // $search_query = $search_query->query(function ($query) use ($attributes) {
-                //     foreach ($attributes as $attribute => $values) {
-
-                //     $exactMatchCondition = "JSONB_CONTAINS(variations->attributeValues, JSONB_ARRAY('" . implode("','", $values) . "'))";
-
-                //    $partialMatchCondition = "JSONB_EXISTS_ANY(variations->attributeValues, JSONB_ARRAY('" . implode("','", $values) . "'))";
-
-
-                //     $query->with(['variations.attributeValues'])->orderByRaw("
-                //       CASE
-                //          WHEN $exactMatchCondition THEN 2
-                //          WHEN $partialMatchCondition THEN 1
-                //          ELSE 0
-                //       END DESC
-                //    ");
-                       
-                //        // dd($query->toSql());
-
-                //         return $query;
-
-                //     }   
-                
-                // });
-
-            }
-
-
-
-            
-
-    //     if ($request->has('attributes') && is_array($request->input('attributes')) && count($request->input('attributes')) > 0) {
-    //     $attributes = $request->input('attributes');
-
-    //     foreach ($attributes as $attribute => $values) {
-
-    //            //print_r($values);
-    //         $search_query = $search_query->orderByRaw("
-    //             CASE
-    //                 WHEN JSON_CONTAINS(variations->'$.attribute_values', JSON_ARRAY('" . implode("','", $values) . "')) THEN 1
-    //                 ELSE 0
-    //             END DESC
-    //         ");
-    //       }
-    //   }
-
-            //dd($search_query->get())
-              $raw_results = null;
-              
-            if($request->input('debug')){
-
-                $raw_results  = $search_query->raw();
-
-                
-            }
-
-              $search_results = $search_query->paginate($request->input('per_page', 5))->appends($request->query());
-
-              //$search_results->getCollection()->load('vendor','brand','category','images','variations.attributeValues');
-
-              $search_results->getCollection()->transform(function ($product) {
-            return [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'stock' => $product->stock,
-                'status' => $product->status,
-                'vendor' => $product->vendor ? [
-                    'id' => $product->vendor->id,
-                    'shop_name' => $product->vendor->shop_name,
-                ] : null,
-                'category' => $product->category ? [
-                    'id' => $product->category->id,
-                    'name' => $product->category->name,
-                    'parent_category' => $product->category->parent_id ?[
-                        'id' => $product->category->parent ? $product->category->parent->id : null,
-                        'name' => $product->category->parent ? $product->category->parent->name : null,
-                        'grandparent_category' => $product->category->parent && $product->category->parent->parent_id ? [
-                            'id' => $product->category->parent->parent ? $product->category->parent->parent->id : null,
-                            'name' => $product->category->parent->parent ? $product->category->parent->parent->name : null,
-                        ] : null,
-                    ]:null,
-                ] : null,
-                'brand' => $product->brand ? [
-                    'id' => $product->brand->id,
-                    'name' => $product->brand->name,
-                ] : null,
-                'images' => $product->images->map(function ($img) {
-                    return asset('storage/' . ($img->image ?? $img->image_path));
-                }),
-                'variations' => $product->variations->map(function ($variation) {
-                    return [
-                        'id' => $variation->id,
-                        'sku' => $variation->sku,
-                        'price' => $variation->price,
-                        'stock' => $variation->stock,
-                        'attribute_values' => $variation->attributeValues->map(function ($attrValue) {
-                            return [
-                                'id' => $attrValue->id,
-                                'value' => $attrValue->value,
-                                'attribute_id' => $attrValue->variation_attribute_id,
-                            ];
-                        }),
-                    ];
-                }),
-                
-            ];
-        });
-
-            
-         if($request->input('debug')){
-
-            return response()->json([
-                'raw_results' => $raw_results,
-                'search_results' => $search_results,
-            ]);
-         }
-
-              return response()->json($search_results);
-          
-    }
 
     /**
      * Hydrate a list of product IDs into full JSON response, preserving order.
      */
-    private function hydrateAndResponse(array $productIds, Request $request)
+    private function hydrateAndResponse(array $results, Request $request)
     {
+        $productIds = collect($results)->pluck('id')
+            ->filter(fn($id) => is_numeric($id))
+            ->toArray();
+        $scores = collect($results)->pluck('score', 'id')->toArray();
+
+        // If results is empty, return empty collection
+        if (empty($productIds)) {
+            return response()->json([
+                'data' => [],
+                'meta' => [
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'total' => 0
+                ]
+            ]);
+        }
+
         $idsString = implode(',', array_map('intval', $productIds));
-        
+
         $products = Product::with(['vendor', 'brand', 'category', 'images', 'variations.attributeValues'])
             ->whereIn('products.id', $productIds)
             // PostgreSQL specific ordering to preserve ranking from agent
@@ -899,7 +669,14 @@ class StorefrontProductController extends Controller
             ->paginate($request->input('per_page', 5))
             ->appends($request->query());
 
-        $products->getCollection()->transform(function ($product) {
+        $maxScore = !empty($scores) ? max($scores) : 0;
+
+        $products->getCollection()->transform(function ($product) use ($scores, $maxScore) {
+            $hasImages = $product->images && count($product->images) > 0;
+            $mainImage = $hasImages ? asset('storage/' . $product->images[0]) : null;
+            
+            // Map score
+            $score = $scores[$product->id] ?? 0;
             return [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -945,7 +722,8 @@ class StorefrontProductController extends Controller
                         }),
                     ];
                 }),
-                'similarity_score' => 1.0, // Placeholder for hybrid search
+                'similarity_score' => (float)$score,
+                'is_highly_relevant' => $maxScore > 0 ? ($score >= ($maxScore * 0.5)) : true,
             ];
         });
 

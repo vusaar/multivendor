@@ -5,45 +5,53 @@
         </h2>
     </x-slot>
     <div class="container-fluid py-4">
-        <div class="card mb-4">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="mb-0">Variation Attribute Values</h5>
-                <a href="{{ route('admin.variation-attribute-values.create') }}" class="btn action-btn btn-new mb-3">Add Value</a>
+        <div class="glass-card mb-4">
+            <div class="card-header bg-transparent border-0 d-flex align-items-center justify-content-between p-4">
+                <h4 class="mb-0 fw-bold" style="color: var(--midnight)">Variation Attribute Values</h4>
+                <a href="{{ route('admin.variation-attribute-values.create') }}" class="btn btn-primary">
+                    <i class="cil-plus"></i> Add Value
+                </a>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive" style="overflow-x:unset; padding: 1rem 1rem;">
-                    <table class="table table-striped border table-hover align-top mb-0" style="font-size: 0.85rem; table-layout: fixed; word-break: break-word;">
-                        <thead>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
                             <tr>
-                                <th>Attribute</th>
+                                <th class="ps-4">Attribute</th>
                                 <th>Value</th>
-                                <th>Actions</th>
+                                <th class="text-end pe-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($values as $value)
-                                <tr>
-                                    <td>{{ $value->attribute->name }}</td>
-                                    <td>{{ $value->value }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.variation-attribute-values.edit', $value) }}" class="btn btn-sm action-btn edit-btn">Edit</a>
+                            <tr>
+                                <td class="ps-4"><span class="text-muted small">{{ $value->attribute->name }}</span></td>
+                                <td><span class="fw-bold text-dark">{{ $value->value }}</span></td>
+                                <td class="text-end pe-4">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <a href="{{ route('admin.variation-attribute-values.edit', $value) }}" class="btn-action btn-action-edit" title="Edit">
+                                            <i class="cil-pencil"></i>
+                                        </a>
                                         <form action="{{ route('admin.variation-attribute-values.destroy', $value) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this value?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-sm action-btn delete-btn">Delete</button>
+                                            <button type="submit" class="btn-action btn-action-delete" title="Delete">
+                                                <i class="cil-trash"></i>
+                                            </button>
                                         </form>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="3" class="text-center">No values found.</td>
-                                </tr>
+                            <tr>
+                                <td colspan="3" class="text-center py-5 text-muted">No values found.</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer bg-transparent border-0 px-4 pb-4">
                 {{ $values->links('pagination::bootstrap-5') }}
             </div>
         </div>

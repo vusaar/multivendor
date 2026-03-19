@@ -1,0 +1,15 @@
+Testing tryFastSearch for 'white tshirt'...
+Fast Path IDs: 8
+
+Checking similarity scores for ALL products matching 'white' or 'tshirt' via ILIKE...
+ID: 50 | Name: T-Shirt | Score: 0.125 | % Match: NO
+ID: 52 | Name: T-Shirt | Score: 0.07619048 | % Match: NO
+ID: 54 | Name: T-Shirt | Score: 0.078431375 | % Match: NO
+ID: 2 | Name: T-Shirt | Score: 0.12871288 | % Match: NO
+ID: 69 | Name: T-Shirt | Score: 0.07476635 | % Match: NO
+ID: 68 | Name: T-Shirt | Score: 0.13253012 | % Match: NO
+ID: 59 | Name: T-Shirt | Score: 0.069565214 | % Match: NO
+ID: 58 | Name: T-Shirt | Score: 0.07079646 | % Match: NO
+ID: 1 | Name: T-Shirt | Score: 0.06666667 | % Match: NO
+ID: 53 | Name: T-Shirt | Score: 0.0754717 | % Match: NO
+ID: 16 | Name: T-Shirt | Score: 0.045454547 | % Match: NO

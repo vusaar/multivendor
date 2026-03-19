@@ -11,51 +11,36 @@ use App\Models\Vendor;
 use App\Models\Category;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\MasterProduct;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
+    protected ProductService $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     // Display a listing of the products
     public function index(Request $request)
     {
-        $query = Product::with(['vendor', 'category', 'images']);
+        $filters = $request->only(['search', 'vendor_id', 'category_id', 'status', 'price_min', 'price_max']);
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-        if ($request->filled('vendor_id')) {
-            $query->where('vendor_id', $request->vendor_id);
-        }
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
-        }
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-        if ($request->filled('price_min')) {
-            $query->where('price', '>=', $request->price_min);
-        }
-        if ($request->filled('price_max')) {
-            $query->where('price', '<=', $request->price_max);
-        }
-
-        /*
-           if user has vendor.admin role, get vendors that belong to that user
-           This is useful for vendor admins to only see their own products 
-        */
         if (auth()->user()->hasRole('vendor.admin')) {
-            $vendors = Vendor::where('user_id', auth()->id())->get();
-            $query->whereIn('vendor_id', $vendors->pluck('id'));
+            $vendors = \App\Models\Vendor::where('user_id', auth()->id())->get();
+            $filters['vendor_ids'] = $vendors->pluck('id');
         } elseif (auth()->user()->hasRole('super.admin')) {
-            $vendors = Vendor::all();
-        }else{
+            $vendors = \App\Models\Vendor::all();
+        } else {
             abort(403, 'Unauthorized user.');
         }
-        
-        $categories = Category::all();
 
-        $products = $query->paginate(15)->appends($request->query());
+        $products = $this->productService->getFilteredProducts($filters);
+        $products->appends($request->query());
+
+        $categories = \App\Models\Category::all();
+
         return view('admin.products.index', compact('products', 'vendors', 'categories'));
     }
 
@@ -69,7 +54,7 @@ class ProductController extends Controller
       
         $categories = Category::with('children')->whereNull('parent_id')->get();
         $categories = Category::with('children')->whereNull('parent_id')->get();
-        // $masterProducts = MasterProduct::all(); // Usage of AJAX for scalability
+        $categories = Category::with('children')->whereNull('parent_id')->get();
 
         return view('admin.products.create', compact('vendors', 'categories','brands'));
     }
@@ -91,101 +76,19 @@ class ProductController extends Controller
             'images.*' => 'nullable|image|max:2048',
         ]);
 
-        try{
-
-        DB::beginTransaction(); 
-            // Handle MasterProduct logic
-            $masterProduct = MasterProduct::firstOrCreate(['name' => $request->name]);
-            
-            $productData = $request->only([
-                'vendor_id', 'category_id','brand_id', 'name', 'description', 'price', 'stock', 'status'
-            ]);
-            $productData['master_product_id'] = $masterProduct->id;
-
-            $product = Product::create($productData);
-
-            // Handle product images
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $image) {
-                    $path = $image->store('product_images', 'public');
-                    ProductImage::create([
-                        'product_id' => $product->id,
-                        'image' => $path,
-                    ]);
-                }
-            }
-
-            // Handle product variations (matrix)
-            if ($request->has('variation_matrix')) {
-                foreach ($request->input('variation_matrix') as $matrix) {
-                    
-                    
-
-                    $variation = ProductVariation::create([
-                        'product_id' => $product->id,
-                        'sku' => $matrix['sku'] ?? null,
-                        'price' => $matrix['price'] ?? null,
-                        'stock' => $matrix['stock'] ?? 0,
-                    ]);
-
-                   // dd($request->file('variation_matrix'));
-
-                    foreach($request->file('variation_matrix') as $variation_image){
-
-                    if ($variation_image['image']) {
-
-                        //dd($variation_image['image']);
-                        $variation_image_path = $variation_image['image']->store('variation_images', 'public');
-                        ProductVariationImage::create([
-                            'product_variation_id' => $variation->id,
-                            'image_path' => $variation_image_path,
-                            'alt_text' => $matrix['sku'] ?? null,
-                        ]);
-                    }
-                    }
-
-                   // dd($request->file('variation_matrix'));
-                    // Save variation image if present
-                   
-
-
-                    /* 
-                      Save attribute values for this variation
-                    */
-
-                    $attrValueIds = [];
-                    if (isset($matrix['attributes']) && is_array($matrix['attributes'])) {
-                        foreach ($matrix['attributes'] as $pair) {
-                            if (empty($pair['attribute_id']) || empty($pair['value_id']) || !is_array($pair['value_id'])) continue;
-                            foreach ($pair['value_id'] as $valId) {
-                                if (!$valId) continue;
-                                $attrValueIds[] = $valId;
-                            }
-                        }
-                    }
-
-                   // dd($attrValueIds);
-                    $variation->attributeValues()->sync($attrValueIds);
-
-
-                    
-
-
-
-                }
-            }
-
-            DB::commit();
-
-            }catch(\Exception $e){
-                // Handle any exceptions that occur during the transaction
-                DB::rollBack();
-                return redirect()->back()->withErrors(['error' => 'Failed to create product: ' . $e->getMessage()]);
-            }
+        try {
+            $this->productService->createProduct(
+                $request->all(),
+                $request->file('images', []),
+                $request->all()['variations'] ?? []
+            );
+        } catch(\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Failed to create product: ' . $e->getMessage()]);
+        }
 
         
 
-        return url()->back()->with('success', 'Product created successfully.');
+        return redirect()->back()->with('success', 'Product created successfully.');
     }
 
     // Display the specified product
@@ -202,7 +105,6 @@ class ProductController extends Controller
     $categories = Category::with('children')->whereNull('parent_id')->get();
     $brands = Brand::all();
    
-    // $masterProducts = MasterProduct::all(); // Performance Fix: Do NOT load all. Use AJAX.
     $product->load(['images', 'variations.attributeValues', 'variations.variationImages']);
     $variationAttributes = \App\Models\VariationAttribute::with('values')->get();
     
@@ -227,127 +129,17 @@ class ProductController extends Controller
 
         //dd($request->all());
 
-        DB::transaction(function () use ($request, $product) {
-            // Handle MasterProduct logic
-            $masterProduct = MasterProduct::firstOrCreate(['name' => $request->name]);
-            
-            $updateData = $request->only([
-                'vendor_id', 'category_id', 'brand_id','name', 'description', 'price', 'stock', 'status'
-            ]);
-            $updateData['master_product_id'] = $masterProduct->id;
-
-            $product->update($updateData);
-
-            // Handle product images: delete removed images
-            $keepImageIds = $request->input('existing_images', []);
-            $imagesToDelete = $product->images()->whereNotIn('id', $keepImageIds)->get();
-            foreach ($imagesToDelete as $img) {
-                if (Storage::disk('public')->exists($img->image)) {
-                    Storage::disk('public')->delete($img->image);
-                }
-                $img->delete();
-            }
-            // Re-fetch images to update the order if needed
-            $remainingImages = $product->images()->orderBy('id')->get();
-            // Optionally, you could re-sequence or update any other fields here if your table has an 'order' or similar column
-
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $image) {
-                    $path = $image->store('product_images', 'public');
-                    ProductImage::create([
-                        'product_id' => $product->id,
-                        'image' => $path,
-                    ]);
-                }
-            }
-
-            // Handle product variations update (multiple values per variation)
-            $existingVariations = $product->variations()->get();
-            $submitted = $request->input('variations', []);
-
-           
-
-            $keepVariationIds = [];
-            $variation_count = 0;
-            foreach ($submitted as $variation) {
-
-                // Collect all attribute value IDs for this variation (Blade sends value IDs directly)
-                $attrValueIds = [];
-                if (isset($variation['attributes']) && is_array($variation['attributes'])) {
-                    foreach ($variation['attributes'] as $pair) {
-                        if (empty($pair['attribute_id']) || empty($pair['value_id']) || !is_array($pair['value_id'])) continue;
-                        foreach ($pair['value_id'] as $valId) {
-                            if (!$valId) continue;
-                            $attrValueIds[] = $valId;
-                        }
-                    }
-                }
-                if (count($attrValueIds) === 0) continue;
-
-                // Use variation ID if present for update, else create new
-                if (!empty($variation['id'])) {
-                    $productVariation = ProductVariation::find($variation['id']);
-                    if ($productVariation) {
-                        $productVariation->update([
-                            'sku' => $variation['sku'] ?? null,
-                            'price' => $variation['price'] ?? $request->price,
-                            'stock' => $variation['stock'] ?? $request->stock,
-                        ]);
-                    } else {
-                        $productVariation = ProductVariation::create([
-                            'product_id' => $product->id,
-                            'sku' => $variation['sku'] ?? null,
-                            'price' => $variation['price'] ?? $request->price,
-                            'stock' => $variation['stock'] ?? $request->stock,
-                        ]);
-                    }
-                } else {
-                    $productVariation = ProductVariation::create([
-                        'product_id' => $product->id,
-                        'sku' => $variation['sku'] ?? null,
-                        'price' => $variation['price'] ?? $request->price,
-                        'stock' => $variation['stock'] ?? $request->stock,
-                    ]);
-                }
-                $productVariation->attributeValues()->sync($attrValueIds);
-                $keepVariationIds[] = $productVariation->id;
-
-                //  dd($productVariation->variationImages);
-                //  dd($request->file('variations')[$variation_count]);
-                // Save or update variation image
-                if (isset($request->file('variations')[$variation_count]) ) {
-                    // Delete old image if exists
-                    $oldImages = $productVariation->variationImages;
-
-                    //dd($oldImage);
-                    if ($oldImages) {
-                        foreach ($oldImages as $oldImage) {
-                        if (Storage::disk('public')->exists($oldImage->image_path)) {
-                            Storage::disk('public')->delete($oldImage->image_path);
-                        }
-                        $oldImage->delete();
-                      }
-                    }
-                    try {
-
-                        $variationImagePath = $request->file('variations')[$variation_count]['image']->store('variation_images', 'public');
-
-                        ProductVariationImage::create([
-                            'product_variation_id' => $productVariation->id,
-                            'image_path' => $variationImagePath,
-                            'alt_text' => $variation['sku'] ?? null,
-                        ]);
-
-                    } catch (\Exception $e) {
-                        // Optionally log error or handle as needed
-                    }
-                }
-
-                $variation_count++;
-            }
-            // Delete removed variations
-            $product->variations()->whereNotIn('id', $keepVariationIds)->delete();
-        });
+        try {
+            $this->productService->updateProduct(
+                $product,
+                $request->all(),
+                $request->input('existing_images', []),
+                $request->file('images', []),
+                $request->all()['variations'] ?? []
+            );
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Failed to update product: ' . $e->getMessage()]);
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
@@ -366,15 +158,5 @@ class ProductController extends Controller
         return back()->with('success', 'Product image deleted successfully.');
     }
 
-    // Search master products for autocomplete
-    public function masterProductSearch(Request $request)
-    {
-        $term = $request->input('q');
-        $masterProducts = MasterProduct::where('name', 'ilike', "%{$term}%")
-            ->orWhere('synonyms', 'ilike', "%{$term}%")
-            ->limit(20)
-            ->get(['id', 'name', 'synonyms']);
 
-        return response()->json($masterProducts);
-    }
 }

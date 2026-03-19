@@ -1,0 +1,9 @@
+/node_modules
+/dist
+/.env
+/.env.*
+*.log
+/test_suite_log.txt
+/product_dump.txt
+/debug_*.txt
+id17_output.txt

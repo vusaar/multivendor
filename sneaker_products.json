@@ -1,0 +1,50 @@
+[
+    {
+        "id": 3,
+        "name": "Sneaker",
+        "description": "Original Jordan 11 sneakers",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Original Jordan 11 sneakers | Brand: Air Jordan | Attributes: Black, M"
+    },
+    {
+        "id": 7,
+        "name": "Sneaker",
+        "description": "Original Adidas ZX750",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Original Adidas ZX750 | Brand: Adidas | Attributes: Blue"
+    },
+    {
+        "id": 6,
+        "name": "Sneaker",
+        "description": "Adidas Prophere",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Adidas Prophere | Brand: Adidas | Attributes: Grey"
+    },
+    {
+        "id": 9,
+        "name": "Sneaker",
+        "description": "Brand new  Jordan 31 sneakers",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Brand new  Jordan 31 sneakers | Brand: Air Jordan | Attributes: Black, Red"
+    },
+    {
+        "id": 4,
+        "name": "Sneaker",
+        "description": "Adidas sneaker",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Adidas sneaker | Brand: Adidas | Attributes: Black"
+    },
+    {
+        "id": 5,
+        "name": "Sneaker",
+        "description": "Adidas Campus sneaker",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Adidas Campus sneaker | Brand: Adidas | Attributes: Black, M, Green"
+    },
+    {
+        "id": 10,
+        "name": "Sneaker",
+        "description": "Origian brand new Jordan 1 sneakers",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Origian brand new Jordan 1 sneakers | Brand: Air Jordan | Attributes: Red, Grey"
+    },
+    {
+        "id": 8,
+        "name": "Sneaker",
+        "description": "Brand new jordan 3 sneakers",
+        "search_context": "Name: Sneaker | CategoryPath: Sneakers > Men > Footwear | Description: Brand new jordan 3 sneakers | Brand: Air Jordan | Attributes: White"
+    }
+]

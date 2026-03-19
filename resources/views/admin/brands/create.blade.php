@@ -8,11 +8,13 @@
     <div class="container-fluid py-4">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card mb-4">
-                    <div class="card-header">Add Brand</div>
-                    <div class="card-body">
+                <div class="glass-card mb-4">
+                    <div class="card-header bg-transparent border-0 p-4">
+                        <h4 class="mb-0 fw-bold" style="color: var(--midnight)">Add Brand</h4>
+                    </div>
+                    <div class="card-body p-4 pt-0">
                         @if ($errors->any())
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger rounded-3 border-0 shadow-sm mb-4">
                                 <ul class="mb-0">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -22,23 +24,23 @@
                         @endif
                         <form action="{{ route('admin.brands.store') }}" method="POST">
                             @csrf
-                            <div class="row g-3 mb-3">
+                            <div class="row g-4 mb-4">
                                 <div class="col-md-6">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+                                    <label for="name" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control form-control-lg border-0 bg-light rounded-3" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="logo" class="form-label">Logo URL</label>
-                                    <input type="text" name="logo" id="logo" class="form-control" value="{{ old('logo') }}">
+                                    <label for="logo" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Logo URL</label>
+                                    <input type="text" name="logo" id="logo" class="form-control form-control-lg border-0 bg-light rounded-3" value="{{ old('logo') }}">
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea name="description" id="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+                            <div class="mb-4">
+                                <label for="description" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Description</label>
+                                <textarea name="description" id="description" class="form-control border-0 bg-light rounded-3" rows="4">{{ old('description') }}</textarea>
                             </div>
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="btn product-action-btn btn-new">Create</button>
-                                <a href="{{ route('admin.brands.index') }}" class="btn product-action-btn btn-outline-secondary">Cancel</a>
+                            <div class="d-flex gap-3">
+                                <button type="submit" class="btn btn-primary px-4">Create Brand</button>
+                                <a href="{{ route('admin.brands.index') }}" class="btn btn-outline-secondary px-4">Cancel</a>
                             </div>
                         </form>
                     </div>
