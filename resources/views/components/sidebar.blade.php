@@ -19,6 +19,12 @@
                 <i class="nav-icon cil-library"></i> Products
               </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.search-logs.index') }}">
+                  <i class="nav-icon cil-search"></i> Search Analytics
+                </a>
+            </li>
             
              <li class="nav-item">
                <a class="nav-link" href="{{ route('admin.brands.index') }}">

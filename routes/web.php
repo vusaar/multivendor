@@ -148,8 +148,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/api-tokens', [ApiTokenController::class, 'store'])->name('admin.api-tokens.store');
 
 
-
-
+    // Search Logs & Analytics
+    Route::get('/admin/search-logs', [\App\Http\Controllers\Admin\SearchLogController::class, 'index'])->name('admin.search-logs.index');
+    Route::get('/admin/search-logs/{search_log}', [\App\Http\Controllers\Admin\SearchLogController::class, 'show'])->name('admin.search-logs.show');
 
 });
 

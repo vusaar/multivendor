@@ -24,26 +24,31 @@ async function executeHybridSearch(params) {
         sqlParams.push(max_price);
         priceFilter += ` AND price <= $${sqlParams.length}`;
     }
-    // Weights configuration
-    const weightRoot = 15.0; // Level 0 (Demographic)
-    const weightSub = 5.0; // Level 1+
-    const weightEntity = 7.0;
-    const weightAttr = 3.0;
-    // Build custom SQL function for hyphen-agnostic comparison
-    // We'll use regexp_replace(LOWER(str), '[^a-z0-9]', '', 'g')
+    // Weights configuration (Score Tiers)
+    const weightRoot = 60.0; // Tier 0: Demographic Department (Men/Women)
+    const weightSub = 50.0; // Tier 1: Subcategory Match
+    const weightEntity = 50.0; // Tier 1: Primary Entity Match
+    const weightAttr = 20.0; // Tier 2: Attribute Sorting (Color, Brand)
     const cleanSql = (col) => `regexp_replace(LOWER(${col}), '[^a-z0-9]', '', 'g')`;
     let weightedScoreSql = `(similarity(products.name, $1) * 3 + similarity(products.search_context, $1))`;
+    // Use an array to collect all OR conditions for the search
+    let searchConditions = [
+        `(similarity(name, $1) > 0.2)`,
+        `(name ILIKE '%' || $1 || '%')`,
+        `(search_context ILIKE '%' || $1 || '%')`
+    ];
     if (entity) {
         sqlParams.push(entity.toLowerCase().replace(/[^a-z0-9]/g, ''));
         const pIdx = sqlParams.length;
         weightedScoreSql += ` + (CASE WHEN ${cleanSql('products.name')} ILIKE '%' || $${pIdx} || '%' THEN ${weightEntity} ELSE 0 END)`;
+        searchConditions.push(`(${cleanSql('name')} ILIKE '%' || $${pIdx} || '%')`);
+        searchConditions.push(`(${cleanSql('search_context')} ILIKE '%' || $${pIdx} || '%')`);
     }
     let categoriesTextArrayIdx = -1;
     if (categories && categories.length > 0) {
         const cleanedCats = categories.map(c => c.toLowerCase());
         sqlParams.push(cleanedCats);
         categoriesTextArrayIdx = sqlParams.length;
-        // Apply weights for individual categories in keyword score
         cleanedCats.forEach(cat => {
             sqlParams.push(cat);
             const pIdx = sqlParams.length;
@@ -52,35 +57,18 @@ async function executeHybridSearch(params) {
                 WHEN LOWER(products.search_context) ILIKE '% > ' || $${pIdx} || ' %' THEN ${weightSub}
                 WHEN LOWER(products.search_context) ILIKE '% | ' || $${pIdx} || ' %' THEN ${weightSub}
                 ELSE 0 END)`;
+            searchConditions.push(`(LOWER(products.search_context) ILIKE '%categorypath: ' || $${pIdx} || ' %')`);
         });
     }
     if (attributes && attributes.length > 0) {
         attributes.forEach(attr => {
-            sqlParams.push(attr);
+            sqlParams.push(attr.toLowerCase());
             const pIdx = sqlParams.length;
             weightedScoreSql += ` + (CASE WHEN products.search_context ILIKE '%' || $${pIdx} || '%' THEN ${weightAttr} ELSE 0 END)`;
+            searchConditions.push(`(products.search_context ILIKE '%' || $${pIdx} || '%')`);
         });
     }
-    // Build the WHERE clause
-    let whereClause = `status = 'active' AND (similarity(name, $1) > 0.2 OR (name ILIKE '%' || $1 || '%') OR (search_context ILIKE '%' || $1 || '%'))`;
-    if (entity) {
-        const entityVal = entity.toLowerCase().replace(/[^a-z0-9]/g, '');
-        // We look for existing param or add a new one if needed, but we already added it.
-        const entityIdx = sqlParams.indexOf(entityVal) + 1;
-        whereClause += ` OR (${cleanSql('name')} ILIKE '%' || $${entityIdx} || '%') OR (${cleanSql('search_context')} ILIKE '%' || $${entityIdx} || '%')`;
-    }
-    if (categories && categories.length > 0) {
-        categories.forEach(cat => {
-            const catIdx = sqlParams.indexOf(cat.toLowerCase()) + 1;
-            if (catIdx > 0) {
-                // We use a more specific ILIKE here as well
-                whereClause += ` OR (LOWER(products.search_context) ILIKE '%categorypath: ' || $${catIdx} || ' %')`;
-                whereClause += ` OR (LOWER(products.search_context) ILIKE '% > ' || $${catIdx} || ' %')`;
-                whereClause += ` OR (LOWER(products.search_context) ILIKE '% | ' || $${catIdx} || ' %')`;
-                whereClause += ` OR (LOWER(products.search_context) ILIKE '%categorypath: ' || $${catIdx} || '|')`;
-            }
-        });
-    }
+    const whereClause = `status = 'active' AND (${searchConditions.join(' OR ')})`;
     const boostSql = categoriesTextArrayIdx > 0
         ? `(CASE 
                 WHEN EXISTS (
@@ -112,7 +100,7 @@ async function executeHybridSearch(params) {
                    ROW_NUMBER() OVER (ORDER BY embedding <=> $2::float8[]::vector) as rank
             FROM products
             WHERE status = 'active' AND embedding IS NOT NULL
-              AND (1 - (embedding <=> $2::float8[]::vector)) > 0.80
+              AND (1 - (embedding <=> $2::float8[]::vector)) > 0.85
             ${priceFilter}
             LIMIT 100
         )
