@@ -12,6 +12,8 @@ class ProductVariation extends Model
         'product_id', 'sku', 'price', 'stock'
     ];
 
+    protected $touches = ['product'];
+
     protected static function booted()
     {
         static::deleting(function ($variation) {

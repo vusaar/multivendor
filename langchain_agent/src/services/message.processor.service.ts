@@ -18,45 +18,84 @@ export class MessageProcessorService {
 
             let queryText = msgBody;
             let page = 1;
+            let productsToShow: any[] = [];
+            let suggestedProducts: any[] = [];
 
-            // 2. Determine query and page
+            // 2. Handle button actions or new search
             if (isButtonReply && buttonId === 'next_page') {
                 queryText = session.lastQuery;
                 page = (session.currentPage || 1) + 1;
                 console.log(`[MESSAGE PROCESSOR] Pagination for ${from}. Page ${page} for "${queryText}"`);
+            } else if (isButtonReply && buttonId === 'show_suggestions') {
+                // Return suggested products from session
+                const suggestions = session.suggestedProducts || [];
+                console.log(`[MESSAGE PROCESSOR] Showing ${suggestions.length} suggestions to ${from}`);
+                
+                await whatsappService.sendMessage(from, "Here are some other items you might find interesting:");
+                for (const product of suggestions) {
+                    await this.sendProductMessage(from, product);
+                }
+                // Clear suggestions after showing them to keep session clean
+                await sessionService.updateSession(from, { suggestedProducts: [] });
+                return;
             } else {
                 // New search, update lastQuery in session
-                await sessionService.updateSession(from, { lastQuery: msgBody, currentPage: 1 });
+                await sessionService.updateSession(from, { lastQuery: msgBody, currentPage: 1, suggestedProducts: [] });
             }
 
             if (!queryText) return;
 
             // 3. Search Products
             const searchData = await productSearchService.search(queryText, page, from);
-            const products = searchData.data || [];
+            const rawProducts = searchData.data || [];
             const meta = searchData.meta;
 
             const currentPage = meta.current_page || page;
             const lastPage = meta.last_page || 1;
 
-            console.log(`[MESSAGE PROCESSOR] Found ${products.length} products for ${from}. Page ${currentPage}/${lastPage}`);
+            // 4. Partition products by confidence score (0.025)
+            const THRESHOLD = 0.025;
+            const verifiedProducts = rawProducts.filter((p: any) => (p.similarity_score || 0) >= THRESHOLD);
+            const potentialMatches = rawProducts.filter((p: any) => (p.similarity_score || 0) < THRESHOLD);
 
-            // 4. Send Responses
-            if (products.length === 0 && currentPage === 1) {
-                await whatsappService.sendMessage(from, "Sorry, I couldn't find any products matching your search.");
+            console.log(`[MESSAGE PROCESSOR] Found ${verifiedProducts.length} verified and ${potentialMatches.length} suggested products.`);
+
+            // 5. Send Responses
+            if (verifiedProducts.length === 0 && currentPage === 1) {
+                if (potentialMatches.length > 0) {
+                    // Only suggestions found
+                    await sessionService.updateSession(from, { suggestedProducts: potentialMatches });
+                    await whatsappService.sendButtons(from, 
+                        `I couldn't find an exact match for "${queryText}". Would you like to see some items that are similar?`, 
+                        [{ id: 'show_suggestions', title: 'Show Suggestions 🔍' }]
+                    );
+                } else {
+                    await whatsappService.sendMessage(from, `Sorry, I couldn't find any products matching "${queryText}".`);
+                }
             } else {
-                for (const product of products) {
+                // Show verified products
+                for (const product of verifiedProducts) {
                     await this.sendProductMessage(from, product);
                 }
 
                 // Update session state
-                await sessionService.updateSession(from, { currentPage: currentPage });
+                await sessionService.updateSession(from, { 
+                    currentPage: currentPage,
+                    suggestedProducts: potentialMatches 
+                });
 
-                // Show pagination if needed
+                // Show action buttons
+                const buttons = [];
                 if (currentPage < lastPage) {
-                    await whatsappService.sendButtons(from, "Would you like to see more products?", [
-                        { id: 'next_page', title: 'Next ➡️' }
-                    ]);
+                    buttons.push({ id: 'next_page', title: 'Next ➡️' });
+                }
+                if (potentialMatches.length > 0) {
+                    buttons.push({ id: 'show_suggestions', title: 'Show More 🔍' });
+                }
+
+                if (buttons.length > 0) {
+                    const label = (currentPage < lastPage) ? "Would you like to see more?" : "We found more potential matches:";
+                    await whatsappService.sendButtons(from, label, buttons);
                 }
             }
         } catch (error: any) {

@@ -7,26 +7,35 @@ const messages_1 = require("@langchain/core/messages");
 const session_service_1 = require("./session.service");
 const search_context_util_1 = require("../utils/search_context.util");
 const embeddings_service_1 = require("./embeddings.service");
+const logger_service_1 = require("./logger.service");
 const systemPrompt = `You are an expert shopping assistant. 
 YOUR ONLY JOB is to call the 'hybrid_product_search' tool with the correct parameters extracted from the user's query.
 
+CRITICAL RULE: The 'query' parameter is MANDATORY. Always include the original or slightly cleaned user query in the 'query' field, even if you have extracted entities, attributes, or categories.
+
 DATABASE MAPPING RULES:
-1. 'categories': Use for departments, demographics, or high-level classifications. 
-   Examples: "men", "women", "kids", "beauty", "electronics", "home & garden", "sports".
+1. 'categories': Use for departments, demographics (men/women), or high-level classifications. 
    Rule: Identify ANY high-level classification (gender, department, etc.) and include it in 'categories'.
+   Example: "for men" -> categories: ["men"]
 2. 'entity': Use for the specific product type.
    Examples: "tshirt", "mascara", "smartwatch", "drill", "football".
 3. 'attributes': Use for technical specs, color, size, brand, or material.
    Examples: "blue", "XL", "waterproof", "nike", "leather".
 
-EXAMPLES:
-- User: "gents tshirt" -> categories=["men", "gents"], entity="tshirt"
-- User: "beauty product" -> categories=["beauty"]
-- User: "luxury mascara" -> categories=["beauty"], entity="mascara", attributes=["luxury"]
-- User: "waterproof sports watch" -> categories=["sports"], entity="watch", attributes=["waterproof"]
-- User: "blue jeans for women" -> categories=["women"], entity="jeans", attributes=["blue"]
+REQUIRED TOOL PARAMETERS:
+- 'query' (string, REQUIRED): The search terms.
+- 'entity' (string, optional): Specific product type.
+- 'categories' (array, optional): High-level classifications.
+- 'attributes' (array, optional): Specific specs or brands.
 
-CRITICAL: 
+EXAMPLES:
+User: "black nike running shoes for men under 100"
+Tool: { "query": "nike running shoes", "entity": "shoes", "categories": ["men"], "attributes": ["black", "nike", "running"], "max_price": 100 }
+
+User: "ladies perfumes"
+Tool: { "query": "perfumes", "entity": "perfume", "categories": ["women"] }
+
+ADDITIONAL RULES:
 - ALWAYS expand synonyms (gents -> men, ladies -> women).
 - If a high-level department (e.g., beauty, electronics) is mentioned or implied, include it in 'categories'.
 - ALWAYS call the tool. NEVER respond with text first.`;
@@ -107,6 +116,8 @@ const processUserQuery = async (userQuery, userId = "default") => {
             };
             await session_service_1.sessionService.updateSession(userId, { lastSearchPlan: newPlan });
             console.log(`[PERF] Total processUserQuery took: ${Date.now() - totalStart} ms`);
+            // Log search asynchronously
+            logger_service_1.searchLoggerService.log(userId, userQuery, toolCall.args, results, Date.now() - totalStart);
             return results;
         }
         // Handle other tools (like category search) if needed
@@ -123,6 +134,7 @@ const processUserQuery = async (userQuery, userId = "default") => {
 };
 exports.processUserQuery = processUserQuery;
 async function fallbackSearch(query, userId) {
+    const fallbackStart = Date.now();
     console.log("[AGENT] Triggering fallback search");
     const embedding = await embeddings_service_1.embeddingsService.generateEmbedding(query);
     // Safety net: Extract demographics even in fallback
@@ -142,6 +154,8 @@ async function fallbackSearch(query, userId) {
         timestamp: Date.now()
     };
     await session_service_1.sessionService.updateSession(userId, { lastSearchPlan: newPlan });
+    // Log fallback search
+    logger_service_1.searchLoggerService.log(userId, query, { query, categories }, results, Date.now() - fallbackStart);
     return results;
 }
 function extractDemographics(query) {

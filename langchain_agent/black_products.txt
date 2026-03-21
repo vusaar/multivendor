@@ -1,0 +1,9 @@
+[17] tshirt - Status: active
+Context: Name: tshirt | CategoryPath: Women Tops > Women Apparel | Description: Ladies tshirt | Brand: H&M | Attributes: Printed, Round, Black
+
+[14] Mens sweater - Status: active
+Context: Name: Mens sweater | CategoryPath: Men Shirts > Men Apparel | Description: Mens long sleeve sweater | Brand: H&M | Attributes: Black, M, L, Long Sleeve, Round
+
+[16] Vest - Status: active
+Context: Name: Vest | CategoryPath: Men T-shirts > Men Apparel | Description: Printed vest | Brand: H&M | Attributes: M, Sleeveless, Black
+

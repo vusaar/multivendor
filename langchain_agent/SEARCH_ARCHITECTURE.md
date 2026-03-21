@@ -1,78 +1,83 @@
-# Hybrid Search Architecture: Lexical + Semantic
+# Hybrid Search & Ranking Architecture
 
-This document explains the technical implementation of the search system in the `langchain_agent`. The system is a **Hybrid Search** engine that combines traditional keyword matching with AI-driven conceptual understanding.
-
-## 1. Overview
-Modern search involves two distinct challenges:
-- **Lexical Gap**: Users might use different words for the same thing (e.g., "soda" vs "soft drink").
-- **Precision**: Users expect exact matches for brand names or model numbers (e.g., "iPhone 15").
-
-To solve both, we implement **Hybrid Search** with **Reciprocal Rank Fusion (RRF)**.
+This document details the technical implementation of the search and ranking engine. The system combines **Lexical (Keyword)** and **Semantic (Meaning)** search, merged through **Reciprocal Rank Fusion (RRF)** and refined by a **Tiered Boosting** system.
 
 ---
 
-## 2. The Lexical Layer (Syntax)
-Powered by the `pg_trgm` extension in PostgreSQL.
+## 1. The Retrieval Layers
 
-### How it works:
-It breaks words into "trigrams" (sequences of 3 characters). For example, "shirt" becomes `{shi, hir, irt}`. 
+### A. Lexical Layer (Keyword)
+- **Engine**: PostgreSQL `pg_trgm` (Trigram similarity).
+- **Scope**: Matches exact or partial character sequences in `name` and `search_context`.
+- **Threshold**: `similarity > 0.2`. This excludes items with no character overlap.
 
-### Why we use it:
-- **Fuzzy Matching**: It can handle typos (e.g., "shrt" will still match "shirt").
-- **Exact Matches**: It gives extremely high scores to exact character overlaps.
-
-### Implementation:
-We use the `similarity(text, query)` function. In our ranking, we **weight the product name twice as much as the description** to ensure title matches appear first.
-
-```sql
-(similarity(name, $query) * 2 + similarity(description, $query))
-```
+### B. Semantic Layer (Meaning)
+- **Engine**: PostgreSQL `pgvector` with Google GenAI Embeddings (`text-embedding-004`).
+- **Scope**: 3072-dimensional vector search on "flattened" product data.
+- **Threshold**: `similarity > 0.85`. This "similarity floor" ensures that conceptually unrelated items (e.g., "Nail Polish" vs "Hat") are rejected.
 
 ---
 
-## 3. The Semantic Layer (Concepts)
-Powered by `pgvector` and Google GenAI Embeddings.
+## 2. The Tiered Scoring & Boosting
 
-### The Embedding Process:
-1. **Flattening**: We take a product's name, category, description, and attributes and "flatten" them into one string.
-2. **Vectorization**: We send that string to Google. It returns a **3072-dimensional vector** (a list of 3072 numbers representing the "address" of that product in a "field of meaning").
-3. **Storage**: This vector is stored in the `embedding` column as a specialized `vector(3072)` type.
+To ensure that user intent is prioritized (e.g., if you ask for a "t-shirt", you should see t-shirts first), we apply a multi-tiered weighting system *before* the ranking:
 
-### How it searches:
-When a user searches, we convert their query into a vector and use **Cosine Distance (`<=>`)** to find products whose "meaning" is closest to the query.
+### Tier 0: Global Category Boost (+1.0 Score)
+If the AI identifies a target **Department** or **Demographic** (e.g., "men", "beauty"):
+- Any product in that category receives a massive **+1.0 override** to its final score.
+- This ensures that a correctly categorized result (Score ~1.04) always beats an uncategorized result (Score ~0.04).
 
-```sql
-ORDER BY embedding <=> $query_vector
-```
+### Tier 1: Entity Match (Weight: 50.0)
+If the user asks for a specific **Product Type** (e.g., "shirt"):
+- Products whose name contains the extracted entity receive a Rank #1 boost in the lexical list.
 
----
-
-## 4. The Merger: Reciprocal Rank Fusion (RRF)
-This is the "magic" algorithm that combines the two lists.
-
-### The Problem:
-You can't just add a Lexical score (0.0 to 1.0) to a Semantic score (0.0 to 2.0). They are different scales.
-
-### The Solution (RRF):
-Instead of scores, we use **Ranks**. 
-- If a product is #1 in Lexical and #10 in Semantic, we calculate its score based on its position in both lists.
-- **Formula**: `1 / (k + rank_lexical) + 1 / (k + rank_semantic)` (Default `k = 60`).
-
-### Benefits:
-- **Fairness**: No single strategy can "overpower" the other.
-- **Relevance**: Products that appear in the top of *both* lists are boosted significantly.
-- **Handling Zeroes**: If a product doesn't appear in one list at all, it simply gets a 0 for that half, but can still win if it's #1 in the other.
+### Tier 2: Attribute Match (Weight: 12.0)
+If the user asks for a specific **Attribute** (e.g., "blue"):
+- Products matching the attribute gain relevance *within* their entity group.
 
 ---
 
-## 5. Implementation Files
-- **[embeddings.service.ts](file:///c:/xampp4/htdocs/multistore/langchain_agent/src/services/embeddings.service.ts)**: Handles the connection to Google AI.
-- **[vector_search.tool.ts](file:///c:/xampp4/htdocs/multistore/langchain_agent/src/tools/vector_search.tool.ts)**: Contains the SQL logic for RRF and hybridization.
-- **[sync-embeddings.ts](file:///c:/xampp4/htdocs/multistore/langchain_agent/scripts/sync-embeddings.ts)**: The "ETL" script to keep your database vectors up to date.
+## 3. The Ranking Algorithm: RRF
 
-## 6. Maintenance
-Whenever you add a large batch of products, you should run the sync script:
+We use **Reciprocal Rank Fusion (RRF)** to merge the Keyword and Semantic lists.
+
+**Formula**:
+`rrf_score = (1 / (40 + rank_keyword)) + (1 / (40 + rank_semantic)) + Boost`
+
+- **`rank_keyword`**: Position (1-100) in the lexical result set.
+- **`rank_semantic`**: Position (1-100) in the vector result set.
+- **`40` (k)**: The smoothing constant that prevents low-rank items from overpowering the top results.
+
+---
+
+## 4. Interaction Thresholds (Confidence)
+
+To prevent showing "noisy" results to the user, the agent applying two "gates":
+
+| Score Range | Tier | Action |
+| :--- | :--- | :--- |
+| **> 1.0** | **Verified Match** | Shown immediately (Right Category + Right Item). |
+| **0.03 - 1.0** | **Partial Match** | Shown immediately (Right Item, but maybe wrong category). |
+| **0.015 - 0.025**| **Potential Suggestion**| Hidden behind a **"Show Suggestions"** button. |
+| **< 0.015** | **Noise** | Rejected entirely. |
+
+---
+
+## 5. System Components
+
+1.  **[vector_search.tool.ts](file:///c:/xampp4/htdocs/multistore/langchain_agent/src/tools/vector_search.tool.ts)**: The "Brain" containing the SQL RRF logic and weights.
+2.  **[search.agent.ts](file:///c:/xampp4/htdocs/multistore/langchain_agent/src/services/search.agent.ts)**: The Intent Extractor that identifies Entities, Categories, and Attributes.
+3.  **[message.processor.service.ts](file:///c:/xampp4/htdocs/multistore/langchain_agent/src/services/message.processor.service.ts)**: The Presenter that applies the 0.025 threshold and manages the WhatsApp UI flow.
+
+---
+
+## 6. Maintenance Commands
+
+Sync embeddings after a bulk product import:
 ```bash
-cd langchain_agent
-npx ts-node scripts/sync-embeddings.ts
+# Artisan command (Laravel)
+php artisan products:sync-embeddings --force
+
+# Direct script (Agent)
+cd langchain_agent && npm run build && npx ts-node scripts/sync-embeddings.ts
 ```

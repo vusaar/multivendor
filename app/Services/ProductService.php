@@ -75,6 +75,7 @@ class ProductService
 
             if (!empty($variationMatrix)) {
                 $this->storeVariations($product, $variationMatrix);
+                $product->touch();
             }
 
             DB::commit();
@@ -110,6 +111,7 @@ class ProductService
 
             if (!empty($variations)) {
                 $this->syncVariations($product, $variations);
+                $product->touch();
             }
 
             DB::commit();
@@ -219,6 +221,7 @@ class ProductService
 
         // Delete removed variations
         $product->variations()->whereNotIn('id', $keepVariationIds)->delete();
+        $product->touch();
     }
 
     private function createVariation(Product $product, array $data): ProductVariation
