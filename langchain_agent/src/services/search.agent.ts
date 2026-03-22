@@ -133,7 +133,8 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             console.log(`[PERF] Total processUserQuery took: ${Date.now() - totalStart} ms`);
             
             // Log search asynchronously
-            searchLoggerService.log(userId, userQuery, toolCall.args, results, Date.now() - totalStart);
+            console.log(`[LOGGER-PRE] Results is array: ${Array.isArray(results)}`);
+            await searchLoggerService.log(userId, userQuery, toolCall.args, results, Date.now() - totalStart);
 
             return results;
         }
@@ -177,7 +178,7 @@ async function fallbackSearch(query: string, userId: string) {
     await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
 
     // Log fallback search
-    searchLoggerService.log(userId, query, { query, categories }, results, Date.now() - fallbackStart);
+    await searchLoggerService.log(userId, query, { query, categories }, results, Date.now() - fallbackStart);
 
     return results;
 }

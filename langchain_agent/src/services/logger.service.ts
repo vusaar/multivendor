@@ -26,19 +26,24 @@ export class SearchLoggerService {
         phoneNumber: string,
         query: string,
         intent: SearchIntent,
-        results: any[],
+        results: any,
         durationMs: number
     ) {
         if (!this.enabled) return;
 
         try {
-            const resultsCount = results.length;
-            // Store only top 5 results to save space
-            const topResults = results.slice(0, 5).map(p => ({
-                id: p.id,
-                name: p.name,
-                score: p.similarity_score || p.rrf_score || 0
-            }));
+            const isArray = Array.isArray(results);
+            const resultsCount = isArray ? results.length : 0;
+            
+            // Store only top 5 results to save space (only if array)
+            let topResults: any[] = [];
+            if (isArray) {
+                topResults = results.slice(0, 5).map((p: any) => ({
+                    id: p.id,
+                    name: p.name,
+                    score: p.similarity_score || p.rrf_score || 0
+                }));
+            }
 
             const sql = `
                 INSERT INTO search_logs (

@@ -1,0 +1,82 @@
+[
+    {
+        "query": "Mens sweater",
+        "description": "Exact match for a known product",
+        "expected": {
+            "entity": "sweater",
+            "categories": ["men"],
+            "must_contain": [14],
+            "min_confidence": 0.025
+        }
+    },
+    {
+        "query": "tshirt",
+        "description": "General entity search",
+        "expected": {
+            "entity": "tshirt",
+            "must_contain": [12, 15, 41],
+            "min_confidence": 0.025
+        }
+    },
+    {
+        "query": "men items",
+        "description": "Broad category search",
+        "expected": {
+            "categories": ["men"],
+            "min_confidence": 0.025
+        }
+    },
+    {
+        "query": "men trousers",
+        "description": "Entity mismatch (Category match but wrong item type)",
+        "expected": {
+            "entity": "trousers",
+            "categories": ["men"],
+            "max_confidence": 0.025
+        }
+    },
+    {
+        "query": "Blue shirt",
+        "description": "Attribute filtering",
+        "expected": {
+            "attributes": ["blue"],
+            "min_confidence": 0.025
+        }
+    },
+    {
+        "query": "Cotton hoodie",
+        "description": "Material attribute check",
+        "expected": {
+            "attributes": ["cotton"],
+            "entity": "hoodie"
+        }
+    },
+    {
+        "query": "Gifts under 20",
+        "description": "Price limit extraction",
+        "expected": {
+            "max_price": 20
+        }
+    },
+    {
+        "query": "something for her",
+        "description": "Demographic intent mapping",
+        "expected": {
+            "categories": ["women"]
+        }
+    },
+    {
+        "query": "electronics",
+        "description": "Departmental category search",
+        "expected": {
+            "categories": ["electronics"]
+        }
+    },
+    {
+        "query": "Pizza",
+        "description": "Irrelevant query (should have 0 results or very low confidence)",
+        "expected": {
+            "max_results": 0
+        }
+    }
+]

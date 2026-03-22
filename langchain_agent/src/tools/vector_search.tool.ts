@@ -90,6 +90,11 @@ export async function executeHybridSearch(params: {
 
     const whereClause = `status = 'active' AND (${searchConditions.join(' OR ')})`;
 
+    const entityPIdx = entity ? sqlParams.indexOf(entity.toLowerCase().replace(/[^a-z0-9]/g, '')) + 1 : -1;
+    const entityCheckSql = entityPIdx > 0 
+        ? `(${cleanSql('p.name')} ILIKE '%' || $${entityPIdx} || '%' OR ${cleanSql('p.search_context')} ILIKE '%' || $${entityPIdx} || '%')`
+        : `true`;
+
     const boostSql = categoriesTextArrayIdx > 0 
         ? `(CASE 
                 WHEN EXISTS (
@@ -99,7 +104,7 @@ export async function executeHybridSearch(params: {
                        OR LOWER(p.search_context) ILIKE '% | ' || c || ' %'
                        OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '|%'
                        OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '>'
-                ) THEN 1.0 
+                ) THEN (CASE WHEN ${entityCheckSql} THEN 1.0 ELSE 0.0 END)
                 ELSE 0.0 
             END)`
         : `0.0`;
