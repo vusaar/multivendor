@@ -91,23 +91,26 @@ export async function executeHybridSearch(params: {
     const whereClause = `status = 'active' AND (${searchConditions.join(' OR ')})`;
 
     const entityPIdx = entity ? sqlParams.indexOf(entity.toLowerCase().replace(/[^a-z0-9]/g, '')) + 1 : -1;
+    // Semantic Entity Check: Use a higher threshold (0.82) specifically for the "Entity Boost" validation 
+    // to distinguish valid synonyms from incorrect categories.
     const entityCheckSql = entityPIdx > 0 
-        ? `(${cleanSql('p.name')} ILIKE '%' || $${entityPIdx} || '%' OR ${cleanSql('p.search_context')} ILIKE '%' || $${entityPIdx} || '%')`
+        ? `(${cleanSql('p.name')} ILIKE '%' || $${entityPIdx} || '%' 
+            OR ${cleanSql('p.search_context')} ILIKE '%' || $${entityPIdx} || '%'
+            OR (1 - (p.embedding <=> $2::float8[]::vector)) > 0.85)`
         : `true`;
 
-    const boostSql = categoriesTextArrayIdx > 0 
-        ? `(CASE 
-                WHEN EXISTS (
-                    SELECT 1 FROM UNNEST($${categoriesTextArrayIdx}::text[]) c
-                    WHERE LOWER(p.search_context) ILIKE '%categorypath: ' || c || ' %'
-                       OR LOWER(p.search_context) ILIKE '% > ' || c || ' %'
-                       OR LOWER(p.search_context) ILIKE '% | ' || c || ' %'
-                       OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '|%'
-                       OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '>'
-                ) THEN (CASE WHEN ${entityCheckSql} THEN 1.0 ELSE 0.0 END)
-                ELSE 0.0 
-            END)`
-        : `0.0`;
+    const categoryMatchSql = categoriesTextArrayIdx > 0 
+        ? `EXISTS (
+            SELECT 1 FROM UNNEST($${categoriesTextArrayIdx}::text[]) c
+            WHERE LOWER(p.search_context) ILIKE '%categorypath: ' || c || ' %'
+               OR LOWER(p.search_context) ILIKE '% > ' || c || ' %'
+               OR LOWER(p.search_context) ILIKE '% | ' || c || ' %'
+               OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '|%'
+               OR LOWER(p.search_context) ILIKE '%categorypath: ' || c || '>'
+        )`
+        : `true`;
+
+    const boostSql = `(CASE WHEN (${categoryMatchSql}) AND (${entityCheckSql}) THEN 1.0 ELSE 0.0 END)`;
 
     const sql = `
         WITH keyword_results AS (
@@ -145,7 +148,6 @@ export async function executeHybridSearch(params: {
     `;
 
     const res = await db.query(sql, sqlParams);
-    console.log(`[DB] Ran Query with ${sqlParams.length} params.`);
     return res.rows;
 }
 

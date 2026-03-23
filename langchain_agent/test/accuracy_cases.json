@@ -78,5 +78,29 @@
         "expected": {
             "max_results": 0
         }
+    },
+    {
+        "query": "top",
+        "description": "Synonym test (top should match shirts and blouses)",
+        "expected": {
+            "must_contain": [51, 20],
+            "min_confidence": 0.025
+        }
+    },
+    {
+        "query": "jumper",
+        "description": "Synonym test (jumper should match sweater)",
+        "expected": {
+            "entity": "sweater",
+            "must_contain": [14],
+            "min_confidence": 0.025
+        }
+    },
+    {
+        "query": "apparel",
+        "description": "Very broad synonym/concept test",
+        "expected": {
+            "min_confidence": 0.020
+        }
     }
 ]

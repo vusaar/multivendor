@@ -35,8 +35,9 @@ async function runTests() {
         console.log(`\n🔍 TEST: "${test.query}" - ${test.description}`);
         
         try {
-            // Mock userId for testing
-            const results = await processUserQuery(test.query, "test_user");
+            // Use unique userId for each test to avoid session leakage/bypass logic
+            const testUserId = `test_user_${cases.indexOf(test)}`;
+            const results = await processUserQuery(test.query, testUserId);
             
             // We need the intent from the last search log or by calling the AI again
             // For this suite, we'll focus on the actual RESULTS and trust processUserQuery (which logs its intent)

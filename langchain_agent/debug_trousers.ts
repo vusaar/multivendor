@@ -1,7 +1,7 @@
 import { processUserQuery } from './src/services/search.agent';
 
 async function testSearchAccuracy() {
-    const query = "men trousers";
+    const query = process.argv[2] || "men trousers";
     console.log(`\n🔍 TESTING SEARCH: "${query}"`);
     console.log("--------------------------------------------------");
     
