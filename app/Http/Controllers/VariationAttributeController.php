@@ -9,8 +9,18 @@ class VariationAttributeController extends Controller
 {
     public function index()
     {
-        $attributes = VariationAttribute::with('values')->paginate(15);
-        return view('admin.variation_attributes.index', compact('attributes'));
+        $query = VariationAttribute::with('values');
+        
+        $vendor = null;
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $vendor = \App\Models\Vendor::where('user_id', auth()->id())->first();
+            $query->where(function($q) use ($vendor) {
+                $q->whereNull('vendor_id')->orWhere('vendor_id', $vendor?->id);
+            });
+        }
+
+        $attributes = $query->paginate(15);
+        return view('admin.variation_attributes.index', compact('attributes', 'vendor'));
     }
 
     public function create()
@@ -25,18 +35,47 @@ class VariationAttributeController extends Controller
             'values' => 'required|array|min:1',
             'values.*' => 'required|string|max:255',
         ]);
+
+        // Check for duplicates
+        if (VariationAttribute::where('name', $request->name)->exists()) {
+            return redirect()->back()->withInput()->with('error', 'This attribute already exists or is pending approval.');
+        }
         
         DB::transaction(function () use ($request) {
-            $attribute = VariationAttribute::create($request->only('name'));
+            $data = ['name' => $request->name];
+            if (auth()->user()->hasRole('vendor.admin')) {
+                $vendor = \App\Models\Vendor::where('user_id', auth()->id())->first();
+                $data['vendor_id'] = $vendor->id;
+                $data['status'] = 'pending';
+            } else {
+                $data['status'] = 'approved';
+            }
+
+            $attribute = VariationAttribute::create($data);
             foreach ($request->values as $value) {
                 $attribute->values()->create(['value' => $value]);
             }
         });
-        return redirect()->route('admin.variation-attributes.index')->with('success', 'Attribute and values created.');
+        return redirect()->route('admin.variation-attributes.index')->with('success', 'Attribute suggestion created.');
+    }
+
+    public function approve(VariationAttribute $variationAttribute)
+    {
+        if (!auth()->user()->hasRole('super.admin')) {
+            abort(403);
+        }
+        $variationAttribute->update(['status' => 'approved']);
+        return redirect()->route('admin.variation-attributes.index')->with('success', 'Attribute approved successfully.');
     }
 
     public function edit(VariationAttribute $variationAttribute)
     {
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $vendor = \App\Models\Vendor::where('user_id', auth()->id())->first();
+            if ($variationAttribute->vendor_id !== $vendor->id) {
+                abort(403, 'Unauthorized to edit global or other vendor attributes.');
+            }
+        }
         return view('admin.variation_attributes.edit', compact('variationAttribute'));
     }
 
@@ -78,6 +117,12 @@ class VariationAttributeController extends Controller
 
     public function destroy(VariationAttribute $variationAttribute)
     {
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $vendor = \App\Models\Vendor::where('user_id', auth()->id())->first();
+            if ($variationAttribute->vendor_id !== $vendor->id) {
+                abort(403, 'Unauthorized to delete global attributes.');
+            }
+        }
         $variationAttribute->delete();
         return redirect()->route('admin.variation-attributes.index')->with('success', 'Attribute deleted.');
     }

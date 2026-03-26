@@ -21,8 +21,9 @@
                                 <th class="ps-4" style="width: 80px;">ID</th>
                                 <th style="width: 150px;">Logo</th>
                                 <th>Name</th>
+                                <th>Status</th>
                                 <th>Description</th>
-                                <th class="text-end pe-4" style="width: 120px;">Actions</th>
+                                <th class="text-end pe-4" style="width: 180px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,19 +42,47 @@
                                     @endif
                                 </td>
                                 <td><span class="fw-bold">{{ $brand->name }}</span></td>
+                                <td>
+                                    @if($brand->status == 'approved')
+                                        <span class="badge bg-success-subtle text-success px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">APPROVED</span>
+                                    @elseif($brand->status == 'pending')
+                                        <span class="badge bg-warning-subtle text-warning px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">PENDING</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">REJECTED</span>
+                                    @endif
+                                </td>
                                 <td><span class="text-muted small">{{ Str::limit($brand->description, 100) }}</span></td>
                                 <td class="text-end pe-4">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <a href="{{ route('admin.brands.edit', $brand) }}" class="btn-action btn-action-edit" title="Edit">
-                                            <i class="cil-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this brand?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-action-delete" title="Delete">
-                                                <i class="cil-trash"></i>
-                                            </button>
-                                        </form>
+                                        @php
+                                            $canManage = auth()->user()->hasRole('super.admin') || 
+                                                        (auth()->user()->hasRole('vendor.admin') && $brand->vendor_id == ($vendor->id ?? null));
+                                        @endphp
+
+                                        @if($brand->status == 'pending' && auth()->user()->hasRole('super.admin'))
+                                            <form action="{{ route('admin.brands.approve', $brand) }}" method="POST" class="d-inline-block">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn-action btn-action-approve" title="Approve">
+                                                    <i class="cil-check"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+
+                                        @if($canManage)
+                                            <a href="{{ route('admin.brands.edit', $brand) }}" class="btn-action btn-action-edit" title="Edit">
+                                                <i class="cil-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this brand?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-action-delete" title="Delete">
+                                                    <i class="cil-trash"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="text-muted small italic">System Item</span>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

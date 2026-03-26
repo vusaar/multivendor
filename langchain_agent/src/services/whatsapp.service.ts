@@ -242,35 +242,47 @@ export class WhatsAppService {
         }
     }
 
-    formatProductCaption(product: any): string {
-        const name = `*${product.name.trim()}*`;
-        const price = `💰 *Price:* ${product.price}`;
+    formatProductCaption(product: any, debug: boolean = false): string {
+        const name = `*${product.name.trim().toUpperCase()}*`;
+        const price = `💰 *Price:* ${product.price} USD`;
 
-        // Ensure similarity_score is treated as a number
-        const scoreVal = Number(product.similarity_score);
-        const score = `🔍 *Search Score:* ${!isNaN(scoreVal) ? scoreVal.toFixed(4) : 'N/A'}`;
+        // Action Links
+        const waLink = product.vendor_phone 
+            ? `\n🏪 *Shop:* ${product.vendor?.shop_name || 'Generic Store'}\n📱 *Chat:* https://wa.me/${product.vendor_phone.replace(/[^0-9]/g, '')}`
+            : '';
+        
+        const detailsLink = product.public_url 
+            ? `\n🔗 *Details:* ${product.public_url}`
+            : '';
+
+        // Optional Debug Info
+        let score = '';
+        if (debug) {
+            const scoreVal = Number(product.similarity_score);
+            score = `\n🔍 *Search Score:* ${!isNaN(scoreVal) ? scoreVal.toFixed(4) : 'N/A'}`;
+        }
 
         // Extract unique properties from variations
-        const properties: string[] = [];
+        let propertiesText = '';
         if (product.variations && product.variations.length > 0) {
             const allAttrValues = new Set<string>();
             product.variations.forEach((v: any) => {
-                v.attribute_values.forEach((av: any) => {
-                    allAttrValues.add(av.value);
-                });
+                if (v.attribute_values) {
+                    v.attribute_values.forEach((av: any) => {
+                        allAttrValues.add(av.value);
+                    });
+                }
             });
             if (allAttrValues.size > 0) {
-                properties.push(`📦 *Properties:* ${Array.from(allAttrValues).join(', ')}`);
+                propertiesText = `\n📦 *Specs:* ${Array.from(allAttrValues).join(', ')}`;
             }
         }
 
         const description = product.description
-            ? `\n\n📝 _${product.description.trim().substring(0, 200)}${product.description.length > 200 ? '...' : ''}_`
+            ? `\n\n📝 _${product.description.trim().substring(0, 150)}${product.description.length > 150 ? '...' : ''}_`
             : '';
 
-        const propertiesText = properties.length > 0 ? `\n${properties.join('\n')}` : '';
-
-        return `${name}\n${price}\n${score}${propertiesText}${description}`;
+        return `${name}\n${price}${waLink}${detailsLink}${propertiesText}${score}${description}`;
     }
 }
 

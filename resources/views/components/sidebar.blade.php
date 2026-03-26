@@ -21,16 +21,16 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.search-logs.index') }}">
-                  <i class="nav-icon cil-search"></i> Search Analytics
-                </a>
+              <a class="nav-link" href="{{ route('admin.vendors.search-insights') }}">
+                <i class="nav-icon cil-search"></i> Search Insights
+              </a>
             </li>
-            
-             <li class="nav-item">
-               <a class="nav-link" href="{{ route('admin.brands.index') }}">
-                 <i class="nav-icon cil-tags"></i> Brands
-               </a>
-             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.brands.index') }}">
+                <i class="nav-icon cil-tags"></i> Brands
+              </a>
+            </li>
 
             <li class="nav-item">
               <a class="nav-link" href="#">
@@ -59,6 +59,12 @@
               <a class="nav-link" href="{{ route('admin.roles.index') }}">
                 <i class="nav-icon cil-speedometer"></i> Roles
               </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.search-logs.index') }}">
+                  <i class="nav-icon cil-search"></i> Search Analytics
+                </a>
             </li>
 
             <li class="nav-item">

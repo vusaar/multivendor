@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class VariationAttribute extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'vendor_id', 'status'];
 
     public function values()
     {

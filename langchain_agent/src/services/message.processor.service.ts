@@ -20,6 +20,7 @@ export class MessageProcessorService {
             let page = 1;
             let productsToShow: any[] = [];
             let suggestedProducts: any[] = [];
+            let isDebug = msgBody?.toLowerCase().includes('debug') || false;
 
             // 2. Handle button actions or new search
             if (isButtonReply && buttonId === 'next_page') {
@@ -33,7 +34,7 @@ export class MessageProcessorService {
                 
                 await whatsappService.sendMessage(from, "Here are some other items you might find interesting:");
                 for (const product of suggestions) {
-                    await this.sendProductMessage(from, product);
+                    await this.sendProductMessage(from, product, isDebug);
                 }
                 // Clear suggestions after showing them to keep session clean
                 await sessionService.updateSession(from, { suggestedProducts: [] });
@@ -75,7 +76,7 @@ export class MessageProcessorService {
             } else {
                 // Show verified products
                 for (const product of verifiedProducts) {
-                    await this.sendProductMessage(from, product);
+                    await this.sendProductMessage(from, product, isDebug);
                 }
 
                 // Update session state
@@ -104,13 +105,13 @@ export class MessageProcessorService {
         }
     }
 
-    private async sendProductMessage(to: string, product: any) {
+    private async sendProductMessage(to: string, product: any, debug: boolean = false) {
         const hasImages = product.images && product.images.length > 0;
         const imageUrl = hasImages
             ? product.images[0]
             : "http://127.0.0.1:8000/storage/placeholder.png";
 
-        const caption = whatsappService.formatProductCaption(product);
+        const caption = whatsappService.formatProductCaption(product, debug);
 
         try {
             const mediaId = await whatsappService.uploadMedia(imageUrl);

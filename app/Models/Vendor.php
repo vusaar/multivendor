@@ -15,7 +15,14 @@ class Vendor extends Model
         'description',
         'logo',
         'address',
+        'phone',
+        'website',
+        'social_links',
         'status',
+    ];
+
+    protected $casts = [
+        'social_links' => 'array',
     ];
 
     public function user()

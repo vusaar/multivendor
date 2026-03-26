@@ -18,15 +18,25 @@
                     <thead class="bg-light">
                         <tr>
                             <th class="ps-4 border-0 text-uppercase small fw-bold text-muted">Category Name</th>
+                            <th class="border-0 text-uppercase small fw-bold text-muted">Status</th>
                             <th class="border-0 text-uppercase small fw-bold text-muted">Hierarchy</th>
                             <th class="border-0 text-uppercase small fw-bold text-muted">Description</th>
-                            <th class="pe-4 border-0 text-uppercase small fw-bold text-muted text-end">Actions</th>
+                            <th class="pe-4 border-0 text-uppercase small fw-bold text-muted text-end" style="width: 180px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($categories as $category)
                             <tr>
                                 <td class="ps-4 fw-bold text-dark">{{ $category->name }}</td>
+                                <td>
+                                    @if($category->status == 'approved')
+                                        <span class="badge bg-success-subtle text-success px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">APPROVED</span>
+                                    @elseif($category->status == 'pending')
+                                        <span class="badge bg-warning-subtle text-warning px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">PENDING</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">REJECTED</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @php
                                         $parents = [];
@@ -46,16 +56,35 @@
                                 <td class="text-muted small">{{ Str::limit($category->description, 50) }}</td>
                                 <td class="pe-4 text-end">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <a href="{{ route('admin.categories.edit', $category) }}" class="btn-action btn-action-edit" title="Edit">
-                                            <i class="cil-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this category?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-action-delete" title="Delete">
-                                                <i class="cil-trash"></i>
-                                            </button>
-                                        </form>
+                                        @php
+                                            $canManage = auth()->user()->hasRole('super.admin') || 
+                                                        (auth()->user()->hasRole('vendor.admin') && $category->vendor_id == ($vendor->id ?? null));
+                                        @endphp
+
+                                        @if($category->status == 'pending' && auth()->user()->hasRole('super.admin'))
+                                            <form action="{{ route('admin.categories.approve', $category) }}" method="POST" class="d-inline-block">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn-action btn-action-approve" title="Approve">
+                                                    <i class="cil-check"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+
+                                        @if($canManage)
+                                            <a href="{{ route('admin.categories.edit', $category) }}" class="btn-action btn-action-edit" title="Edit">
+                                                <i class="cil-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this category?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-action-delete" title="Delete">
+                                                    <i class="cil-trash"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="text-muted small italic">System Item</span>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

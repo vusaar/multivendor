@@ -61,6 +61,8 @@ class StorefrontProductController extends Controller
                 'images' => $product->images->map(function ($img) {
                     return asset('storage/' . ($img->image ?? $img->image_path));
                 }),
+                'public_url' => route('product.public_show', $product->id),
+                'vendor_phone' => $product->vendor ? $product->vendor->phone : null,
                 'variations' => $product->variations ? $product->variations->map(function ($variation) {
                     return [
                         'id' => $variation->id,
@@ -85,7 +87,7 @@ class StorefrontProductController extends Controller
     // Show a single product by ID (for API)
     public function show($id)
     {
-        $product = \App\Models\Product::with(['vendor', 'category', 'images'])->findOrFail($id);
+        $product = \App\Models\Product::with(['vendor', 'category', 'images', 'brand', 'variations.attributeValues'])->findOrFail($id);
         return response()->json([
             'id' => $product->id,
             'name' => $product->name,
@@ -96,15 +98,45 @@ class StorefrontProductController extends Controller
             'vendor' => $product->vendor ? [
                 'id' => $product->vendor->id,
                 'shop_name' => $product->vendor->shop_name,
+                'phone' => $product->vendor->phone,
             ] : null,
             'category' => $product->category ? [
                 'id' => $product->category->id,
                 'name' => $product->category->name,
             ] : null,
+            'brand' => $product->brand ? [
+                'id' => $product->brand->id,
+                'name' => $product->brand->name,
+            ] : null,
             'images' => $product->images->map(function ($img) {
                 return asset('storage/' . ($img->image ?? $img->image_path));
             }),
+            'public_url' => route('product.public_show', $product->id),
+            'variations' => $product->variations->map(function ($variation) {
+                return [
+                    'id' => $variation->id,
+                    'sku' => $variation->sku,
+                    'price' => $variation->price,
+                    'stock' => $variation->stock,
+                    'attribute_values' => $variation->attributeValues->map(function ($av) {
+                        return [
+                            'id' => $av->id,
+                            'value' => $av->value,
+                            'name' => $av->attribute ? $av->attribute->name : 'Attribute',
+                        ];
+                    }),
+                ];
+            }),
         ]);
+    }
+
+    /**
+     * Render the public product detail page.
+     */
+    public function publicShow($id)
+    {
+        $product = \App\Models\Product::with(['vendor', 'category', 'brand', 'images', 'variations.attributeValues'])->findOrFail($id);
+        return view('storefront.product_details', compact('product'));
     }
 
     // Flexible search for products using only provided parameters
@@ -614,6 +646,8 @@ class StorefrontProductController extends Controller
                 'images' => $product->images->map(function ($img) {
                     return asset('storage/' . ($img->image ?? $img->image_path));
                 }),
+                'public_url' => route('product.public_show', $product->id),
+                'vendor_phone' => $product->vendor ? $product->vendor->phone : null,
                 'variations' => $product->variations->map(function ($variation) {
                     return [
                         'id' => $variation->id,
@@ -707,6 +741,8 @@ class StorefrontProductController extends Controller
                 'images' => $product->images->map(function ($img) {
                     return asset('storage/' . ($img->image ?? $img->image_path));
                 }),
+                'public_url' => route('product.public_show', $product->id),
+                'vendor_phone' => $product->vendor ? $product->vendor->phone : null,
                 'variations' => $product->variations->map(function ($variation) {
                     return [
                         'id' => $variation->id,

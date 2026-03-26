@@ -12,6 +12,8 @@ class SearchLog extends Model
     protected $fillable = [
         'phone_number',
         'query',
+        'corrected_query',
+        'search_id',
         'intent',
         'results',
         'results_count',

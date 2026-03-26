@@ -6,7 +6,8 @@
     "test": "jest",
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon --exec ts-node src/server.ts"
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "test:accuracy": "ts-node test/run_accuracy_tests.ts"
   },
   "keywords": [],
   "author": "",

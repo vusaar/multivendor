@@ -5,37 +5,29 @@ import { sessionService } from "./session.service";
 import { isContinuationQuery, SearchPlan } from "../utils/search_context.util";
 import { embeddingsService } from "./embeddings.service";
 import { searchLoggerService } from "./logger.service";
+import crypto from 'crypto';
 
 const systemPrompt = `You are an expert shopping assistant. 
-YOUR ONLY JOB is to call the 'hybrid_product_search' tool with the correct parameters extracted from the user's query.
+YOUR ONLY JOB is to call the 'hybrid_product_search' tool with the precise parameters extracted from the user's query.
 
-CRITICAL RULE: The 'query' parameter is MANDATORY. Always include the original or slightly cleaned user query in the 'query' field, even if you have extracted entities, attributes, or categories.
+CRITICAL RULE: The 'query' parameter is MANDATORY. Auto-correct any obvious spelling or typographical errors from the user's raw input, and output the corrected string here (e.g. "blu snaker" -> "blue sneaker"). Our vector search engine will handle synonyms.
 
-DATABASE MAPPING RULES:
-1. 'categories': Use for departments, demographics (men/women), or high-level classifications. 
-   Rule: Identify ANY high-level classification (gender, department, etc.) and include it in 'categories'.
-   Example: "for men" -> categories: ["men"]
-2. 'entity': Use for the specific product type.
-   Examples: "tshirt", "mascara", "smartwatch", "drill", "football".
-3. 'attributes': Use for technical specs, color, size, brand, or material.
-   Examples: "blue", "XL", "waterproof", "nike", "leather".
+DATABASE MAPPING RULES (FOR PRECISION SCORING):
+1. 'categories': Extract broad departments, demographics (e.g., "men", "women"), or high-level classifications. Be exact.
+2. 'entity': Extract the specific core product type IN SINGULAR FORM ONLY (e.g., "shirt", "sweater", "sneaker", not "shirts"). Be exact.
+3. 'synonyms': If the user uses a colloquial or generic product term (e.g. "top", "jumper", "kicks", "apparel"), provide 1 to 3 direct synonyms to expand the search net IN SINGULAR FORM.
+   - IMPORTANT: If the query specifies a gender (men/women), avoid generic synonyms like 'top' which can be gender-biased in fashion catalogs. Prefer specific terms like 'shirt', 'tee', 'blouse', 'polo'.
+4. 'attributes': Extract technical specs, colors, sizes, brands, or materials (e.g., "red", "XL", "nike"). Be exact.
 
 REQUIRED TOOL PARAMETERS:
-- 'query' (string, REQUIRED): The search terms.
-- 'entity' (string, optional): Specific product type.
-- 'categories' (array, optional): High-level classifications.
-- 'attributes' (array, optional): Specific specs or brands.
-
-EXAMPLES:
-User: "black nike running shoes for men under 100"
-Tool: { "query": "nike running shoes", "entity": "shoes", "categories": ["men"], "attributes": ["black", "nike", "running"], "max_price": 100 }
-
-User: "ladies perfumes"
-Tool: { "query": "perfumes", "entity": "perfume", "categories": ["women"] }
+- 'query' (string, REQUIRED): The general search terms.
+- 'entity' (string, optional): Specific central product type.
+- 'synonyms' (array, optional): 1 to 3 direct synonyms for the core entity.
+- 'categories' (array, optional): High-level classifications or demographics.
+- 'attributes' (array, optional): Specific modifiers or brands.
 
 ADDITIONAL RULES:
-- ALWAYS expand synonyms (gents -> men, ladies -> women).
-- If a high-level department (e.g., beauty, electronics) is mentioned or implied, include it in 'categories'.
+- ALWAYS extract precise entities. Combine the 'entity' and 'synonyms' arrays to maximize the chance of a lexical match against our database.
 - ALWAYS call the tool. NEVER respond with text first.`;
 
 const toolsByName: Record<string, any> = {
@@ -69,7 +61,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
                 return results;
             } else {
                 console.log(`[ROUTER] No results found in bypass.`);
-                return { status: "no_results", message: "No products found." };
+                return [];
             }
         }
 
@@ -130,10 +122,21 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             };
             await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
 
+            const searchId = crypto.randomUUID();
+
             console.log(`[PERF] Total processUserQuery took: ${Date.now() - totalStart} ms`);
             
             // Log search asynchronously
-            searchLoggerService.log(userId, userQuery, toolCall.args, results, Date.now() - totalStart);
+            console.log(`[LOGGER-PRE] Results is array: ${Array.isArray(results)}`);
+            await searchLoggerService.log(
+                userId, 
+                userQuery, 
+                toolCall.args.query, 
+                toolCall.args, 
+                results, 
+                Date.now() - totalStart,
+                searchId
+            );
 
             return results;
         }
@@ -176,8 +179,18 @@ async function fallbackSearch(query: string, userId: string) {
     };
     await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
 
+    const searchId = crypto.randomUUID();
+
     // Log fallback search
-    searchLoggerService.log(userId, query, { query, categories }, results, Date.now() - fallbackStart);
+    await searchLoggerService.log(
+        userId, 
+        query, 
+        undefined, 
+        { query, categories }, 
+        results, 
+        Date.now() - fallbackStart,
+        searchId
+    );
 
     return results;
 }
