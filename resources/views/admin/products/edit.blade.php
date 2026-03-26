@@ -84,10 +84,24 @@
                                         <input type="hidden" name="category_id" id="category_id" value="{{ $product->category_id }}">
                                     </div>
                                     <div class="mb-4">
-                                        <label class="pm-label">Product Name</label>
-                                        <select class="select2-tags pm-select" name="name" required>
-                                            <option value="{{ $product->name }}" selected>{{ $product->name }}</option>
-                                        </select>
+                                        <label class="pm-label">Product Naming</label>
+                                        <div class="row g-2">
+                                            <div class="col-md-7">
+                                                <label class="small text-muted mb-1">Model / Style Name (Optional)</label>
+                                                <input type="text" id="input_model" class="pm-input" placeholder="e.g. AZX750" value="{{ $product->name }}">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="small text-muted mb-1">Item Type (Core Noun)</label>
+                                                <input type="text" id="input_item_type" class="pm-input" placeholder="e.g. Sneaker" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-2 small text-muted bg-light p-2 rounded border">
+                                            <strong>Search Title Preview:</strong> 
+                                            <span id="preview_final_title" class="text-primary fw-bold" style="font-size: 1.1em;">{{ $product->name }}</span>
+                                        </div>
+                                        
+                                        <input type="hidden" name="name" id="final_product_name" value="{{ $product->name }}" required>
                                     </div>
                                     <div class="mb-4">
                                         <label class="pm-label">Description</label>
@@ -317,7 +331,44 @@
             $('.gen-value-select').select2({ theme: 'bootstrap-5', width: '100%' });
             bindGenEvents(document.querySelector('.gen-attr-row'));
 
-            $('.select2-tags').select2({ theme: 'bootstrap-5', width: '100%', tags: true });
+            // Split-Title Live Concatenation (Smart Deduplication)
+            const brandSelect = document.querySelector('select[name="brand_id"]');
+            const modelInput = document.getElementById('input_model');
+            const typeInput = document.getElementById('input_item_type');
+            const finalNameInput = document.getElementById('final_product_name');
+            const previewSpan = document.getElementById('preview_final_title');
+
+            function updateProductTitle() {
+                let brandName = '';
+                if (brandSelect && brandSelect.options[brandSelect.selectedIndex].value !== "") {
+                    brandName = brandSelect.options[brandSelect.selectedIndex].text.trim() + ' ';
+                }
+                
+                let modelName = modelInput.value.trim();
+                const typeName = typeInput.value.trim();
+                
+                // Smart dedupe: If existing model name already contains the Brand at the start, don't duplicate it
+                if (brandName && modelName.toLowerCase().startsWith(brandName.trim().toLowerCase())) {
+                    modelName = modelName.substring(brandName.trim().length).trim();
+                }
+                
+                // Smart dedupe: If model name already contains the Type at the end, don't duplicate it
+                if (typeName && modelName.toLowerCase().endsWith(typeName.toLowerCase())) {
+                    modelName = modelName.substring(0, modelName.length - typeName.length).trim();
+                }
+                
+                const finalTitle = `${brandName}${modelName} ${typeName}`.trim().replace(/\s+/g, ' ');
+                
+                previewSpan.textContent = finalTitle || '...';
+                finalNameInput.value = finalTitle;
+            }
+
+            if(brandSelect) $(brandSelect).on('change', updateProductTitle);
+            if(modelInput) modelInput.addEventListener('input', updateProductTitle);
+            if(typeInput) typeInput.addEventListener('input', updateProductTitle);
+            
+            // Trigger once on load to format properly
+            setTimeout(updateProductTitle, 500);
         });
 
         window.removeExistingImage = function(btn, id) {

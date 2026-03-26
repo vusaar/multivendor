@@ -18,6 +18,8 @@ class Brand extends Model
         'name',
         'description',
         'logo',
+        'vendor_id',
+        'status',
     ];
 
 

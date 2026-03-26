@@ -1,0 +1,14 @@
+[
+  {
+    "id": "43",
+    "name": "T-shirt",
+    "description": "Golf t-shirt",
+    "search_context": "Name: T-shirt | CategoryPath: Men T-shirts > Men Apparel | Description: Golf t-shirt | Brand: Gucci | Attributes: , Grey"
+  },
+  {
+    "id": "57",
+    "name": "T-shirt",
+    "description": "Golf t-shirt",
+    "search_context": "Name: T-shirt | CategoryPath: Men T-shirts > Men Apparel | Description: Golf t-shirt | Brand: Dolce & Gabbana | Attributes: Short Sleeve, Collared, Orange"
+  }
+]

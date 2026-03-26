@@ -18,14 +18,24 @@
                         <thead class="bg-light">
                             <tr>
                                 <th class="ps-4">Attribute Name</th>
+                                <th>Status</th>
                                 <th>Values</th>
-                                <th class="text-end pe-4">Actions</th>
+                                <th class="text-end pe-4" style="width: 180px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($attributes as $attribute)
                             <tr>
                                 <td class="ps-4"><span class="fw-bold text-dark">{{ $attribute->name }}</span></td>
+                                <td>
+                                    @if($attribute->status == 'approved')
+                                        <span class="badge bg-success-subtle text-success px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">APPROVED</span>
+                                    @elseif($attribute->status == 'pending')
+                                        <span class="badge bg-warning-subtle text-warning px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">PENDING</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger px-3 rounded-pill fw-bold" style="font-size: 0.7rem;">REJECTED</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex flex-wrap gap-1">
                                         @foreach($attribute->values as $val)
@@ -35,16 +45,35 @@
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <a href="{{ route('admin.variation-attributes.edit', $attribute) }}" class="btn-action btn-action-edit" title="Edit">
-                                            <i class="cil-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('admin.variation-attributes.destroy', $attribute) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this attribute?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-action btn-action-delete" title="Delete">
-                                                <i class="cil-trash"></i>
-                                            </button>
-                                        </form>
+                                        @php
+                                            $canManage = auth()->user()->hasRole('super.admin') || 
+                                                        (auth()->user()->hasRole('vendor.admin') && $attribute->vendor_id == ($vendor->id ?? null));
+                                        @endphp
+
+                                        @if($attribute->status == 'pending' && auth()->user()->hasRole('super.admin'))
+                                            <form action="{{ route('admin.variation-attributes.approve', $attribute) }}" method="POST" class="d-inline-block">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn-action btn-action-approve" title="Approve">
+                                                    <i class="cil-check"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+
+                                        @if($canManage)
+                                            <a href="{{ route('admin.variation-attributes.edit', $attribute) }}" class="btn-action btn-action-edit" title="Edit">
+                                                <i class="cil-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('admin.variation-attributes.destroy', $attribute) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this attribute?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-action-delete" title="Delete">
+                                                    <i class="cil-trash"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="text-muted small italic">System Item</span>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

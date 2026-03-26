@@ -36,7 +36,7 @@ async function runTests() {
         
         try {
             // Use unique userId for each test to avoid session leakage/bypass logic
-            const testUserId = `test_user_${cases.indexOf(test)}`;
+            const testUserId = `test_user_${cases.indexOf(test)}_${Date.now()}`;
             const results = await processUserQuery(test.query, testUserId);
             
             // We need the intent from the last search log or by calling the AI again

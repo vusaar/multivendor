@@ -41,6 +41,11 @@
                                     </td>
                                     <td>
                                         <span class="text-dark fw-medium">"{{ $log->query }}"</span>
+                                        @if($log->corrected_query && $log->corrected_query !== $log->query)
+                                            <div class="small text-primary italic mt-1">
+                                                <i class="cil-check-circle"></i> AI Fix: "{{ $log->corrected_query }}"
+                                            </div>
+                                        @endif
                                     </td>
                                     <td>
                                         @if($log->intent)
@@ -110,16 +115,24 @@
             <div class="modal-content glass-card border-0">
                 <div class="modal-header border-0 p-4">
                     <h5 class="modal-title fw-bold">Search Technical Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4 pt-0">
                     <div class="mb-4">
-                        <label class="text-uppercase small fw-bold text-muted mb-2 d-block">AI Interpretation (Intent)</label>
-                        <pre id="intentJson" class="bg-dark text-success p-3 rounded overflow-auto" style="max-height: 200px;"></pre>
+                        <label class="text-uppercase small fw-bold text-muted mb-2 d-block">Search Core Info</label>
+                        <div class="bg-dark p-3 rounded mb-2">
+                             <div class="small text-white-50">Search ID: <span id="logSearchId" class="text-warning"></span></div>
+                             <div class="small text-white-50 mt-1">Original Query: <span id="logQuery" class="text-info"></span></div>
+                             <div class="small text-white-50 mt-1">AI Corrected: <span id="logCorrected" class="text-success"></span></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-uppercase small fw-bold text-muted mb-2 d-block">AI Extraction (Intent)</label>
+                        <pre id="intentJson" class="bg-dark text-success p-3 rounded overflow-auto" style="max-height: 200px; font-size: 0.8rem;"></pre>
                     </div>
                     <div>
                         <label class="text-uppercase small fw-bold text-muted mb-2 d-block">Top Results (Rank & Score)</label>
-                        <pre id="resultsJson" class="bg-dark text-info p-3 rounded overflow-auto" style="max-height: 300px;"></pre>
+                        <pre id="resultsJson" class="bg-dark text-info p-3 rounded overflow-auto" style="max-height: 300px; font-size: 0.8rem;"></pre>
                     </div>
                 </div>
             </div>
@@ -127,16 +140,30 @@
     </div>
 
     <script>
+        let technicalModal = null;
+        
         function viewLogDetails(id) {
             fetch(`/admin/search-logs/${id}`)
                 .then(response => response.json())
                 .then(log => {
+                    document.getElementById('logSearchId').textContent = log.search_id || 'N/A';
+                    document.getElementById('logQuery').textContent = log.query || 'N/A';
+                    document.getElementById('logCorrected').textContent = log.corrected_query || log.query || 'N/A';
+                    
                     document.getElementById('intentJson').textContent = JSON.stringify(log.intent, null, 2);
                     document.getElementById('resultsJson').textContent = JSON.stringify(log.results, null, 2);
-                    const modal = new bootstrap.Modal(document.getElementById('logDetailsModal'));
-                    modal.show();
+                    
+                    if(!technicalModal) {
+                        // CoreUI 5 uses 'coreui' namespace instead of 'bootstrap'
+                        const ModalClass = (typeof coreui !== 'undefined') ? coreui.Modal : bootstrap.Modal;
+                        technicalModal = new ModalClass(document.getElementById('logDetailsModal'));
+                    }
+                    technicalModal.show();
                 })
-                .catch(err => console.error('Error fetching log details:', err));
+                .catch(err => {
+                    console.error('Error fetching log details:', err);
+                    alert('Could not fetch technical details. Check console for error.');
+                });
         }
     </script>
 

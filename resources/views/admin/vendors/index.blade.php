@@ -8,9 +8,11 @@
     <div class="glass-card mb-4 overflow-hidden">
         <div class="card-header bg-transparent border-0 d-flex align-items-center justify-content-between p-4">
             <h4 class="mb-0 fw-bold" style="color:var(--midnight)">Vendors</h4>
+            @can('create', App\Models\Vendor::class)
             <a href="{{ route('admin.vendors.create') }}" class="btn btn-primary">
                 <i class="cil-plus"></i> New Vendor
             </a>
+            @endcan
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -57,6 +59,7 @@
                                         <a href="{{ route('admin.vendors.edit', $vendor) }}" class="btn-action btn-action-edit" title="Edit">
                                             <i class="cil-pencil"></i>
                                         </a>
+                                        @can('delete', $vendor)
                                         <form action="{{ route('admin.vendors.destroy', $vendor) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Delete this vendor?')">
                                             @csrf
                                             @method('DELETE')
@@ -64,6 +67,7 @@
                                                 <i class="cil-trash"></i>
                                             </button>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

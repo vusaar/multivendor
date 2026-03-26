@@ -18,7 +18,8 @@ class UserController extends Controller
     // Show form to create a new user
     public function create()
     {
-        return view('admin.users.create');
+        $roles = \Spatie\Permission\Models\Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     // Store a new user
@@ -28,12 +29,17 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'roles' => 'required|array',
         ]);
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        if ($request->has('roles')) {
+            $user->syncRoles($request->roles);
+        }
         return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
 

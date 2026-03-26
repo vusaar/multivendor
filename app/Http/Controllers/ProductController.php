@@ -47,25 +47,30 @@ class ProductController extends Controller
     // Show the form for creating a new product
     public function create()
     {
-        $vendors = Vendor::all();
+        $selectedVendorId = null;
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $currentUserId = auth()->id();
+            $vendors = Vendor::where('user_id', $currentUserId)->get();
+            if ($vendors->count() === 1) {
+                $selectedVendorId = $vendors->first()->id;
+            }
+        } else {
+            $vendors = Vendor::all();
+        }
 
-        $brands = Brand::all();
+        // ONLY show approved items for product creation
+        $brands = Brand::where('status', 'approved')->get();
+        $categories = Category::with('children')->whereNull('parent_id')
+            ->where('status', 'approved')->get();
 
-      
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-
-        return view('admin.products.create', compact('vendors', 'categories','brands'));
+        return view('admin.products.create', compact('vendors', 'categories', 'brands', 'selectedVendorId'));
     }
 
     // Store a newly created product in storage
     public function store(Request $request)
     {
-
-        // dd($request->all());
-        $request->validate([
-            'vendor_id' => 'nullable|exists:vendors,id',
+        $validated = $request->validate([
+            'vendor_id' => 'required|exists:vendors,id',
             'category_id' => 'nullable|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'name' => 'required|string|max:255',
@@ -75,6 +80,14 @@ class ProductController extends Controller
             'status' => 'required|in:active,inactive',
             'images.*' => 'nullable|image|max:2048',
         ]);
+
+        // Authorization check for the vendor_id
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $ownVendorIds = Vendor::where('user_id', auth()->id())->pluck('id')->toArray();
+            if (!in_array($validated['vendor_id'], $ownVendorIds)) {
+                abort(403, 'Unauthorized vendor assignment.');
+            }
+        }
 
         try {
             $this->productService->createProduct(
@@ -101,21 +114,33 @@ class ProductController extends Controller
     // Show the form for editing the specified product
     public function edit(Product $product)
     {
-    $vendors = Vendor::all();
-    $categories = Category::with('children')->whereNull('parent_id')->get();
-    $brands = Brand::all();
-   
-    $product->load(['images', 'variations.attributeValues', 'variations.variationImages']);
-    $variationAttributes = \App\Models\VariationAttribute::with('values')->get();
+        $this->authorize('update', $product);
+
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $currentUserId = auth()->id();
+            $vendors = Vendor::where('user_id', $currentUserId)->get();
+        } else {
+            $vendors = Vendor::all();
+        }
+
+        // ONLY show approved items for product editing
+        $brands = Brand::where('status', 'approved')->get();
+        $categories = Category::with('children')->whereNull('parent_id')
+            ->where('status', 'approved')->get();
     
-    return view('admin.products.edit', compact('product', 'vendors', 'categories', 'brands', 'variationAttributes'));
+        $product->load(['images', 'variations.attributeValues', 'variations.variationImages']);
+        $variationAttributes = \App\Models\VariationAttribute::with('values')->get();
+        
+        return view('admin.products.edit', compact('product', 'vendors', 'categories', 'brands', 'variationAttributes'));
     }
 
     // Update the specified product in storage
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'vendor_id' => 'nullable|exists:vendors,id',
+        $this->authorize('update', $product);
+
+        $validated = $request->validate([
+            'vendor_id' => 'required|exists:vendors,id',
             'category_id' => 'nullable|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'name' => 'required|string|max:255',
@@ -126,8 +151,13 @@ class ProductController extends Controller
             'images.*' => 'nullable|image|max:2048',
         ]);
 
-
-        //dd($request->all());
+        // Prevent vendor spoofing in update
+        if (auth()->user()->hasRole('vendor.admin')) {
+            $ownVendorIds = Vendor::where('user_id', auth()->id())->pluck('id')->toArray();
+            if (!in_array($validated['vendor_id'], $ownVendorIds)) {
+                abort(403, 'Unauthorized vendor assignment.');
+            }
+        }
 
         try {
             $this->productService->updateProduct(
@@ -147,6 +177,7 @@ class ProductController extends Controller
     // Remove the specified product from storage
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }

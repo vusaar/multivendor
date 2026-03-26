@@ -9,39 +9,83 @@
         <div class="container-fluid">
             <!-- Stats Grid -->
             <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="glass-card stat-widget h-100">
+                <!-- Total Products -->
+                <div class="col-md-3">
+                    <div class="glass-card stat-widget h-100 overflow-hidden" style="position: relative;">
                         <div class="stat-label">Total Products</div>
-                        <div class="stat-value text-crimson">11</div>
-                        <div class="stat-trend trend-up">
-                            <i class="cil-arrow-top"></i> +12% this month
+                        <div class="stat-value text-crimson">{{ $stats['totalProducts'] }}</div>
+                        <div class="stat-trend trend-up small text-muted">
+                            <i class="cil-arrow-top"></i> In Store
                         </div>
                         <div style="position: absolute; bottom: 0; right: 0; opacity: 0.1; font-size: 5rem; margin-bottom: -1rem; margin-right: -0.5rem;">
                             <i class="cil-library"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="glass-card stat-widget h-100">
+
+                @if($stats['isSuperAdmin'])
+                <!-- Active Vendors (Super Admin Only) -->
+                <div class="col-md-3">
+                    <div class="glass-card stat-widget h-100 overflow-hidden" style="position: relative;">
                         <div class="stat-label">Active Vendors</div>
-                        <div class="stat-value">4</div>
-                        <div class="stat-trend trend-up">
-                            <i class="cil-arrow-top"></i> +1 new since yesterday
-                        </div>
+                        <div class="stat-value text-primary">{{ $stats['activeVendors'] }}</div>
+                        <div class="stat-trend trend-up small text-muted">Approved Shops</div>
                         <div style="position: absolute; bottom: 0; right: 0; opacity: 0.1; font-size: 5rem; margin-bottom: -1rem; margin-right: -0.5rem;">
-                            <i class="cil-house"></i>
+                            <i class="cil-people"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="glass-card stat-widget h-100">
+                @else
+                <!-- Search Visibility (Final Consistent Layout) -->
+                <div class="col-md-3">
+                    <div class="glass-card stat-widget h-100 overflow-hidden" style="position: relative;">
+                        <div class="stat-label">Search Visibility</div>
+                        
+                        <div class="stat-value text-emerald">
+                            {{ $stats['searchAppearances'] ?? 0 }}
+                        </div>
+
+                        <div class="stat-trend small text-muted d-flex justify-content-between">
+                            <span><i class="cil-search"></i> Total Hits</span>
+                            <span>
+                                <span style="color: #6366F1;">#{{ $stats['top5Appearances'] ?? 0 }}</span> / 
+                                <span style="color: #3B82F6;">#{{ $stats['top10Appearances'] ?? 0 }}</span>
+                            </span>
+                        </div>
+
+                        <div style="position: absolute; bottom: 0; right: 0; opacity: 0.05; font-size: 5rem; margin-bottom: -1rem; margin-right: -0.5rem;">
+                            <i class="cil-search"></i>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                <!-- Product Categories -->
+                <div class="col-md-3">
+                    <div class="glass-card stat-widget h-100 overflow-hidden" style="position: relative;">
                         <div class="stat-label">Product Categories</div>
-                        <div class="stat-value">34</div>
-                        <div class="stat-trend text-emerald">
-                            <i class="cil-check-alt"></i> Fully Synchronized
+                        <div class="stat-value text-dark">{{ $stats['totalCategories'] }}</div>
+                        <div class="stat-trend text-emerald small text-muted">
+                            <i class="cil-check-alt"></i> Active Catalog
                         </div>
                         <div style="position: absolute; bottom: 0; right: 0; opacity: 0.1; font-size: 5rem; margin-bottom: -1rem; margin-right: -0.5rem;">
                             <i class="cil-speedometer"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Store Status -->
+                <div class="col-md-3">
+                    <div class="glass-card stat-widget h-100 overflow-hidden" style="position: relative;">
+                        <div class="stat-label">System Context</div>
+                        <div class="stat-value fw-bold @if(($stats['vendorStatus'] ?? '') == 'Approved') text-success @else text-warning @endif" style="font-size: 1.2rem;">
+                            {{ $stats['vendorStatus'] ?? 'SUPER ADMIN' }}
+                        </div>
+                        <div class="stat-trend small text-muted">
+                            {{ $stats['shopName'] ?? 'Platform Global' }}
+                        </div>
+                        <div style="position: absolute; bottom: 0; right: 0; opacity: 0.1; font-size: 5rem; margin-bottom: -1rem; margin-right: -0.5rem;">
+                            <i class="cil-house"></i>
                         </div>
                     </div>
                 </div>

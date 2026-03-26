@@ -266,6 +266,13 @@ aside {
     box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
 }
 
+.btn-action-approve:hover {
+    border-color: var(--emerald) !important;
+    color: #FFFFFF !important;
+    background: var(--emerald) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
 /* Global Color Overrides */
 .text-primary {
     color: var(--primary) !important;
@@ -273,6 +280,52 @@ aside {
 
 .bg-primary {
     background-color: var(--primary) !important;
+}
+
+/* Search Visibility Widget Enhancements */
+.card-glow-emerald {
+    box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.2), var(--depth-shadow);
+    border-top: 4px solid var(--emerald) !important;
+}
+
+.visibility-score-container {
+    position: relative;
+}
+
+.segmented-meter {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    display: flex;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.meter-segment {
+    height: 100%;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bg-top5 { background: #6366F1; box-shadow: 0 0 10px rgba(99, 102, 241, 0.3); }
+.bg-top10 { background: #3B82F6; opacity: 0.7; }
+.bg-rest { background: var(--emerald); opacity: 0.3; }
+
+.rank-pill {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+@keyframes pulse-soft {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.icon-animate {
+    animation: pulse-soft 3s infinite ease-in-out;
 }
 
 .badge-crimson {

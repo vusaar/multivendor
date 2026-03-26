@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ApiTokenController;
 
+// Public Storefront Routes
+Route::get('/p/{product}', [\App\Http\Controllers\Api\StorefrontProductController::class, 'publicShow'])->name('product.public_show');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,13 +18,9 @@ use App\Http\Controllers\Admin\ApiTokenController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Admin vendor management
+    Route::get('/admin/vendors/search-insights', [\App\Http\Controllers\AdminVendorController::class, 'searchInsights'])->name('admin.vendors.search-insights');
     Route::resource('/admin/vendors', \App\Http\Controllers\AdminVendorController::class, [
         'names' => [
             'index' => 'admin.vendors.index',
@@ -40,17 +40,56 @@ Route::middleware('auth')->group(function () {
         ]
     ]);
     
-        // Admin brand management
-        Route::resource('/admin/brands', \App\Http\Controllers\BrandController::class, [
-            'names' => [
-                'index' => 'admin.brands.index',
-                'create' => 'admin.brands.create',
-                'store' => 'admin.brands.store',
-                'edit' => 'admin.brands.edit',
-                'update' => 'admin.brands.update',
-                'destroy' => 'admin.brands.destroy',
-            ]
-        ]);
+    // Admin brand management
+    Route::patch('/admin/brands/{brand}/approve', [\App\Http\Controllers\BrandController::class, 'approve'])->name('admin.brands.approve');
+    Route::resource('/admin/brands', \App\Http\Controllers\BrandController::class, [
+        'names' => [
+            'index' => 'admin.brands.index',
+            'create' => 'admin.brands.create',
+            'store' => 'admin.brands.store',
+            'edit' => 'admin.brands.edit',
+            'update' => 'admin.brands.update',
+            'destroy' => 'admin.brands.destroy',
+        ]
+    ]);
+
+    // Admin category management
+    Route::patch('/admin/categories/{category}/approve', [\App\Http\Controllers\CategoryController::class, 'approve'])->name('admin.categories.approve');
+    Route::resource('/admin/categories', \App\Http\Controllers\CategoryController::class, [
+        'names' => [
+            'index' => 'admin.categories.index',
+            'create' => 'admin.categories.create',
+            'store' => 'admin.categories.store',
+            'edit' => 'admin.categories.edit',
+            'update' => 'admin.categories.update',
+            'destroy' => 'admin.categories.destroy',
+        ]
+    ]);
+
+    // Admin variation attribute management
+    Route::patch('/admin/variation-attributes/{variation_attribute}/approve', [\App\Http\Controllers\VariationAttributeController::class, 'approve'])->name('admin.variation-attributes.approve');
+    Route::resource('/admin/variation-attributes', \App\Http\Controllers\VariationAttributeController::class, [
+        'names' => [
+            'index' => 'admin.variation-attributes.index',
+            'create' => 'admin.variation-attributes.create',
+            'store' => 'admin.variation-attributes.store',
+            'edit' => 'admin.variation-attributes.edit',
+            'update' => 'admin.variation-attributes.update',
+            'destroy' => 'admin.variation-attributes.destroy',
+        ]
+    ]);
+
+    // Admin variation attribute values management
+    Route::resource('/admin/variation-attribute-values', \App\Http\Controllers\VariationAttributeValueController::class, [
+        'names' => [
+            'index' => 'admin.variation-attribute-values.index',
+            'create' => 'admin.variation-attribute-values.create',
+            'store' => 'admin.variation-attribute-values.store',
+            'edit' => 'admin.variation-attribute-values.edit',
+            'update' => 'admin.variation-attribute-values.update',
+            'destroy' => 'admin.variation-attribute-values.destroy',
+        ]
+    ]);
 
     // Admin role management
     Route::resource('/admin/roles', \App\Http\Controllers\RoleController::class, [
@@ -88,18 +127,6 @@ Route::middleware('auth')->group(function () {
         ]
     ]);
 
-    // Admin category management
-    Route::resource('/admin/categories', \App\Http\Controllers\CategoryController::class, [
-        'names' => [
-            'index' => 'admin.categories.index',
-            'create' => 'admin.categories.create',
-            'store' => 'admin.categories.store',
-            'edit' => 'admin.categories.edit',
-            'update' => 'admin.categories.update',
-            'destroy' => 'admin.categories.destroy',
-        ]
-    ]);
-
     // Admin product management
     Route::resource('/admin/products', \App\Http\Controllers\ProductController::class, [
         'names' => [
@@ -114,30 +141,6 @@ Route::middleware('auth')->group(function () {
     ]);
     Route::delete('/admin/products/image/{image}', [\App\Http\Controllers\ProductController::class, 'destroyImage'])->name('admin.products.destroyImage');
 
-    // Admin variation attribute management
-    Route::resource('/admin/variation-attributes', \App\Http\Controllers\VariationAttributeController::class, [
-        'names' => [
-            'index' => 'admin.variation-attributes.index',
-            'create' => 'admin.variation-attributes.create',
-            'store' => 'admin.variation-attributes.store',
-            'edit' => 'admin.variation-attributes.edit',
-            'update' => 'admin.variation-attributes.update',
-            'destroy' => 'admin.variation-attributes.destroy',
-        ]
-    ]);
-
-    // Admin variation attribute values management
-    Route::resource('/admin/variation-attribute-values', \App\Http\Controllers\VariationAttributeValueController::class, [
-        'names' => [
-            'index' => 'admin.variation-attribute-values.index',
-            'create' => 'admin.variation-attribute-values.create',
-            'store' => 'admin.variation-attribute-values.store',
-            'edit' => 'admin.variation-attribute-values.edit',
-            'update' => 'admin.variation-attribute-values.update',
-            'destroy' => 'admin.variation-attribute-values.destroy',
-        ]
-    ]);
-
     Route::get('/admin/variation-attributes/{attribute}/values', function ($attributeId) {
         $values = \App\Models\VariationAttributeValue::where('variation_attribute_id', $attributeId)->get(['id', 'value']);
         return response()->json($values);
@@ -147,11 +150,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/api-tokens/create', [ApiTokenController::class, 'create'])->name('admin.api-tokens.create');
     Route::post('/admin/api-tokens', [ApiTokenController::class, 'store'])->name('admin.api-tokens.store');
 
+});
 
-    // Search Logs & Analytics
+// Super Admin Only Analytics & Logs
+Route::middleware(['auth', 'role:super.admin'])->group(function () {
     Route::get('/admin/search-logs', [\App\Http\Controllers\Admin\SearchLogController::class, 'index'])->name('admin.search-logs.index');
     Route::get('/admin/search-logs/{search_log}', [\App\Http\Controllers\Admin\SearchLogController::class, 'show'])->name('admin.search-logs.show');
-
 });
 
 Route::prefix('admin')->middleware(['web', 'auth', 'role:super.admin|admin'])->group(function () {

@@ -73,10 +73,24 @@
                                         <input type="hidden" name="category_id" id="category_id">
                                     </div>
                                     <div class="mb-4">
-                                        <label class="pm-label">Product Name</label>
-                                        <select class="select2-tags pm-select" name="name" required>
-                                            <option value="">Type name or search...</option>
-                                        </select>
+                                        <label class="pm-label">Product Naming</label>
+                                        <div class="row g-2">
+                                            <div class="col-md-7">
+                                                <label class="small text-muted mb-1">Model / Style Name (Optional)</label>
+                                                <input type="text" id="input_model" class="pm-input" placeholder="e.g. AZX750, AirMax, S24">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="small text-muted mb-1">Item Type (Core Noun)</label>
+                                                <input type="text" id="input_item_type" class="pm-input" placeholder="e.g. Sneaker, Phone" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-2 small text-muted bg-light p-2 rounded border">
+                                            <strong>Search Title Preview:</strong> 
+                                            <span id="preview_final_title" class="text-primary fw-bold" style="font-size: 1.1em;">...</span>
+                                        </div>
+                                        
+                                        <input type="hidden" name="name" id="final_product_name" required>
                                     </div>
                                     <div class="mb-4">
                                         <label class="pm-label">Description</label>
@@ -86,10 +100,12 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label class="pm-label">Vendor</label>
-                                        <select name="vendor_id" class="pm-select">
+                                        <select name="vendor_id" class="pm-select" required>
                                             <option value="">Select Vendor</option>
                                             @foreach($vendors as $vendor)
-                                                <option value="{{ $vendor->id }}">{{ $vendor->shop_name }}</option>
+                                                <option value="{{ $vendor->id }}" {{ (old('vendor_id', $selectedVendorId) == $vendor->id) ? 'selected' : '' }}>
+                                                    {{ $vendor->shop_name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -280,7 +296,30 @@
             $('.gen-value-select').select2({ theme: 'bootstrap-5', width: '100%' });
             bindGenEvents(document.querySelector('.gen-attr-row'));
 
-            $('.select2-tags').select2({ theme: 'bootstrap-5', width: '100%', tags: true });
+            // Split-Title Live Concatenation
+            const brandSelect = document.querySelector('select[name="brand_id"]');
+            const modelInput = document.getElementById('input_model');
+            const typeInput = document.getElementById('input_item_type');
+            const finalNameInput = document.getElementById('final_product_name');
+            const previewSpan = document.getElementById('preview_final_title');
+
+            function updateProductTitle() {
+                let brandName = '';
+                if (brandSelect && brandSelect.options[brandSelect.selectedIndex].value !== "") {
+                    brandName = brandSelect.options[brandSelect.selectedIndex].text.trim() + ' ';
+                }
+                const modelName = modelInput.value.trim();
+                const typeName = typeInput.value.trim();
+                
+                const finalTitle = `${brandName}${modelName} ${typeName}`.trim().replace(/\s+/g, ' ');
+                
+                previewSpan.textContent = finalTitle || '...';
+                finalNameInput.value = finalTitle;
+            }
+
+            if(brandSelect) $(brandSelect).on('change', updateProductTitle); // Since it might be a select2
+            if(modelInput) modelInput.addEventListener('input', updateProductTitle);
+            if(typeInput) typeInput.addEventListener('input', updateProductTitle);
         });
     </script>
 </x-app-layout>
