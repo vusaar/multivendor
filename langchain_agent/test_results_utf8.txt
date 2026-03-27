@@ -1,81 +1,144 @@
-﻿[dotenv@17.2.3] injecting env (7) from .env -- tip: ≡ƒùé∩╕Å backup and recover secrets: https://dotenvx.com/ops
+﻿
+> langchain_agent@1.0.0 test:accuracy
+> ts-node test/run_accuracy_tests.ts
+
+[dotenv@17.2.3] injecting env (12) from .env -- tip: ≡ƒôí add observability to secrets: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent building .env in docker: https://dotenvx.com/prebuild
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
 [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
-[dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
---- Starting Search Agent Filter Tests ---
 
-Query: "products under 20 dollars"
-[AGENT] Starting custom router for: "products under 20 dollars"
-[AGENT] Triggering fallback search
-[AGENT] Tool hybrid_product_search called with query: products under 20 dollars
-[PERF] Embedding generation took: 519ms
-[PERF] DB query took: 2262ms
-[PERF] Total hybrid_product_search tool took: 2786ms
-Response Time: 5473ms
-Found 10 results.
-Top 2 results:
- - ID: 68, Name: T-Shirt, Price: 2.00
- - ID: 6, Name: Sneaker, Price: 20.00
+≡ƒÜÇ STARTING SEARCH ACCURACY TEST SUITE
+==================================================
 
-------------------------------------------
+≡ƒöì TEST: "Mens sweater" - Exact match for a known product
+[AGENT] Starting stateful router for: "Mens sweater" (User: test_user_0_1774602749658)
+[PERF] Initial reasoning took: 1925ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '957c99a2-39da-4ef3-ae2a-180810e3ed5c',
+    name: 'hybrid_product_search',
+    args: { categories: [Array], query: 'Mens sweater', entity: 'sweater' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: Mens sweater, Entity: sweater, Cats: men, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'Mens sweater',
+  limit: 50,
+  offset: 0,
+  entity: 'sweater',
+  synonyms: undefined,
+  categories: [ 'men' ],
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 3482 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "Mens sweater" -> "Mens sweater" for test_user_0_1774602749658 (50 results, 3483ms)
+   Γ£à Must Contain IDs 14 (Actual: All Found)
+   Γ£à Score >= 75 (Verified) (Actual: 179.10490696997007)
 
-Query: "blue shirts size small"
-[AGENT] Starting custom router for: "blue shirts size small"
-[AGENT] Triggering fallback search
-[AGENT] Tool hybrid_product_search called with query: blue shirts size small
-[PERF] Embedding generation took: 1044ms
-[PERF] DB query took: 529ms
-[PERF] Total hybrid_product_search tool took: 1576ms
-Response Time: 1877ms
-Found 10 results.
-Top 2 results:
- - ID: 32, Name: Shirt, Price: 39.99
- - ID: 35, Name: Shirt, Price: 33.00
+≡ƒöì TEST: "tshirt" - General entity search
+[AGENT] Starting stateful router for: "tshirt" (User: test_user_1_1774602753177)
+[PERF] Initial reasoning took: 931ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '6a34dfb7-5897-49d5-bfd4-1898113a4615',
+    name: 'hybrid_product_search',
+    args: { entity: 'tshirt', query: 'tshirt' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: tshirt, Entity: tshirt, Cats: undefined, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'tshirt',
+  limit: 50,
+  offset: 0,
+  entity: 'tshirt',
+  synonyms: undefined,
+  categories: undefined,
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 2259 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "tshirt" -> "tshirt" for test_user_1_1774602753177 (50 results, 2259ms)
+   Γ£à Must Contain IDs 12,15,41 (Actual: All Found)
+   Γ£à Score >= 55 (Verified) (Actual: 78.89433066147532)
 
-------------------------------------------
+≡ƒöì TEST: "men items" - Broad category search
+[AGENT] Starting stateful router for: "men items" (User: test_user_2_1774602755440)
+[PERF] Initial reasoning took: 925ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: 'd9c2c8d3-2774-4584-bf53-ca499f55bfb4',
+    name: 'hybrid_product_search',
+    args: { query: 'men items', categories: [Array] }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: men items, Entity: undefined, Cats: men, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'men items',
+  limit: 50,
+  offset: 0,
+  entity: undefined,
+  synonyms: undefined,
+  categories: [ 'men' ],
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 2272 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "men items" -> "men items" for test_user_2_1774602755440 (50 results, 2272ms)
+   Γ£à Score >= 35 (Verified) (Actual: 108.64746765524535)
 
-Query: "mens t-shirt size XL under 50"
-[AGENT] Starting custom router for: "mens t-shirt size XL under 50"
-[AGENT] Triggering fallback search
-[AGENT] Tool hybrid_product_search called with query: mens t-shirt size XL under 50
-[PERF] Embedding generation took: 1234ms
-[PERF] DB query took: 441ms
-[PERF] Total hybrid_product_search tool took: 1678ms
-Response Time: 2178ms
-Found 10 results.
-Top 2 results:
- - ID: 1, Name: T-Shirt, Price: 5.00
- - ID: 2, Name: T-Shirt, Price: 10.00
+≡ƒöì TEST: "men trousers" - Entity mismatch (Category match but wrong item type)
+[AGENT] Starting stateful router for: "men trousers" (User: test_user_3_1774602757716)
+[PERF] Initial reasoning took: 944ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '4cda0ca1-0685-4b11-adb9-d99baf19ca68',
+    name: 'hybrid_product_search',
+    args: { query: 'men trousers', categories: [Array], entity: 'trouser' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: men trousers, Entity: trouser, Cats: men, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'men trousers',
+  limit: 50,
+  offset: 0,
+  entity: 'trouser',
+  synonyms: undefined,
+  categories: [ 'men' ],
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 2295 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "men trousers" -> "men trousers" for test_user_3_1774602757716 (50 results, 2295ms)
+   Γ¥î Score < 45 (Suggestion) (Actual: 108.45126046277896)
 
-------------------------------------------
-
-Query: "White sneakers size 42"
-[AGENT] Starting custom router for: "White sneakers size 42"
-[AGENT] Triggering fallback search
-[AGENT] Tool hybrid_product_search called with query: White sneakers size 42
-[PERF] Embedding generation took: 1014ms
-[PERF] DB query took: 364ms
-[PERF] Total hybrid_product_search tool took: 1381ms
-Response Time: 1685ms
-Found 10 results.
-Top 2 results:
- - ID: 8, Name: Sneaker, Price: 29.99
- - ID: 4, Name: Sneaker, Price: 30.00
-
-------------------------------------------
-
-Query: "black hoodie under 30"
-[AGENT] Starting custom router for: "black hoodie under 30"
-[AGENT] Triggering fallback search
-[AGENT] Tool hybrid_product_search called with query: black hoodie under 30
-[PERF] Embedding generation took: 818ms
-[PERF] DB query took: 500ms
-[PERF] Total hybrid_product_search tool took: 1321ms
-Response Time: 1870ms
-Found 10 results.
-Top 2 results:
- - ID: 54, Name: T-Shirt, Price: 10.00
- - ID: 4, Name: Sneaker, Price: 30.00
-
-------------------------------------------
-
-Tests completed.
+≡ƒöì TEST: "Blue shirt" - Attribute filtering
+[AGENT] Starting stateful router for: "Blue shirt" (User: test_user_4_1774602760014)
+[PERF] Initial reasoning took: 1039ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '6ee7b638-c8b2-49a3-a33f-8f7221f40dc7',
+    name: 'hybrid_product_search',
+    args: { query: 'Blue shirt', attributes: [Array], entity: 'shirt' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: Blue shirt, Entity: shirt, Cats: undefined, Attrs: blue
+[DB] Structured Search Params: {
+  query: 'Blue shirt',
+  limit: 50,
+  offset: 0,
+  entity: 'shirt',
+  synonyms: undefined,
+  categories: undefined,
+  attributes: [ 'blue' ]
+}

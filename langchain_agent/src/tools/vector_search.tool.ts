@@ -45,28 +45,28 @@ export async function executeHybridSearch(params: {
     // though parameterization is better, dynamic ILIKE with dynamic params is tricky in pg pass-through)
     // We will use parameterization for all dynamic values to be safe.
     
-    // Entity Match (+50 points for title match, OR +30 points for category/attribute context match)
+    // Entity Match (+90 points for title match, OR +50 points for category/attribute context match)
     if (entity) {
-        sqlParams.push(entity.toLowerCase().replace(/[^a-z0-9]/g, ''));
+        sqlParams.push(entity.toLowerCase().trim());
         const pIdx = sqlParams.length;
         precisionScoreSql += ` + (
             CASE 
-                WHEN regexp_replace(name, '[^a-zA-Z0-9]', '', 'g') ILIKE '%' || $${pIdx} || '%' THEN 70.0 
-                WHEN regexp_replace(search_context, '[^a-zA-Z0-9]', '', 'g') ILIKE '%' || $${pIdx} || '%' THEN 40.0 
+                WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 90.0 
+                WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 50.0 
                 ELSE 0.0 
             END
         )`;
     }
 
-    // Synonym Matches (+40 points for title, OR +25 points for context) - LLM Query Expansion
+    // Synonym Matches (+75 points for title) - LLM Query Expansion
     if (synonyms && synonyms.length > 0) {
         synonyms.forEach(syn => {
-            sqlParams.push(syn.toLowerCase().replace(/[^a-z0-9]/g, ''));
+            sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
             precisionScoreSql += ` + (
                 CASE 
-                    WHEN regexp_replace(name, '[^a-zA-Z0-9]', '', 'g') ILIKE '%' || $${pIdx} || '%' THEN 40.0 
-                    WHEN regexp_replace(search_context, '[^a-zA-Z0-9]', '', 'g') ILIKE '%' || $${pIdx} || '%' THEN 25.0 
+                    WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 75.0 
+                    WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 30.0 
                     ELSE 0.0 
                 END
             )`;
@@ -95,7 +95,7 @@ export async function executeHybridSearch(params: {
     // Phase 3: Final Rank = (Vector * 10) + Precision Score
     const sql = `
         WITH semantic_candidates AS (
-            SELECT id, name, price, description, search_context,
+            SELECT id, name, price, description, search_context, vendor_id, category_id, status,
                    (1 - (embedding <=> $1::vector)) AS vector_score
             FROM products
             WHERE status = 'active' AND embedding IS NOT NULL
@@ -105,7 +105,7 @@ export async function executeHybridSearch(params: {
             LIMIT 200
         )
         SELECT 
-            id, name, price, description, image, vendor_id, category_id, status, search_context,
+            id, name, price, description, vendor_id, category_id, status, search_context,
             (
                 (vector_score * 10) + -- Scale vector to ~6-10 points to act as a tie-breaker/base
                 ${precisionScoreSql}
