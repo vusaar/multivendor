@@ -159,15 +159,19 @@ async function fallbackSearch(query: string, userId: string) {
     console.log("[AGENT] Triggering fallback search");
     const embedding = await embeddingsService.generateEmbedding(query);
     
-    // Safety net: Extract demographics even in fallback
+    // Safety net: Extract demographics, common entities, and attributes even in fallback
     const categories = extractDemographics(query);
+    const entity = extractCommonEntity(query);
+    const attributes = extractCommonAttributes(query);
     
     const results = await executeHybridSearch({ 
         query, 
         embedding, 
         limit: 50, 
         offset: 0,
-        categories: categories.length > 0 ? categories : undefined
+        categories: categories.length > 0 ? categories : undefined,
+        entity,
+        attributes: attributes.length > 0 ? attributes : undefined
     });
 
     const newPlan: SearchPlan = {
@@ -199,13 +203,29 @@ function extractDemographics(query: string): string[] {
     const categories: string[] = [];
     const q = query.toLowerCase();
     
-    // Use word boundaries or specific patterns to avoid "men" matching "women"
-    if (/\b(men|gents|male|boys|man)\b/i.test(q)) {
-        categories.push("men");
-    }
-    if (/\b(women|ladies|female|girls|woman)\b/i.test(q)) {
-        categories.push("women");
-    }
+    if (/\b(men|gents|male|boys|man)\b/i.test(q)) categories.push("men");
+    if (/\b(women|ladies|female|girls|woman)\b/i.test(q)) categories.push("women");
     
     return categories;
+}
+
+function extractCommonEntity(query: string): string | undefined {
+    const q = query.toLowerCase();
+    if (/\b(shirt|tshirt|t-shirt|tee|top)\b/i.test(q)) return "shirt";
+    if (/\b(sneaker|shoe|kicks|boot)\b/i.test(q)) return "shoe";
+    if (/\b(sweater|jumper|hoodie|jersey)\b/i.test(q)) return "sweater";
+    if (/\b(dress|gown)\b/i.test(q)) return "dress";
+    return undefined;
+}
+
+function extractCommonAttributes(query: string): string[] {
+    const attributes: string[] = [];
+    const q = query.toLowerCase();
+    const colors = ["blue", "red", "black", "white", "green", "pink", "yellow"];
+    
+    colors.forEach(color => {
+        if (new RegExp(`\\b${color}\\b`, 'i').test(q)) attributes.push(color);
+    });
+    
+    return attributes;
 }

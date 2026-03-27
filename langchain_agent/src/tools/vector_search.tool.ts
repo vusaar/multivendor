@@ -82,12 +82,12 @@ export async function executeHybridSearch(params: {
         });
     }
 
-    // Attribute Match (+10 points per attribute)
+    // Attribute Match (+45 points per attribute)
     if (attributes && attributes.length > 0) {
         attributes.forEach(attr => {
-            sqlParams.push(attr.toLowerCase());
+            sqlParams.push(attr.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 10.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 45.0 ELSE 0.0 END)`;
         });
     }
 

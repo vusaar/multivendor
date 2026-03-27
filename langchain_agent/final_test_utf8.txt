@@ -1,0 +1,100 @@
+﻿[AGENT] Starting stateful router for: "Pizza" (User: test_user_9_1774630507812)
+[AGENT] Triggering fallback search
+[DB] Structured Search Params: {
+  query: 'Pizza',
+  limit: 50,
+  offset: 0,
+  entity: undefined,
+  synonyms: undefined,
+  categories: undefined,
+  attributes: undefined
+}
+[LOGGER] Search logged: "Pizza" -> "Pizza" for test_user_9_1774630507812 (50 results, 885ms)
+   Γ£à Score < 15 (Suggestion) (Actual: 7.9466848341634915)
+
+≡ƒöì TEST: "top" - Synonym test (top should match shirts and blouses via +40 synonym boost)
+[AGENT] Starting stateful router for: "top" (User: test_user_10_1774630509466)
+[PERF] Initial reasoning took: 884ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '61e03e7e-bf68-4c4e-9000-55c079283068',
+    name: 'hybrid_product_search',
+    args: { synonyms: [Array], entity: 'top', query: 'top' }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: top, Entity: top, Cats: undefined, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'top',
+  limit: 50,
+  offset: 0,
+  entity: 'top',
+  synonyms: [ 'shirt', 'blouse', 'tee' ],
+  categories: undefined,
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 2512 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "top" -> "top" for test_user_10_1774630509466 (50 results, 2512ms)
+   Γ£à Must Contain IDs 51,20 (Actual: All Found)
+   Γ£à Score >= 45 (Verified) (Actual: 133.02943301464018)
+
+≡ƒöì TEST: "jumper" - Synonym test (jumper should match sweater via +40 synonym boost)
+[AGENT] Starting stateful router for: "jumper" (User: test_user_11_1774630511981)
+[PERF] Initial reasoning took: 1167ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: '762d1b32-bd2c-464a-87af-d2f1d7121c4f',
+    name: 'hybrid_product_search',
+    args: { entity: 'jumper', query: 'jumper', synonyms: [Array] }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: jumper, Entity: jumper, Cats: undefined, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'jumper',
+  limit: 50,
+  offset: 0,
+  entity: 'jumper',
+  synonyms: [ 'sweater', 'pullover' ],
+  categories: undefined,
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 2528 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "jumper" -> "jumper" for test_user_11_1774630511981 (50 results, 2528ms)
+   Γ£à Must Contain IDs 14 (Actual: All Found)
+   Γ£à Score >= 45 (Verified) (Actual: 83.31303904574878)
+
+≡ƒöì TEST: "apparel" - Very broad synonym/concept test
+[AGENT] Starting stateful router for: "apparel" (User: test_user_12_1774630514514)
+[PERF] Initial reasoning took: 997ms
+[AGENT] Model Response Tool Calls: [
+  {
+    type: 'tool_call',
+    id: 'f5e2ea25-1ab5-48e4-8f3c-ee5b627f5e0e',
+    name: 'hybrid_product_search',
+    args: { query: 'apparel', synonyms: [Array] }
+  }
+]
+[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.
+[AGENT] Tool hybrid_product_search called. Query: apparel, Entity: undefined, Cats: undefined, Attrs: undefined
+[DB] Structured Search Params: {
+  query: 'apparel',
+  limit: 50,
+  offset: 0,
+  entity: undefined,
+  synonyms: [ 'clothing' ],
+  categories: undefined,
+  attributes: undefined
+}
+[PERF] Total processUserQuery took: 2395 ms
+[LOGGER-PRE] Results is array: true
+[LOGGER] Search logged: "apparel" -> "apparel" for test_user_12_1774630514514 (50 results, 2395ms)
+   Γ£à Score >= 8 (Verified) (Actual: 8.66974949836731)
+
+==================================================
+≡ƒôè FINAL REPORT: 10/13 PASSED
+==================================================
