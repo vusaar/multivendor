@@ -61,17 +61,16 @@ export async function executeHybridSearch(params: {
         precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 20.0 ELSE 0.0 END)`;
     }
 
-    // Synonym Matches (+75 fuzzy, +100 exact priority)
+    // Synonym Matches (+40 fuzzy, +40 exact priority)
     if (synonyms && synonyms.length > 0) {
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (word_similarity(LOWER(name), $${pIdx}) * 75.0)`;
-            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 30.0)`;
-            // Equalize exact Priority with main entity
-            precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 100.0 ELSE 0.0 END)`;
-            // Handle common variations like T-shirt vs Tshirt
-            precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${pIdx}, '-', '') THEN 100.0 ELSE 0.0 END)`;
+            // Lower synonym boost to ensure primary entity always wins
+            precisionScoreSql += ` + (word_similarity(LOWER(name), $${pIdx}) * 40.0)`;
+            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 20.0)`;
+            precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 40.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${pIdx}, '-', '') THEN 40.0 ELSE 0.0 END)`;
         });
     }
 
@@ -84,16 +83,18 @@ export async function executeHybridSearch(params: {
         });
     }
 
-    // Attribute Match (+150 boost for brand/color/specs/literal-tokens)
+    // Attribute Match (+150 name boost, +80 context boost)
     if (attributes && attributes.length > 0) {
         attributes.forEach(attr => {
             sqlParams.push(attr.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            // 1. Full context similarity
-            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 60.0)`;
+            // 1. Full context similarity (Lowered to prevent fuzzy overlaps like Long/Short)
+            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 30.0)`;
             // 2. Exact Name Priority (Buries generic noise if attribute is in name)
             precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 150.0 ELSE 0.0 END)`;
-            // 3. Punctuation Neutral Priority
+            // 3. Exact Context Priority (New: specifically catch attributes in metadata)
+            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 80.0 ELSE 0.0 END)`;
+            // 4. Punctuation Neutral Priority
             precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') ILIKE '%' || REPLACE($${pIdx}, '-', '') || '%' THEN 150.0 ELSE 0.0 END)`;
         });
     }
