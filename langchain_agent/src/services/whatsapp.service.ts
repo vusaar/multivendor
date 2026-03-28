@@ -251,9 +251,7 @@ export class WhatsAppService {
             ? `\n🏪 *Shop:* ${product.vendor?.shop_name || 'Generic Store'}\n📱 *Chat:* https://wa.me/${product.vendor_phone.replace(/[^0-9]/g, '')}`
             : '';
         
-        const detailsLink = product.public_url 
-            ? `\n🔗 *Details:* ${product.public_url}`
-            : '';
+        const detailsLink = ''; // Temporarily disabled: product.public_url ? `\n🔗 *Details:* ${product.public_url}` : '';
 
         // Optional Debug Info
         let score = '';

@@ -1,0 +1,77 @@
+[
+    {
+        "query": "Dior shirt",
+        "description": "Brand + Entity match (High Precision)",
+        "expected": {
+            "must_contain": [60],
+            "min_confidence": 75.0
+        }
+    },
+    {
+        "query": "Adidas sneakers",
+        "description": "Brand + Synonym match (Recall check)",
+        "expected": {
+            "must_contain": [59],
+            "min_confidence": 75.0
+        }
+    },
+    {
+        "query": "UK 7 shoes",
+        "description": "Attribute match (Size/Spec)",
+        "expected": {
+            "must_contain": [59],
+            "min_confidence": 50.0
+        }
+    },
+    {
+        "query": "White top",
+        "description": "Color + Synonym (generic)",
+        "expected": {
+            "min_confidence": 70.0
+        }
+    },
+    {
+        "query": "beauty products",
+        "description": "High-level Category match",
+        "expected": {
+            "min_confidence": 50.0
+        }
+    },
+    {
+        "query": "Mens white shirt",
+        "description": "Triple attribute (Gender + Color + Entity)",
+        "expected": {
+            "must_contain": [60],
+            "min_confidence": 80.0
+        }
+    },
+    {
+        "query": "shoes under 50",
+        "description": "Budget + Entity match",
+        "expected": {
+            "min_confidence": 50.0
+        }
+    },
+    {
+        "query": "zara apparel",
+        "description": "Brand + Generic synonym",
+        "expected": {
+            "min_confidence": 30.0
+        }
+    },
+    {
+        "query": "eyeshadow",
+        "description": "Specific niche product",
+        "expected": {
+            "must_contain": [2],
+            "min_confidence": 80.0
+        }
+    },
+    {
+        "query": "Burger",
+        "description": "Hard noise rejection",
+        "expected": {
+            "max_results": 0
+        }
+    }
+]

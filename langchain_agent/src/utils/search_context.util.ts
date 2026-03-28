@@ -11,6 +11,7 @@ export interface SearchPlan {
     embedding: number[]; // Stashed 3072-dim vector for gemini-embedding-001
     pagination: { offset: number; limit: number; };
     timestamp: number;
+    results?: { id: string; name: string; score: number }[];
 }
 
 /**

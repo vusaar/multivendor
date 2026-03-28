@@ -21,7 +21,9 @@ async function runTests() {
     console.log("\n🚀 STARTING SEARCH ACCURACY TEST SUITE");
     console.log("==================================================");
 
-    const casesPath = path.join(__dirname, 'accuracy_cases.json');
+    const customPath = process.argv[2];
+    const casesPath = customPath ? path.resolve(customPath) : path.join(__dirname, 'accuracy_cases.json');
+    console.log(`🔍 Using test cases from: ${casesPath}`);
     const cases: TestCase[] = JSON.parse(fs.readFileSync(casesPath, 'utf8'));
 
     const summary = {
@@ -54,13 +56,13 @@ async function runTests() {
 
             // 2. Must Contain Check
             if (test.expected.must_contain) {
-                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id)) : [];
+                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id || r.product_id)) : [];
                 const missing = test.expected.must_contain.filter(id => !foundIds.includes(id));
                 const allFound = missing.length === 0;
                 checks.push({ 
                     name: `Must Contain IDs ${test.expected.must_contain.join(',')}`, 
                     pass: allFound, 
-                    actual: missing.length > 0 ? `Missing: ${missing.join(',')}` : 'All Found' 
+                    actual: missing.length > 0 ? `Missing: ${missing.join(',')} (Found: ${foundIds.join(',')})` : 'All Found' 
                 });
                 if (!allFound) passed = false;
             }
@@ -101,6 +103,10 @@ async function runTests() {
     console.log("\n==================================================");
     console.log(`📊 FINAL REPORT: ${summary.passed}/${summary.total} PASSED`);
     console.log("==================================================");
+
+    const summaryPath = path.join(process.cwd(), 'test/test_summary.json');
+    console.log(`\n💾 Saving results to: ${summaryPath}`);
+    fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
 
     if (summary.failed > 0) {
         process.exit(1);
