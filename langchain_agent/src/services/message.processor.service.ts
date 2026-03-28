@@ -1,6 +1,7 @@
 import { whatsappService } from './whatsapp.service';
 import { productSearchService } from './product.search.service';
 import { sessionService } from './session.service';
+import { SEARCH_CONFIG } from '../config/search';
 
 export class MessageProcessorService {
     /**
@@ -18,8 +19,6 @@ export class MessageProcessorService {
 
             let queryText = msgBody;
             let page = 1;
-            let productsToShow: any[] = [];
-            let suggestedProducts: any[] = [];
             let isDebug = msgBody?.toLowerCase().includes('debug') || false;
 
             // 2. Handle button actions or new search
@@ -54,50 +53,50 @@ export class MessageProcessorService {
             const currentPage = meta.current_page || page;
             const lastPage = meta.last_page || 1;
 
-            // 4. Partition products by confidence score (0.025)
-            const THRESHOLD = 0.025;
-            const verifiedProducts = rawProducts.filter((p: any) => (p.similarity_score || 0) >= THRESHOLD);
-            const potentialMatches = rawProducts.filter((p: any) => (p.similarity_score || 0) < THRESHOLD);
+            // 4. Send Responses
+            const { THRESHOLD_VERIFIED } = SEARCH_CONFIG;
+            // Support both internal agent (rrf_score) and Laravel API (similarity_score) formats
+            const getScore = (p: any) => p.similarity_score !== undefined ? p.similarity_score : (p.rrf_score !== undefined ? p.rrf_score : (p.score || 0));
+            
+            const verifiedProducts = rawProducts.filter((p: any) => getScore(p) >= THRESHOLD_VERIFIED);
+            const suggestedProducts = rawProducts.filter((p: any) => getScore(p) < THRESHOLD_VERIFIED);
 
-            console.log(`[MESSAGE PROCESSOR] Found ${verifiedProducts.length} verified and ${potentialMatches.length} suggested products.`);
+            if (verifiedProducts.length === 0 && suggestedProducts.length === 0) {
+                await whatsappService.sendMessage(from, `Sorry, I couldn't find any products matching "${queryText}".`);
+                return;
+            }
 
-            // 5. Send Responses
-            if (verifiedProducts.length === 0 && currentPage === 1) {
-                if (potentialMatches.length > 0) {
-                    // Only suggestions found
-                    await sessionService.updateSession(from, { suggestedProducts: potentialMatches });
-                    await whatsappService.sendButtons(from, 
-                        `I couldn't find an exact match for "${queryText}". Would you like to see some items that are similar?`, 
-                        [{ id: 'show_suggestions', title: 'Show Suggestions 🔍' }]
-                    );
+            // Show verified products first
+            for (const product of verifiedProducts) {
+                await this.sendProductMessage(from, product, isDebug);
+            }
+
+            // If we have suggestions, send a header and then the suggestions
+            if (suggestedProducts.length > 0) {
+                if (verifiedProducts.length > 0) {
+                    await whatsappService.sendMessage(from, "✨ *YOU MIGHT ALSO LIKE* ✨");
                 } else {
-                    await whatsappService.sendMessage(from, `Sorry, I couldn't find any products matching "${queryText}".`);
+                    await whatsappService.sendMessage(from, "I couldn't find an exact match, but you might like these:");
                 }
-            } else {
-                // Show verified products
-                for (const product of verifiedProducts) {
+                
+                for (const product of suggestedProducts) {
                     await this.sendProductMessage(from, product, isDebug);
                 }
+            }
 
-                // Update session state
-                await sessionService.updateSession(from, { 
-                    currentPage: currentPage,
-                    suggestedProducts: potentialMatches 
-                });
+            // 5. Update session state
+            await sessionService.updateSession(from, { 
+                currentPage: currentPage,
+                suggestedProducts: [] // We already showed them
+            });
 
-                // Show action buttons
-                const buttons = [];
-                if (currentPage < lastPage) {
-                    buttons.push({ id: 'next_page', title: 'Next ➡️' });
-                }
-                if (potentialMatches.length > 0) {
-                    buttons.push({ id: 'show_suggestions', title: 'Show More 🔍' });
-                }
-
-                if (buttons.length > 0) {
-                    const label = (currentPage < lastPage) ? "Would you like to see more?" : "We found more potential matches:";
-                    await whatsappService.sendButtons(from, label, buttons);
-                }
+            // 6. Pagination UI: Send "View More" button if more pages exist
+            if (currentPage < lastPage) {
+                await whatsappService.sendButtons(
+                    from, 
+                    `Page ${currentPage} of ${lastPage}: Would you like to see more results?`, 
+                    [{ id: 'next_page', title: 'View More Results' }]
+                );
             }
         } catch (error: any) {
             console.error('[MESSAGE PROCESSOR] Error:', error.message);

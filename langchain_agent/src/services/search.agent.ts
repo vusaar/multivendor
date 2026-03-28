@@ -1,10 +1,12 @@
 import { model } from "../config/llm";
+console.log(">>>>> SEARCH AGENT LOADED FROM SOURCE <<<<<");
 import { hybridSearchTool, executeHybridSearch } from "../tools/vector_search.tool";
 import { HumanMessage } from "@langchain/core/messages";
 import { sessionService } from "./session.service";
 import { isContinuationQuery, SearchPlan } from "../utils/search_context.util";
 import { embeddingsService } from "./embeddings.service";
 import { searchLoggerService } from "./logger.service";
+import { SEARCH_CONFIG } from "../config/search";
 import crypto from 'crypto';
 
 const systemPrompt = `You are an expert shopping assistant. 
@@ -15,9 +17,15 @@ CRITICAL RULE: The 'query' parameter is MANDATORY. Auto-correct any obvious spel
 DATABASE MAPPING RULES (FOR PRECISION SCORING):
 1. 'categories': Extract broad departments, demographics (e.g., "men", "women"), or high-level classifications. Be exact.
 2. 'entity': Extract the specific core product type IN SINGULAR FORM ONLY (e.g., "shirt", "sweater", "sneaker", not "shirts"). Be exact.
-3. 'synonyms': If the user uses a colloquial or generic product term (e.g. "top", "jumper", "kicks", "apparel"), provide 1 to 3 direct synonyms to expand the search net IN SINGULAR FORM.
-   - IMPORTANT: If the query specifies a gender (men/women), avoid generic synonyms like 'top' which can be gender-biased in fashion catalogs. Prefer specific terms like 'shirt', 'tee', 'blouse', 'polo'.
-4. 'attributes': Extract technical specs, colors, sizes, brands, or materials (e.g., "red", "XL", "nike"). Be exact.
+3. 'synonyms': Expand the search net with 1 to 3 direct synonyms IN SINGULAR FORM. Use this EXPERT KNOWLEDGE:
+   - "hoodie" -> ["sweater", "sweatshirt", "hoody"]
+   - "sweater" -> ["jumper", "jersey", "pullover"]
+   - "t-shirt" -> ["shirt", "tee", "top", "tshirt"]
+   - "shoe" -> ["sneaker", "kick", "footwear"]
+   - "trousers" -> ["pants", "jeans", "bottoms"]
+   - "jacket" -> ["coat", "outerwear", "parka"]
+   - "eyeshadow" -> ["cosmetics", "makeup", "palette"]
+4. 'attributes': Extract modifiers (e.g., "red", "XL", "cotton").
 
 REQUIRED TOOL PARAMETERS:
 - 'query' (string, REQUIRED): The general search terms.
@@ -92,8 +100,6 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             const args = { ...toolCall.args, limit: 50, offset: 0 };
             console.log(`[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.`);
             
-            // We call the tool's invoke method. This will trigger the tool's internal func, 
-            // which contains the console.log at line 183 of vector_search.tool.ts.
             const toolResult = await hybridSearchTool.invoke(args) as string;
             const results = JSON.parse(toolResult);
 
@@ -109,8 +115,6 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             }
 
             // We still need the embedding for stateful pagination/bypass later.
-            // The tool generated it, but it's not returning it in the results.
-            // For now, we'll re-generate it to store the plan, or optimize later.
             const embedding = await embeddingsService.generateEmbedding(args.query || userQuery);
 
             const newPlan: SearchPlan = {
@@ -124,21 +128,27 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
 
             const searchId = crypto.randomUUID();
 
-            console.log(`[PERF] Total processUserQuery took: ${Date.now() - totalStart} ms`);
-            
-            // Log search asynchronously
-            console.log(`[LOGGER-PRE] Results is array: ${Array.isArray(results)}`);
+            // Relevance Filtering & Classification Logic
+            const finalResults = filterResults(results).map((r: any) => ({
+                ...r,
+                score: r.rrf_score // Backward compatibility for Laravel hydration
+            }));
+
+            // 3. Update message history and return
+            newPlan.results = finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }));
+            await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
+
             await searchLoggerService.log(
                 userId, 
                 userQuery, 
-                toolCall.args.query, 
+                toolCall.args.query || userQuery, 
                 toolCall.args, 
                 results, 
                 Date.now() - totalStart,
                 searchId
             );
 
-            return results;
+            return finalResults;
         }
 
         // Handle other tools (like category search) if needed
@@ -154,14 +164,14 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
     }
 };
 
-async function fallbackSearch(query: string, userId: string) {
+async function fallbackSearch(query: string, userId: string): Promise<any[]> {
     const fallbackStart = Date.now();
+    const searchId = crypto.randomUUID();
     console.log("[AGENT] Triggering fallback search");
     const embedding = await embeddingsService.generateEmbedding(query);
     
-    // Safety net: Extract demographics, common entities, and attributes even in fallback
+    // Standard fallback: use raw query for fuzzy entity boost
     const categories = extractDemographics(query);
-    const entity = extractCommonEntity(query);
     const attributes = extractCommonAttributes(query);
     
     const results = await executeHybridSearch({ 
@@ -170,33 +180,55 @@ async function fallbackSearch(query: string, userId: string) {
         limit: 50, 
         offset: 0,
         categories: categories.length > 0 ? categories : undefined,
-        entity,
+        entity: query, // Broad fuzzy matching
         attributes: attributes.length > 0 ? attributes : undefined
     });
+
+    console.log(`[TRACE] Fallback results found: ${results.length}. Top score: ${results[0]?.rrf_score}`);
+
+    const finalResults = filterResults(results);
 
     const newPlan: SearchPlan = {
         originalQuery: query,
         parsedIntent: { query, categories },
-        embedding,
-        pagination: { offset: 0, limit: 10 },
-        timestamp: Date.now()
+        embedding: Array.from(embedding),
+        pagination: { offset: 0, limit: 50 },
+        timestamp: Date.now(),
+        results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
     };
     await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
-
-    const searchId = crypto.randomUUID();
 
     // Log fallback search
     await searchLoggerService.log(
         userId, 
         query, 
-        undefined, 
+        query, 
         { query, categories }, 
         results, 
         Date.now() - fallbackStart,
         searchId
     );
 
-    return results;
+    return finalResults;
+}
+
+function filterResults(results: any[]): any[] {
+    const { THRESHOLD_VERIFIED, THRESHOLD_SUGGESTION, THRESHOLD_PRECISION_LIMIT, LIMIT_VERIFIED, LIMIT_SUGGESTIONS } = SEARCH_CONFIG;
+
+    // Filter out irrelevant
+    let filtered = results.filter(r => r.rrf_score >= THRESHOLD_SUGGESTION);
+    
+    // Dynamic Precision: If we have a verified match, be stricter with suggestions
+    const hasVerified = filtered.some(r => r.rrf_score >= THRESHOLD_VERIFIED);
+    if (hasVerified) {
+        filtered = filtered.filter(r => r.rrf_score >= THRESHOLD_PRECISION_LIMIT || r.rrf_score >= THRESHOLD_VERIFIED);
+    }
+
+    // Final limiting: max 15 verified + 3 suggestions (Increased for production recall)
+    const verified = filtered.filter(r => r.rrf_score >= THRESHOLD_VERIFIED).slice(0, LIMIT_VERIFIED);
+    const suggestions = filtered.filter(r => r.rrf_score < THRESHOLD_VERIFIED).slice(0, (verified.length > 0 ? LIMIT_SUGGESTIONS : 5));
+    
+    return [...verified, ...suggestions];
 }
 
 function extractDemographics(query: string): string[] {
@@ -205,17 +237,7 @@ function extractDemographics(query: string): string[] {
     
     if (/\b(men|gents|male|boys|man)\b/i.test(q)) categories.push("men");
     if (/\b(women|ladies|female|girls|woman)\b/i.test(q)) categories.push("women");
-    
     return categories;
-}
-
-function extractCommonEntity(query: string): string | undefined {
-    const q = query.toLowerCase();
-    if (/\b(shirt|tshirt|t-shirt|tee|top)\b/i.test(q)) return "shirt";
-    if (/\b(sneaker|shoe|kicks|boot)\b/i.test(q)) return "shoe";
-    if (/\b(sweater|jumper|hoodie|jersey)\b/i.test(q)) return "sweater";
-    if (/\b(dress|gown)\b/i.test(q)) return "dress";
-    return undefined;
 }
 
 function extractCommonAttributes(query: string): string[] {

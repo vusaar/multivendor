@@ -41,39 +41,41 @@ export async function executeHybridSearch(params: {
     // Phase 2: Precision Scoring Setup
     let precisionScoreSql = `0.0`;
     
-    // Helper to escape strings for ILIKE safely (simple replace for single quotes, 
-    // though parameterization is better, dynamic ILIKE with dynamic params is tricky in pg pass-through)
-    // We will use parameterization for all dynamic values to be safe.
-    
-    // Entity Match (+90 points for title match, OR +50 points for category/attribute context match)
+    // 0. Literal Query Priority (+150) - does the name match EXACTLY what the user typed?
+    sqlParams.push(query.toLowerCase().trim());
+    const qIdx = sqlParams.length;
+    precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 150.0 ELSE 0.0 END)`;
+    // Support punctuation-neutral matching (T-shirt vs Tshirt)
+    precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${qIdx}, '-', '') THEN 150.0 ELSE 0.0 END)`;
+
+    // 1. Entity Match (+90 fuzzy, +100 exact priority)
     if (entity) {
         sqlParams.push(entity.toLowerCase().trim());
         const pIdx = sqlParams.length;
-        precisionScoreSql += ` + (
-            CASE 
-                WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 90.0 
-                WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 50.0 
-                ELSE 0.0 
-            END
-        )`;
+        // 1. Fuzzy baseline (Trigram)
+        precisionScoreSql += ` + (word_similarity(LOWER(name), $${pIdx}) * 90.0)`;
+        precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 50.0)`;
+        // 2. Exact Priority (Ensures 'Tshirt' beats 'Shirt' for 'tshirt')
+        precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 100.0 ELSE 0.0 END)`;
+        // 3. Substring Containment (Safety Layer)
+        precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 20.0 ELSE 0.0 END)`;
     }
 
-    // Synonym Matches (+75 points for title) - LLM Query Expansion
+    // Synonym Matches (+75 fuzzy, +100 exact priority)
     if (synonyms && synonyms.length > 0) {
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (
-                CASE 
-                    WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 75.0 
-                    WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 30.0 
-                    ELSE 0.0 
-                END
-            )`;
+            precisionScoreSql += ` + (word_similarity(LOWER(name), $${pIdx}) * 75.0)`;
+            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 30.0)`;
+            // Equalize exact Priority with main entity
+            precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 100.0 ELSE 0.0 END)`;
+            // Handle common variations like T-shirt vs Tshirt
+            precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${pIdx}, '-', '') THEN 100.0 ELSE 0.0 END)`;
         });
     }
 
-    // Category Match (+30 points per category)
+    // Category Match (+100 points for valid category path)
     if (categories && categories.length > 0) {
         categories.forEach(cat => {
             sqlParams.push(cat.toLowerCase());
@@ -82,12 +84,17 @@ export async function executeHybridSearch(params: {
         });
     }
 
-    // Attribute Match (+45 points per attribute)
+    // Attribute Match (+150 boost for brand/color/specs/literal-tokens)
     if (attributes && attributes.length > 0) {
         attributes.forEach(attr => {
             sqlParams.push(attr.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 45.0 ELSE 0.0 END)`;
+            // 1. Full context similarity
+            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 60.0)`;
+            // 2. Exact Name Priority (Buries generic noise if attribute is in name)
+            precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 150.0 ELSE 0.0 END)`;
+            // 3. Punctuation Neutral Priority
+            precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') ILIKE '%' || REPLACE($${pIdx}, '-', '') || '%' THEN 150.0 ELSE 0.0 END)`;
         });
     }
 
