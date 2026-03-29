@@ -1198,5 +1198,12 @@
     "expected": {
       "max_results": 0
     }
+  },
+  {
+    "query": "black hat",
+    "description": "Non-existent item with existing attribute",
+    "expected": {
+      "max_confidence": 150
+    }
   }
 ]
