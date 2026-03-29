@@ -1,0 +1,1202 @@
+[
+  {
+    "query": "Tshirt",
+    "description": "Exact Name Match for ID 12",
+    "expected": {
+      "must_contain": [
+        12
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Dior Tshirt",
+    "description": "Real-world Multi-attribute for ID 12",
+    "expected": {
+      "must_contain": [
+        12
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Tshirt",
+    "description": "Exact Name Match for ID 13",
+    "expected": {
+      "must_contain": [
+        13
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Dior Tshirt",
+    "description": "Real-world Multi-attribute for ID 13",
+    "expected": {
+      "must_contain": [
+        13
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "tshirt",
+    "description": "Exact Name Match for ID 18",
+    "expected": {
+      "must_contain": [
+        18
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Loose H&M tshirt",
+    "description": "Real-world Multi-attribute for ID 18",
+    "expected": {
+      "must_contain": [
+        18
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Powder Canister",
+    "description": "Exact Name Match for ID 3",
+    "expected": {
+      "must_contain": [
+        3
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Velvet Touch Powder Canister",
+    "description": "Real-world Multi-attribute for ID 3",
+    "expected": {
+      "must_contain": [
+        3
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Red Lipstick",
+    "description": "Exact Name Match for ID 4",
+    "expected": {
+      "must_contain": [
+        4
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Chic Cosmetics Red Lipstick",
+    "description": "Real-world Multi-attribute for ID 4",
+    "expected": {
+      "must_contain": [
+        4
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Red Nail Polish",
+    "description": "Exact Name Match for ID 5",
+    "expected": {
+      "must_contain": [
+        5
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Nail Couture Red Nail Polish",
+    "description": "Real-world Multi-attribute for ID 5",
+    "expected": {
+      "must_contain": [
+        5
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Calvin Klein CK One",
+    "description": "Exact Name Match for ID 6",
+    "expected": {
+      "must_contain": [
+        6
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Chanel Coco Noir Eau De",
+    "description": "Exact Name Match for ID 7",
+    "expected": {
+      "must_contain": [
+        7
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Dior J'adore",
+    "description": "Exact Name Match for ID 8",
+    "expected": {
+      "must_contain": [
+        8
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Dolce Shine Eau de",
+    "description": "Exact Name Match for ID 9",
+    "expected": {
+      "must_contain": [
+        9
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Dolce & Gabbana Dolce Shine Eau de",
+    "description": "Real-world Multi-attribute for ID 9",
+    "expected": {
+      "must_contain": [
+        9
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Gucci Bloom Eau de",
+    "description": "Exact Name Match for ID 10",
+    "expected": {
+      "must_contain": [
+        10
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Eyeshadow Palette with Mirror",
+    "description": "Exact Name Match for ID 2",
+    "expected": {
+      "must_contain": [
+        2
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Glamour Beauty Eyeshadow Palette with Mirror",
+    "description": "Real-world Multi-attribute for ID 2",
+    "expected": {
+      "must_contain": [
+        2
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "tshirt",
+    "description": "Exact Name Match for ID 17",
+    "expected": {
+      "must_contain": [
+        17
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Black H&M tshirt",
+    "description": "Real-world Multi-attribute for ID 17",
+    "expected": {
+      "must_contain": [
+        17
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Essence Mascara Lash Princess ",
+    "description": "Exact Name Match for ID 1",
+    "expected": {
+      "must_contain": [
+        1
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 20",
+    "expected": {
+      "must_contain": [
+        20
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Loose Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 20",
+    "expected": {
+      "must_contain": [
+        20
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 21",
+    "expected": {
+      "must_contain": [
+        21
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 21",
+    "expected": {
+      "must_contain": [
+        21
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 51",
+    "expected": {
+      "must_contain": [
+        51
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Silk Dolce & Gabbana Shirt",
+    "description": "Real-world Multi-attribute for ID 51",
+    "expected": {
+      "must_contain": [
+        51
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 23",
+    "expected": {
+      "must_contain": [
+        23
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 23",
+    "expected": {
+      "must_contain": [
+        23
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 25",
+    "expected": {
+      "must_contain": [
+        25
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 25",
+    "expected": {
+      "must_contain": [
+        25
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 26",
+    "expected": {
+      "must_contain": [
+        26
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Printed Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 26",
+    "expected": {
+      "must_contain": [
+        26
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dress",
+    "description": "Exact Name Match for ID 27",
+    "expected": {
+      "must_contain": [
+        27
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Slim H&M Dress",
+    "description": "Real-world Multi-attribute for ID 27",
+    "expected": {
+      "must_contain": [
+        27
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dress",
+    "description": "Exact Name Match for ID 28",
+    "expected": {
+      "must_contain": [
+        28
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Solid H&M Dress",
+    "description": "Real-world Multi-attribute for ID 28",
+    "expected": {
+      "must_contain": [
+        28
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dress",
+    "description": "Exact Name Match for ID 30",
+    "expected": {
+      "must_contain": [
+        30
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Loose H&M Dress",
+    "description": "Real-world Multi-attribute for ID 30",
+    "expected": {
+      "must_contain": [
+        30
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dress",
+    "description": "Exact Name Match for ID 31",
+    "expected": {
+      "must_contain": [
+        31
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Solid Dolce & Gabbana Dress",
+    "description": "Real-world Multi-attribute for ID 31",
+    "expected": {
+      "must_contain": [
+        31
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dress",
+    "description": "Exact Name Match for ID 32",
+    "expected": {
+      "must_contain": [
+        32
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Regular Levi's Dress",
+    "description": "Real-world Multi-attribute for ID 32",
+    "expected": {
+      "must_contain": [
+        32
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 34",
+    "expected": {
+      "must_contain": [
+        34
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Checked Chanel Shirt",
+    "description": "Real-world Multi-attribute for ID 34",
+    "expected": {
+      "must_contain": [
+        34
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 36",
+    "expected": {
+      "must_contain": [
+        36
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Checked Calvin Klein Shirt",
+    "description": "Real-world Multi-attribute for ID 36",
+    "expected": {
+      "must_contain": [
+        36
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 38",
+    "expected": {
+      "must_contain": [
+        38
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Gucci Shirt",
+    "description": "Real-world Multi-attribute for ID 38",
+    "expected": {
+      "must_contain": [
+        38
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 39",
+    "expected": {
+      "must_contain": [
+        39
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Dior Shirt",
+    "description": "Real-world Multi-attribute for ID 39",
+    "expected": {
+      "must_contain": [
+        39
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 37",
+    "expected": {
+      "must_contain": [
+        37
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Brown Calvin Klein Shirt",
+    "description": "Real-world Multi-attribute for ID 37",
+    "expected": {
+      "must_contain": [
+        37
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 40",
+    "expected": {
+      "must_contain": [
+        40
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Wool Dior Shirt",
+    "description": "Real-world Multi-attribute for ID 40",
+    "expected": {
+      "must_contain": [
+        40
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "T-shirt",
+    "description": "Exact Name Match for ID 42",
+    "expected": {
+      "must_contain": [
+        42
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Calvin Klein T-shirt",
+    "description": "Real-world Multi-attribute for ID 42",
+    "expected": {
+      "must_contain": [
+        42
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "T-shirt",
+    "description": "Exact Name Match for ID 41",
+    "expected": {
+      "must_contain": [
+        41
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Chanel T-shirt",
+    "description": "Real-world Multi-attribute for ID 41",
+    "expected": {
+      "must_contain": [
+        41
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 44",
+    "expected": {
+      "must_contain": [
+        44
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Chanel Shirt",
+    "description": "Real-world Multi-attribute for ID 44",
+    "expected": {
+      "must_contain": [
+        44
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "shirt",
+    "description": "Exact Name Match for ID 45",
+    "expected": {
+      "must_contain": [
+        45
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Chanel shirt",
+    "description": "Real-world Multi-attribute for ID 45",
+    "expected": {
+      "must_contain": [
+        45
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 46",
+    "expected": {
+      "must_contain": [
+        46
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Levi's Shirt",
+    "description": "Real-world Multi-attribute for ID 46",
+    "expected": {
+      "must_contain": [
+        46
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "shirt",
+    "description": "Exact Name Match for ID 47",
+    "expected": {
+      "must_contain": [
+        47
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Chanel shirt",
+    "description": "Real-world Multi-attribute for ID 47",
+    "expected": {
+      "must_contain": [
+        47
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 33",
+    "expected": {
+      "must_contain": [
+        33
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Checked Prada Shirt",
+    "description": "Real-world Multi-attribute for ID 33",
+    "expected": {
+      "must_contain": [
+        33
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 35",
+    "expected": {
+      "must_contain": [
+        35
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Printed Calvin Klein Shirt",
+    "description": "Real-world Multi-attribute for ID 35",
+    "expected": {
+      "must_contain": [
+        35
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 53",
+    "expected": {
+      "must_contain": [
+        53
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Solid Zara Shirt",
+    "description": "Real-world Multi-attribute for ID 53",
+    "expected": {
+      "must_contain": [
+        53
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 54",
+    "expected": {
+      "must_contain": [
+        54
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Striped Chanel Shirt",
+    "description": "Real-world Multi-attribute for ID 54",
+    "expected": {
+      "must_contain": [
+        54
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 56",
+    "expected": {
+      "must_contain": [
+        56
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Essence Shirt",
+    "description": "Real-world Multi-attribute for ID 56",
+    "expected": {
+      "must_contain": [
+        56
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 55",
+    "expected": {
+      "must_contain": [
+        55
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Gucci Shirt",
+    "description": "Real-world Multi-attribute for ID 55",
+    "expected": {
+      "must_contain": [
+        55
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 52",
+    "expected": {
+      "must_contain": [
+        52
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Striped Chanel Shirt",
+    "description": "Real-world Multi-attribute for ID 52",
+    "expected": {
+      "must_contain": [
+        52
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 49",
+    "expected": {
+      "must_contain": [
+        49
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Dior Shirt",
+    "description": "Real-world Multi-attribute for ID 49",
+    "expected": {
+      "must_contain": [
+        49
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Mens sweater",
+    "description": "Exact Name Match for ID 14",
+    "expected": {
+      "must_contain": [
+        14
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Black H&M Mens sweater",
+    "description": "Real-world Multi-attribute for ID 14",
+    "expected": {
+      "must_contain": [
+        14
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Vest",
+    "description": "Exact Name Match for ID 16",
+    "expected": {
+      "must_contain": [
+        16
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Black H&M Vest",
+    "description": "Real-world Multi-attribute for ID 16",
+    "expected": {
+      "must_contain": [
+        16
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 19",
+    "expected": {
+      "must_contain": [
+        19
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Zara Blouse",
+    "description": "Real-world Multi-attribute for ID 19",
+    "expected": {
+      "must_contain": [
+        19
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 50",
+    "expected": {
+      "must_contain": [
+        50
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Checked Gucci Shirt",
+    "description": "Real-world Multi-attribute for ID 50",
+    "expected": {
+      "must_contain": [
+        50
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Blouse",
+    "description": "Exact Name Match for ID 22",
+    "expected": {
+      "must_contain": [
+        22
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Loose Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 22",
+    "expected": {
+      "must_contain": [
+        22
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Shirt",
+    "description": "Exact Name Match for ID 48",
+    "expected": {
+      "must_contain": [
+        48
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Long Dolce & Gabbana Shirt",
+    "description": "Real-world Multi-attribute for ID 48",
+    "expected": {
+      "must_contain": [
+        48
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "T-shirt",
+    "description": "Exact Name Match for ID 43",
+    "expected": {
+      "must_contain": [
+        43
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Gucci T-shirt",
+    "description": "Real-world Multi-attribute for ID 43",
+    "expected": {
+      "must_contain": [
+        43
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "T-shirt",
+    "description": "Exact Name Match for ID 57",
+    "expected": {
+      "must_contain": [
+        57
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Short Dolce & Gabbana T-shirt",
+    "description": "Real-world Multi-attribute for ID 57",
+    "expected": {
+      "must_contain": [
+        57
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dress",
+    "description": "Exact Name Match for ID 29",
+    "expected": {
+      "must_contain": [
+        29
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Loose H&M Dress",
+    "description": "Real-world Multi-attribute for ID 29",
+    "expected": {
+      "must_contain": [
+        29
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Dior T-shirt",
+    "description": "Exact Name Match for ID 60",
+    "expected": {
+      "must_contain": [
+        60
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "White Dior T-shirt",
+    "description": "Real-world Multi-attribute for ID 60",
+    "expected": {
+      "must_contain": [
+        60
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Adidas AZX750 Sneaker",
+    "description": "Exact Name Match for ID 59",
+    "expected": {
+      "must_contain": [
+        59
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Blue Adidas AZX750 Sneaker",
+    "description": "Real-world Multi-attribute for ID 59",
+    "expected": {
+      "must_contain": [
+        59
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "H&M tshirt",
+    "description": "Exact Name Match for ID 15",
+    "expected": {
+      "must_contain": [
+        15
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Blue H&M tshirt",
+    "description": "Real-world Multi-attribute for ID 15",
+    "expected": {
+      "must_contain": [
+        15
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Essence Blouse",
+    "description": "Exact Name Match for ID 24",
+    "expected": {
+      "must_contain": [
+        24
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Green Essence Blouse",
+    "description": "Real-world Multi-attribute for ID 24",
+    "expected": {
+      "must_contain": [
+        24
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "Zara Shirt",
+    "description": "Exact Name Match for ID 58",
+    "expected": {
+      "must_contain": [
+        58
+      ],
+      "min_confidence": 100
+    }
+  },
+  {
+    "query": "Black Zara Shirt",
+    "description": "Real-world Multi-attribute for ID 58",
+    "expected": {
+      "must_contain": [
+        58
+      ],
+      "min_confidence": 80
+    }
+  },
+  {
+    "query": "ladies tshirts",
+    "description": "Synonym (ladies) + Product Type",
+    "expected": {
+      "min_confidence": 50
+    }
+  },
+  {
+    "query": "mens tshirts",
+    "description": "Synonym (mens) + Product Type",
+    "expected": {
+      "min_confidence": 50
+    }
+  },
+  {
+    "query": "woman tshirts",
+    "description": "Synonym (woman) + Product Type",
+    "expected": {
+      "min_confidence": 50
+    }
+  },
+  {
+    "query": "gents tshirts",
+    "description": "Synonym (gents) + Product Type",
+    "expected": {
+      "min_confidence": 50
+    }
+  },
+  {
+    "query": "v-neck tshirts",
+    "description": "Attribute (v-neck) + Product Type",
+    "expected": {
+      "min_confidence": 50
+    }
+  },
+  {
+    "query": "round neck tshirt",
+    "description": "Attribute (round neck) + Product Type",
+    "expected": {
+      "min_confidence": 50
+    }
+  },
+  {
+    "query": "golf tshirts",
+    "description": "Sub-type / Style (golf)",
+    "expected": {
+      "min_confidence": 30
+    }
+  },
+  {
+    "query": "Pizza",
+    "description": "No results expected",
+    "expected": {
+      "max_results": 0
+    }
+  },
+  {
+    "query": "Electric drill",
+    "description": "No results expected",
+    "expected": {
+      "max_results": 0
+    }
+  },
+  {
+    "query": "Burger",
+    "description": "No results expected",
+    "expected": {
+      "max_results": 0
+    }
+  }
+]

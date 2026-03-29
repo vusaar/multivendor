@@ -49,6 +49,8 @@ export async function executeHybridSearch(params: {
     precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${qIdx}, '-', '') THEN 150.0 ELSE 0.0 END)`;
     // Continuous fuzzy match for the base query (Only if above threshold)
     precisionScoreSql += ` + (CASE WHEN $${qIdx} <% LOWER(name) THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
+    // 0.1 Description Boost (Captures keywords missing from search_context)
+    precisionScoreSql += ` + (CASE WHEN $${qIdx} <% LOWER(description) THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
 
     // 1. Entity Match (Continuous Weighting)
     if (entity) {
@@ -57,6 +59,7 @@ export async function executeHybridSearch(params: {
         // High weight for entity name match using STRICT similarity (Only if above threshold)
         precisionScoreSql += ` + (CASE WHEN $${pIdx} <<% LOWER(name) THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
         precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(search_context) THEN word_similarity($${pIdx}, LOWER(search_context)) * 80.0 ELSE 0.0 END)`;
+        precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(description) THEN word_similarity($${pIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
         // Exact small priority bonus
         precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 50.0 ELSE 0.0 END)`;
     }
@@ -68,6 +71,7 @@ export async function executeHybridSearch(params: {
             const pIdx = sqlParams.length;
             precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(name) THEN word_similarity($${pIdx}, LOWER(name)) * 100.0 ELSE 0.0 END)`;
             precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(search_context) THEN word_similarity($${pIdx}, LOWER(search_context)) * 40.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(description) THEN word_similarity($${pIdx}, LOWER(description)) * 20.0 ELSE 0.0 END)`;
         });
     }
 

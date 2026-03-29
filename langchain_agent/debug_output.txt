@@ -1,51 +1,11 @@
 
-=== DEBUGGING QUERY: "tshirt" ===
-Results Found: 34
-1. [ID: 12] Tshirt - Score: 554.432432314306
-2. [ID: 13] Tshirt - Score: 553.6714281948432
-3. [ID: 17] tshirt - Score: 552.9954505889975
-4. [ID: 18] tshirt - Score: 552.9169192838086
-5. [ID: 43] T-shirt - Score: 447.1835655495491
-🎯 Target ID 15 found at position 30 with score 173.5998564577627
-🎯 Target ID 60 found at position 31 with score 166.87666445196265
+=== DEBUGGING QUERY: "golf tshirts" ===
+Results Found: 36
+1. [ID: 42] Calvin Klein T-shirt Tshirt - Score: 654.5276684276234
+2. [ID: 43] T-shirt - Score: 644.5908659026966
+3. [ID: 57] T-shirt - Score: 644.5387250185013
+4. [ID: 41] T-shirt - Score: 515.6127905845642
+5. [ID: 60] Dior T-shirt - Score: 479.72604254453984
+🎯 Target ID 15 found at position 8 with score 358.31303670820927
+🎯 Target ID 60 found at position 5 with score 479.72604254453984
 ❌ Target ID 2 NOT found in results.
-
-=== DEBUGGING QUERY: "Mens white shirt" ===
-Results Found: 50
-1. [ID: 49] Shirt - Score: 444.73993586046214
-2. [ID: 55] Shirt - Score: 444.7096131922366
-3. [ID: 52] Shirt - Score: 443.84091283072615
-4. [ID: 50] Shirt - Score: 443.5278677555615
-5. [ID: 40] Shirt - Score: 362.77394653297983
-🎯 Target ID 15 found at position 39 with score 180.19138400009322
-🎯 Target ID 60 found at position 24 with score 291.0730486735704
-❌ Target ID 2 NOT found in results.
-
-=== DEBUGGING QUERY: "shoes under 50" ===
-Results Found: 24
-1. [ID: 55] Shirt - Score: 77.18750066658932
-2. [ID: 39] Shirt - Score: 76.97367529153044
-3. [ID: 40] Shirt - Score: 76.87177168205403
-4. [ID: 38] Shirt - Score: 76.78093642278606
-5. [ID: 35] Shirt - Score: 76.76826505751544
-❌ Target ID 15 NOT found in results.
-❌ Target ID 60 NOT found in results.
-❌ Target ID 2 NOT found in results.
-
-=== DEBUGGING QUERY: "eyeshadow" ===
-Results Found: 4
-1. [ID: 2] Eyeshadow Palette with Mirror - Score: 109.22702234243923
-2. [ID: 1] Essence Mascara Lash Princess  - Score: 23.98664704295986
-3. [ID: 7] Chanel Coco Noir Eau De - Score: 23.19481014418625
-4. [ID: 3] Powder Canister - Score: 20.843141480499952
-❌ Target ID 15 NOT found in results.
-❌ Target ID 60 NOT found in results.
-🎯 Target ID 2 found at position 1 with score 109.22702234243923
-
-=== DEBUGGING QUERY: "Pizza" ===
-Results Found: 2
-1. [ID: 5] Red Nail Polish - Score: 11.444246264777775
-2. [ID: 2] Eyeshadow Palette with Mirror - Score: 9.598329577049133
-❌ Target ID 15 NOT found in results.
-❌ Target ID 60 NOT found in results.
-🎯 Target ID 2 found at position 2 with score 9.598329577049133
