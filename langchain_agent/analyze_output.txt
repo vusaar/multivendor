@@ -1,0 +1,36 @@
+
+--- Analyzing Score for Query: "shoes under 50", Entity: "shoe", Product ID: 55 ---
+[
+  {
+    "name": "Shirt",
+    "literal_match": "0.0",
+    "query_fuzzy": 20.000000596046448,
+    "entity_strict": 33.33333358168602,
+    "entity_context": 1.9148936122655869,
+    "total_precision": 69.5390082988888
+  }
+]
+
+--- Analyzing Score for Query: "shoes under 50", Entity: "shoe", Product ID: 59 ---
+[
+  {
+    "name": "Adidas AZX750 Sneaker",
+    "literal_match": "0.0",
+    "query_fuzzy": 5.454545617103577,
+    "entity_strict": 5.999999865889549,
+    "entity_context": 0.659340675920248,
+    "total_precision": 48.194472920149565
+  }
+]
+
+--- Analyzing Score for Query: "Pizza", Entity: "Pizza", Product ID: 5 ---
+[
+  {
+    "name": "Red Nail Polish",
+    "literal_match": "0.0",
+    "query_fuzzy": 3.75,
+    "entity_strict": 7.142857275903225,
+    "entity_context": 0.3846153896301985,
+    "total_precision": 11.277472665533423
+  }
+]
