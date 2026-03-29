@@ -96,6 +96,7 @@ export class MessageProcessorService {
                         `I couldn't find any "${queryText}" in stock, but I found some other similar items. Would you like to see them?`, 
                         [{ id: 'show_suggestions', title: 'See similar items' }]
                     );
+                    return; // Stop here and wait for button click
                 }
             }
 
