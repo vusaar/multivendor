@@ -47,30 +47,27 @@ export async function executeHybridSearch(params: {
     precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 150.0 ELSE 0.0 END)`;
     // Support punctuation-neutral matching (T-shirt vs Tshirt)
     precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${qIdx}, '-', '') THEN 150.0 ELSE 0.0 END)`;
+    // Continuous fuzzy match for the base query (Only if above threshold)
+    precisionScoreSql += ` + (CASE WHEN $${qIdx} <% LOWER(name) THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
 
-    // 1. Entity Match (+90 fuzzy, +100 exact priority)
+    // 1. Entity Match (Continuous Weighting)
     if (entity) {
         sqlParams.push(entity.toLowerCase().trim());
         const pIdx = sqlParams.length;
-        // 1. Fuzzy baseline (Trigram)
-        precisionScoreSql += ` + (word_similarity(LOWER(name), $${pIdx}) * 90.0)`;
-        precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 50.0)`;
-        // 2. Exact Priority (Ensures 'Tshirt' beats 'Shirt' for 'tshirt')
-        precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 100.0 ELSE 0.0 END)`;
-        // 3. Substring Containment (Safety Layer)
-        precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 20.0 ELSE 0.0 END)`;
+        // High weight for entity name match using STRICT similarity (Only if above threshold)
+        precisionScoreSql += ` + (CASE WHEN $${pIdx} <<% LOWER(name) THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
+        precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(search_context) THEN word_similarity($${pIdx}, LOWER(search_context)) * 80.0 ELSE 0.0 END)`;
+        // Exact small priority bonus
+        precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 50.0 ELSE 0.0 END)`;
     }
 
-    // Synonym Matches (+40 fuzzy, +40 exact priority)
+    // Synonym Matches (Higher weight to reward explicit intent)
     if (synonyms && synonyms.length > 0) {
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            // Lower synonym boost to ensure primary entity always wins
-            precisionScoreSql += ` + (word_similarity(LOWER(name), $${pIdx}) * 40.0)`;
-            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 20.0)`;
-            precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 40.0 ELSE 0.0 END)`;
-            precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${pIdx}, '-', '') THEN 40.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(name) THEN word_similarity($${pIdx}, LOWER(name)) * 100.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(search_context) THEN word_similarity($${pIdx}, LOWER(search_context)) * 40.0 ELSE 0.0 END)`;
         });
     }
 
@@ -102,7 +99,11 @@ export async function executeHybridSearch(params: {
     // Phase 1: High-Recall Pre-Filtering (Get top 200 conceptually similar items)
     // Phase 3: Final Rank = (Vector * 10) + Precision Score
     const sql = `
-        WITH semantic_candidates AS (
+        WITH config AS (
+            SELECT set_config('pg_trgm.word_similarity_threshold', '0.5', true),
+                   set_config('pg_trgm.strict_word_similarity_threshold', '0.5', true)
+        ),
+        semantic_candidates AS (
             SELECT id, name, price, description, search_context, vendor_id, category_id, status,
                    (1 - (embedding <=> $1::vector)) AS vector_score
             FROM products
@@ -118,7 +119,7 @@ export async function executeHybridSearch(params: {
                 (vector_score * 10) + -- Scale vector to ~6-10 points to act as a tie-breaker/base
                 ${precisionScoreSql}
             ) AS rrf_score 
-        FROM semantic_candidates
+        FROM semantic_candidates, config
         ORDER BY rrf_score DESC
         LIMIT $2 OFFSET $3;
     `;

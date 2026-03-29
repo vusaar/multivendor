@@ -22,7 +22,7 @@ DATABASE MAPPING RULES (FOR PRECISION SCORING):
 3. 'synonyms': Expand the search net with 1 to 3 direct synonyms IN SINGULAR FORM. Use this EXPERT KNOWLEDGE:
    - "hoodie" -> ["sweater", "sweatshirt", "hoody"]
    - "sweater" -> ["jumper", "jersey", "pullover"]
-   - "t-shirt" -> ["shirt", "tee", "top", "tshirt"]
+   - "t-shirt" -> ["tee", "top", "tshirt"]
    - "shoe" -> ["sneaker", "kick", "footwear"]
    - "trousers" -> ["pants", "jeans", "bottoms"]
    - "jacket" -> ["coat", "outerwear", "parka"]
