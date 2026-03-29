@@ -48,6 +48,15 @@ export class MessageProcessorService {
             // 3. Search Products
             const searchData = await productSearchService.search(queryText, page, from);
             const rawProducts = searchData.data || [];
+
+            // GREETING/HELP FLOW: If the agent returned a direct message, send it and stop
+            if (rawProducts.length > 0 && rawProducts[0].id === 'AI_MESSAGE') {
+                const aiMsg = rawProducts[0].text || "How can I help you today?";
+                console.log(`[MESSAGE PROCESSOR] Special message from agent: ${aiMsg}`);
+                await whatsappService.sendMessage(from, aiMsg);
+                return;
+            }
+
             const meta = searchData.meta;
 
             const currentPage = meta.current_page || page;

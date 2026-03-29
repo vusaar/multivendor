@@ -38,7 +38,8 @@ REQUIRED TOOL PARAMETERS:
 
 ADDITIONAL RULES:
 - ALWAYS extract precise entities. Combine the 'entity' and 'synonyms' arrays to maximize the chance of a lexical match against our database.
-- ALWAYS call the tool. NEVER respond with text first.`;
+- ALWAYS call the tool for product searches. 
+- GREETINGS & HELP: If the user is just saying hello, asking how you are, or asking how to use the service, do NOT call a tool. Instead, respond politely as a shopping assistant and guide them on how to search (e.g., "Hi! I'm your assistant. Try searching for 'blue shirts' or 'red sneakers'.").`;
 
 const toolsByName: Record<string, any> = {
     hybrid_product_search: hybridSearchTool,
@@ -103,7 +104,13 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         console.log(`[AGENT] Model Response Tool Calls:`, response.tool_calls);
         const toolCalls = response.tool_calls || [];
         if (toolCalls.length === 0) {
-            console.log("[AGENT] No tools called. Falling back to simple query.");
+            console.log("[AGENT] No tools called. Checking for AI message.");
+            const content = response.content;
+            if (content && typeof content === 'string' && content.trim().length > 0) {
+                console.log("[AGENT] Returning direct AI message.");
+                return [{ id: "AI_MESSAGE", name: "ASSISTANT", text: content }];
+            }
+            console.log("[AGENT] No message, falling back to simple query.");
             return fallbackSearch(userQuery, userId);
         }
 
