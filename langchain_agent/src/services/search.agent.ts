@@ -38,11 +38,13 @@ REQUIRED TOOL PARAMETERS:
 
 ADDITIONAL RULES:
 - ALWAYS extract precise entities. Combine the 'entity' and 'synonyms' arrays to maximize the chance of a lexical match against our database.
-- ALWAYS call the tool. NEVER respond with text first.`;
+- ALWAYS call the tool for product searches. 
+- GREETINGS & HELP: If the user is just saying hello, asking how you are, or asking how to use the service, do NOT call a tool. Instead, respond politely as a shopping assistant and guide them on how to search (e.g., "Hi! I'm your assistant. Try searching for 'blue shirts' or 'red sneakers'.").`;
 
 const toolsByName: Record<string, any> = {
     hybrid_product_search: hybridSearchTool,
 };
+
 
 export const processUserQuery = async (userQuery: string, userId: string = "default") => {
     const totalStart = Date.now();
@@ -57,6 +59,15 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         if ((isContinuationQuery(userQuery) || isRepeat) && session.lastSearchPlan) {
             console.log(`[ROUTER] Bypass triggered (Continuation: ${isContinuationQuery(userQuery)}, Repeat: ${isRepeat}).`);
             const plan: SearchPlan = session.lastSearchPlan;
+
+            // Handle hidden suggestions if user said "Yes"
+            if (plan.pendingSuggestions && isContinuationQuery(userQuery)) {
+                console.log(`[ROUTER] Displaying ${plan.pendingSuggestions.length} pending suggestions.`);
+                const suggestions = plan.pendingSuggestions;
+                plan.pendingSuggestions = undefined; // Clear it
+                await sessionService.updateSession(userId, { lastSearchPlan: plan });
+                return suggestions;
+            }
 
             // Return a larger set (50) so Laravel's secondary pagination has data to work with
             const results = await executeHybridSearch({
@@ -93,7 +104,13 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         console.log(`[AGENT] Model Response Tool Calls:`, response.tool_calls);
         const toolCalls = response.tool_calls || [];
         if (toolCalls.length === 0) {
-            console.log("[AGENT] No tools called. Falling back to simple query.");
+            console.log("[AGENT] No tools called. Checking for AI message.");
+            const content = response.content;
+            if (content && typeof content === 'string' && content.trim().length > 0) {
+                console.log("[AGENT] Returning direct AI message.");
+                return [{ id: "AI_MESSAGE", name: "ASSISTANT", text: content }];
+            }
+            console.log("[AGENT] No message, falling back to simple query.");
             return fallbackSearch(userQuery, userId);
         }
 
@@ -131,14 +148,23 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             const searchId = crypto.randomUUID();
 
             // Relevance Filtering & Classification Logic
-            const finalResults = filterResults(results).map((r: any) => ({
+            const bucketed = filterResults(results);
+            
+            const finalResults = bucketed.results.map((r: any) => ({
                 ...r,
                 score: r.rrf_score // Backward compatibility for Laravel hydration
             }));
 
             // 3. Update message history and return
-            newPlan.results = finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }));
-            await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
+            const finalPlan: SearchPlan = {
+                originalQuery: userQuery,
+                parsedIntent: toolCall.args,
+                embedding,
+                pagination: { offset: 0, limit: 5 },
+                timestamp: Date.now(),
+                results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
+            };
+            await sessionService.updateSession(userId, { lastSearchPlan: finalPlan });
 
             await searchLoggerService.log(
                 userId, 
@@ -188,7 +214,8 @@ async function fallbackSearch(query: string, userId: string): Promise<any[]> {
 
     console.log(`[TRACE] Fallback results found: ${results.length}. Top score: ${results[0]?.rrf_score}`);
 
-    const finalResults = filterResults(results);
+    const bucketed = filterResults(results);
+    const finalResults = bucketed.results;
 
     const newPlan: SearchPlan = {
         originalQuery: query,
@@ -214,23 +241,30 @@ async function fallbackSearch(query: string, userId: string): Promise<any[]> {
     return finalResults;
 }
 
-function filterResults(results: any[]): any[] {
+function filterResults(results: any[]): { results: any[], suggestions: any[], hasOnlySuggestions: boolean } {
     const { THRESHOLD_VERIFIED, THRESHOLD_SUGGESTION, THRESHOLD_PRECISION_LIMIT, LIMIT_VERIFIED, LIMIT_SUGGESTIONS } = SEARCH_CONFIG;
 
     // Filter out irrelevant
-    let filtered = results.filter(r => r.rrf_score >= THRESHOLD_SUGGESTION);
+    const filtered = results.filter(r => r.rrf_score >= THRESHOLD_SUGGESTION);
     
-    // Dynamic Precision: If we have a verified match, be stricter with suggestions
-    const hasVerified = filtered.some(r => r.rrf_score >= THRESHOLD_VERIFIED);
-    if (hasVerified) {
-        filtered = filtered.filter(r => r.rrf_score >= THRESHOLD_PRECISION_LIMIT || r.rrf_score >= THRESHOLD_VERIFIED);
-    }
-
-    // Final limiting: max 15 verified + 3 suggestions (Increased for production recall)
     const verified = filtered.filter(r => r.rrf_score >= THRESHOLD_VERIFIED).slice(0, LIMIT_VERIFIED);
-    const suggestions = filtered.filter(r => r.rrf_score < THRESHOLD_VERIFIED).slice(0, (verified.length > 0 ? LIMIT_SUGGESTIONS : 5));
     
-    return [...verified, ...suggestions];
+    // Dynamic Precision for suggestions
+    let suggestions = filtered.filter(r => r.rrf_score < THRESHOLD_VERIFIED);
+    if (verified.length > 0) {
+        // If we have verified, be stricter with suggestions
+        suggestions = suggestions.filter(r => r.rrf_score >= THRESHOLD_PRECISION_LIMIT);
+    }
+    
+    const limitedSuggestions = suggestions.slice(0, (verified.length > 0 ? LIMIT_SUGGESTIONS : 5));
+    
+    const hasOnlySuggestions = verified.length === 0 && limitedSuggestions.length > 0;
+
+    return {
+        results: [...verified, ...limitedSuggestions],
+        suggestions: limitedSuggestions,
+        hasOnlySuggestions
+    };
 }
 
 function extractDemographics(query: string): string[] {

@@ -48,6 +48,15 @@ export class MessageProcessorService {
             // 3. Search Products
             const searchData = await productSearchService.search(queryText, page, from);
             const rawProducts = searchData.data || [];
+
+            // GREETING/HELP FLOW: If the agent returned a direct message, send it and stop
+            if (rawProducts.length > 0 && rawProducts[0].id === 'AI_MESSAGE') {
+                const aiMsg = rawProducts[0].text || "How can I help you today?";
+                console.log(`[MESSAGE PROCESSOR] Special message from agent: ${aiMsg}`);
+                await whatsappService.sendMessage(from, aiMsg);
+                return;
+            }
+
             const meta = searchData.meta;
 
             const currentPage = meta.current_page || page;
@@ -71,16 +80,22 @@ export class MessageProcessorService {
                 await this.sendProductMessage(from, product, isDebug);
             }
 
-            // If we have suggestions, send a header and then the suggestions
+            // If we have suggestions, handle based on whether we have verified matches
             if (suggestedProducts.length > 0) {
                 if (verifiedProducts.length > 0) {
                     await whatsappService.sendMessage(from, "✨ *YOU MIGHT ALSO LIKE* ✨");
+                    for (const product of suggestedProducts) {
+                        await this.sendProductMessage(from, product, isDebug);
+                    }
                 } else {
-                    await whatsappService.sendMessage(from, "I couldn't find an exact match, but you might like these:");
-                }
-                
-                for (const product of suggestedProducts) {
-                    await this.sendProductMessage(from, product, isDebug);
+                    // INTERACTIVE FLOW: Ask permission if NO verified matches
+                    console.log(`[MESSAGE PROCESSOR] Only suggestions for "${queryText}". Asking for permission.`);
+                    await sessionService.updateSession(from, { suggestedProducts: suggestedProducts });
+                    await whatsappService.sendButtons(
+                        from, 
+                        `I couldn't find any "${queryText}" in stock, but I found some other similar items. Would you like to see them?`, 
+                        [{ id: 'show_suggestions', title: 'See similar items' }]
+                    );
                 }
             }
 

@@ -12,6 +12,7 @@ export interface SearchPlan {
     pagination: { offset: number; limit: number; };
     timestamp: number;
     results?: { id: string; name: string; score: number }[];
+    pendingSuggestions?: any[];
 }
 
 /**
@@ -24,7 +25,11 @@ export function isContinuationQuery(query: string): boolean {
         /^\s*next\s*page\s*$/i,
         /^\s*show\s*more\s*$/i,
         /^\s*any\s*else\s*$/i,
-        /^\s*keep\s*going\s*$/i
+        /^\s*keep\s*going\s*$/i,
+        /^\s*yes\s*$/i,
+        /^\s*sure\s*$/i,
+        /^\s*view\s*similar\s*$/i,
+        /^\s*show\s*similar\s*$/i
     ];
     return continuationPatterns.some(pattern => pattern.test(query));
 }
