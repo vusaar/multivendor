@@ -1,118 +1,314 @@
 {
-  "total": 13,
-  "passed": 13,
+  "total": 123,
+  "passed": 123,
   "failed": 0,
   "results": [
     {
-      "query": "Dior shirt",
+      "query": "Tshirt",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain IDs 60",
+          "name": "Must Contain IDs 12",
           "pass": true,
           "actual": "All Found"
         },
         {
-          "name": "Score >= 75 (Verified)",
+          "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 738.2078737867889
+          "actual": 708.8183417753359
         }
       ]
     },
     {
-      "query": "Adidas sneakers",
+      "query": "Short Dior Tshirt",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain IDs 59",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 75 (Verified)",
-          "pass": true,
-          "actual": 762.1445486586938
-        }
-      ]
-    },
-    {
-      "query": "UK 7 shoes",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 59",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 50 (Verified)",
-          "pass": true,
-          "actual": 270.36420851640617
-        }
-      ]
-    },
-    {
-      "query": "White top",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 70 (Verified)",
-          "pass": true,
-          "actual": 383.78324866294884
-        }
-      ]
-    },
-    {
-      "query": "beauty products",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 50 (Verified)",
-          "pass": true,
-          "actual": 108.38362693786621
-        }
-      ]
-    },
-    {
-      "query": "Mens white shirt",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 60",
+          "name": "Must Contain IDs 12",
           "pass": true,
           "actual": "All Found"
         },
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 520.9101486359309
+          "actual": 897.4283089905423
         }
       ]
     },
     {
-      "query": "shoes under 50",
+      "query": "Tshirt",
       "passed": true,
       "checks": [
         {
-          "name": "Score >= 50 (Verified)",
+          "name": "Must Contain IDs 13",
           "pass": true,
-          "actual": 188.07715999390254
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 708.8183417753359
         }
       ]
     },
     {
-      "query": "zara apparel",
+      "query": "Short Dior Tshirt",
       "passed": true,
       "checks": [
         {
-          "name": "Score >= 30 (Verified)",
+          "name": "Must Contain IDs 13",
           "pass": true,
-          "actual": 490.4082636964778
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 897.4283089905423
         }
       ]
     },
     {
-      "query": "eyeshadow",
+      "query": "tshirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 18",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 708.7852656117244
+        }
+      ]
+    },
+    {
+      "query": "Loose H&M tshirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 18",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 752.0180805287885
+        }
+      ]
+    },
+    {
+      "query": "Powder Canister",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 3",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 668.2837404866528
+        }
+      ]
+    },
+    {
+      "query": "Velvet Touch Powder Canister",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 3",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 795.1114153116941
+        }
+      ]
+    },
+    {
+      "query": "Red Lipstick",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 4",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1089.6479107138796
+        }
+      ]
+    },
+    {
+      "query": "Chic Cosmetics Red Lipstick",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 4",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 932.2987798193211
+        }
+      ]
+    },
+    {
+      "query": "Red Nail Polish",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 5",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1149.6498458801943
+        }
+      ]
+    },
+    {
+      "query": "Nail Couture Red Nail Polish",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 5",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 823.0328228672079
+        }
+      ]
+    },
+    {
+      "query": "Calvin Klein CK One",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 6",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1051.641893652878
+        }
+      ]
+    },
+    {
+      "query": "Chanel Coco Noir Eau De",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 7",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1232.4353351568518
+        }
+      ]
+    },
+    {
+      "query": "Dior J'adore",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 8",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 429.10145927685016
+        }
+      ]
+    },
+    {
+      "query": "Dolce Shine Eau de",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 9",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 709.1211211157515
+        }
+      ]
+    },
+    {
+      "query": "Dolce & Gabbana Dolce Shine Eau de",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 9",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 569.8392218382958
+        }
+      ]
+    },
+    {
+      "query": "Gucci Bloom Eau de",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 10",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1191.5841203987625
+        }
+      ]
+    },
+    {
+      "query": "Eyeshadow Palette with Mirror",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 2",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1230.369079030003
+        }
+      ]
+    },
+    {
+      "query": "Glamour Beauty Eyeshadow Palette with Mirror",
       "passed": true,
       "checks": [
         {
@@ -123,12 +319,1372 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 548.697607154082
+          "actual": 704.0714655644787
         }
       ]
     },
     {
-      "query": "Blue Adidas sneakers for men size UK 7 under 50",
+      "query": "tshirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 17",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 708.7852656117244
+        }
+      ]
+    },
+    {
+      "query": "Black H&M tshirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 17",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 752.6915423440818
+        }
+      ]
+    },
+    {
+      "query": "Essence Mascara Lash Princess ",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 1",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1233.1634608516856
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 20",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Loose Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 20",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 348.8470333814621
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 21",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Short Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 21",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 420.6486173761399
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 51",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Silk Dolce & Gabbana Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 51",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 504.68068697353976
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 23",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Long Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 23",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 530.4824106767774
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 25",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Long Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 25",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 530.4824106767774
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 26",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Printed Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 26",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 421.7748976995825
+        }
+      ]
+    },
+    {
+      "query": "Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 27",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8084434752728
+        }
+      ]
+    },
+    {
+      "query": "Slim H&M Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 27",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.1028547991568
+        }
+      ]
+    },
+    {
+      "query": "Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 28",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8084434752728
+        }
+      ]
+    },
+    {
+      "query": "Solid H&M Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 28",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.1720602205894
+        }
+      ]
+    },
+    {
+      "query": "Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 30",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8084434752728
+        }
+      ]
+    },
+    {
+      "query": "Loose H&M Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 30",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.22875889390707
+        }
+      ]
+    },
+    {
+      "query": "Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 31",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8084434752728
+        }
+      ]
+    },
+    {
+      "query": "Solid Dolce & Gabbana Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 31",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 504.84813559015754
+        }
+      ]
+    },
+    {
+      "query": "Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 32",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8084434752728
+        }
+      ]
+    },
+    {
+      "query": "Regular Levi's Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 32",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 420.978726038084
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 34",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Checked Chanel Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 34",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.7883709789361
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 36",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Checked Calvin Klein Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 36",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 505.3004285193094
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 38",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Short Gucci Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 38",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 608.0853010986656
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 39",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Short Dior Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 39",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 807.1532630360001
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 37",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Brown Calvin Klein Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 37",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 604.7684470809754
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 40",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Wool Dior Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 40",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 719.4894668736598
+        }
+      ]
+    },
+    {
+      "query": "T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 42",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 816.0483903345149
+        }
+      ]
+    },
+    {
+      "query": "Calvin Klein T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 42",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.2417394274699
+        }
+      ]
+    },
+    {
+      "query": "T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 41",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 816.0483903345149
+        }
+      ]
+    },
+    {
+      "query": "Short Chanel T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 41",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 600.0872656802243
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 44",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Short Chanel Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 44",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.11740407856036
+        }
+      ]
+    },
+    {
+      "query": "shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 45",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9518611998476
+        }
+      ]
+    },
+    {
+      "query": "Short Chanel shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 45",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.14431090896767
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 46",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Long Levi's Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 46",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.9372325907631
+        }
+      ]
+    },
+    {
+      "query": "shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 47",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9518611998476
+        }
+      ]
+    },
+    {
+      "query": "Long Chanel shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 47",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.87539617743664
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 33",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Checked Prada Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 33",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.1455877423252
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 35",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Printed Calvin Klein Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 35",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 505.00100061297417
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 53",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Solid Zara Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 53",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 725.8238109980133
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 54",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Striped Chanel Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 54",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.58684141440546
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 56",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Long Essence Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 56",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.2380155846477
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 55",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Short Gucci Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 55",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 608.0853010986656
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 52",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Striped Chanel Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 52",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 503.58684141440546
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 49",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Long Dior Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 49",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 719.1270538039903
+        }
+      ]
+    },
+    {
+      "query": "Mens sweater",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 14",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 769.1049069699701
+        }
+      ]
+    },
+    {
+      "query": "Black H&M Mens sweater",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 14",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 599.6283558059092
+        }
+      ]
+    },
+    {
+      "query": "Vest",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 16",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8027191162109
+        }
+      ]
+    },
+    {
+      "query": "Black H&M Vest",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 16",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.237827120024
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 19",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Long Zara Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 19",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 602.3909858743639
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 50",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Checked Gucci Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 50",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.8040828996745
+        }
+      ]
+    },
+    {
+      "query": "Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 22",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 748.7605633223561
+        }
+      ]
+    },
+    {
+      "query": "Loose Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 22",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 348.8470333814621
+        }
+      ]
+    },
+    {
+      "query": "Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 48",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.9645915606375
+        }
+      ]
+    },
+    {
+      "query": "Long Dolce & Gabbana Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 48",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 504.7942544744447
+        }
+      ]
+    },
+    {
+      "query": "T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 43",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 816.0483903345149
+        }
+      ]
+    },
+    {
+      "query": "Gucci T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 43",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 547.1046764934376
+        }
+      ]
+    },
+    {
+      "query": "T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 57",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 816.0483903345149
+        }
+      ]
+    },
+    {
+      "query": "Short Dolce & Gabbana T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 57",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 584.617813564837
+        }
+      ]
+    },
+    {
+      "query": "Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 29",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 718.8084434752728
+        }
+      ]
+    },
+    {
+      "query": "Loose H&M Dress",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 29",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 502.22875889390707
+        }
+      ]
+    },
+    {
+      "query": "Dior T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 60",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1130.7802171835685
+        }
+      ]
+    },
+    {
+      "query": "White Dior T-shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 60",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 887.3230940742789
+        }
+      ]
+    },
+    {
+      "query": "Adidas AZX750 Sneaker",
       "passed": true,
       "checks": [
         {
@@ -139,34 +1695,218 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 754.8571489388299
+          "actual": 1051.6526417593614
         }
       ]
     },
     {
-      "query": "Chanel perfume for women",
+      "query": "Blue Adidas AZX750 Sneaker",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain IDs 7",
+          "name": "Must Contain IDs 59",
           "pass": true,
           "actual": "All Found"
         },
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 470.0244554504752
+          "actual": 858.0489841164683
         }
       ]
     },
     {
-      "query": "cheap beauty products under 10",
+      "query": "H&M tshirt",
       "passed": true,
       "checks": [
         {
-          "name": "Score >= 10 (Verified)",
+          "name": "Must Contain IDs 15",
           "pass": true,
-          "actual": 107.95467078010303
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1080.4739059525407
+        }
+      ]
+    },
+    {
+      "query": "Blue H&M tshirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 15",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 837.0693687878934
+        }
+      ]
+    },
+    {
+      "query": "Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 24",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 668.9965220388641
+        }
+      ]
+    },
+    {
+      "query": "Green Essence Blouse",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 24",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 428.0606227256057
+        }
+      ]
+    },
+    {
+      "query": "Zara Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 58",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 100 (Verified)",
+          "pass": true,
+          "actual": 1050.678964377976
+        }
+      ]
+    },
+    {
+      "query": "Black Zara Shirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain IDs 58",
+          "pass": true,
+          "actual": "All Found"
+        },
+        {
+          "name": "Score >= 80 (Verified)",
+          "pass": true,
+          "actual": 804.3609578549117
+        }
+      ]
+    },
+    {
+      "query": "ladies tshirts",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 50 (Verified)",
+          "pass": true,
+          "actual": 435.6265515992825
+        }
+      ]
+    },
+    {
+      "query": "mens tshirts",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 50 (Verified)",
+          "pass": true,
+          "actual": 536.0041916370392
+        }
+      ]
+    },
+    {
+      "query": "woman tshirts",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 50 (Verified)",
+          "pass": true,
+          "actual": 435.68278985739596
+        }
+      ]
+    },
+    {
+      "query": "gents tshirts",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 50 (Verified)",
+          "pass": true,
+          "actual": 535.9202140569687
+        }
+      ]
+    },
+    {
+      "query": "v-neck tshirts",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 50 (Verified)",
+          "pass": true,
+          "actual": 518.0992754397146
+        }
+      ]
+    },
+    {
+      "query": "round neck tshirt",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 50 (Verified)",
+          "pass": true,
+          "actual": 437.7256642684714
+        }
+      ]
+    },
+    {
+      "query": "golf tshirts",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Score >= 30 (Verified)",
+          "pass": true,
+          "actual": 558.8765793369159
+        }
+      ]
+    },
+    {
+      "query": "Pizza",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Result Count <= 0",
+          "pass": true,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "query": "Electric drill",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Result Count <= 0",
+          "pass": true,
+          "actual": 0
         }
       ]
     },

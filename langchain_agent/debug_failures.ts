@@ -37,11 +37,7 @@ async function debugQuery(query: string) {
 
 async function run() {
     if (fs.existsSync('debug_output.txt')) fs.unlinkSync('debug_output.txt');
-    await debugQuery("tshirt");
-    await debugQuery("Mens white shirt");
-    await debugQuery("shoes under 50");
-    await debugQuery("eyeshadow");
-    await debugQuery("Pizza");
+    await debugQuery("golf tshirts");
     process.exit(0);
 }
 
