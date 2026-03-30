@@ -22,6 +22,7 @@ export class MessageProcessorService {
             let isDebug = msgBody?.toLowerCase().includes('debug') || false;
 
             // 2. Handle button actions or new search
+            // 2. Clear session if it's a new query (not a button click)
             if (isButtonReply && buttonId === 'next_page') {
                 queryText = session.lastQuery;
                 page = (session.currentPage || 1) + 1;
@@ -39,6 +40,14 @@ export class MessageProcessorService {
                 await sessionService.updateSession(from, { suggestedProducts: [] });
                 return;
             } else {
+                // --- QUICK GREETING FILTER ---
+                const greetingRegex = /^\s*(hello|hi|hey|hola|greetings|how are you|good morning|good afternoon|good evening)\b\s*[!?.]*$/i;
+                if (msgBody && greetingRegex.test(msgBody)) {
+                    console.log(`[MESSAGE PROCESSOR] Greeting detected via pre-filter: "${msgBody}"`);
+                    await whatsappService.sendMessage(from, "Hello! I'm your AI shopping assistant. I can help you find anything in our catalog. Try searching for something specific like 'black cotton shirt' or 'nike shoes'. What can I find for you?");
+                    return;
+                }
+
                 // New search, update lastQuery in session
                 await sessionService.updateSession(from, { lastQuery: msgBody, currentPage: 1, suggestedProducts: [] });
             }

@@ -47,6 +47,17 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
     console.log(`[AGENT] Starting stateful router for: "${userQuery}" (User: ${userId})`);
 
     try {
+        // --- Tier 0: Quick Greeting Filter ---
+        const greetingRegex = /^\s*(hello|hi|hey|hola|greetings|how are you|good morning|good afternoon|good evening)\b\s*[!?.]*$/i;
+        if (greetingRegex.test(userQuery)) {
+            console.log(`[AGENT] Greeting detected via pre-filter: "${userQuery}"`);
+            return [{ 
+                id: "AI_MESSAGE", 
+                name: "ASSISTANT", 
+                text: "Hello! I'm your AI shopping assistant. I can help you find anything in our catalog. Try searching for something specific like 'black cotton shirt' or 'nike shoes'. What can I find for you?" 
+            }];
+        }
+
         const session = await sessionService.getSession(userId);
 
         // --- Tier 1: Continuation/Pagination Bypass ---
