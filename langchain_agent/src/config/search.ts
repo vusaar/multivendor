@@ -4,7 +4,7 @@
  */
 export const SEARCH_CONFIG = {
     // Score above which a product is considered a high-confidence match
-    THRESHOLD_VERIFIED: 150.0,
+    THRESHOLD_VERIFIED: 180.0, // Literal match or strong synonym/entity match
     
     // Score above which a product is considered relevant suggestion
     THRESHOLD_SUGGESTION: 8.1,

@@ -1,7 +1,7 @@
 {
   "total": 124,
-  "passed": 124,
-  "failed": 0,
+  "passed": 122,
+  "failed": 2,
   "results": [
     {
       "query": "Tshirt",
@@ -15,7 +15,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9330936750063
+          "actual": 711.654567846382
         }
       ]
     },
@@ -31,7 +31,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 968.8568809300107
+          "actual": 674.128305432145
         }
       ]
     },
@@ -47,7 +47,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 808.8183417753359
+          "actual": 711.654567846382
         }
       ]
     },
@@ -63,7 +63,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 968.8568809300107
+          "actual": 674.128305432145
         }
       ]
     },
@@ -79,7 +79,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 808.7852656117244
+          "actual": 711.6216007878181
         }
       ]
     },
@@ -95,7 +95,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 792.0180805287885
+          "actual": 348.70510630041997
         }
       ]
     },
@@ -111,7 +111,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 748.2837404866528
+          "actual": 818.2837404866528
         }
       ]
     },
@@ -127,7 +127,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 856.5399860590696
+          "actual": 688.80599796772
         }
       ]
     },
@@ -143,7 +143,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1169.6479107138796
+          "actual": 1048.942028347133
         }
       ]
     },
@@ -159,7 +159,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 992.2987798193211
+          "actual": 653.1223100946958
         }
       ]
     },
@@ -175,7 +175,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1229.6498458801943
+          "actual": 1048.880615100934
         }
       ]
     },
@@ -191,7 +191,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 889.6994903286031
+          "actual": 608.9302595493427
         }
       ]
     },
@@ -207,7 +207,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1125.9276082791903
+          "actual": 843.3923970588068
         }
       ]
     },
@@ -223,7 +223,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1297.050720689231
+          "actual": 949.1661042472062
         }
       ]
     },
@@ -239,7 +239,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 481.60145927685016
+          "actual": 751.6014592768502
         }
       ]
     },
@@ -255,7 +255,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 755.7877885771468
+          "actual": 775.7877885771468
         }
       ]
     },
@@ -271,7 +271,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 617.4254292281273
+          "actual": 402.155158969939
         }
       ]
     },
@@ -287,7 +287,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1236.8472772896316
+          "actual": 949.2000143289592
         }
       ]
     },
@@ -303,7 +303,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1350.369079030003
+          "actual": 1331.990931137349
         }
       ]
     },
@@ -319,7 +319,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 810.7381330258739
+          "actual": 769.3263682923806
         }
       ]
     },
@@ -335,7 +335,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 808.7852656117244
+          "actual": 711.6216007878181
         }
       ]
     },
@@ -351,7 +351,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 792.6915423440818
+          "actual": 529.1086529622856
         }
       ]
     },
@@ -367,7 +367,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1313.1634608516856
+          "actual": 879.2581354687378
         }
       ]
     },
@@ -383,7 +383,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -399,7 +399,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 388.8470333814621
+          "actual": 588.8470333814621
         }
       ]
     },
@@ -415,7 +415,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -431,7 +431,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 460.6486173761399
+          "actual": 585.9852596082451
         }
       ]
     },
@@ -447,7 +447,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -463,7 +463,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 544.6806869735398
+          "actual": 509.25211530974286
         }
       ]
     },
@@ -479,7 +479,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -495,7 +495,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 570.4824106767774
+          "actual": 669.0401029586792
         }
       ]
     },
@@ -511,7 +511,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -527,7 +527,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 570.4824106767774
+          "actual": 669.0401029586792
         }
       ]
     },
@@ -543,7 +543,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -559,7 +559,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 487.8618551542639
+          "actual": 455.2531594534992
         }
       ]
     },
@@ -575,7 +575,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8084434752728
+          "actual": 868.8084434752728
         }
       ]
     },
@@ -591,7 +591,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 542.1028547991568
+          "actual": 509.13582178545533
         }
       ]
     },
@@ -607,7 +607,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8084434752728
+          "actual": 868.8084434752728
         }
       ]
     },
@@ -623,7 +623,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 542.1720602205894
+          "actual": 529.1108357376359
         }
       ]
     },
@@ -639,7 +639,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8084434752728
+          "actual": 868.8084434752728
         }
       ]
     },
@@ -655,7 +655,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 542.2287588939071
+          "actual": 529.2314875125885
         }
       ]
     },
@@ -671,7 +671,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8084434752728
+          "actual": 868.8084434752728
         }
       ]
     },
@@ -687,7 +687,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 544.8481355901575
+          "actual": 509.0789046060062
         }
       ]
     },
@@ -703,7 +703,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8084434752728
+          "actual": 868.8084434752728
         }
       ]
     },
@@ -719,7 +719,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 460.978726038084
+          "actual": 509.0521205601549
         }
       ]
     },
@@ -735,7 +735,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -751,7 +751,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.7883709789361
+          "actual": 509.1008709789361
         }
       ]
     },
@@ -767,7 +767,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -783,7 +783,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 765.9600976887995
+          "actual": 582.064638364678
         }
       ]
     },
@@ -799,7 +799,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -815,7 +815,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 634.5138766144127
+          "actual": 509.0853008900493
         }
       ]
     },
@@ -831,7 +831,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -847,7 +847,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 847.1532630360001
+          "actual": 663.8532630538815
         }
       ]
     },
@@ -863,7 +863,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -879,7 +879,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 868.0736999602736
+          "actual": 245.46715244815965
         }
       ]
     },
@@ -895,7 +895,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -911,7 +911,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 759.4894668736598
+          "actual": 528.8005784989438
         }
       ]
     },
@@ -927,7 +927,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 890.3129160404205
+          "actual": 1021.6116106510162
         }
       ]
     },
@@ -943,7 +943,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 944.0007470275349
+          "actual": 609.2076892132944
         }
       ]
     },
@@ -959,7 +959,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 890.3129160404205
+          "actual": 1021.6116106510162
         }
       ]
     },
@@ -975,7 +975,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 640.0872656802243
+          "actual": 479.08301976570544
         }
       ]
     },
@@ -991,7 +991,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1007,7 +1007,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.1174040785604
+          "actual": 509.05490415306616
         }
       ]
     },
@@ -1023,7 +1023,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9518611998476
+          "actual": 868.9518611998476
         }
       ]
     },
@@ -1039,7 +1039,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.1443109089677
+          "actual": 509.0818109834735
         }
       ]
     },
@@ -1055,7 +1055,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1071,7 +1071,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 562.9372325907631
+          "actual": 509.066264740674
         }
       ]
     },
@@ -1087,7 +1087,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9518611998476
+          "actual": 868.9518611998476
         }
       ]
     },
@@ -1103,7 +1103,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 542.8753961774366
+          "actual": 509.00442832734757
         }
       ]
     },
@@ -1119,7 +1119,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1135,7 +1135,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.1455877423252
+          "actual": 429.0998704880284
         }
       ]
     },
@@ -1151,7 +1151,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1167,7 +1167,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 763.8350075290157
+          "actual": 528.7615770839705
         }
       ]
     },
@@ -1183,7 +1183,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1199,7 +1199,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 759.157143536618
+          "actual": 578.9488104299065
         }
       ]
     },
@@ -1215,7 +1215,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1231,7 +1231,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.5868414144054
+          "actual": 509.10161034436044
         }
       ]
     },
@@ -1247,7 +1247,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1263,7 +1263,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.2380155846477
+          "actual": 508.9988851547242
         }
       ]
     },
@@ -1279,7 +1279,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1295,7 +1295,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 663.0853010986656
+          "actual": 509.0853008900493
         }
       ]
     },
@@ -1311,7 +1311,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1327,7 +1327,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 543.5868414144054
+          "actual": 509.10161034436044
         }
       ]
     },
@@ -1343,7 +1343,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1359,7 +1359,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 759.1270538039903
+          "actual": 528.7381654225687
         }
       ]
     },
@@ -1375,7 +1375,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 833.7202925023493
+          "actual": 879.1049069699701
         }
       ]
     },
@@ -1391,7 +1391,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 639.6283558059092
+          "actual": 789.29440621767
         }
       ]
     },
@@ -1407,7 +1407,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8027191162109
+          "actual": 868.8027191162109
         }
       ]
     },
@@ -1423,7 +1423,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 542.237827120024
+          "actual": 509.17660263707046
         }
       ]
     },
@@ -1439,7 +1439,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -1455,7 +1455,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 642.3909858743639
+          "actual": 509.09428255064205
         }
       ]
     },
@@ -1471,13 +1471,13 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
     {
       "query": "Checked Gucci Shirt",
-      "passed": true,
+      "passed": false,
       "checks": [
         {
           "name": "Must Contain IDs 50",
@@ -1486,8 +1486,8 @@
         },
         {
           "name": "Score >= 80 (Verified)",
-          "pass": true,
-          "actual": 542.8040828996745
+          "pass": false,
+          "actual": 9.119872345909176
         }
       ]
     },
@@ -1503,7 +1503,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 828.7605633223561
+          "actual": 898.7605633223561
         }
       ]
     },
@@ -1519,7 +1519,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 388.8470333814621
+          "actual": 358.8470333814621
         }
       ]
     },
@@ -1535,7 +1535,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.9645915606375
+          "actual": 868.9645915606375
         }
       ]
     },
@@ -1551,7 +1551,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 544.7942544744446
+          "actual": 509.15069001178296
         }
       ]
     },
@@ -1567,7 +1567,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 890.3129160404205
+          "actual": 1021.6116106510162
         }
       ]
     },
@@ -1583,7 +1583,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 621.3903923118428
+          "actual": 429.1952632898406
         }
       ]
     },
@@ -1599,7 +1599,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 890.3129160404205
+          "actual": 1021.6116106510162
         }
       ]
     },
@@ -1615,7 +1615,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 636.0463855043054
+          "actual": 509.01033341884613
         }
       ]
     },
@@ -1631,7 +1631,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 798.8084434752728
+          "actual": 868.8084434752728
         }
       ]
     },
@@ -1647,7 +1647,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 542.2287588939071
+          "actual": 529.2314875125885
         }
       ]
     },
@@ -1663,7 +1663,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1206.824174655416
+          "actual": 1009.2802135849381
         }
       ]
     },
@@ -1679,7 +1679,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 938.7516660137472
+          "actual": 664.0230905158816
         }
       ]
     },
@@ -1695,7 +1695,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1076.4145474295274
+          "actual": 1019.3449493657007
         }
       ]
     },
@@ -1711,7 +1711,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 878.0489841164683
+          "actual": 914.0929400609468
         }
       ]
     },
@@ -1727,7 +1727,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1145.9284509735978
+          "actual": 1031.0799672099627
         }
       ]
     },
@@ -1743,7 +1743,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 877.0693687878934
+          "actual": 664.3420960911003
         }
       ]
     },
@@ -1759,7 +1759,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 708.9965220388641
+          "actual": 1008.9965220388641
         }
       ]
     },
@@ -1775,7 +1775,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 468.0606227256057
+          "actual": 436.32985348623964
         }
       ]
     },
@@ -1791,7 +1791,7 @@
         {
           "name": "Score >= 100 (Verified)",
           "pass": true,
-          "actual": 1084.0122969165807
+          "actual": 1004.1164638191824
         }
       ]
     },
@@ -1807,7 +1807,7 @@
         {
           "name": "Score >= 80 (Verified)",
           "pass": true,
-          "actual": 837.6942903935164
+          "actual": 604.1587497308105
         }
       ]
     },
@@ -1818,7 +1818,7 @@
         {
           "name": "Score >= 50 (Verified)",
           "pass": true,
-          "actual": 511.54126603617
+          "actual": 348.41218829154974
         }
       ]
     },
@@ -1829,7 +1829,7 @@
         {
           "name": "Score >= 50 (Verified)",
           "pass": true,
-          "actual": 580.1143712588669
+          "actual": 536.6857964583755
         }
       ]
     },
@@ -1840,7 +1840,7 @@
         {
           "name": "Score >= 50 (Verified)",
           "pass": true,
-          "actual": 488.8941111817095
+          "actual": 478.92229027019215
         }
       ]
     },
@@ -1851,7 +1851,7 @@
         {
           "name": "Score >= 50 (Verified)",
           "pass": true,
-          "actual": 580.0644476034715
+          "actual": 478.53522053570873
         }
       ]
     },
@@ -1862,7 +1862,7 @@
         {
           "name": "Score >= 50 (Verified)",
           "pass": true,
-          "actual": 558.0992754397146
+          "actual": 398.87032084884174
         }
       ]
     },
@@ -1873,7 +1873,7 @@
         {
           "name": "Score >= 50 (Verified)",
           "pass": true,
-          "actual": 482.38725872249586
+          "actual": 676.6515338420868
         }
       ]
     },
@@ -1884,18 +1884,18 @@
         {
           "name": "Score >= 30 (Verified)",
           "pass": true,
-          "actual": 735.9295375979912
+          "actual": 588.7805756126805
         }
       ]
     },
     {
       "query": "Pizza",
-      "passed": true,
+      "passed": false,
       "checks": [
         {
           "name": "Result Count <= 0",
-          "pass": true,
-          "actual": 0
+          "pass": false,
+          "actual": 1
         }
       ]
     },
@@ -1928,7 +1928,7 @@
         {
           "name": "Score < 150 (Suggestion)",
           "pass": true,
-          "actual": 89.58473891973944
+          "actual": 87.69277068290361
         }
       ]
     }

@@ -5,7 +5,6 @@ import { embeddingsService } from "../services/embeddings.service";
 
 /**
  * Core search logic that executes the SQL query. 
- * Can be called by the tool or directly by the agent for stateful bypass.
  */
 export async function executeHybridSearch(params: {
     query: string;
@@ -20,14 +19,10 @@ export async function executeHybridSearch(params: {
     attributes?: string[];
 }) {
     const { query, embedding, limit, offset = 0, min_price, max_price, entity, synonyms, categories, attributes } = params;
-    console.log(`[DB] Structured Search Params:`, { query, limit, offset, entity, synonyms, categories, attributes });
     
-    // We will build a single CTE query
     let priceFilter = "";
-    
-    // PGVector requires the array to be formatted as a string starting with brackets
     const embeddingStr = `[${embedding.join(',')}]`;
-    const sqlParams: any[] = [embeddingStr, limit, offset]; // $1 = embedding, $2 = limit, $3 = offset
+    const sqlParams: any[] = [embeddingStr, limit, offset]; // $1, $2, $3
 
     if (min_price !== undefined) {
         sqlParams.push(min_price);
@@ -40,42 +35,41 @@ export async function executeHybridSearch(params: {
 
     // Phase 2: Precision Scoring Setup
     let precisionScoreSql = `0.0`;
+    const THRESHOLD = '0.65';
     
-    // 0. Literal Query Priority (+150) - does the name match EXACTLY what the user typed?
+    // 0. Literal Query Priority (+200)
     sqlParams.push(query.toLowerCase().trim());
     const qIdx = sqlParams.length;
-    precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 150.0 ELSE 0.0 END)`;
-    // Support punctuation-neutral matching (T-shirt vs Tshirt)
-    precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${qIdx}, '-', '') THEN 150.0 ELSE 0.0 END)`;
-    // Continuous fuzzy match for the base query (Only if above threshold)
-    precisionScoreSql += ` + (CASE WHEN $${qIdx} <% LOWER(name) THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
-    // 0.1 Description Boost (Captures keywords missing from search_context)
-    precisionScoreSql += ` + (CASE WHEN $${qIdx} <% LOWER(description) THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
+    precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 200.0 ELSE 0.0 END)`;
+    precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${qIdx}, '-', '') THEN 200.0 ELSE 0.0 END)`;
+    
+    // Continuous fuzzy match (Explicit threshold for reliability)
+    precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(name)) >= ${THRESHOLD} THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
+    precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(description)) >= ${THRESHOLD} THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
 
-    // 1. Entity Match (Continuous Weighting)
+    // 1. Entity Match
     if (entity) {
         sqlParams.push(entity.toLowerCase().trim());
         const pIdx = sqlParams.length;
-        // High weight for entity name match using STRICT similarity (Only if above threshold)
-        precisionScoreSql += ` + (CASE WHEN $${pIdx} <<% LOWER(name) THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
-        precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(search_context) THEN word_similarity($${pIdx}, LOWER(search_context)) * 80.0 ELSE 0.0 END)`;
-        precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(description) THEN word_similarity($${pIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
+        // Strict similarity for entities to prevent lexical overlap (e.g., shoe vs shirt)
+        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= ${THRESHOLD} THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
+        precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= ${THRESHOLD} THEN word_similarity($${pIdx}, LOWER(search_context)) * 60.0 ELSE 0.0 END)`;
+        precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(description)) >= ${THRESHOLD} THEN word_similarity($${pIdx}, LOWER(description)) * 30.0 ELSE 0.0 END)`;
         // Exact small priority bonus
         precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 50.0 ELSE 0.0 END)`;
     }
 
-    // Synonym Matches (Higher weight to reward explicit intent)
+    // Synonym Matches (High weight to reach VERIFIED threshold)
     if (synonyms && synonyms.length > 0) {
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(name) THEN word_similarity($${pIdx}, LOWER(name)) * 100.0 ELSE 0.0 END)`;
-            precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(search_context) THEN word_similarity($${pIdx}, LOWER(search_context)) * 40.0 ELSE 0.0 END)`;
-            precisionScoreSql += ` + (CASE WHEN $${pIdx} <% LOWER(description) THEN word_similarity($${pIdx}, LOWER(description)) * 20.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(name)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(search_context)) * 40.0 ELSE 0.0 END)`;
         });
     }
 
-    // Category Match (+100 points for valid category path)
+    // Category Match
     if (categories && categories.length > 0) {
         categories.forEach(cat => {
             sqlParams.push(cat.toLowerCase());
@@ -84,35 +78,24 @@ export async function executeHybridSearch(params: {
         });
     }
 
-    // Attribute Match (+150 name boost, +80 context boost)
+    // Attribute Match
     if (attributes && attributes.length > 0) {
         attributes.forEach(attr => {
             sqlParams.push(attr.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            // 1. Full context similarity (Lowered to prevent fuzzy overlaps like Long/Short)
-            precisionScoreSql += ` + (word_similarity(LOWER(search_context), $${pIdx}) * 30.0)`;
-            // 2. Exact Name Priority (Buries generic noise if attribute is in name)
+            precisionScoreSql += ` + (CASE WHEN word_similarity(LOWER(search_context), $${pIdx}) >= 0.5 THEN word_similarity(LOWER(search_context), $${pIdx}) * 30.0 ELSE 0.0 END)`;
             precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 150.0 ELSE 0.0 END)`;
-            // 3. Exact Context Priority (New: specifically catch attributes in metadata)
             precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 80.0 ELSE 0.0 END)`;
-            // 4. Punctuation Neutral Priority
-            precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') ILIKE '%' || REPLACE($${pIdx}, '-', '') || '%' THEN 150.0 ELSE 0.0 END)`;
         });
     }
 
-    // Phase 1: High-Recall Pre-Filtering (Get top 200 conceptually similar items)
-    // Phase 3: Final Rank = (Vector * 10) + Precision Score
-    const sql = `
-        WITH config AS (
-            SELECT set_config('pg_trgm.word_similarity_threshold', '0.5', true),
-                   set_config('pg_trgm.strict_word_similarity_threshold', '0.5', true)
-        ),
-        semantic_candidates AS (
+    const finalSql = `
+        WITH semantic_candidates AS (
             SELECT id, name, price, description, search_context, vendor_id, category_id, status,
                    (1 - (embedding <=> $1::vector)) AS vector_score
             FROM products
             WHERE status = 'active' AND embedding IS NOT NULL
-              AND (1 - (embedding <=> $1::vector)) > 0.74 -- Balanced net
+              AND (1 - (embedding <=> $1::vector)) > 0.74 
             ${priceFilter}
             ORDER BY vector_score DESC
             LIMIT 200
@@ -120,22 +103,21 @@ export async function executeHybridSearch(params: {
         SELECT 
             id, name, price, description, vendor_id, category_id, status, search_context,
             (
-                (vector_score * 10) + -- Scale vector to ~6-10 points to act as a tie-breaker/base
+                (vector_score * 10) + 
                 ${precisionScoreSql}
             ) AS rrf_score 
-        FROM semantic_candidates, config
+        FROM semantic_candidates
         ORDER BY rrf_score DESC
         LIMIT $2 OFFSET $3;
     `;
 
-    const res = await db.query(sql, sqlParams);
+    console.log(`[DB] EXECUTING SQL:`, finalSql);
+    console.log(`[DB] PARAMS:`, sqlParams);
+
+    const res = await db.query(finalSql, sqlParams);
     return res.rows;
 }
 
-/**
- * Hybrid search combining Trigram (Keyword) and Vector (Semantic) search.
- * Uses Reciprocal Rank Fusion (RRF) for ranking.
- */
 export const hybridSearchTool = new DynamicStructuredTool({
     name: "hybrid_product_search",
     description: "Search for products using both keyword matches and semantic concepts. Handles hierarchy and attributes.",
@@ -153,7 +135,6 @@ export const hybridSearchTool = new DynamicStructuredTool({
         let finalMin = min_price;
         let finalMax = max_price;
 
-        // Auto-extract price from query if not provided
         if (finalMax === undefined) {
             const underMatch = query.match(/(?:under|less than|below|max)\s*[$€£]?\s*(\d+(?:\.\d{2})?)/i);
             if (underMatch) finalMax = parseFloat(underMatch[1]);
@@ -163,8 +144,6 @@ export const hybridSearchTool = new DynamicStructuredTool({
             if (aboveMatch) finalMin = parseFloat(aboveMatch[1]);
         }
 
-        console.log(`[AGENT] Tool hybrid_product_search called. Query: ${query}, Entity: ${entity}, Cats: ${categories}, Attrs: ${attributes}`);
-        
         try {
             const queryEmbedding = await embeddingsService.generateEmbedding(query);
             const rows = await executeHybridSearch({
@@ -191,9 +170,6 @@ export const hybridSearchTool = new DynamicStructuredTool({
     },
 });
 
-/**
- * Semantic search for categories to help the agent find the right category ID.
- */
 export const categorySearchTool = new DynamicStructuredTool({
     name: "search_categories_semantically",
     description: "Find product categories based on semantic meaning. Useful when the user's category name doesn't exactly match the database.",
@@ -201,7 +177,6 @@ export const categorySearchTool = new DynamicStructuredTool({
         query: z.string().describe("The category to look for (e.g., 'clothing for cold weather')"),
     }),
     func: async ({ query }) => {
-        console.log(`Tool search_categories_semantically called with query: ${query} `);
         try {
             const queryEmbedding = await embeddingsService.generateEmbedding(query);
             const embeddingStr = `[${queryEmbedding.join(",")}]`;

@@ -28,7 +28,7 @@ Your role is to help users find products. However, you must distinguish between 
 ### 3. DATABASE MAPPING (FOR PRECISION SCORING)
 - 'categories': Extract broad departments/demographics.
 - 'entity': Core product type in singular form (e.g., "shirt").
-- 'synonyms': 1-3 direct synonyms (e.g., "pants" -> ["trousers", "bottoms"]).
+- 'synonyms': ALWAYS include direct synonyms and plural/singular variations (e.g., "shoes" -> ["shoe", "sneaker", "footwear", "kicks"]).
 - 'attributes': Modifiers like color, brand, or material.
 
 ### 4. EXAMPLES

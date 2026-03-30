@@ -1,0 +1,27 @@
+[
+  {
+    "query": "skirt",
+    "description": "Lexical Collision: skirt vs shirt. Should have 0 verified results.",
+    "expected": {
+      "must_not_contain_verified": [34, 36, 38, 39, 40, 44, 45, 46, 47, 51, 53, 54, 55, 56],
+      "max_confidence": 150
+    }
+  },
+  {
+    "query": "shoes",
+    "description": "Lexical Collision: shoes vs shirts. Shoes must be verified, shirts must not.",
+    "expected": {
+      "must_not_contain_verified": [45, 31, 15],
+      "must_contain": [11],
+      "min_confidence": 200
+    }
+  },
+  {
+    "query": "mouse",
+    "description": "Lexical Collision: mouse vs blouse. Should have 0 verified results.",
+    "expected": {
+      "must_not_contain_verified": [20, 21, 23, 25, 26],
+      "max_confidence": 150
+    }
+  }
+]

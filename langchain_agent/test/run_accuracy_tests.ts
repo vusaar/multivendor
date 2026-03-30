@@ -1,4 +1,5 @@
 import { processUserQuery } from '../src/services/search.agent';
+import { SEARCH_CONFIG } from '../src/config/search';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -11,6 +12,9 @@ interface TestCase {
         attributes?: string[];
         max_price?: number;
         must_contain?: number[]; // IDs
+        must_not_contain?: number[]; // IDs
+        must_not_contain_verified?: number[]; // IDs
+        must_contain_at_least_one?: number[]; // IDs
         max_results?: number;
         min_confidence?: number;
         max_confidence?: number;
@@ -65,6 +69,46 @@ async function runTests() {
                     actual: missing.length > 0 ? `Missing: ${missing.join(',')} (Found: ${foundIds.join(',')})` : 'All Found' 
                 });
                 if (!allFound) passed = false;
+            }
+
+            // 2.1 Must Not Contain Check
+            if (test.expected.must_not_contain) {
+                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id || r.product_id)) : [];
+                const forbiddenFound = test.expected.must_not_contain.filter(id => foundIds.includes(id));
+                const noneFound = forbiddenFound.length === 0;
+                checks.push({ 
+                    name: `Must NOT Contain IDs ${test.expected.must_not_contain.join(',')}`, 
+                    pass: noneFound, 
+                    actual: noneFound ? 'None Found' : `Forbidden items found: ${forbiddenFound.join(',')}` 
+                });
+                if (!noneFound) passed = false;
+            }
+
+            // 2.1b Must Not Contain in Verified Check
+            if (test.expected.must_not_contain_verified) {
+                const verifiedThreshold = SEARCH_CONFIG.THRESHOLD_VERIFIED;
+                const verified = Array.isArray(results) ? results.filter((r: any) => parseFloat(r.rrf_score || r.score || "0") >= verifiedThreshold) : [];
+                const foundIds = verified.map((r: any) => parseInt(r.id || r.product_id));
+                const forbiddenFound = test.expected.must_not_contain_verified.filter(id => foundIds.includes(id));
+                const noneFound = forbiddenFound.length === 0;
+                checks.push({ 
+                    name: `Must NOT Contain Verified IDs ${test.expected.must_not_contain_verified.join(',')}`, 
+                    pass: noneFound, 
+                    actual: noneFound ? 'None Found' : `Forbidden VERIFIED items found: ${forbiddenFound.join(',')}` 
+                });
+                if (!noneFound) passed = false;
+            }
+
+            // 2.2 Must Contain At Least One Check
+            if (test.expected.must_contain_at_least_one) {
+                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id || r.product_id)) : [];
+                const foundMatch = test.expected.must_contain_at_least_one.some(id => foundIds.includes(id));
+                checks.push({ 
+                    name: `Must Contain at least one of ${test.expected.must_contain_at_least_one.join(',')}`, 
+                    pass: foundMatch, 
+                    actual: foundMatch ? 'Match Found' : 'None Found' 
+                });
+                if (!foundMatch) passed = false;
             }
 
             // 3. Confidence Threshold Check (Verification vs Suggestion)
