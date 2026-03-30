@@ -36,6 +36,7 @@ export async function executeHybridSearch(params: {
     // Phase 2: Precision Scoring Setup
     let precisionScoreSql = `0.0`;
     const THRESHOLD = '0.65';
+    const DESC_THRESHOLD = '0.5';
     
     // 0. Literal Query Priority (+200)
     sqlParams.push(query.toLowerCase().trim());
@@ -45,7 +46,7 @@ export async function executeHybridSearch(params: {
     
     // Continuous fuzzy match (Explicit threshold for reliability)
     precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(name)) >= ${THRESHOLD} THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
-    precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(description)) >= ${THRESHOLD} THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
+    precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(description)) >= ${DESC_THRESHOLD} THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
 
     // 1. Entity Match
     if (entity) {
@@ -54,7 +55,7 @@ export async function executeHybridSearch(params: {
         // Strict similarity for entities to prevent lexical overlap (e.g., shoe vs shirt)
         precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= ${THRESHOLD} THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
         precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= ${THRESHOLD} THEN word_similarity($${pIdx}, LOWER(search_context)) * 60.0 ELSE 0.0 END)`;
-        precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(description)) >= ${THRESHOLD} THEN word_similarity($${pIdx}, LOWER(description)) * 30.0 ELSE 0.0 END)`;
+        precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(description)) >= ${DESC_THRESHOLD} THEN word_similarity($${pIdx}, LOWER(description)) * 20.0 ELSE 0.0 END)`;
         // Exact small priority bonus
         precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 50.0 ELSE 0.0 END)`;
     }
@@ -83,7 +84,7 @@ export async function executeHybridSearch(params: {
         attributes.forEach(attr => {
             sqlParams.push(attr.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN word_similarity(LOWER(search_context), $${pIdx}) >= 0.5 THEN word_similarity(LOWER(search_context), $${pIdx}) * 30.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(search_context)) * 30.0 ELSE 0.0 END)`;
             precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 150.0 ELSE 0.0 END)`;
             precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 80.0 ELSE 0.0 END)`;
         });

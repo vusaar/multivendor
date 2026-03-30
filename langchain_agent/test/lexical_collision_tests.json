@@ -12,7 +12,7 @@
     "description": "Lexical Collision: shoes vs shirts. Shoes must be verified, shirts must not.",
     "expected": {
       "must_not_contain_verified": [45, 31, 15],
-      "must_contain": [11],
+      "must_contain": [59],
       "min_confidence": 200
     }
   },
@@ -22,6 +22,14 @@
     "expected": {
       "must_not_contain_verified": [20, 21, 23, 25, 26],
       "max_confidence": 150
+    }
+  },
+  {
+    "query": "golf tshirts",
+    "description": "Precision: Should prioritize ID 42 (Golf description) over other shirts.",
+    "expected": {
+      "must_contain": [42],
+      "min_confidence": 200
     }
   }
 ]
