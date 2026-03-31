@@ -1,0 +1,34 @@
+[
+  {
+    "query": "tshirt",
+    "description": "Compounding: tshirt vs t-shirt. Should match at verified level.",
+    "expected": {
+      "must_contain": [42, 43, 57],
+      "min_confidence": 200
+    }
+  },
+  {
+    "query": "t-shirt",
+    "description": "Decompounding: t-shirt vs tshirt. Should match exactly.",
+    "expected": {
+      "must_contain": [42, 43, 57],
+      "min_confidence": 200
+    }
+  },
+  {
+    "query": "roundneck",
+    "description": "Compounding: roundneck vs round neck.",
+    "expected": {
+      "must_contain": [12, 13, 18],
+      "min_confidence": 180
+    }
+  },
+  {
+    "query": "round-neck",
+    "description": "Punctuation: round-neck vs round neck.",
+    "expected": {
+      "must_contain": [12, 13, 18],
+      "min_confidence": 180
+    }
+  }
+]
