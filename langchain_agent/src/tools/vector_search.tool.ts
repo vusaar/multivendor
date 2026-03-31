@@ -38,22 +38,34 @@ export async function executeHybridSearch(params: {
     const THRESHOLD = '0.65';
     const DESC_THRESHOLD = '0.5';
     
-    // 0. Literal Query Priority (+200)
+    // 0. Literal Query Priority (+200) - Case & Punctuation Neutral
     sqlParams.push(query.toLowerCase().trim());
     const qIdx = sqlParams.length;
-    precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 200.0 ELSE 0.0 END)`;
-    precisionScoreSql += ` + (CASE WHEN REPLACE(LOWER(name), '-', '') = REPLACE($${qIdx}, '-', '') THEN 200.0 ELSE 0.0 END)`;
+    // Direct or Punctuation-Neutral match (e.g. "tshirt" vs "T-shirt" vs "t shirt")
+    precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 200.0 
+                                   WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${qIdx}, '[^a-z0-9]', '', 'g') THEN 200.0 
+                                   ELSE 0.0 END)`;
     
     // Continuous fuzzy match (Explicit threshold for reliability)
     precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(name)) >= ${THRESHOLD} THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
     precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(description)) >= ${DESC_THRESHOLD} THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
+    
+    // Split query into words for individual Canonical matching (Recalls phrases like "fine-knit")
+    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+    queryWords.forEach(word => {
+        sqlParams.push(word);
+        const wIdx = sqlParams.length;
+        precisionScoreSql += ` + (CASE WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${wIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 180.0 ELSE 0.0 END)`;
+    });
 
     // 1. Entity Match
     if (entity) {
         sqlParams.push(entity.toLowerCase().trim());
         const pIdx = sqlParams.length;
         // Strict similarity for entities to prevent lexical overlap (e.g., shoe vs shirt)
-        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= ${THRESHOLD} THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
+        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= ${THRESHOLD} THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 
+                                       WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') THEN 200.0
+                                       ELSE 0.0 END)`;
         precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= ${THRESHOLD} THEN word_similarity($${pIdx}, LOWER(search_context)) * 60.0 ELSE 0.0 END)`;
         precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(description)) >= ${DESC_THRESHOLD} THEN word_similarity($${pIdx}, LOWER(description)) * 20.0 ELSE 0.0 END)`;
         // Exact small priority bonus
@@ -65,7 +77,9 @@ export async function executeHybridSearch(params: {
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(name)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(name)) * 200.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(name)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(name)) * 200.0 
+                                           WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') THEN 200.0
+                                           ELSE 0.0 END)`;
             precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(search_context)) * 40.0 ELSE 0.0 END)`;
         });
     }
@@ -85,7 +99,8 @@ export async function executeHybridSearch(params: {
             sqlParams.push(attr.toLowerCase().trim());
             const pIdx = sqlParams.length;
             precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(search_context)) * 30.0 ELSE 0.0 END)`;
-            precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 150.0 ELSE 0.0 END)`;
+            // Strong boost for title matches (180 to reach VERIFIED threshold)
+            precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 180.0 ELSE 0.0 END)`;
             precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 80.0 ELSE 0.0 END)`;
         });
     }
@@ -96,7 +111,7 @@ export async function executeHybridSearch(params: {
                    (1 - (embedding <=> $1::vector)) AS vector_score
             FROM products
             WHERE status = 'active' AND embedding IS NOT NULL
-              AND (1 - (embedding <=> $1::vector)) > 0.74 
+              AND (1 - (embedding <=> $1::vector)) > 0.70 
             ${priceFilter}
             ORDER BY vector_score DESC
             LIMIT 200
