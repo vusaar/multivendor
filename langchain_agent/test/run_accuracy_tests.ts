@@ -87,7 +87,10 @@ async function runTests() {
             // 2.1b Must Not Contain in Verified Check
             if (test.expected.must_not_contain_verified) {
                 const verifiedThreshold = SEARCH_CONFIG.THRESHOLD_VERIFIED;
-                const verified = Array.isArray(results) ? results.filter((r: any) => parseFloat(r.rrf_score || r.score || "0") >= verifiedThreshold) : [];
+                const verified = Array.isArray(results) ? results.filter((r: any) => 
+                    parseFloat(r.rrf_score || r.score || "0") >= verifiedThreshold &&
+                    r.is_direct_match === true
+                ) : [];
                 const foundIds = verified.map((r: any) => parseInt(r.id || r.product_id));
                 const forbiddenFound = test.expected.must_not_contain_verified.filter(id => foundIds.includes(id));
                 const noneFound = forbiddenFound.length === 0;

@@ -76,15 +76,22 @@ export class MessageProcessorService {
             // Support both internal agent (rrf_score) and Laravel API (similarity_score) formats
             const getScore = (p: any) => p.similarity_score !== undefined ? p.similarity_score : (p.rrf_score !== undefined ? p.rrf_score : (p.score || 0));
             
-            const verifiedProducts = rawProducts.filter((p: any) => getScore(p) >= THRESHOLD_VERIFIED);
+            // Verified items must be above threshold AND be a direct match for the intent
+            const verifiedProducts = rawProducts.filter((p: any) => 
+                getScore(p) >= THRESHOLD_VERIFIED && p.is_direct_match === true
+            );
             
             // Suggestion Logic:
             // 1. Must be above THRESHOLD_SUGGESTION (8.1)
             // 2. If verified matches exist, must be above THRESHOLD_PRECISION_LIMIT (15.0) to ensure relevance
+            // 3. Includes items above verified threshold that are NOT direct matches (related products)
             const suggestionFloor = verifiedProducts.length > 0 ? THRESHOLD_PRECISION_LIMIT : THRESHOLD_SUGGESTION;
             const suggestedProducts = rawProducts.filter((p: any) => {
                 const score = getScore(p);
-                return score < THRESHOLD_VERIFIED && score >= suggestionFloor;
+                // Not already in verified, and is either a suggested score OR a related item
+                const isSuggestion = score < THRESHOLD_VERIFIED && score >= suggestionFloor;
+                const isRelated = score >= THRESHOLD_VERIFIED && p.is_direct_match !== true;
+                return isSuggestion || isRelated;
             });
 
             if (verifiedProducts.length === 0 && suggestedProducts.length === 0) {

@@ -55,7 +55,9 @@ export async function executeHybridSearch(params: {
     }
 
     // 3. Synonym Match (+200)
+    let sIdxStart = 0;
     if (synonyms && synonyms.length > 0) {
+        sIdxStart = sqlParams.length + 1; // First synonym will be at current + 1
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
@@ -141,9 +143,18 @@ export async function executeHybridSearch(params: {
             (
                 (vector_score * 10) + 
                 ${precisionScoreSql}
-                -- Lineage-Entity Alignment (+500 if entity matches any part of category tree)
-                ${entity ? ` + (CASE WHEN LOWER(category_lineage) ILIKE '%' || $${eIdx} || '%' THEN 500.0 ELSE 0.0 END)` : ''}
-            ) AS rrf_score 
+                -- Lineage-Entity/Synonym Alignment (+500 if entity OR synonyms match lineage)
+                ${entity ? ` + (CASE 
+                    WHEN LOWER(category_lineage) ILIKE '%' || $${eIdx} || '%' THEN 500.0 
+                    ${synonyms && synonyms.length > 0 ? synonyms.map((_, i) => `WHEN LOWER(category_lineage) ILIKE '%' || $${sIdxStart + i} || '%' THEN 500.0`).join('\n') : ''}
+                    ELSE 0.0 
+                END)` : ''}
+            ) AS rrf_score,
+            -- Direct Match Flag (TRUE if entity/synonyms match Name OR Lineage)
+            (CASE WHEN 
+                ${entity ? `(LOWER(name) ILIKE '%' || $${eIdx} || '%' OR LOWER(category_lineage) ILIKE '%' || $${eIdx} || '%')` : 'FALSE'}
+                ${synonyms && synonyms.length > 0 ? synonyms.map((_, i) => `OR (LOWER(name) ILIKE '%' || $${sIdxStart + i} || '%' OR LOWER(category_lineage) ILIKE '%' || $${sIdxStart + i} || '%')`).join('\n') : ''}
+            THEN TRUE ELSE FALSE END) as is_direct_match
         FROM semantic_candidates
         ORDER BY rrf_score DESC
         LIMIT $2 OFFSET $3;

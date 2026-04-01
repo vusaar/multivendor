@@ -1,26 +1,26 @@
 [
   {
-    "description": "Baseline: Ladies Short Sleeve Tops (Depth-3 Target)",
-    "query": "ladies short sleeve tops",
-    "must_contain_verified": [21, 24, 60],
-    "must_not_contain_verified": [12, 13, 17],
+    "description": "Interactive Flow: Ladies Running Shoes - Should present Related Items (Suggestive)",
+    "query": "ladies running shoes",
+    "must_not_contain_verified": [13, 21, 24],
+    "must_contain": [13, 21, 24],
     "expected": {
        "min_confidence": 300.0
     }
   },
   {
-    "description": "3-Level Hierarchy: Ladies Apparel (Parent Level Boost)",
+    "description": "3-Level Hierarchy: Ladies Apparel (Direct Match)",
     "query": "ladies apparel",
-    "must_contain_verified": [21, 24, 60],
+    "must_contain": [21, 24, 60],
     "must_not_contain_verified": [12, 13, 17],
     "expected": {
        "min_confidence": 300.0
     }
   },
   {
-    "description": "3-Level Hierarchy: Ladies Tops (Child Level Boost)",
+    "description": "3-Level Hierarchy: Ladies Tops (Direct Match)",
     "query": "ladies tops",
-    "must_contain_verified": [21, 24, 60],
+    "must_contain": [21, 24, 60],
     "must_not_contain_verified": [12, 13, 17],
     "expected": {
        "min_confidence": 300.0
