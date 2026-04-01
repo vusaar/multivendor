@@ -45,11 +45,12 @@ export async function executeHybridSearch(params: {
     
 
     // 2. Entity Match (+300)
+    let eIdx = 0;
     if (entity) {
         sqlParams.push(entity.toLowerCase().trim());
-        const pIdx = sqlParams.length;
-        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= 0.7 THEN 300.0 
-                                       WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 200.0
+        eIdx = sqlParams.length;
+        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${eIdx}, LOWER(name)) >= 0.7 THEN 300.0 
+                                       WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${eIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 200.0
                                        ELSE 0.0 END)`;
     }
 
@@ -113,19 +114,20 @@ export async function executeHybridSearch(params: {
     const finalSql = `
         WITH RECURSIVE category_hierarchy AS (
             -- Base case: categories without parents (roots)
-            SELECT id, name, id as root_id, name as root_name
+            SELECT id, name, id as root_id, name as root_name, name::text as full_path
             FROM categories
             WHERE parent_id IS NULL
             UNION ALL
-            -- Recursive step: join children
-            SELECT c.id, c.name, ch.root_id, ch.root_name
+            -- Recursive step: join children and build path
+            SELECT c.id, c.name, ch.root_id, ch.root_name, (ch.full_path || ' > ' || c.name)
             FROM categories c
             JOIN category_hierarchy ch ON c.parent_id = ch.id
         ),
         semantic_candidates AS (
             SELECT p.id, p.name, p.price, p.description, p.search_context, p.vendor_id, p.category_id, p.status,
                    (1 - (p.embedding <=> $1::vector)) AS vector_score,
-                   ch.root_name as demographic_root
+                   ch.root_name as demographic_root,
+                   ch.full_path as category_lineage
             FROM products p
             LEFT JOIN category_hierarchy ch ON p.category_id = ch.id
             WHERE p.status = 'active' AND p.embedding IS NOT NULL
@@ -139,6 +141,8 @@ export async function executeHybridSearch(params: {
             (
                 (vector_score * 10) + 
                 ${precisionScoreSql}
+                -- Lineage-Entity Alignment (+500 if entity matches any part of category tree)
+                ${entity ? ` + (CASE WHEN LOWER(category_lineage) ILIKE '%' || $${eIdx} || '%' THEN 500.0 ELSE 0.0 END)` : ''}
             ) AS rrf_score 
         FROM semantic_candidates
         ORDER BY rrf_score DESC
