@@ -1,0 +1,26 @@
+[
+  {
+    "query": "sneakers below 100",
+    "description": "Verify that ID 59 is featured and junk is suppressed",
+    "expected": {
+      "must_contain": [59],
+      "min_confidence": 180,
+      "must_not_contain": [5, 4, 3, 1, 2]
+    }
+  },
+  {
+     "query": "nail polish below 15",
+     "description": "Verify that nail polish still works when it is the specific intent",
+     "expected": {
+        "must_contain": [5],
+        "min_confidence": 180
+     }
+  },
+  {
+      "query": "pizza",
+      "description": "Noise rejection should have 0 results",
+      "expected": {
+          "max_results": 0
+      }
+  }
+]

@@ -1,26 +1,10 @@
 {
-  "total": 13,
-  "passed": 13,
-  "failed": 0,
+  "total": 3,
+  "passed": 2,
+  "failed": 1,
   "results": [
     {
-      "query": "Dior shirt",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 60",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 75 (Verified)",
-          "pass": true,
-          "actual": 1028.5260562328515
-        }
-      ]
-    },
-    {
-      "query": "Adidas sneakers",
+      "query": "sneakers below 100",
       "passed": true,
       "checks": [
         {
@@ -29,155 +13,41 @@
           "actual": "All Found"
         },
         {
-          "name": "Score >= 75 (Verified)",
+          "name": "Must NOT Contain IDs 5,4,3,1,2",
           "pass": true,
-          "actual": 778.927766222919
+          "actual": "None Found"
+        },
+        {
+          "name": "Score >= 180 (Verified)",
+          "pass": true,
+          "actual": 308.15263891674994
         }
       ]
     },
     {
-      "query": "UK 7 shoes",
+      "query": "nail polish below 15",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain IDs 59",
+          "name": "Must Contain IDs 5",
           "pass": true,
           "actual": "All Found"
         },
         {
-          "name": "Score >= 50 (Verified)",
+          "name": "Score >= 180 (Verified)",
           "pass": true,
-          "actual": 398.7158568545452
+          "actual": 768.794702147806
         }
       ]
     },
     {
-      "query": "White top",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 70 (Verified)",
-          "pass": true,
-          "actual": 178.63173067569755
-        }
-      ]
-    },
-    {
-      "query": "beauty products",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 50 (Verified)",
-          "pass": true,
-          "actual": 108.38362693786621
-        }
-      ]
-    },
-    {
-      "query": "Mens white shirt",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 60",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 80 (Verified)",
-          "pass": true,
-          "actual": 728.9952550236653
-        }
-      ]
-    },
-    {
-      "query": "shoes under 50",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 50 (Verified)",
-          "pass": true,
-          "actual": 288.07715999390257
-        }
-      ]
-    },
-    {
-      "query": "zara apparel",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 30 (Verified)",
-          "pass": true,
-          "actual": 538.8457637337307
-        }
-      ]
-    },
-    {
-      "query": "eyeshadow",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 2",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 80 (Verified)",
-          "pass": true,
-          "actual": 842.5437661354052
-        }
-      ]
-    },
-    {
-      "query": "Blue Adidas sneakers for men size UK 7 under 50",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 59",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 100 (Verified)",
-          "pass": true,
-          "actual": 1004.2550149337952
-        }
-      ]
-    },
-    {
-      "query": "Chanel perfume for women",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 7",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 80 (Verified)",
-          "pass": true,
-          "actual": 528.6783015727997
-        }
-      ]
-    },
-    {
-      "query": "cheap beauty products under 10",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 107.95467078010303
-        }
-      ]
-    },
-    {
-      "query": "Burger",
-      "passed": true,
+      "query": "pizza",
+      "passed": false,
       "checks": [
         {
           "name": "Result Count <= 0",
-          "pass": true,
-          "actual": 0
+          "pass": false,
+          "actual": 1
         }
       ]
     }

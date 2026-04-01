@@ -72,12 +72,20 @@ export class MessageProcessorService {
             const lastPage = meta.last_page || 1;
 
             // 4. Send Responses
-            const { THRESHOLD_VERIFIED } = SEARCH_CONFIG;
+            const { THRESHOLD_VERIFIED, THRESHOLD_SUGGESTION, THRESHOLD_PRECISION_LIMIT } = SEARCH_CONFIG;
             // Support both internal agent (rrf_score) and Laravel API (similarity_score) formats
             const getScore = (p: any) => p.similarity_score !== undefined ? p.similarity_score : (p.rrf_score !== undefined ? p.rrf_score : (p.score || 0));
             
             const verifiedProducts = rawProducts.filter((p: any) => getScore(p) >= THRESHOLD_VERIFIED);
-            const suggestedProducts = rawProducts.filter((p: any) => getScore(p) < THRESHOLD_VERIFIED);
+            
+            // Suggestion Logic:
+            // 1. Must be above THRESHOLD_SUGGESTION (8.1)
+            // 2. If verified matches exist, must be above THRESHOLD_PRECISION_LIMIT (15.0) to ensure relevance
+            const suggestionFloor = verifiedProducts.length > 0 ? THRESHOLD_PRECISION_LIMIT : THRESHOLD_SUGGESTION;
+            const suggestedProducts = rawProducts.filter((p: any) => {
+                const score = getScore(p);
+                return score < THRESHOLD_VERIFIED && score >= suggestionFloor;
+            });
 
             if (verifiedProducts.length === 0 && suggestedProducts.length === 0) {
                 await whatsappService.sendMessage(from, `Sorry, I couldn't find any products matching "${queryText}".`);
@@ -89,24 +97,21 @@ export class MessageProcessorService {
                 await this.sendProductMessage(from, product, isDebug);
             }
 
-            // If we have suggestions, handle based on whether we have verified matches
+            // INTERACTIVE FLOW: Always ask permission for suggestions
             if (suggestedProducts.length > 0) {
-                if (verifiedProducts.length > 0) {
-                    await whatsappService.sendMessage(from, "✨ *YOU MIGHT ALSO LIKE* ✨");
-                    for (const product of suggestedProducts) {
-                        await this.sendProductMessage(from, product, isDebug);
-                    }
-                } else {
-                    // INTERACTIVE FLOW: Ask permission if NO verified matches
-                    console.log(`[MESSAGE PROCESSOR] Only suggestions for "${queryText}". Asking for permission.`);
-                    await sessionService.updateSession(from, { suggestedProducts: suggestedProducts });
-                    await whatsappService.sendButtons(
-                        from, 
-                        `I couldn't find any "${queryText}" in stock, but I found some other similar items. Would you like to see them?`, 
-                        [{ id: 'show_suggestions', title: 'See similar items' }]
-                    );
-                    return; // Stop here and wait for button click
-                }
+                console.log(`[MESSAGE PROCESSOR] Found ${suggestedProducts.length} suggestions for "${queryText}". Asking for permission.`);
+                await sessionService.updateSession(from, { suggestedProducts: suggestedProducts });
+                
+                const question = verifiedProducts.length > 0
+                    ? `I also found some other items that might interest you. Would you like to see them?`
+                    : `I couldn't find any "${queryText}" in stock, but I found some other similar items. Would you like to see them?`;
+
+                await whatsappService.sendButtons(
+                    from, 
+                    question, 
+                    [{ id: 'show_suggestions', title: 'See similar items' }]
+                );
+                return; // Stop here and wait for button click (if verified products were sent, this just caps the flow)
             }
 
             // 5. Update session state

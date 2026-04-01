@@ -7,10 +7,10 @@ export const SEARCH_CONFIG = {
     THRESHOLD_VERIFIED: 180.0, // Literal match or strong synonym/entity match
     
     // Score above which a product is considered relevant suggestion
-    THRESHOLD_SUGGESTION: 8.1,
+    THRESHOLD_SUGGESTION: 40.0,
     
     // Stricter threshold for suggestions when a verified match is already present
-    THRESHOLD_PRECISION_LIMIT: 15.0,
+    THRESHOLD_PRECISION_LIMIT: 80.0,
     
     // Max verified products to show in carousel
     LIMIT_VERIFIED: 50,
