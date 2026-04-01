@@ -38,80 +38,98 @@ export async function executeHybridSearch(params: {
     const THRESHOLD = '0.65';
     const DESC_THRESHOLD = '0.5';
     
-    // 0. Literal Query Priority (+200) - Case & Punctuation Neutral
+    // 0. Literal Query Priority (+500)
     sqlParams.push(query.toLowerCase().trim());
     const qIdx = sqlParams.length;
-    // Direct or Punctuation-Neutral match (e.g. "tshirt" vs "T-shirt" vs "t shirt")
-    precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${qIdx} THEN 200.0 
-                                   WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${qIdx}, '[^a-z0-9]', '', 'g') THEN 200.0 
-                                   ELSE 0.0 END)`;
+    precisionScoreSql += ` + (CASE WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${qIdx}, '[^a-z0-9]', '', 'g') THEN 500.0 ELSE 0.0 END)`;
     
-    // Continuous fuzzy match (Explicit threshold for reliability)
-    precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(name)) >= ${THRESHOLD} THEN word_similarity($${qIdx}, LOWER(name)) * 80.0 ELSE 0.0 END)`;
-    precisionScoreSql += ` + (CASE WHEN word_similarity($${qIdx}, LOWER(description)) >= ${DESC_THRESHOLD} THEN word_similarity($${qIdx}, LOWER(description)) * 40.0 ELSE 0.0 END)`;
-    
-    // Split query into words for individual Canonical matching (Recalls phrases like "fine-knit")
-    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
-    queryWords.forEach(word => {
-        sqlParams.push(word);
-        const wIdx = sqlParams.length;
-        precisionScoreSql += ` + (CASE WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${wIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 180.0 ELSE 0.0 END)`;
-    });
 
-    // 1. Entity Match
+    // 2. Entity Match (+300)
     if (entity) {
         sqlParams.push(entity.toLowerCase().trim());
         const pIdx = sqlParams.length;
-        // Strict similarity for entities to prevent lexical overlap (e.g., shoe vs shirt)
-        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= ${THRESHOLD} THEN strict_word_similarity($${pIdx}, LOWER(name)) * 200.0 
-                                       WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') THEN 200.0
+        precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= 0.7 THEN 300.0 
+                                       WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 200.0
                                        ELSE 0.0 END)`;
-        precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= ${THRESHOLD} THEN word_similarity($${pIdx}, LOWER(search_context)) * 60.0 ELSE 0.0 END)`;
-        precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(description)) >= ${DESC_THRESHOLD} THEN word_similarity($${pIdx}, LOWER(description)) * 20.0 ELSE 0.0 END)`;
-        // Exact small priority bonus
-        precisionScoreSql += ` + (CASE WHEN LOWER(name) = $${pIdx} THEN 50.0 ELSE 0.0 END)`;
     }
 
-    // Synonym Matches (High weight to reach VERIFIED threshold)
+    // 3. Synonym Match (+200)
     if (synonyms && synonyms.length > 0) {
         synonyms.forEach(syn => {
             sqlParams.push(syn.toLowerCase().trim());
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(name)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(name)) * 200.0 
-                                           WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') = regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') THEN 200.0
+            precisionScoreSql += ` + (CASE WHEN strict_word_similarity($${pIdx}, LOWER(name)) >= 0.7 THEN 200.0 
+                                           WHEN regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${pIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 100.0
                                            ELSE 0.0 END)`;
-            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(search_context)) * 40.0 ELSE 0.0 END)`;
         });
     }
 
-    // Category Match
+    // 2. Demographic Intent Scoring (v1.7.4 - Single Pass, Non-Cumulative)
+    const isWomenQuery = categories?.some(c => ['women', 'ladies', 'girls'].includes(c.toLowerCase()));
+    const isMenQuery = categories?.some(c => ['men', 'gents', 'boys', 'mans'].includes(c.toLowerCase()));
+
+    if (isWomenQuery) {
+        // Hierarchy Boost/Penalty
+        precisionScoreSql += ` + (CASE WHEN demographic_root ILIKE '%women%' THEN 500.0 
+                                       WHEN demographic_root ILIKE '%men%' THEN -1000.0 
+                                       ELSE 0.0 END)`;
+        // Keyword Hard-Guard
+        precisionScoreSql += ` + (CASE WHEN (LOWER(search_context) ILIKE '%men%' OR LOWER(name) ILIKE '%men%') 
+                                       AND NOT (LOWER(search_context) ILIKE '%women%' OR LOWER(name) ILIKE '%women%') THEN -1000.0 ELSE 0.0 END)`;
+    } else if (isMenQuery) {
+        // Hierarchy Boost/Penalty
+        precisionScoreSql += ` + (CASE WHEN demographic_root ILIKE '%men%' THEN 500.0 
+                                       WHEN demographic_root ILIKE '%women%' THEN -1000.0 
+                                       ELSE 0.0 END)`;
+        // Keyword Hard-Guard
+        precisionScoreSql += ` + (CASE WHEN (LOWER(search_context) ILIKE '%women%' OR LOWER(name) ILIKE '%women%') THEN -1000.0 ELSE 0.0 END)`;
+    }
+
+    // 2b. Specific Sub-Category Match (+100 per specific match, e.g. "tops")
     if (categories && categories.length > 0) {
         categories.forEach(cat => {
-            sqlParams.push(cat.toLowerCase());
+            const lowCat = cat.toLowerCase();
+            // Skip demographic roots to prevent double-counting (Hierarchy already handled it)
+            if (['women', 'ladies', 'girls', 'men', 'gents', 'boys', 'mans'].includes(lowCat)) return;
+            
+            sqlParams.push(lowCat);
             const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%categorypath: %' || $${pIdx} || '%' THEN 100.0 ELSE 0.0 END)`;
+            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 100.0 ELSE 0.0 END)`;
         });
     }
 
-    // Attribute Match
+    // 3. Attribute Precision (+100)
     if (attributes && attributes.length > 0) {
         attributes.forEach(attr => {
             sqlParams.push(attr.toLowerCase().trim());
-            const pIdx = sqlParams.length;
-            precisionScoreSql += ` + (CASE WHEN word_similarity($${pIdx}, LOWER(search_context)) >= 0.5 THEN word_similarity($${pIdx}, LOWER(search_context)) * 30.0 ELSE 0.0 END)`;
-            // Strong boost for title matches (180 to reach VERIFIED threshold)
-            precisionScoreSql += ` + (CASE WHEN LOWER(name) ILIKE '%' || $${pIdx} || '%' THEN 180.0 ELSE 0.0 END)`;
-            precisionScoreSql += ` + (CASE WHEN LOWER(search_context) ILIKE '%' || $${pIdx} || '%' THEN 80.0 ELSE 0.0 END)`;
+            const aIdx = sqlParams.length;
+            // Use word_similarity to handle "sleeved" vs "sleeve" suffix variations
+            precisionScoreSql += ` + (CASE WHEN word_similarity($${aIdx}, LOWER(search_context)) >= 0.5 THEN 100.0 
+                                           WHEN word_similarity($${aIdx}, LOWER(name)) >= 0.5 THEN 100.0
+                                           ELSE 0.0 END)`;
         });
     }
 
     const finalSql = `
-        WITH semantic_candidates AS (
-            SELECT id, name, price, description, search_context, vendor_id, category_id, status,
-                   (1 - (embedding <=> $1::vector)) AS vector_score
-            FROM products
-            WHERE status = 'active' AND embedding IS NOT NULL
-              AND (1 - (embedding <=> $1::vector)) > 0.70 
+        WITH RECURSIVE category_hierarchy AS (
+            -- Base case: categories without parents (roots)
+            SELECT id, name, id as root_id, name as root_name
+            FROM categories
+            WHERE parent_id IS NULL
+            UNION ALL
+            -- Recursive step: join children
+            SELECT c.id, c.name, ch.root_id, ch.root_name
+            FROM categories c
+            JOIN category_hierarchy ch ON c.parent_id = ch.id
+        ),
+        semantic_candidates AS (
+            SELECT p.id, p.name, p.price, p.description, p.search_context, p.vendor_id, p.category_id, p.status,
+                   (1 - (p.embedding <=> $1::vector)) AS vector_score,
+                   ch.root_name as demographic_root
+            FROM products p
+            LEFT JOIN category_hierarchy ch ON p.category_id = ch.id
+            WHERE p.status = 'active' AND p.embedding IS NOT NULL
+              AND (1 - (p.embedding <=> $1::vector)) > 0.70 
             ${priceFilter}
             ORDER BY vector_score DESC
             LIMIT 200
