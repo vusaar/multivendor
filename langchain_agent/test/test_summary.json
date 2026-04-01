@@ -4,13 +4,13 @@
   "failed": 0,
   "results": [
     {
-      "query": "ladies short sleeve tops",
+      "query": "ladies running shoes",
       "passed": true,
       "checks": [
         {
           "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 1308.6761685022266
+          "actual": 508.30978681503456
         }
       ]
     },
