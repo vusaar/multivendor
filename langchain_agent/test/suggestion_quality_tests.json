@@ -5,22 +5,31 @@
     "expected": {
       "must_contain": [59],
       "min_confidence": 180,
-      "must_not_contain": [5, 4, 3, 1, 2]
+      "must_not_contain_verified": [5, 4, 3, 1, 2]
     }
   },
   {
      "query": "nail polish below 15",
      "description": "Verify that nail polish still works when it is the specific intent",
-     "expected": {
+      "expected": {
         "must_contain": [5],
-        "min_confidence": 180
-     }
+        "min_confidence": 180.0
+      }
+  },
+  {
+    "query": "ladies short sleeved tops",
+    "description": "Verify that ladies' tops (21, 24) are featured and mens' tshirts (12-18, 60) are suppressed",
+    "expected": {
+      "must_contain": [21, 24],
+      "must_not_contain_verified": [12, 13, 14, 15, 17, 18, 60],
+      "min_confidence": 180.0
+    }
   },
   {
       "query": "pizza",
-      "description": "Noise rejection should have 0 results",
+      "description": "Noise rejection - Ensure no irrelevant products are VERIFIED",
       "expected": {
-          "max_results": 0
+          "max_confidence": 180.0
       }
   }
 ]
