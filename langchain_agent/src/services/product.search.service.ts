@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { processUserQuery } from './search.agent';
 
 export interface SearchResult {
     data: any[];
@@ -8,38 +6,23 @@ export interface SearchResult {
 }
 
 export class ProductSearchService {
-    private readonly apiUrl: string;
+    constructor() {}
 
-    constructor(apiUrl?: string) {
-        this.apiUrl = apiUrl || process.env.LARAVEL_API_URL || 'http://localhost/multistore/api/storefront/products/search';
-    }
+    async search(query: string, page: number = 1, userId: string = 'default'): Promise<SearchResult> {
+        console.log(`[SEARCH SERVICE] Routing core search to AI Agent: "${query}" (Page ${page})`);
 
-    async search(query: string, page: number = 1, userId?: string): Promise<SearchResult> {
-        console.log(`[SEARCH SERVICE] Searching for: "${query}" (Page ${page})`);
+        // Use the AI Agent (which uses vector_search.tool.ts + LLM intent)
+        const products = await processUserQuery(query, userId);
 
-        const response = await fetch(this.apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({
-                product: query,
-                page: page,
-                userId: userId
-            })
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`[SEARCH SERVICE] API Error: ${response.status}`, errorText);
-            throw new Error(`Search API responded with status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        // Map to the expected SearchResult format
+        // The Agent already handles pagination/filtering internally
         return {
-            data: data.data || [],
-            meta: data.meta || data
+            data: products,
+            meta: {
+                current_page: page,
+                last_page: 1, // Agent handles stateful pagination internally
+                total: products.length
+            }
         };
     }
 }

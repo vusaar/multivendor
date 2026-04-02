@@ -8,6 +8,7 @@ import { embeddingsService } from "./embeddings.service";
 import { searchLoggerService } from "./logger.service";
 import { SEARCH_CONFIG } from "../config/search";
 import crypto from 'crypto';
+import { categoryGuideService } from "./category.guide.service";
 
 const systemPrompt = `You are a helpful AI shopping assistant for a multi-vendor storefront.
 
@@ -25,15 +26,19 @@ Your role is to help users find products. However, you must distinguish between 
 - Instead, respond politely and explain how to search.
 - **Example Response:** "Hello! I'm your AI shopping assistant. I can help you find anything in our catalog. Try searching for 'black cotton shirt' or 'nike shoes'. What can I find for you?"
 
-### 3. DATABASE MAPPING (FOR PRECISION SCORING)
-- 'categories': Extract broad departments/demographics.
-- 'entity': Core product type in singular form (e.g., "shirt").
-- 'synonyms': ALWAYS include direct synonyms and plural/singular variations (e.g., "shoes" -> ["shoe", "sneaker", "footwear", "kicks"]).
-- 'attributes': Modifiers like color, brand, or material.
+### 3. TAXONOMY MAPPING (MANDATORY)
+- **Primary Goal**: Map the user's intent to the most specific category slug provided in the "AVAILABLE CATEGORY SLUGS" section.
+- **Synonyms (MANDATORY EXPANSION)**: Even when using a slug, you MUST extract colloquial synonyms into the 'synonyms' parameter to catch unique names:
+  - Footwear: "shoes" -> ["shoe", "sneaker", "trainer", "footwear", "kicks"]
+  - Apparel: "sweater" -> ["jumper", "pullover", "cardigan"]
+  - Apparel: "shirt" -> ["top", "tee", "t-shirt", "blouse", "jersey"]
+  - Apparel: "bottom" -> ["trouser", "pant", "jeans", "skirt", "short"]
+- **Demographics**: Always extract "men" or "women" into the 'categories' array if mentioned or implied (e.g., "for her" -> "women").
+- **Attributes**: Extract colors, brands, and materials normally.
 
 ### 4. EXAMPLES
-- User: "Hi there" -> Assistant: "Hello! How can I help you find products today? You can try searching by name or category."
-- User: "red dress" -> [Call hybrid_product_search(query="red dress", entity="dress", attributes=["red"])]
+- User: "jumper for him" -> [Call hybrid_product_search(query="jumper", target_category_slug="men-tops", synonyms=["sweater", "pullover"], categories=["men"])]
+- User: "something for her" -> [Call hybrid_product_search(query="gift", categories=["women"])]
 - User: "how are you?" -> Assistant: "I'm doing great, thank you! I'm ready to help you shop. What are you looking for?"
 `;
 
@@ -94,6 +99,9 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         }
 
         // --- Tier 2: New Search (Standard Path) ---
+        const categorySnippet = await categoryGuideService.getPromptSnippet();
+        const dynamicPrompt = `${systemPrompt}\n\n${categorySnippet}`;
+
         const modelWithTools = model.bindTools([hybridSearchTool]);
         const reasoningStart = Date.now();
 
@@ -102,7 +110,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         });
 
         const modelPromise = modelWithTools.invoke([
-            { role: "system", content: systemPrompt },
+            { role: "system", content: dynamicPrompt },
             { role: "user", content: "hi" },
             { role: "assistant", content: "Hello! I'm your AI shopping assistant. I can help you find anything in our catalog. Try searching for 'black cotton shirt' or 'nike shoes'. What can I find for you?" },
             { role: "user", content: "how are you?" },
@@ -130,7 +138,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         const toolCall = toolCalls[0];
         if (toolCall.name === "hybrid_product_search") {
             const args = { ...toolCall.args, limit: 50, offset: 0 };
-            console.log(`[AGENT] Executing hybrid_product_search via tool.invoke with limit 50.`);
+            console.log(`[AGENT] Executing hybrid_product_search with ARGS:`, JSON.stringify(args, null, 2));
             
             const toolResult = await hybridSearchTool.invoke(args) as string;
             const results = JSON.parse(toolResult);
@@ -167,6 +175,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
                 ...r,
                 score: r.rrf_score // Backward compatibility for Laravel hydration
             }));
+            console.log(`[AGENT] Partitioning complete. Matches: ${bucketed.results.length}, Suggestions: ${bucketed.suggestions.length}`);
 
             // 3. Update message history and return
             const finalPlan: SearchPlan = {
