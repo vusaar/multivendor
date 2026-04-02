@@ -142,10 +142,12 @@ export class MessageProcessorService {
     }
 
     private async sendProductMessage(to: string, product: any, debug: boolean = false) {
-        const hasImages = product.images && product.images.length > 0;
-        const imageUrl = hasImages
-            ? product.images[0]
-            : "http://127.0.0.1:8000/storage/placeholder.png";
+        // Support both single image (agent) and array of images (API)
+        let imageUrl = product.image || (product.images && product.images.length > 0 ? product.images[0] : null);
+        
+        if (!imageUrl) {
+            imageUrl = "https://store.eyamisolutions.co.zw/storage/placeholder.png";
+        }
 
         const caption = whatsappService.formatProductCaption(product, debug);
 
