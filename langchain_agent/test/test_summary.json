@@ -10,20 +10,14 @@
         {
           "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 508.30978681503456
+          "actual": 308.0453588976073
         }
       ]
     },
     {
       "query": "ladies apparel",
       "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 300 (Verified)",
-          "pass": true,
-          "actual": 508.8366489909082
-        }
-      ]
+      "checks": []
     },
     {
       "query": "ladies tops",
@@ -32,7 +26,7 @@
         {
           "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 1208.616135212203
+          "actual": 1008.0294330146402
         }
       ]
     },
