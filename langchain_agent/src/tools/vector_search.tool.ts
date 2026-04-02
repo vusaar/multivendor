@@ -127,11 +127,12 @@ export async function executeHybridSearch(params: {
         raw_candidates AS (
             SELECT p.id, p.name, p.price, p.description, p.search_context, p.vendor_id, p.category_id, p.status,
                    (1 - (p.embedding <=> $1::vector)) AS vector_score,
-                   ch.root_id as demographic_root_id,
+                    ch.root_id as demographic_root_id,
                    ch.root_name as demographic_root,
                    ch.level as category_level,
                    ch.ancestor_ids as category_ancestors,
-                   ch.name as category_name
+                   ch.name as category_name,
+                   (SELECT pi.image FROM product_images pi WHERE pi.product_id = p.id ORDER BY pi.id ASC LIMIT 1) as image_path
             FROM products p
             LEFT JOIN category_hierarchy ch ON p.category_id = ch.id
             WHERE p.status = 'active' AND p.embedding IS NOT NULL
@@ -165,7 +166,7 @@ export async function executeHybridSearch(params: {
             LEFT JOIN target_info ti ON TRUE
         )
         SELECT 
-            id, name, price, description, vendor_id, category_id, status, search_context, demographic_root, 
+            id, name, price, description, vendor_id, category_id, status, search_context, demographic_root, image_path,
             (
                 (vector_score * 10) + 
                 precision_score +
@@ -240,7 +241,13 @@ export const hybridSearchTool = new DynamicStructuredTool({
                 return JSON.stringify({ status: "no_results", message: `No products found for "${query}"` });
             }
 
-            return JSON.stringify(rows);
+            // Post-process to include full image URL
+            const processedRows = rows.map((row: any) => ({
+                ...row,
+                image: row.image_path ? `https://store.eyamisolutions.co.zw/storage/${row.image_path}` : null
+            }));
+
+            return JSON.stringify(processedRows);
         } catch (error: any) {
             console.error("Hybrid Search Error:", error);
             return JSON.stringify({ status: "error", message: error.message });
