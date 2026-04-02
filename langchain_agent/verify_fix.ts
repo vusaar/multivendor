@@ -1,18 +1,22 @@
-import { processUserQuery } from './src/services/search.agent';
+import { categoryGuideService } from "./src/services/category.guide.service";
+import { db } from "./src/config/database";
 
-async function verifyFix() {
-    const query = "blue shirts size small under 50";
-    console.log(`Verifying Query: "${query}"`);
+async function verify() {
     try {
-        const results = await processUserQuery(query);
-        console.log("Results:", JSON.stringify(results, null, 2));
-    } catch (error: any) {
-        console.error("Verification Error:", error.message);
+        console.log("Verifying CategoryGuideService...");
+        const menu = await categoryGuideService.getCategoryMenu();
+        console.log(`Success! Fetched ${menu.length} categories.`);
+        console.log("Sample category:", menu[0]);
+        
+        const snippet = await categoryGuideService.getPromptSnippet();
+        console.log("Prompt snippet generated successfully.");
+        // console.log(snippet);
+        
+        process.exit(0);
+    } catch (error) {
+        console.error("Verification failed:", error);
+        process.exit(1);
     }
 }
 
-// Wait 10 seconds before starting to avoid pending rate limits
-console.log("Waiting 10s for rate limit cool-down...");
-setTimeout(() => {
-    verifyFix().then(() => process.exit(0));
-}, 10000);
+verify();
