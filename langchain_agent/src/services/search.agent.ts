@@ -4,6 +4,11 @@ import { hybridSearchTool, executeHybridSearch } from "../tools/vector_search.to
 import { HumanMessage } from "@langchain/core/messages";
 import { sessionService } from "./session.service";
 import { isContinuationQuery, SearchPlan } from "../utils/search_context.util";
+
+export interface SearchResponse {
+    products: any[];
+    total: number;
+}
 import { embeddingsService } from "./embeddings.service";
 import { searchLoggerService } from "./logger.service";
 import { SEARCH_CONFIG } from "../config/search";
@@ -47,7 +52,7 @@ const toolsByName: Record<string, any> = {
 };
 
 
-export const processUserQuery = async (userQuery: string, userId: string = "default") => {
+export const processUserQuery = async (userQuery: string, userId: string = "default", page: number = 1): Promise<SearchResponse> => {
     const totalStart = Date.now();
     console.log(`[AGENT] Starting stateful router for: "${userQuery}" (User: ${userId})`);
 
@@ -56,11 +61,14 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
         const greetingRegex = /^\s*(hello|hi|hey|hola|greetings|how are you|good morning|good afternoon|good evening)\b\s*[!?.]*$/i;
         if (greetingRegex.test(userQuery)) {
             console.log(`[AGENT] Greeting detected via pre-filter: "${userQuery}"`);
-            return [{ 
-                id: "AI_MESSAGE", 
-                name: "ASSISTANT", 
-                text: "Hello! I'm your AI shopping assistant. I can help you find anything in our catalog. Try searching for something specific like 'black cotton shirt' or 'nike shoes'. What can I find for you?" 
-            }];
+            return {
+                products: [{ 
+                    id: "AI_MESSAGE", 
+                    name: "ASSISTANT", 
+                    text: "Hello! I'm your AI shopping assistant. I can help you find anything in our catalog. Try searching for something specific like 'black cotton shirt' or 'nike shoes'. What can I find for you?" 
+                }],
+                total: 1
+            };
         }
 
         const session = await sessionService.getSession(userId);
@@ -78,23 +86,23 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
                 const suggestions = plan.pendingSuggestions;
                 plan.pendingSuggestions = undefined; // Clear it
                 await sessionService.updateSession(userId, { lastSearchPlan: plan });
-                return suggestions;
+                return { products: suggestions, total: suggestions.length };
             }
 
             // Return a larger set (50) so Laravel's secondary pagination has data to work with
             const results = await executeHybridSearch({
                 ...plan.parsedIntent,
                 embedding: plan.embedding,
-                limit: 50,
-                offset: 0
+                limit: SEARCH_CONFIG.LIMIT_VERIFIED,
+                offset: (page - 1) * SEARCH_CONFIG.LIMIT_VERIFIED
             });
 
             if (results.length > 0) {
                 console.log(`[PERF] Bypass search took: ${Date.now() - totalStart}ms`);
-                return results;
+                return { products: results, total: Number(results[0]?.total_count || 0) };
             } else {
                 console.log(`[ROUTER] No results found in bypass.`);
-                return [];
+                return { products: [], total: 0 };
             }
         }
 
@@ -129,7 +137,10 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             const content = response.content;
             if (content && typeof content === 'string' && content.trim().length > 0) {
                 console.log("[AGENT] Returning direct AI message.");
-                return [{ id: "AI_MESSAGE", name: "ASSISTANT", text: content }];
+                return {
+                    products: [{ id: "AI_MESSAGE", name: "ASSISTANT", text: content }],
+                    total: 1
+                };
             }
             console.log("[AGENT] No message, falling back to simple query.");
             return fallbackSearch(userQuery, userId);
@@ -137,7 +148,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
 
         const toolCall = toolCalls[0];
         if (toolCall.name === "hybrid_product_search") {
-            const args = { ...toolCall.args, limit: 50, offset: 0 };
+            const args = { ...toolCall.args, limit: SEARCH_CONFIG.LIMIT_VERIFIED, offset: (page - 1) * SEARCH_CONFIG.LIMIT_VERIFIED };
             console.log(`[AGENT] Executing hybrid_product_search with ARGS:`, JSON.stringify(args, null, 2));
             
             const toolResult = await hybridSearchTool.invoke(args) as string;
@@ -151,7 +162,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             // If it returned { status: "no_results", ... }, we handle it
             if (results.status === "no_results") {
                 console.log(`[AGENT] Tool returned no results.`);
-                return [];
+                return { products: [], total: 0 };
             }
 
             // We still need the embedding for stateful pagination/bypass later.
@@ -198,23 +209,24 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
                 searchId
             );
 
-            return finalResults;
+            return { products: finalResults, total: Number(results[0]?.total_count || 0) };
         }
 
         // Handle other tools (like category search) if needed
         const tool = toolsByName[toolCall.name];
-        if (!tool) return fallbackSearch(userQuery, userId);
+        if (!tool) return fallbackSearch(userQuery, userId, page);
 
-        const toolResult = await tool.invoke(toolCall.args);
-        return JSON.parse(toolResult);
+        const toolResult = await tool.invoke({ ...toolCall.args, page });
+        const toolResults = JSON.parse(toolResult);
+        return { products: toolResults, total: toolResults.length };
 
     } catch (error: any) {
         console.error("[AGENT] Router Error:", error.message);
-        return fallbackSearch(userQuery, userId);
+        return fallbackSearch(userQuery, userId, page);
     }
 };
 
-async function fallbackSearch(query: string, userId: string): Promise<any[]> {
+async function fallbackSearch(query: string, userId: string, page: number = 1): Promise<SearchResponse> {
     const fallbackStart = Date.now();
     const searchId = crypto.randomUUID();
     console.log("[AGENT] Triggering fallback search");
@@ -227,8 +239,8 @@ async function fallbackSearch(query: string, userId: string): Promise<any[]> {
     const results = await executeHybridSearch({ 
         query, 
         embedding, 
-        limit: 50, 
-        offset: 0,
+        limit: SEARCH_CONFIG.LIMIT_VERIFIED, 
+        offset: (page - 1) * SEARCH_CONFIG.LIMIT_VERIFIED,
         categories: categories.length > 0 ? categories : undefined,
         entity: query, // Broad fuzzy matching
         attributes: attributes.length > 0 ? attributes : undefined
@@ -243,7 +255,7 @@ async function fallbackSearch(query: string, userId: string): Promise<any[]> {
         originalQuery: query,
         parsedIntent: { query, categories },
         embedding: Array.from(embedding),
-        pagination: { offset: 0, limit: 50 },
+        pagination: { offset: 0, limit: SEARCH_CONFIG.LIMIT_VERIFIED },
         timestamp: Date.now(),
         results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
     };
@@ -260,7 +272,7 @@ async function fallbackSearch(query: string, userId: string): Promise<any[]> {
         searchId
     );
 
-    return finalResults;
+    return { products: finalResults, total: Number(results[0]?.total_count || 0) };
 }
 
 function filterResults(results: any[]): { results: any[], suggestions: any[], hasOnlySuggestions: boolean } {

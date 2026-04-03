@@ -253,12 +253,9 @@ export class WhatsAppService {
         
         const detailsLink = ''; // Temporarily disabled: product.public_url ? `\n🔗 *Details:* ${product.public_url}` : '';
 
-        // Optional Debug Info
-        let score = '';
-        if (debug) {
-            const scoreVal = Number(product.similarity_score);
-            score = `\n🔍 *Search Score:* ${!isNaN(scoreVal) ? scoreVal.toFixed(4) : 'N/A'}`;
-        }
+        // Display Match Relevance (Search Score)
+        const scoreVal = Number(product.similarity_score || product.rrf_score || product.score);
+        const score = `\n🔍 *Match Relevance:* ${!isNaN(scoreVal) ? scoreVal.toFixed(2) : 'N/A'}`;
 
         // Extract unique properties from variations
         let propertiesText = '';
