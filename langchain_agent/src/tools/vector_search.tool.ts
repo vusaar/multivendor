@@ -167,6 +167,7 @@ export async function executeHybridSearch(params: {
         )
         SELECT 
             id, name, price, description, vendor_id, category_id, status, search_context, demographic_root, image_path,
+            COUNT(*) OVER() as total_count,
             (
                 (vector_score * 10) + 
                 precision_score +

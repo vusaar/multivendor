@@ -13,7 +13,7 @@ export const SEARCH_CONFIG = {
     THRESHOLD_PRECISION_LIMIT: 80.0,
     
     // Max verified products to show in carousel
-    LIMIT_VERIFIED: 50,
+    LIMIT_VERIFIED: 3,
     
     // Max suggested products to show in carousel
     LIMIT_SUGGESTIONS: 3

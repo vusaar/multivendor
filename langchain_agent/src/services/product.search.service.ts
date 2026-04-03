@@ -12,7 +12,9 @@ export class ProductSearchService {
         console.log(`[SEARCH SERVICE] Routing core search to AI Agent: "${query}" (Page ${page})`);
 
         // Use the AI Agent (which uses vector_search.tool.ts + LLM intent)
-        const products = await processUserQuery(query, userId);
+        const response = await processUserQuery(query, userId, page);
+        const products = response.products;
+        const total = response.total;
 
         // Map to the expected SearchResult format
         // The Agent already handles pagination/filtering internally
@@ -20,8 +22,8 @@ export class ProductSearchService {
             data: products,
             meta: {
                 current_page: page,
-                last_page: 1, // Agent handles stateful pagination internally
-                total: products.length
+                last_page: Math.ceil(total / 3), // Using the new LIMIT_VERIFIED=3
+                total: total
             }
         };
     }
