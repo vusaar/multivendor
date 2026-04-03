@@ -41,9 +41,17 @@ Your role is to help users find products. However, you must distinguish between 
 - **Demographics**: Always extract "men" or "women" into the 'categories' array if mentioned or implied (e.g., "for her" -> "women").
 - **Attributes**: Extract colors, brands, and materials normally.
 
-### 4. EXAMPLES
+### 4. CONTEXTUAL INTENT MAPPING (CRITICAL)
+- Map vague human context to specific product types to improve semantic retrieval:
+  - "winter", "cold", "warm": -> query="sweater", synonyms=["jumper", "jacket", "hoodie", "knitwear"]
+  - "work", "office", "professional": -> query="blouse", synonyms=["shirt", "formal top", "trousers", "vest"]
+  - "wedding", "party", "date night": -> query="dress", synonyms=["gown", "skirt", "fragrance", "perfume"]
+  - "summer", "beach", "hot": -> query="t-shirt", synonyms=["vest", "shorts", "sandals", "top"]
+
+### 5. EXAMPLES
 - User: "jumper for him" -> [Call hybrid_product_search(query="jumper", target_category_slug="men-tops", synonyms=["sweater", "pullover"], categories=["men"])]
-- User: "something for her" -> [Call hybrid_product_search(query="gift", categories=["women"])]
+- User: "something warm for winter" -> [Call hybrid_product_search(query="sweater", synonyms=["jumper", "jacket", "hoodie", "knitwear"])]
+- User: "professional office top for her" -> [Call hybrid_product_search(query="blouse", synonyms=["shirt", "formal top"], categories=["women"])]
 - User: "how are you?" -> Assistant: "I'm doing great, thank you! I'm ready to help you shop. What are you looking for?"
 `;
 
@@ -182,8 +190,11 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             // Relevance Filtering & Classification Logic
             const bucketed = filterResults(results);
             
+            const IMAGE_BASE_URL = 'https://store.eyamisolutions.co.zw/storage/';
+
             const finalResults = bucketed.results.map((r: any) => ({
                 ...r,
+                image: r.image_path ? (r.image_path.startsWith('http') ? r.image_path : `${IMAGE_BASE_URL}${r.image_path}`) : null,
                 score: r.rrf_score // Backward compatibility for Laravel hydration
             }));
             console.log(`[AGENT] Partitioning complete. Matches: ${bucketed.results.length}, Suggestions: ${bucketed.suggestions.length}`);
@@ -195,7 +206,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
                 embedding,
                 pagination: { offset: 0, limit: 5 },
                 timestamp: Date.now(),
-                results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
+                results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score, image: r.image }))
             };
             await sessionService.updateSession(userId, { lastSearchPlan: finalPlan });
 
@@ -248,8 +259,13 @@ async function fallbackSearch(query: string, userId: string, page: number = 1): 
 
     console.log(`[TRACE] Fallback results found: ${results.length}. Top score: ${results[0]?.rrf_score}`);
 
+    const IMAGE_BASE_URL = 'https://store.eyamisolutions.co.zw/storage/';
     const bucketed = filterResults(results);
-    const finalResults = bucketed.results;
+    const finalResults = bucketed.results.map((r: any) => ({
+        ...r,
+        image: r.image_path ? (r.image_path.startsWith('http') ? r.image_path : `${IMAGE_BASE_URL}${r.image_path}`) : null,
+        score: r.rrf_score
+    }));
 
     const newPlan: SearchPlan = {
         originalQuery: query,
@@ -257,7 +273,7 @@ async function fallbackSearch(query: string, userId: string, page: number = 1): 
         embedding: Array.from(embedding),
         pagination: { offset: 0, limit: SEARCH_CONFIG.LIMIT_VERIFIED },
         timestamp: Date.now(),
-        results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
+        results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score, image: r.image }))
     };
     await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
 

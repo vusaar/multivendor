@@ -43,7 +43,8 @@ async function runTests() {
         try {
             // Use unique userId for each test to avoid session leakage/bypass logic
             const testUserId = `test_user_${cases.indexOf(test)}_${Date.now()}`;
-            const results = await processUserQuery(test.query, testUserId);
+            const response = await processUserQuery(test.query, testUserId, 1);
+            const items = response.products;
             
             // We need the intent from the last search log or by calling the AI again
             // For this suite, we'll focus on the actual RESULTS and trust processUserQuery (which logs its intent)
@@ -53,14 +54,14 @@ async function runTests() {
 
             // 1. Result Count Check
             if (test.expected.max_results !== undefined) {
-                const countMatch = results.length <= test.expected.max_results;
-                checks.push({ name: `Result Count <= ${test.expected.max_results}`, pass: countMatch, actual: results.length });
+                const countMatch = items.length <= test.expected.max_results;
+                checks.push({ name: `Result Count <= ${test.expected.max_results}`, pass: countMatch, actual: items.length });
                 if (!countMatch) passed = false;
             }
 
             // 2. Must Contain Check
             if (test.expected.must_contain) {
-                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id || r.product_id)) : [];
+                const foundIds = Array.isArray(items) ? items.map((r: any) => parseInt(r.id || r.product_id)) : [];
                 const missing = test.expected.must_contain.filter(id => !foundIds.includes(id));
                 const allFound = missing.length === 0;
                 checks.push({ 
@@ -73,7 +74,7 @@ async function runTests() {
 
             // 2.1 Must Not Contain Check
             if (test.expected.must_not_contain) {
-                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id || r.product_id)) : [];
+                const foundIds = Array.isArray(items) ? items.map((r: any) => parseInt(r.id || r.product_id)) : [];
                 const forbiddenFound = test.expected.must_not_contain.filter(id => foundIds.includes(id));
                 const noneFound = forbiddenFound.length === 0;
                 checks.push({ 
@@ -87,7 +88,7 @@ async function runTests() {
             // 2.1b Must Not Contain in Verified Check
             if (test.expected.must_not_contain_verified) {
                 const verifiedThreshold = SEARCH_CONFIG.THRESHOLD_VERIFIED;
-                const verified = Array.isArray(results) ? results.filter((r: any) => 
+                const verified = Array.isArray(items) ? items.filter((r: any) => 
                     parseFloat(r.rrf_score || r.score || "0") >= verifiedThreshold &&
                     r.is_direct_match === true
                 ) : [];
@@ -104,7 +105,7 @@ async function runTests() {
 
             // 2.2 Must Contain At Least One Check
             if (test.expected.must_contain_at_least_one) {
-                const foundIds = Array.isArray(results) ? results.map((r: any) => parseInt(r.id || r.product_id)) : [];
+                const foundIds = Array.isArray(items) ? items.map((r: any) => parseInt(r.id || r.product_id)) : [];
                 const foundMatch = test.expected.must_contain_at_least_one.some(id => foundIds.includes(id));
                 checks.push({ 
                     name: `Must Contain at least one of ${test.expected.must_contain_at_least_one.join(',')}`, 
@@ -115,8 +116,8 @@ async function runTests() {
             }
 
             // 3. Confidence Threshold Check (Verification vs Suggestion)
-            if (Array.isArray(results) && results.length > 0) {
-                const topScore = parseFloat(results[0].rrf_score || "0");
+            if (Array.isArray(items) && items.length > 0) {
+                const topScore = parseFloat(items[0].rrf_score || "0");
                 
                 if (test.expected.min_confidence !== undefined) {
                     const enough = topScore >= test.expected.min_confidence;
