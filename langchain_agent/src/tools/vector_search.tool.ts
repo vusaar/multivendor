@@ -231,8 +231,9 @@ export const hybridSearchTool = new DynamicStructuredTool({
         limit: z.number().optional().default(5).describe("Number of results to return"),
         min_price: z.number().optional().describe("Minimum price"),
         max_price: z.number().optional().describe("Maximum price"),
+        brand: z.string().optional().describe("Specific brand name (e.g. 'adidas', 'nike')"),
     }),
-    func: async ({ query, entity, synonyms, categories, attributes, limit, min_price, max_price, target_category_slug }) => {
+    func: async ({ query, entity, synonyms, categories, attributes, limit, min_price, max_price, target_category_slug, brand }) => {
         let finalMin = min_price;
         let finalMax = max_price;
 
@@ -245,6 +246,12 @@ export const hybridSearchTool = new DynamicStructuredTool({
             if (aboveMatch) finalMin = parseFloat(aboveMatch[1]);
         }
 
+        // TSD v4.7: Handle brand aliasing/hallucinations
+        const finalAttributes = [...(attributes || [])];
+        if (brand && !finalAttributes.includes(brand)) {
+            finalAttributes.push(brand);
+        }
+
         try {
             const queryEmbedding = await embeddingsService.generateEmbedding(query);
             const rows = await executeHybridSearch({
@@ -252,7 +259,7 @@ export const hybridSearchTool = new DynamicStructuredTool({
                 entity,
                 synonyms,
                 categories,
-                attributes,
+                attributes: finalAttributes,
                 embedding: queryEmbedding,
                 limit,
                 min_price: finalMin,
