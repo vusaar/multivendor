@@ -4,6 +4,7 @@ export interface CategoryGuide {
     id: number;
     name: string;
     slug: string;
+    synonyms?: string[];
 }
 
 class CategoryGuideService {
@@ -19,13 +20,14 @@ class CategoryGuideService {
 
         console.log("[CategoryGuide] Fetching fresh taxonomy guide from database...");
         const results = await db.query(
-            "SELECT id, name, slug FROM categories WHERE status = 'active' ORDER BY name ASC"
+            "SELECT id, name, slug, synonyms FROM categories WHERE status = 'active' ORDER BY name ASC"
         );
 
         this.cache = results.rows.map(row => ({
             id: row.id,
             name: row.name,
-            slug: row.slug
+            slug: row.slug,
+            synonyms: row.synonyms
         }));
         this.lastFetch = now;
 
@@ -34,7 +36,10 @@ class CategoryGuideService {
 
     async getPromptSnippet(): Promise<string> {
         const menu = await this.getCategoryMenu();
-        const guides = menu.map(c => `- ${c.slug} (${c.name})`).join("\n");
+        const guides = menu.map(c => {
+            const syns = Array.isArray(c.synonyms) ? c.synonyms.join(", ") : "";
+            return `- ${c.slug} (ID: ${c.id}): ${c.name}${syns ? ` | Synonyms: ${syns}` : ""}`;
+        }).join("\n");
         
         return `### AVAILABLE CATEGORY SLUGS (MANDATORY SELECTION)
 Select the SINGLE most relevant slug if the user intent matches a category. If no direct match, pick the most relevant parent.
