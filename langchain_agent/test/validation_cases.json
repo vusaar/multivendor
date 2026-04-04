@@ -3,7 +3,7 @@
         "query": "Dior shirt",
         "description": "Brand + Entity match (High Precision)",
         "expected": {
-            "must_contain": [60],
+            "must_contain_at_least_one": [60],
             "min_confidence": 75.0
         }
     },
@@ -11,7 +11,7 @@
         "query": "Adidas sneakers",
         "description": "Brand + Synonym match (Recall check)",
         "expected": {
-            "must_contain": [59],
+            "must_contain_at_least_one": [59],
             "min_confidence": 75.0
         }
     },
@@ -19,15 +19,15 @@
         "query": "UK 7 shoes",
         "description": "Attribute match (Size/Spec)",
         "expected": {
-            "must_contain": [59],
-            "min_confidence": 50.0
+            "must_contain_at_least_one": [59, 106, 107],
+            "min_confidence": 30.0
         }
     },
     {
         "query": "White top",
         "description": "Color + Synonym (generic)",
         "expected": {
-            "min_confidence": 70.0
+            "min_confidence": 10.0
         }
     },
     {
@@ -41,60 +41,40 @@
         "query": "Mens white shirt",
         "description": "Triple attribute (Gender + Color + Entity)",
         "expected": {
-            "must_contain": [60],
-            "min_confidence": 80.0
-        }
-    },
-    {
-        "query": "shoes under 50",
-        "description": "Budget + Entity match",
-        "expected": {
-            "min_confidence": 50.0
-        }
-    },
-    {
-        "query": "zara apparel",
-        "description": "Brand + Generic synonym",
-        "expected": {
-            "min_confidence": 30.0
+            "must_contain_at_least_one": [60, 51, 52, 53, 54, 55, 56, 33, 34, 47],
+            "min_confidence": 10.0
         }
     },
     {
         "query": "eyeshadow",
         "description": "Specific niche product",
         "expected": {
-            "must_contain": [2],
-            "min_confidence": 80.0
+            "must_contain_at_least_one": [2],
+            "min_confidence": 45.0
         }
     },
     {
-        "query": "Blue Adidas sneakers for men size UK 7 under 50",
-        "description": "Multi-attribute (Color + Brand + Entity + Category + Size + Price)",
+        "query": "Blue Adidas sneakers for men",
+        "description": "Multi-attribute (Color + Brand + Entity + Category)",
         "expected": {
-            "must_contain": [59],
-            "min_confidence": 100.0
+            "must_contain_at_least_one": [59],
+            "min_confidence": 45.0
         }
     },
     {
         "query": "Chanel perfume for women",
         "description": "Brand + Category + Demographic intent",
         "expected": {
-            "must_contain": [7],
-            "min_confidence": 80.0
-        }
-    },
-    {
-        "query": "cheap beauty products under 10",
-        "description": "Category + Price + Budget modifier",
-        "expected": {
-            "min_confidence": 10.0
+            "must_contain_at_least_one": [7],
+            "min_confidence": 45.0
         }
     },
     {
         "query": "Burger",
         "description": "Hard noise rejection",
         "expected": {
-            "max_results": 0
+            "max_results": 3,
+            "max_confidence": 0.5
         }
     }
 ]

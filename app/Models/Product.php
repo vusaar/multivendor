@@ -20,6 +20,7 @@ class Product extends Model
         'status',
         'search_context',
         'embedding',
+        'needs_reindex',
     ];
 
     public function vendor()

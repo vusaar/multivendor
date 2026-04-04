@@ -43,14 +43,16 @@ class GenerateProductEmbedding implements ShouldQueue
                 'name' => $this->product->name,
                 'description' => $this->product->description,
                 'category_name' => $this->product->category->name ?? null,
+                'category_synonyms' => $this->product->category->synonyms ?? null,
                 'parent_category_name' => $this->product->category->parent->name ?? null,
+                'parent_category_synonyms' => $this->product->category->parent->synonyms ?? null,
                 'brand_name' => $this->product->brand->name ?? null,
                 'variations' => $this->product->variations->map(function ($v) {
                     return ['value' => $v->attributeValues->pluck('value')->join(', ')];
                 })->toArray(),
             ]
         ];
-
+        
         try {
             $response = \Illuminate\Support\Facades\Http::post($endpoint, $payload);
 
@@ -64,6 +66,7 @@ class GenerateProductEmbedding implements ShouldQueue
 
                 // Update search_context via Eloquent (safer for long text)
                 $this->product->search_context = $formattedText;
+                $this->product->needs_reindex = false; // Reset the flag
                 $this->product->saveQuietly();
                 \Illuminate\Support\Facades\Log::info("GenerateProductEmbedding: search_context saved for product {$this->product->id}");
 

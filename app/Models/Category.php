@@ -16,6 +16,12 @@ class Category extends Model
         'description',
         'vendor_id',
         'status',
+        'synonyms',
+        'embedding',
+    ];
+
+    protected $casts = [
+        'synonyms' => 'array',
     ];
 
     public function parent()
@@ -31,5 +37,17 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Get all descendant category IDs recursively.
+     */
+    public function getAllDescendantIds(): array
+    {
+        $ids = [$this->id];
+        foreach ($this->children as $child) {
+            $ids = array_merge($ids, $child->getAllDescendantIds());
+        }
+        return $ids;
     }
 }

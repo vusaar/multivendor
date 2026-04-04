@@ -36,6 +36,12 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="synonyms" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Synonyms (Comma separated)</label>
+                            <textarea name="synonyms" id="synonyms" class="form-control border-0 bg-light rounded-3" rows="2" placeholder="e.g. sneakers, kicks, trainers">{{ old('synonyms', is_array($category->synonyms) ? implode(', ', $category->synonyms) : '') }}</textarea>
+                            <div class="form-text mt-1 text-muted small">Enter synonyms to help customers find products in this category easily.</div>
+                        </div>
+
+                        <div class="mb-4">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <label for="parent_id" class="form-label fw-600 small text-uppercase tracking-wider text-muted mb-0">Parent Category</label>
                                 <span id="category_breadcrumb" class="badge bg-soft-primary text-primary fw-600"></span>

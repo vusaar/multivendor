@@ -39,10 +39,14 @@ export async function executeHybridSearch(params: {
     const THRESHOLD = '0.65';
     const DESC_THRESHOLD = '0.5';
     
-    // 0. Literal Query Priority (+500)
+    // 0. Literal Query Priority (+500 Entire, +300 Fragment)
+    console.log(`[DEBUG] executeHybridSearch V4.5: Fragment Reward Active`);
     sqlParams.push(query.toLowerCase().trim());
     const qIdx = sqlParams.length;
-    precisionScoreSql += ` + (CASE WHEN regexp_replace(LOWER(P_NAME_REF), '[^a-z0-9]', '', 'g') = regexp_replace($${qIdx}, '[^a-z0-9]', '', 'g') THEN 500.0 ELSE 0.0 END)`;
+    precisionScoreSql += ` + (CASE 
+                                   WHEN regexp_replace(LOWER(P_NAME_REF), '[^a-z0-9]', '', 'g') = regexp_replace($${qIdx}, '[^a-z0-9]', '', 'g') THEN 500.0 
+                                   WHEN regexp_replace(LOWER(P_NAME_REF), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace($${qIdx}, '[^a-z0-9]', '', 'g') || '%' THEN 300.0
+                                   ELSE 0.0 END)`;
     
 
     // 2. Entity Match (+300)
@@ -108,12 +112,12 @@ export async function executeHybridSearch(params: {
     const finalSql = `
         WITH RECURSIVE category_hierarchy AS (
             -- Base case: roots
-            SELECT id, name, slug, id as root_id, name as root_name, 0 as level, ARRAY[id] as ancestor_ids
+            SELECT id, name, slug, synonyms, id as root_id, name as root_name, 0 as level, ARRAY[id] as ancestor_ids
             FROM categories
             WHERE parent_id IS NULL
             UNION ALL
             -- Recursive step: build integer graph path
-            SELECT c.id, c.name, c.slug, ch.root_id, ch.root_name, ch.level + 1, ch.ancestor_ids || c.id
+            SELECT c.id, c.name, c.slug, c.synonyms, ch.root_id, ch.root_name, ch.level + 1, ch.ancestor_ids || c.id
             FROM categories c
             JOIN category_hierarchy ch ON c.parent_id = ch.id
         ),
@@ -132,18 +136,34 @@ export async function executeHybridSearch(params: {
                    ch.level as category_level,
                    ch.ancestor_ids as category_ancestors,
                    ch.name as category_name,
+                   ch.synonyms as category_synonyms,
                    (SELECT pi.image FROM product_images pi WHERE pi.product_id = p.id ORDER BY pi.id ASC LIMIT 1) as image_path
             FROM products p
             LEFT JOIN category_hierarchy ch ON p.category_id = ch.id
             WHERE p.status = 'active' AND p.embedding IS NOT NULL
-              -- RECALL RECOVERY (V4.1): Lowered gate to 0.50 to catch even the most distant semantic synonyms
-              AND (1 - (p.embedding <=> $1::vector)) > 0.50 
+              -- RECALL RECOVERY (V4.2): Lowered gate to 0.40 to account for enriched (noisier) search context
+              AND (1 - (p.embedding <=> $1::vector)) > 0.40
             ${priceFilter}
             ORDER BY vector_score DESC
             LIMIT 200
         ),
         scored_candidates AS (
             SELECT r.*,
+                   -- 1. Direct Category Match Reward (TSD v4.0)
+                   (CASE 
+                        WHEN strict_word_similarity(LOWER($${qIdx}), LOWER(r.category_name)) >= 0.7 THEN 600.0
+                        WHEN word_similarity(LOWER($${qIdx}), LOWER(r.category_name)) >= 0.5 THEN 400.0
+                        WHEN r.category_synonyms IS NOT NULL AND EXISTS (
+                            SELECT 1 FROM jsonb_array_elements_text(r.category_synonyms) as s 
+                            WHERE strict_word_similarity(LOWER($${qIdx}), LOWER(s)) >= 0.7
+                        ) THEN 500.0
+                        WHEN r.category_synonyms IS NOT NULL AND EXISTS (
+                            SELECT 1 FROM jsonb_array_elements_text(r.category_synonyms) as s 
+                            WHERE word_similarity(LOWER($${qIdx}), LOWER(s)) >= 0.5
+                        ) THEN 300.0
+                        ELSE 0.0
+                   END) as category_match_reward,
+                   -- 2. Taxonomic Graph Reward
                    (CASE 
                         WHEN ti.id IS NOT NULL AND (r.category_id = ti.id) THEN 500.0
                         WHEN ti.id IS NOT NULL AND (ti.id = ANY(r.category_ancestors)) THEN (350.0 * POWER(0.8, (r.category_level - ti.level)))
@@ -171,21 +191,23 @@ export async function executeHybridSearch(params: {
             (
                 (vector_score * 10) + 
                 precision_score +
+                category_match_reward +
                 taxonomy_reward +
                 branch_penalty +
                 branch_reward
             ) AS rrf_score,
-            (CASE WHEN (taxonomy_reward >= 350.0) OR 
+            (CASE WHEN (category_match_reward >= 500.0) OR (taxonomy_reward >= 350.0) OR 
             (precision_score >= 180.0) OR 
-            (LOWER(name) ILIKE '%' || $4 || '%') OR
-            (regexp_replace(LOWER(name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace(LOWER($4), '[^a-z0-9]', '', 'g') || '%')
+            (LOWER(r.name) ILIKE '%' || $${qIdx} || '%') OR
+            (regexp_replace(LOWER(r.name), '[^a-z0-9]', '', 'g') ILIKE '%' || regexp_replace(LOWER($${qIdx}), '[^a-z0-9]', '', 'g') || '%')
             THEN TRUE ELSE FALSE END) as is_direct_match
-        FROM scored_candidates
+        FROM scored_candidates r
         WHERE (
             -- NOISE REJECTION (V4.2): Purely semantic matches without lexical/taxonomic proof must be ABSOLUTE (0.99+)
-            (taxonomy_reward > 0) OR
-            (precision_score >= 100.0) OR
-            ((vector_score * 10) >= 9.9)
+            (r.category_match_reward > 0) OR
+            (r.taxonomy_reward > 0) OR
+            (r.precision_score >= 100.0) OR
+            ((r.vector_score * 10) >= 9.9)
         )
         ORDER BY rrf_score DESC
         LIMIT $2 OFFSET $3;

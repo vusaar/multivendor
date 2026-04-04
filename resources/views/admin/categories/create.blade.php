@@ -35,6 +35,12 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="synonyms" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Synonyms (Comma separated)</label>
+                            <textarea name="synonyms" id="synonyms" class="form-control border-0 bg-light rounded-3" rows="2" placeholder="e.g. sneakers, kicks, trainers">{{ old('synonyms') }}</textarea>
+                            <div class="form-text mt-1 text-muted small">Enter synonyms to help customers find products in this category easily.</div>
+                        </div>
+
+                        <div class="mb-4">
                             <label for="parent_id" class="form-label fw-600 small text-uppercase tracking-wider text-muted">Parent Category</label>
                             <div class="glass-panel p-3 rounded-3" style="background: rgba(var(--midnight-rgb), 0.02)">
                                 <div id="category_jstree" style="max-height:250px; overflow:auto;"></div>

@@ -33,17 +33,25 @@ Your role is to help users find products. However, you must distinguish between 
 
 ### 3. TAXONOMY MAPPING (MANDATORY)
 - **Primary Goal**: Map the user's intent to the most specific category slug provided in the "AVAILABLE CATEGORY SLUGS" section.
-- **Synonyms (MANDATORY EXPANSION)**: Even when using a slug, you MUST extract colloquial synonyms into the 'synonyms' parameter to catch unique names:
-  - Footwear: "shoes" -> ["shoe", "sneaker", "trainer", "footwear", "kicks"]
-  - Apparel: "sweater" -> ["jumper", "pullover", "cardigan"]
-  - Apparel: "shirt" -> ["top", "tee", "t-shirt", "blouse", "jersey"]
-  - Apparel: "bottom" -> ["trouser", "pant", "jeans", "skirt", "short"]
-- **Demographics**: Always extract "men" or "women" into the 'categories' array if mentioned or implied (e.g., "for her" -> "women").
+- **Synonyms**: Extract 1-3 direct synonyms into the 'synonyms' parameter. 
+  *Note: The database already handles broad category synonyms (e.g., "kicks" for "sneakers") in its search context.*
+- **Demographics**: Always extract "men" or "women" into the 'categories' array if mentioned or implied.
 - **Attributes**: Extract colors, brands, and materials normally.
 
-### 4. EXAMPLES
-- User: "jumper for him" -> [Call hybrid_product_search(query="jumper", target_category_slug="men-tops", synonyms=["sweater", "pullover"], categories=["men"])]
-- User: "something for her" -> [Call hybrid_product_search(query="gift", categories=["women"])]
+### 4. CONTEXTUAL ATTRIBUTE MAPPING (CRITICAL)
+- DO NOT replace the user's query if a specific item is mentioned (e.g. "warm boots" -> query="boots").
+- Instead, map vague human context into the 'attributes' and 'synonyms' parameters to trigger SQL boosts:
+  - "winter", "cold": -> attributes=["winter", "warm", "heavyweight"], synonyms=["boots", "jacket", "hoodie"]
+  - "warm": -> attributes=["warm", "thermal", "fleece"]
+  - "work", "office", "professional": -> attributes=["office", "formal", "professional"], synonyms=["shirt", "blouse", "trousers"]
+  - "wedding", "party", "date night": -> attributes=["formal", "elegant", "evening"], synonyms=["dress", "fragrance", "perfume"]
+  - "summer", "beach", "hot": -> attributes=["summer", "lightweight", "breathable"], synonyms=["vest", "shorts", "sandals"]
+  - "something for her/him": -> categories=["women"/"men"], query="apparel"
+
+### 5. EXAMPLES
+- User: "something warm for winter for my brother" -> [Call hybrid_product_search(query="apparel", attributes=["winter", "warm"], categories=["men"], synonyms=["sweater", "jacket", "hoodie"])]
+- User: "professional office top" -> [Call hybrid_product_search(query="top", attributes=["office", "professional", "formal"], synonyms=["blouse", "shirt"])]
+- User: "dress shirt for work" -> [Call hybrid_product_search(query="shirt", entity="shirt", attributes=["formal", "office", "work"])]
 - User: "how are you?" -> Assistant: "I'm doing great, thank you! I'm ready to help you shop. What are you looking for?"
 `;
 
@@ -182,8 +190,11 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
             // Relevance Filtering & Classification Logic
             const bucketed = filterResults(results);
             
+            const IMAGE_BASE_URL = 'https://store.eyamisolutions.co.zw/storage/';
+
             const finalResults = bucketed.results.map((r: any) => ({
                 ...r,
+                image: r.image_path ? (r.image_path.startsWith('http') ? r.image_path : `${IMAGE_BASE_URL}${r.image_path}`) : null,
                 score: r.rrf_score // Backward compatibility for Laravel hydration
             }));
             console.log(`[AGENT] Partitioning complete. Matches: ${bucketed.results.length}, Suggestions: ${bucketed.suggestions.length}`);
@@ -195,7 +206,7 @@ export const processUserQuery = async (userQuery: string, userId: string = "defa
                 embedding,
                 pagination: { offset: 0, limit: 5 },
                 timestamp: Date.now(),
-                results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
+                results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score, image: r.image }))
             };
             await sessionService.updateSession(userId, { lastSearchPlan: finalPlan });
 
@@ -248,8 +259,13 @@ async function fallbackSearch(query: string, userId: string, page: number = 1): 
 
     console.log(`[TRACE] Fallback results found: ${results.length}. Top score: ${results[0]?.rrf_score}`);
 
+    const IMAGE_BASE_URL = 'https://store.eyamisolutions.co.zw/storage/';
     const bucketed = filterResults(results);
-    const finalResults = bucketed.results;
+    const finalResults = bucketed.results.map((r: any) => ({
+        ...r,
+        image: r.image_path ? (r.image_path.startsWith('http') ? r.image_path : `${IMAGE_BASE_URL}${r.image_path}`) : null,
+        score: r.rrf_score
+    }));
 
     const newPlan: SearchPlan = {
         originalQuery: query,
@@ -257,7 +273,7 @@ async function fallbackSearch(query: string, userId: string, page: number = 1): 
         embedding: Array.from(embedding),
         pagination: { offset: 0, limit: SEARCH_CONFIG.LIMIT_VERIFIED },
         timestamp: Date.now(),
-        results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score }))
+        results: finalResults.map(r => ({ id: r.id, name: r.name, score: r.rrf_score, image: r.image }))
     };
     await sessionService.updateSession(userId, { lastSearchPlan: newPlan });
 

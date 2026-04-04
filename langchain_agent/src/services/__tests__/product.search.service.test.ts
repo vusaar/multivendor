@@ -1,47 +1,40 @@
-import { ProductSearchService } from '../product.search.service';
+import { productSearchService } from '../product.search.service';
+import { processUserQuery } from '../search.agent';
 
-describe('ProductSearchService', () => {
-    let service: ProductSearchService;
-    const mockApiUrl = 'http://test-api.com';
+// Mock the search agent
+jest.mock('../search.agent', () => ({
+    processUserQuery: jest.fn()
+}));
 
+describe('ProductSearchService (AI Agent Mode)', () => {
     beforeEach(() => {
-        service = new ProductSearchService(mockApiUrl);
-        // Reset global fetch mock
-        (global as any).fetch = jest.fn();
+        jest.clearAllMocks();
     });
 
-    it('should successfully search products', async () => {
-        const mockData = {
-            data: [{ id: 1, name: 'Test Product' }],
-            meta: { current_page: 1, last_page: 2 }
+    it('should successfully search products using the AI Agent', async () => {
+        const mockAgentResponse = {
+            products: [{ id: 1, name: 'Agent Product', rrf_score: 195.5 }],
+            total: 10
         };
 
-        (global as any).fetch.mockResolvedValue({
-            ok: true,
-            json: async () => mockData
-        });
+        (processUserQuery as jest.Mock).mockResolvedValue(mockAgentResponse);
 
-        const result = await service.search('test query', 1, 'user123');
+        const result = await productSearchService.search('blue shoes', 1, 'user123');
 
-        expect(global.fetch).toHaveBeenCalledWith(mockApiUrl, expect.objectContaining({
-            method: 'POST',
-            body: JSON.stringify({
-                product: 'test query',
-                page: 1,
-                userId: 'user123'
-            })
-        }));
-        expect(result.data).toEqual(mockData.data);
-        expect(result.meta).toEqual(mockData.meta);
+        expect(processUserQuery).toHaveBeenCalledWith('blue shoes', 'user123', 1);
+        expect(result.data).toEqual(mockAgentResponse.products);
+        expect(result.meta.total).toBe(10);
+        expect(result.meta.current_page).toBe(1);
+        expect(result.meta.last_page).toBe(4); // ceil(10 / 3)
     });
 
-    it('should throw an error if API responds with non-ok status', async () => {
-        (global as any).fetch.mockResolvedValue({
-            ok: false,
-            status: 500,
-            text: async () => 'Internal Server Error'
+    it('should correctly calculate pagination for different total counts', async () => {
+        (processUserQuery as jest.Mock).mockResolvedValue({
+            products: [],
+            total: 5
         });
 
-        await expect(service.search('query')).rejects.toThrow('Search API responded with status: 500');
+        const result = await productSearchService.search('any', 1, 'test');
+        expect(result.meta.last_page).toBe(2); // ceil(5 / 3)
     });
 });

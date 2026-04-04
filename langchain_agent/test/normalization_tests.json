@@ -1,34 +1,72 @@
 [
   {
     "query": "tshirt",
-    "description": "Compounding: tshirt vs t-shirt. Should match at verified level.",
-    "expected": {
-      "must_contain": [42, 43, 57],
-      "min_confidence": 200
-    }
+    "description": "Compounding: tshirt vs t-shirt.",
+    "expected": { "must_contain_at_least_one": [12, 13, 41, 42, 43], "min_confidence": 1000.0 }
   },
   {
     "query": "t-shirt",
-    "description": "Decompounding: t-shirt vs tshirt. Should match exactly.",
-    "expected": {
-      "must_contain": [42, 43, 57],
-      "min_confidence": 200
-    }
+    "description": "Decompounding: t-shirt vs tshirt.",
+    "expected": { "must_contain_at_least_one": [12, 13, 41, 42, 43], "min_confidence": 1000.0 }
   },
   {
     "query": "roundneck",
-    "description": "Compounding: roundneck vs round neck.",
-    "expected": {
-      "must_contain": [12, 13, 18],
-      "min_confidence": 180
-    }
+    "description": "Morphological: roundneck compounding.",
+    "expected": { "must_contain_at_least_one": [12, 13, 18], "min_confidence": 300.0 }
   },
   {
-    "query": "round-neck",
-    "description": "Punctuation: round-neck vs round neck.",
-    "expected": {
-      "must_contain": [12, 13, 18],
-      "min_confidence": 180
-    }
+    "query": "round-necked",
+    "description": "Suffix + Hyphen: round-necked variations.",
+    "expected": { "must_contain_at_least_one": [12, 13, 18], "min_confidence": 300.0 }
+  },
+  {
+    "query": "vneck",
+    "description": "Compounding: vneck vs v-neck.",
+    "expected": { "must_contain_at_least_one": [12, 13, 41, 42, 43, 60], "min_confidence": 300.0 }
+  },
+  {
+    "query": "v-necked",
+    "description": "Suffix + Hyphen: v-necked variations.",
+    "expected": { "must_contain_at_least_one": [12, 13, 41, 42, 43, 60], "min_confidence": 300.0 }
+  },
+  {
+    "query": "buttondown",
+    "description": "Compounding: buttondown vs button-down.",
+    "expected": { "must_contain_at_least_one": [51, 52, 53, 54, 55, 56, 33, 34, 38, 47], "min_confidence": 300.0 }
+  },
+  {
+    "query": "button down",
+    "description": "Whitespace: button down vs button-down.",
+    "expected": { "must_contain_at_least_one": [51, 52, 53, 54, 55, 56, 33, 34, 38, 47], "min_confidence": 300.0 }
+  },
+  {
+    "query": "shortsleeved",
+    "description": "Suffix + Compounding: shortsleeved shirts.",
+    "expected": { "must_contain_at_least_one": [12, 13, 17, 18, 41, 42, 43, 60], "min_confidence": 300.0 }
+  },
+  {
+    "query": "short sleeve",
+    "description": "Whitespace: short sleeve vs short-sleeve.",
+    "expected": { "must_contain_at_least_one": [12, 13, 17, 18, 41, 42, 43, 60], "min_confidence": 300.0 }
+  },
+  {
+    "query": "longsleeved",
+    "description": "Suffix + Compounding: longsleeved garments.",
+    "expected": { "must_contain_at_least_one": [14, 51, 52, 53, 54, 55, 56], "min_confidence": 300.0 }
+  },
+  {
+    "query": "Dior's",
+    "description": "Possessive: Dior's vs Dior.",
+    "expected": { "must_contain_at_least_one": [60, 8, 7, 11], "min_confidence": 300.0 }
+  },
+  {
+    "query": "CKOne",
+    "description": "Whitespace Compounding: CKOne vs CK One.",
+    "expected": { "must_contain_at_least_one": [6], "min_confidence": 800.0 }
+  },
+  {
+    "query": "J-adore",
+    "description": "Punctuation stripping: J-adore vs J'adore.",
+    "expected": { "must_contain_at_least_one": [8], "min_confidence": 800.0 }
   }
 ]
