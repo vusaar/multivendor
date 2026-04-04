@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { embeddingsService } from '../services/embeddings.service';
 import { db } from '../config/database';
+import { model } from '../config/llm';
+import { HumanMessage } from '@langchain/core/messages';
 
 export const syncCategoryController = async (req: Request, res: Response) => {
     try {
@@ -36,5 +38,32 @@ export const syncCategoryController = async (req: Request, res: Response) => {
     } catch (error: any) {
         console.error('[CATEGORY_SYNC_ERROR]', error);
         res.status(500).json({ status: 'error', message: error.message });
+    }
+};
+
+export const suggestSynonymsController = async (req: Request, res: Response) => {
+    const { name } = req.body;
+    if (!name) return res.status(400).json({ error: "Category name is required" });
+
+    try {
+        console.log(`[SYNONYM_GEN] Generating synonyms for category: ${name}`);
+        
+        const prompt = `As a fashion e-commerce expert, provide 5-10 synonyms, alternative names, or highly relevant search terms for the product category: "${name}". 
+        Include common variations, singular/plural forms, and colloquial terms used in Southern Africa (Zimbabwe/South Africa).
+        Return ONLY a JSON array of strings. No markdown, no explanation.
+        Example for "T-shirts": ["tees", "tshirts", "round neck shirts", "v-neck shirts", "tops", "summer shirts"].`;
+
+        const response = await model.invoke([new HumanMessage(prompt)]);
+        const text = response.content as string;
+        
+        // Clean markdown if AI includes it
+        const jsonMatch = text.match(/\[.*\]/s);
+        const synonyms = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+
+        console.log(`[SYNONYM_GEN] Suggested ${synonyms.length} synonyms for ${name}`);
+        res.json({ synonyms });
+    } catch (error: any) {
+        console.error('[SYNONYM_GEN_ERROR]', error);
+        res.status(500).json({ error: error.message });
     }
 };
