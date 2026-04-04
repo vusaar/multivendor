@@ -30,9 +30,33 @@ export class EmbeddingsService {
             product.grandparent_category_name
         ].filter(Boolean).join(" > ");
 
+        const extractSynonyms = (raw: any): string[] => {
+            if (Array.isArray(raw)) return raw;
+            if (typeof raw === 'string' && raw.trim().length > 0) {
+                try {
+                    const parsed = JSON.parse(raw);
+                    return Array.isArray(parsed) ? parsed : [raw];
+                } catch (e) {
+                    return raw.split(',').map((s: string) => s.trim());
+                }
+            }
+            if (raw && typeof raw === 'object') {
+                return Object.values(raw).filter(v => typeof v === 'string') as string[];
+            }
+            return [];
+        };
+
+        const synonymsArr = [
+            ...extractSynonyms(product.category_synonyms),
+            ...extractSynonyms(product.parent_category_synonyms)
+        ].filter((v, i, a) => a.indexOf(v) === i); // Unique
+
+        const categorySynonyms = synonymsArr.join(", ");
+
         const parts = [
             `Name: ${product.name}`,
             `CategoryPath: ${categories || "Uncategorized"}`,
+            `CategorySynonyms: ${categorySynonyms}`,
             `Description: ${product.description || ""}`,
             `Brand: ${product.brand_name || ""}`,
         ];
@@ -42,7 +66,7 @@ export class EmbeddingsService {
             parts.push(`Attributes: ${variations}`);
         }
 
-        return parts.filter(p => !p.endsWith(": ")).join(" | ");
+        return parts.filter(p => !p.endsWith(": ") && !p.endsWith(":")).join(" | ");
     }
 
     /**

@@ -49,7 +49,14 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
+            'synonyms' => 'nullable|string',
         ]);
+
+        $synonyms = isset($validated['synonyms']) 
+            ? array_map('trim', explode(',', $validated['synonyms'])) 
+            : [];
+            
+        unset($validated['synonyms']);
 
         // Check for duplicates in same leaf
         if (Category::where('name', $validated['name'])->where('parent_id', $validated['parent_id'])->exists()) {
@@ -64,7 +71,12 @@ class CategoryController extends Controller
             $validated['status'] = 'approved';
         }
 
-        Category::create($validated);
+        $validated['synonyms'] = $synonyms;
+        $category = Category::create($validated);
+        
+        // Dispatch background job to sync with Node.js embedding
+        \App\Jobs\SyncCategoryData::dispatch($category);
+
         return redirect()->route('admin.categories.index')->with('success', 'Category suggestion created successfully.');
     }
 
@@ -74,6 +86,10 @@ class CategoryController extends Controller
             abort(403);
         }
         $category->update(['status' => 'approved']);
+        
+        // Dispatch background job to sync with Node.js embedding
+        \App\Jobs\SyncCategoryData::dispatch($category);
+
         return redirect()->route('admin.categories.index')->with('success', 'Category approved successfully.');
     }
 
@@ -110,13 +126,28 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
+            'synonyms' => 'nullable|string',
         ]);
+
+        $synonyms = $request->synonyms 
+            ? array_map('trim', explode(',', $request->synonyms)) 
+            : [];
+
         $category->update([
             'name' => $request->name,
             'description' => $request->description,
             'parent_id' => $request->parent_id,
+            'synonyms' => $synonyms,
         ]);
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+
+        // Lazy Sync: Mark ALL products in this category branch for re-indexing
+        $allIds = $category->getAllDescendantIds();
+        \App\Models\Product::whereIn('category_id', $allIds)->update(['needs_reindex' => true]);
+
+        // Dispatch background job to sync with Node.js embedding
+        \App\Jobs\SyncCategoryData::dispatch($category);
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully. Related products will be re-indexed in the background.');
     }
 
     // Delete a category

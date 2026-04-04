@@ -1,588 +1,229 @@
 {
-  "total": 39,
-  "passed": 34,
-  "failed": 5,
+  "total": 14,
+  "passed": 11,
+  "failed": 3,
   "results": [
-    {
-      "query": "Mens sweater",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 14",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 95 (Verified)",
-          "pass": true,
-          "actual": 809.1049069699701
-        }
-      ]
-    },
-    {
-      "query": "jumper for him",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 14",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 688.3130390457488
-        }
-      ]
-    },
-    {
-      "query": "something warm for winter for my brother",
-      "passed": false,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 14,16",
-          "pass": false,
-          "actual": "None Found"
-        }
-      ]
-    },
-    {
-      "query": "knitwear gents",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 12,14,40",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 688.5239360176345
-        }
-      ]
-    },
     {
       "query": "tshirt",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 12,15,17,18,41",
+          "name": "Must Contain at least one of 12,13,41,42,43",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 90 (Verified)",
+          "name": "Score >= 1000 (Verified)",
           "pass": true,
-          "actual": 908.8065750118153
+          "actual": 1908.9308053892373
         }
       ]
     },
     {
-      "query": "tee for gents",
+      "query": "t-shirt",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 12,41,43",
+          "name": "Must Contain at least one of 12,13,41,42,43",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 45 (Verified)",
+          "name": "Score >= 1000 (Verified)",
           "pass": true,
-          "actual": 1208.89722300801
+          "actual": 1908.9308053892373
         }
       ]
     },
     {
-      "query": "casual cotton shirt for summer",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 12,41,51,52",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 5 (Verified)",
-          "pass": true,
-          "actual": 1208.89722300801
-        }
-      ]
-    },
-    {
-      "query": "men items",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 100 (Verified)",
-          "pass": true,
-          "actual": 432.64746765524535
-        }
-      ]
-    },
-    {
-      "query": "men's clothes but no dresses",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must NOT Contain Verified IDs 27,28,30,31,32",
-          "pass": true,
-          "actual": "None Found"
-        },
-        {
-          "name": "Score >= 100 (Verified)",
-          "pass": true,
-          "actual": 488.5426616668702
-        }
-      ]
-    },
-    {
-      "query": "something for her",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must NOT Contain Verified IDs 14",
-          "pass": true,
-          "actual": "None Found"
-        }
-      ]
-    },
-    {
-      "query": "gown for her",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 27,28,30",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 908.3864166851764
-        }
-      ]
-    },
-    {
-      "query": "something nice to wear to a wedding",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 27,28,30,31,32,6,7,8",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 0.5 (Verified)",
-          "pass": true,
-          "actual": 1208.904544445737
-        }
-      ]
-    },
-    {
-      "query": "party outfit for ladies",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 27,28,30,31,32,19,20",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 1 (Verified)",
-          "pass": true,
-          "actual": 1208.904544445737
-        }
-      ]
-    },
-    {
-      "query": "formal dress",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 27,28,30,31,32",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 1208.904544445737
-        }
-      ]
-    },
-    {
-      "query": "elegant blouse for work",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 19,20,21,23,26",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 1208.8503547578416
-        }
-      ]
-    },
-    {
-      "query": "professional office top for women",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 19,20,21,23,26",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 5 (Verified)",
-          "pass": true,
-          "actual": 1208.8503547578416
-        }
-      ]
-    },
-    {
-      "query": "white blouse",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 19,20,21,22,23,25,26",
-          "pass": true,
-          "actual": "Match Found"
-        },
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 1308.797764921455
-        }
-      ]
-    },
-    {
-      "query": "vest for him",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 16",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 1088.7498574703845
-        }
-      ]
-    },
-    {
-      "query": "sleeveless top gents",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 16",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 908.6925282684722
-        }
-      ]
-    },
-    {
-      "query": "undershirt for men",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 16",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 708.4482550621033
-        }
-      ]
-    },
-    {
-      "query": "dress shirt for work",
+      "query": "roundneck",
       "passed": false,
       "checks": [
         {
-          "name": "Must Contain at least one of 51,52,53,54,55,56,33,34,35,36",
+          "name": "Must Contain at least one of 12,13,18",
           "pass": false,
           "actual": "None Found"
         },
         {
-          "name": "Score >= 10 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 708.8503547578416
+          "actual": 508.4246435291959
         }
       ]
     },
     {
-      "query": "button down for office",
+      "query": "round-necked",
       "passed": false,
       "checks": [
         {
-          "name": "Must Contain at least one of 51,52,53,54,55,56",
+          "name": "Must Contain at least one of 12,13,18",
           "pass": false,
           "actual": "None Found"
         },
         {
-          "name": "Score >= 5 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 1208.8503547578416
+          "actual": 408.321438679738
         }
       ]
     },
     {
-      "query": "shimmer eyeshadow",
+      "query": "vneck",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain IDs 2",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 708.5277676582339
-        }
-      ]
-    },
-    {
-      "query": "makeup for eyes",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 2",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 608.4058157430135
-        }
-      ]
-    },
-    {
-      "query": "color palette for lids",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 2",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 1 (Verified)",
-          "pass": true,
-          "actual": 708.0757541611342
-        }
-      ]
-    },
-    {
-      "query": "Red lipstick",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 4",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 50 (Verified)",
-          "pass": true,
-          "actual": 1109.0156757831573
-        }
-      ]
-    },
-    {
-      "query": "makeup items red",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 4,5",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 45 (Verified)",
-          "pass": true,
-          "actual": 608.4022809979581
-        }
-      ]
-    },
-    {
-      "query": "matching lipstick and nail polish",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain IDs 4,5",
-          "pass": true,
-          "actual": "All Found"
-        },
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 608.3795465004714
-        }
-      ]
-    },
-    {
-      "query": "something for a date night",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 6,7,8,9,10,27,28,30",
+          "name": "Must Contain at least one of 12,13,41,42,43,60",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 0.1 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 508.9045444457369
+          "actual": 808.6589235866713
         }
       ]
     },
     {
-      "query": "smelling good gift",
+      "query": "v-necked",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 6,7,8,9,10",
+          "name": "Must Contain at least one of 12,13,41,42,43,60",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 1 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 608.379247381777
+          "actual": 408.51635626055935
         }
       ]
     },
     {
-      "query": "luxury scent for him",
+      "query": "buttondown",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 6,7",
+          "name": "Must Contain at least one of 51,52,53,54,55,56,33,34,38,47",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 10 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 608.4728826912782
+          "actual": 507.6646800241065
         }
       ]
     },
     {
-      "query": "perfume spray",
+      "query": "button down",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 6,7,8,9,10",
+          "name": "Must Contain at least one of 51,52,53,54,55,56,33,34,38,47",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 45 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 608.2130554103354
+          "actual": 1708.7277083830659
         }
       ]
     },
     {
-      "query": "Gifts under 20",
-      "passed": true,
-      "checks": []
-    },
-    {
-      "query": "Pizza",
+      "query": "shortsleeved",
       "passed": true,
       "checks": [
         {
-          "name": "Result Count <= 3",
+          "name": "Must Contain at least one of 12,13,17,18,41,42,43,60",
           "pass": true,
-          "actual": 1
+          "actual": "Match Found"
         },
         {
-          "name": "Score < 0.5 (Suggestion)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 0
+          "actual": 508.1564021110535
         }
       ]
     },
     {
-      "query": "electronics",
+      "query": "short sleeve",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain at least one of 12,13,17,18,41,42,43,60",
+          "pass": true,
+          "actual": "Match Found"
+        },
+        {
+          "name": "Score >= 300 (Verified)",
+          "pass": true,
+          "actual": 608.6776299072726
+        }
+      ]
+    },
+    {
+      "query": "longsleeved",
       "passed": false,
       "checks": [
         {
-          "name": "Score >= 0.1 (Verified)",
-          "pass": false,
-          "actual": 0
-        }
-      ]
-    },
-    {
-      "query": "pants for her",
-      "passed": true,
-      "checks": [
-        {
-          "name": "Score >= 10 (Verified)",
-          "pass": true,
-          "actual": 307.841796875
-        }
-      ]
-    },
-    {
-      "query": "something warm to wear",
-      "passed": false,
-      "checks": [
-        {
-          "name": "Must Contain at least one of 14,16",
+          "name": "Must Contain at least one of 14,51,52,53,54,55,56",
           "pass": false,
           "actual": "None Found"
+        },
+        {
+          "name": "Score >= 300 (Verified)",
+          "pass": true,
+          "actual": 1008.4663026610793
         }
       ]
     },
     {
-      "query": "summer fashion women",
+      "query": "Dior's",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 27,28,30,31,32,13,17,18",
+          "name": "Must Contain at least one of 60,8,7,11",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 1 (Verified)",
+          "name": "Score >= 300 (Verified)",
           "pass": true,
-          "actual": 1188.7298888725109
+          "actual": 408.5882967710495
         }
       ]
     },
     {
-      "query": "cosmetics set",
+      "query": "CKOne",
       "passed": true,
       "checks": [
         {
-          "name": "Must Contain at least one of 1,2,4,5",
+          "name": "Must Contain at least one of 6",
           "pass": true,
           "actual": "Match Found"
         },
         {
-          "name": "Score >= 45 (Verified)",
+          "name": "Score >= 800 (Verified)",
           "pass": true,
-          "actual": 608.3358338470756
+          "actual": 808.6223783572236
+        }
+      ]
+    },
+    {
+      "query": "J-adore",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Must Contain at least one of 8",
+          "pass": true,
+          "actual": "Match Found"
+        },
+        {
+          "name": "Score >= 800 (Verified)",
+          "pass": true,
+          "actual": 808.8042350048739
         }
       ]
     }

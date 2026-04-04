@@ -30,7 +30,10 @@ class SyncProductEmbeddings extends Command
         $query = \App\Models\Product::query();
 
         if (!$this->option('force')) {
-            $query->whereNull('embedding');
+            $query->where(function($q) {
+                $q->whereNull('embedding')
+                  ->orWhere('needs_reindex', true);
+            });
         }
 
         $count = $query->count();

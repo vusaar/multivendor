@@ -32,7 +32,6 @@ export const generateEmbeddingController = async (req: Request, res: Response) =
 export const formatAndGenerateEmbeddingController = async (req: Request, res: Response) => {
     try {
         const { product } = req.body;
-
         if (!product) {
             return res.status(400).json({ status: 'error', message: 'Product data is required' });
         }
