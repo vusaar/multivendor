@@ -1,0 +1,3790 @@
+[
+    {
+        "external_id": "o8A6kzEvyFE",
+        "name": "Adidas SwiftRun Prime",
+        "brand": "Adidas",
+        "description": "Classic style meets modern comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715773408837-b7074beb12d5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "p9AOeRM4Dhc",
+        "name": "SwiftStride Runner",
+        "brand": "Adidas",
+        "description": "Comfortable shoe for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715692965423-28e7b823a60d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray",
+            "material": "Mesh",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "rKVvfSXMCYc",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Stylish sneaker for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693754281-c5d0b913b3bd?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Ntrcxk89fqQ",
+        "name": "Coastal Breeze Sandal",
+        "brand": "Island Footwear",
+        "description": "Comfortable sandals perfect for warm weather.",
+        "price": 32.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715776042985-773c8f18b177?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Beige",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Sandal"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "3JTpgFe-xvY",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Black and red sneakers for ultimate performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693268950-402863c264e1?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and Red",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "vvFkdKq48Ms",
+        "name": "CloudStride White Walker",
+        "brand": "Adidas",
+        "description": "Clean white sneakers for everyday comfort and style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715775506665-3201fe907dda?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ohx40WN0N_c",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Black and red sneakers for ultimate performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693268872-656402504718?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and Red",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "apTFmKnAePE",
+        "name": "SwiftStride Runner",
+        "brand": "Adidas",
+        "description": "Comfortable shoe for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715692965448-770874c71e7c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxhZGlkYXMlMjBzbmVha2VycyUyMG1lbnxlbnwwfHx8fDE3NzY2MDQ3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "U3BTZuFOOTo",
+        "name": "AquaStride 200 Sandals",
+        "brand": "Adidas",
+        "description": "Blue and silver sandals for casual comfort.",
+        "price": 39.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715776043028-c42e34cca32f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8YWRpZGFzJTIwc25lYWtlcnMlMjBtZW58ZW58MHx8fHwxNzc2NjA0NzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/Silver",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Sandal"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "DATvpOOh-Vw",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Black and red sneakers for ultimate performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693269004-232612f55d4e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8YWRpZGFzJTIwc25lYWtlcnMlMjBtZW58ZW58MHx8fHwxNzc2NjA0NzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and Red",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Ngxjs5fVBNc",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Blue and yellow sneaker for ultimate performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715692965435-d181642ed2d2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8YWRpZGFzJTIwc25lYWtlcnMlMjBtZW58ZW58MHx8fHwxNzc2NjA0NzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/Yellow",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "f_AEtiupCtY",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Black and red sneakers for ultimate performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693268936-01277f90e49f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8YWRpZGFzJTIwc25lYWtlcnMlMjBtZW58ZW58MHx8fHwxNzc2NjA0NzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Red",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "BGKYYeKkzNg",
+        "name": "Velocity Runner X",
+        "brand": "Adidas",
+        "description": "Stylish sneaker for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693754047-4c0b56576495?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8YWRpZGFzJTIwc25lYWtlcnMlMjBtZW58ZW58MHx8fHwxNzc2NjA0NzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ZrP2ahtPsG8",
+        "name": "AirStride Velocity Women's",
+        "brand": "Nike",
+        "description": "White sneakers for everyday comfort and style.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1585591359088-e144e8a61170?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxuaWtlJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "TtcdoHuv3RE",
+        "name": "CloudStride 7 Women's",
+        "brand": "Nike",
+        "description": "Comfortable white sneakers for everyday wear.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1631954776681-cb6969c01373?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxuaWtlJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "RlDOPY6rBa0",
+        "name": "Air Bloom Velocity",
+        "brand": "Nike",
+        "description": "Stylish sneakers for everyday comfort and performance.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1592771404380-467f535c7c4f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxuaWtlJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Pink",
+            "material": "Mesh/Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "jvoZ-Aux9aw",
+        "name": "Air Force 1 Shadow Whisper",
+        "brand": "Nike",
+        "description": "Stylish white and blue Air Force 1 sneakers.",
+        "price": 52.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxuaWtlJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Blue",
+            "material": "Leather/Rubber",
+            "use_case": "Casual",
+            "style": "Athletic",
+            "gender": "Women's"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "qGJ_-d1wlEg",
+        "name": "AirStride Velocity Women's",
+        "brand": "Nike",
+        "description": "Stylish black and white athletic shoes for women.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1613740104907-d537a85e1274?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxuaWtlJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic",
+            "use_case": "Athletic",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "7fEgCk-1Hkw",
+        "name": "Air Force 1 '07 Essential",
+        "brand": "Nike",
+        "description": "Classic white sneakers for everyday style and comfort.",
+        "price": 55.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1712168332222-c1996322f935?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Low Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "GWjgGNL8bnk",
+        "name": "Air Swift Horizon",
+        "brand": "Nike",
+        "description": "Stylish blue shoes for everyday comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1651573091103-530884aa68ff?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue",
+            "material": "Mesh",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "g3CMh2nqj_w",
+        "name": "Legend Essential 2 Pink",
+        "brand": "Nike",
+        "description": "Durable training shoe with a supportive, stable design.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1605408499391-6368c628ef42?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Mesh",
+            "use_case": "Training",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Q9Med19SzO0",
+        "name": "Nike SwiftRun Black",
+        "brand": "Nike",
+        "description": "Sleek black sneakers for everyday comfort.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1553012780-32f198e6749d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "black",
+            "material": "synthetic",
+            "use_case": "casual",
+            "style": "sneakers",
+            "gender": "women"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "5zKWJklU8vI",
+        "name": "Air Force 1 Low Classics",
+        "brand": "Nike",
+        "description": "Classic white sneakers for everyday style.",
+        "price": 55.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1640391846040-6e9e41388ad4?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Low Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "VRK4bIBHo1E",
+        "name": "BlushStride Runner",
+        "brand": "Nike",
+        "description": "Pink sneakers for everyday comfort and style.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1549971352-c31ced98e984?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxN3x8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Pink",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Low Top",
+            "closure_type": "Lace-up",
+            "gender": "Women's"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ttJVsANYpJQ",
+        "name": "Air Swift Run Women's",
+        "brand": "Nike",
+        "description": "Blue and white sneakers for everyday wear.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1618151260631-5f37f9c84ec7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOHx8bmlrZSUyMHNuZWFrZXJzJTIwd29tZW58ZW58MHx8fHwxNzc2NjA0NzY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/White",
+            "material": "Mesh/Rubber",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "kLnlaZJ4SMA",
+        "name": "Velocity Runner X",
+        "brand": "Nike",
+        "description": "Black and white athletic shoes for running.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1619253341026-74c609e6ce50?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "sjOa6bwuze4",
+        "name": "Puma Velocity Runner",
+        "brand": "Puma",
+        "description": "Black sneakers for running on varied terrain.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1767589325064-a20f42c1da11?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "black",
+            "material": "synthetic",
+            "use_case": "running",
+            "style": "athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "DNm5TerU5y0",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715702725758-c43b33431938?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Assorted",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "MKtyUDSSj1c",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715711169869-148ad11c6e30?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Assorted",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Y16Dem1uWWY",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715773150368-55945728385a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Assorted",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ZP0y62ZMQ3M",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "White and orange sneaker built for speed.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715709969630-e98207ea4c18?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Orange",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "aFb6gwo9aT8",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Black, orange, and white running shoes for speed.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715001066168-20ea073c2337?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Orange/White",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "A9mZfJnaaqU",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Black and orange sneaker built for speed.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715702725771-30cbfbb60913?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Orange",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "PCyPr-ShmnM",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Black and blue sneaker for optimal performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715707814430-350bfd0b53fd?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxwdW1hJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwNDgxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Blue",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "NtQQocq8bxs",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715692280006-6943c7374af3?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Unspecified",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "vuiolNSkX6A",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Black and yellow running shoes for optimal performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715001374698-dea6311634fe?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Yellow",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "bve9-87DqR4",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715707814442-b41dc0468c09?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Assorted",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "L_qA-s3IBco",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance shoe for speed and agility.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715692668245-34ec6d7747a2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "IPcRGn-WAww",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "White and orange sneaker built for speed.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715709969696-dc181ee9deb8?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Orange",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "fzlsDxykXx8",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Black and red sneaker for running.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715691873578-9e4d24d24e8a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Red",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "FVqGsZcV2b4",
+        "name": "Puma Velocity Nitro Black",
+        "brand": "Puma",
+        "description": "Black and yellow running shoe for speed.",
+        "price": 45.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715001374699-1feb736d8d57?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNnx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Yellow",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "6ltH-6rel4k",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Gray and orange sneaker for running.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715709969666-e47eaa84cdb9?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxN3x8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray/Orange",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "s_Jl3LC45gc",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Shelf-displayed running shoes for optimal performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715001065988-15d0686841e6?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOHx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Assorted",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Ta73p3rY51A",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance shoe for speed and agility.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715711169896-62c56924a46f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOXx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "bN9-5N4CkPU",
+        "name": "Velocity Runner X",
+        "brand": "Puma",
+        "description": "Performance shoe for speed and agility.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715714275864-dab2f545e0da?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyMHx8cHVtYSUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "YELHnEE7m5A",
+        "name": "Reebok Skybound Runner",
+        "brand": "Reebok",
+        "description": "Lightweight sneakers designed for ultimate performance.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1726317219474-7f8a98b53743?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Grey",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "B8y_oINx2cA",
+        "name": "LexScope Ed Rosas Collab",
+        "brand": "Reebok",
+        "description": "Stylish sneakers designed for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1582740510910-388f37f9d4b6?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather/Synthetic",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "HfZYbfvAdyY",
+        "name": "Zig Kinetica Horizon",
+        "brand": "Reebok",
+        "description": "Innovative design meets responsive cushioning.",
+        "price": 45.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1580977252013-f5d20c3303ae?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Mesh/Synthetic",
+            "use_case": "Training/Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "StVQzRn3Xeo",
+        "name": "Reebok SwiftStride Runner",
+        "brand": "Reebok",
+        "description": "Comfortable tennis shoes for everyday wear.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1727957019444-a9c99ee0ebb7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "30oJZvpkoYs",
+        "name": "Reebok RetroStride Classic",
+        "brand": "Reebok",
+        "description": "Classic style meets modern comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1609761063294-814eae6cd1c7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Leather and Synthetic",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "lqTDTCiedDA",
+        "name": "Reebok Ace Trainer",
+        "brand": "Reebok",
+        "description": "Classic white sneakers for everyday comfort and style.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1582213153939-613105f23a1b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "APuCR_k4ve8",
+        "name": "AirStride Velocity Low",
+        "brand": "Nike",
+        "description": "Classic white sneakers for everyday style.",
+        "price": 52.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1629138074901-afcd8f576370?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Low Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "418UmUPzlkI",
+        "name": "Reebok SwiftStride Runner",
+        "brand": "Reebok",
+        "description": "Stylish and comfortable sneakers for everyday wear.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1695459590088-d6fd3cc97cfa?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxyZWVib2slMjBzbmVha2VycyUyMHdvbWVufGVufDB8fHx8MTc3NjYwNDQ2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Orange",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "1bu2dmchN38",
+        "name": "Zig Kinetica Horizon",
+        "brand": "Reebok",
+        "description": "Innovative design meets responsive cushioning for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1580977251946-c5f692a4db0d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8cmVlYm9rJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ0Njd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/White/Green",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running/Training",
+            "style": "Athletic",
+            "gender": "Women's"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "mgYvAHWSTPw",
+        "name": "Reebok Ascent High White",
+        "brand": "Reebok",
+        "description": "Classic high-top sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1557599403-563a6117f8dd?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8cmVlYm9rJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ0Njd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "CjvlhrWU0o0",
+        "name": "Reebok Ace Trainer",
+        "brand": "Reebok",
+        "description": "Classic white sneakers for everyday comfort and style.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1582231640349-6ea6881fabeb?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8cmVlYm9rJTIwc25lYWtlcnMlMjB3b21lbnxlbnwwfHx8fDE3NzY2MDQ0Njd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "WWDMEVcGPbU",
+        "name": "Velocity Runner X",
+        "brand": "Asics",
+        "description": "Performance running shoes built for speed and comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1709258228137-19a8c193be39?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multicolor",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "tR2ZoPR4OPc",
+        "name": "Gel-Kayano 14 Nimbus Runner",
+        "brand": "Asics",
+        "description": "Superior cushioning for ultimate running performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1746206673199-5b75dcec1018?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "eAdTc9p1EKU",
+        "name": "Velocity Racer X",
+        "brand": "Asics",
+        "description": "Colorful athletic shoes designed for optimal performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1762943107238-a87f6f7bf6a9?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multi-Color",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "nQzQcJBmKbk",
+        "name": "Velocity Racer X",
+        "brand": "Asics",
+        "description": "White athletic shoes designed for optimal running performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1765914448113-ebf0ce8cb918?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Ux9KIBNO-rQ",
+        "name": "Velocity Racer X",
+        "brand": "Asics",
+        "description": "Vibrant running shoe for optimal performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1644001992668-3b9ed080533a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Blue/Orange",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "9kI1gdu5M3M",
+        "name": "SkyStride Velocity",
+        "brand": "Asics",
+        "description": "Lightweight running shoe for ultimate performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1596182883210-b7d32c0344a0?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/White",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic",
+            "feature": "Levitating"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "8YunwO60gRk",
+        "name": "Gel-Kinsei OG White Runner",
+        "brand": "Asics",
+        "description": "White running shoe for optimal performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1575456632743-a868c5743aa2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Blue",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "LdhTorI9T-o",
+        "name": "Kinsei White Glide",
+        "brand": "Asics",
+        "description": "White and purple running shoes for women.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1575456456278-936c89ccdb7b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxhc2ljcyUyMHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Purple",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic",
+            "gender": "Female"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "NMVpoZiRZjY",
+        "name": "Kinsei White Glide",
+        "brand": "Asics",
+        "description": "White and purple running shoes for women.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1575456571326-2a5c7478aeb2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Purple",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Hl0gJVOqgUE",
+        "name": "GEL-MAI White Streak",
+        "brand": "ASICS Tiger",
+        "description": "Classic white sneaker for everyday style and comfort.",
+        "price": 45.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1650296513868-efb604a4c02a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Athletic",
+            "gender": "Unisex"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "_ywY6WOWc8A",
+        "name": "Velocity Runner X",
+        "brand": "Asics",
+        "description": "High-performance running shoe for ultimate comfort.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1580379792441-eb149bd60e65?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ZJ9iakmyCQo",
+        "name": "Velocity Runner 2.0",
+        "brand": "ASICS",
+        "description": "High-performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581156083670-0cea2d666b09?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "o3utufCJUvc",
+        "name": "Velocity Racer X",
+        "brand": "Asics",
+        "description": "White and green running shoes for optimal performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1571741590149-a29f00898167?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Green",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Low-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ianMtmovkVk",
+        "name": "Tiger Runner Classic",
+        "brand": "Asics",
+        "description": "Retro style running shoe for everyday wear.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1602504786849-b325e183168b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNnx8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Gold",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Retro Runner"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "bxwIEPrSbpA",
+        "name": "Gel Lyte V Mint Leaf Runner",
+        "brand": "Asics",
+        "description": "Retro style running shoe with superior comfort.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1584539696499-bff0b4768e4e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxN3x8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Green/Mint",
+            "material": "Suede/Mesh",
+            "use_case": "Running/Casual",
+            "style": "Athletic",
+            "series": "Gel Lyte V",
+            "collaboration": "Ronnie Fieg"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "4-hLHgJnLqg",
+        "name": "Asics Mint Glide Runner",
+        "brand": "Asics",
+        "description": "Fresh mint running shoes for ultimate performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1591222018978-ed27e9ee3f30?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyMHx8YXNpY3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Mint Green",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "WncEp_4lL_c",
+        "name": "ShadowStride 100",
+        "brand": "New Balance",
+        "description": "Stylish monochrome sneakers for everyday comfort.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1704151680471-1ffab06afa7d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Canvas/Rubber",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "pfAomVlNxsc",
+        "name": "StrideMax 200",
+        "brand": "New Balance",
+        "description": "Comfortable sneakers for everyday wear.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1649418039782-3bcfa851868b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray/White",
+            "material": "Mesh/Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "YMU2RNYjL0M",
+        "name": "Velocity Runner X",
+        "brand": "Nike",
+        "description": "Performance footwear designed for speed and agility.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1628429437853-40ec8ebe3386?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/Red",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "jKZ8qO6juik",
+        "name": "New Balance 574 Classic White",
+        "brand": "New Balance",
+        "description": "Classic white sneakers for everyday comfort and style.",
+        "price": 52.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1542272604-78d13c1f741a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Athletic",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "tgdgb6yb0Qo",
+        "name": "997H Heritage Walker",
+        "brand": "New Balance",
+        "description": "Classic comfort meets modern style in this sneaker.",
+        "price": 52.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1621315271772-28b1f3a5df87?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray/White",
+            "material": "Suede/Mesh",
+            "use_case": "Casual",
+            "style": "Athletic",
+            "gender": "Unisex"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "dxH3pvXEX9Y",
+        "name": "NB Retro Runner 327",
+        "brand": "New Balance",
+        "description": "Retro style meets modern comfort.",
+        "price": 45.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1593169158019-e33d5a325c4c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Orange/White",
+            "material": "Suede/Nylon",
+            "use_case": "Casual",
+            "style": "Retro Runner"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "gcpSLDxvjTQ",
+        "name": "Velocity Runner X",
+        "brand": "Nike",
+        "description": "Green, white, and black athletic shoes for performance.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1617033298110-a9ab5ab77a9d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxuZXclMjBiYWxhbmNlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Green/White/Black",
+            "material": "Mesh/Synthetic",
+            "use_case": "Athletic",
+            "style": "Running"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "s5nV624t42U",
+        "name": "Red Runner 574",
+        "brand": "New Balance",
+        "description": "Red New Balance sneakers for casual wear.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1559745206-ca4056293ddc?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8bmV3JTIwYmFsYW5jZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwNDk4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "red",
+            "material": "suede/mesh",
+            "use_case": "casual",
+            "style": "low-top",
+            "closure": "lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "HPFL64cDIQw",
+        "name": "Velocity Pro Basketball Shoe",
+        "brand": "Nike",
+        "description": "High-performance basketball shoe for ultimate court control.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1613380657175-407fc07c69c3?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNnx8bmV3JTIwYmFsYW5jZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwNDk4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Synthetic Leather",
+            "use_case": "Basketball",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "IoQ7ggk4oN4",
+        "name": "NB Retro Runner 574",
+        "brand": "New Balance",
+        "description": "Classic comfort and style for everyday wear.",
+        "price": 45.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1610630879511-3f6a23c19a02?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxN3x8bmV3JTIwYmFsYW5jZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwNDk4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red/Blue",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ezdrvzA1hZw",
+        "name": "NB Pastel Runner",
+        "brand": "New Balance",
+        "description": "Stylish sneaker for everyday comfort and support.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOHx8bmV3JTIwYmFsYW5jZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwNDk4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Pink/Grey/White",
+            "material": "Mesh/Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "4Sx2MVQFzqw",
+        "name": "StrideMax 200",
+        "brand": "New Balance",
+        "description": "Classic sneakers for everyday comfort and style.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1637220819638-827a28724828?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOXx8bmV3JTIwYmFsYW5jZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwNDk4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Neutral",
+            "material": "Suede/Mesh",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "oOB3g2eQNkc",
+        "name": "NB 850 Retro Runner",
+        "brand": "New Balance",
+        "description": "Classic style meets modern comfort.",
+        "price": 52.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1610631053144-7be0f3a4f22d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyMHx8bmV3JTIwYmFsYW5jZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwNDk4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/Red",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "kdNBDNpgBOk",
+        "name": "UA Velocity Runner",
+        "brand": "Under Armour",
+        "description": "Blue and yellow running shoes for optimal performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1635770997779-8ec3396088a5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHwlNUN1bmRlciUyMGFybW91ciUyMHJ1bm5pbmclMjBzaG9lcyUyMiUyMDE1JTIwMTA3fGVufDB8fHx8MTc3NjYwODI3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/Yellow",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "HlP544raW4o",
+        "name": "Velocity 7 Runner",
+        "brand": "Under Armour",
+        "description": "High-performance running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1604726923839-606d2f0e0870?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHwlNUN1bmRlciUyMGFybW91ciUyMHJ1bm5pbmclMjBzaG9lcyUyMiUyMDE1JTIwMTA3fGVufDB8fHx8MTc3NjYwODI3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic",
+            "sport": "Basketball"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "qmDB3JT9nzU",
+        "name": "Velocity Pro 7 Runner",
+        "brand": "Under Armour",
+        "description": "High-performance running shoe for ultimate agility.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1604726923595-501ae4d69503?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHwlNUN1bmRlciUyMGFybW91ciUyMHJ1bm5pbmclMjBzaG9lcyUyMiUyMDE1JTIwMTA3fGVufDB8fHx8MTc3NjYwODI3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Orange/Black",
+            "material": "Mesh/Synthetic",
+            "use_case": "Running",
+            "style": "Athletic",
+            "sport": "Basketball"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "853F1TIGVpk",
+        "name": "Velocity Glide 7",
+        "brand": "Hoka",
+        "description": "Lightweight running shoe with responsive cushioning.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1774280246516-5a817f172a39?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHwlNUNob2thJTIwcnVubmluZyUyMHNob2VzJTIyJTIwMTUlMjAxMDd8ZW58MHx8fHwxNzc2NjA4MzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Lime Green",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "V2EJbBwUVX8",
+        "name": "Velocity Glide 7",
+        "brand": "Hoka",
+        "description": "Lightweight running shoe with responsive cushioning.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1774280246585-2603ec7b3409?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHwlNUNob2thJTIwcnVubmluZyUyMHNob2VzJTIyJTIwMTUlMjAxMDd8ZW58MHx8fHwxNzc2NjA4MzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Lime Green",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "gIUoWrD_bZ8",
+        "name": "Velocity Runner Max",
+        "brand": "Nike",
+        "description": "Performance running shoe for ultimate comfort.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1676041669566-fead69bd7007?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHwlNUNob2thJTIwcnVubmluZyUyMHNob2VzJTIyJTIwMTUlMjAxMDd8ZW58MHx8fHwxNzc2NjA4MzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multicolor",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "SH7hhJ_7EYE",
+        "name": "Summit Trailblazer Low",
+        "brand": "The North Face",
+        "description": "Durable trainers for everyday adventures.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1625334737077-28fa99b205db?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHwlNUN0aGUlMjBub3J0aCUyMGZhY2UlMjB0cmFpbmVycyUyMiUyMDE1JTIwMTA3fGVufDB8fHx8MTc3NjYwODM0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Neutral",
+            "material": "Synthetic",
+            "use_case": "Hiking",
+            "style": "Trail Running"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "LgiAq4E-rHU",
+        "name": "Classic Canvas Low-Tops",
+        "brand": "Vans",
+        "description": "Durable white sneakers for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1572012341822-14a821eae796?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHwlNUN2YW5zJTIwc25lYWtlcnMlMjIlMjAxNSUyMDEyNXxlbnwwfHx8fDE3NzY2MDgzNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "white",
+            "material": "canvas",
+            "use_case": "casual",
+            "style": "sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "f2sAbzkm8wQ",
+        "name": "Skool Pro Classic Black",
+        "brand": "Vans",
+        "description": "Durable skate shoe with iconic side stripe.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1589312866743-e043e4a6e2b9?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHwlNUN2YW5zJTIwc25lYWtlcnMlMjIlMjAxNSUyMDEyNXxlbnwwfHx8fDE3NzY2MDgzNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/White",
+            "material": "Canvas/Suede",
+            "use_case": "Skateboarding/Casual",
+            "style": "Low Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "gCBjJJmaRes",
+        "name": "Vans X Nat Geo: Explorer Edition",
+        "brand": "Vans",
+        "description": "Stylish, durable sneakers inspired by exploration.",
+        "price": 52.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1591387789629-2d8d4f1c65e7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHwlNUN2YW5zJTIwc25lYWtlcnMlMjIlMjAxNSUyMDEyNXxlbnwwfHx8fDE3NzY2MDgzNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/Black",
+            "material": "Textile",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "KDmItsN13cw",
+        "name": "Sk8-Hi Shadow Walker",
+        "brand": "Vans",
+        "description": "Classic high-top sneakers for everyday style.",
+        "price": 52.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1542219550-a204208f019d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHwlNUN2YW5zJTIwc25lYWtlcnMlMjIlMjAxNSUyMDEyNXxlbnwwfHx8fDE3NzY2MDgzNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Green",
+            "material": "Canvas/Suede",
+            "use_case": "Casual",
+            "style": "High-Top",
+            "closure_type": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "2Rqmq5A-yZg",
+        "name": "Crimson Classic Low",
+        "brand": "Vans",
+        "description": "Iconic red sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1645959227827-905456533e13?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHwlNUN2YW5zJTIwc25lYWtlcnMlMjIlMjAxNSUyMDEyNXxlbnwwfHx8fDE3NzY2MDgzNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "Sneakers",
+            "laces": "White"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "dcnJwwlnhtI",
+        "name": "Classic Blacktop All-Star",
+        "brand": "Converse",
+        "description": "Iconic black canvas shoe for everyday style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1770528713866-f1e5f9b0cc25?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHwlNUNjb252ZXJzZSUyMHNuZWFrZXJzJTIyJTIwMTUlMjAxMjV8ZW58MHx8fHwxNzc2NjA4NDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "AZTpFmYBzzs",
+        "name": "Chuck Taylor Classic Low Top",
+        "brand": "Converse",
+        "description": "Iconic canvas sneakers for everyday style.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1621967133462-f2840898a8e2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHwlNUNjb252ZXJzZSUyMHNuZWFrZXJzJTIyJTIwMTUlMjAxMjV8ZW58MHx8fHwxNzc2NjA4NDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "Sneakers",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "r6DFyr3939w",
+        "name": "Pink Pop Low-Tops",
+        "brand": "Converse",
+        "description": "Classic pink canvas sneakers for everyday style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1645740369993-c266df18eec1?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHwlNUNjb252ZXJzZSUyMHNuZWFrZXJzJTIyJTIwMTUlMjAxMjV8ZW58MHx8fHwxNzc2NjA4NDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Pink",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "Sneakers",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "km-I59OnseU",
+        "name": "Teal Tide High-Tops",
+        "brand": "Converse",
+        "description": "Classic teal high-tops for everyday style.",
+        "price": 48.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1554192833-2e031f76e976?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHwlNUNjb252ZXJzZSUyMHNuZWFrZXJzJTIyJTIwMTUlMjAxMjV8ZW58MHx8fHwxNzc2NjA4NDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "teal",
+            "material": "canvas",
+            "use_case": "casual",
+            "style": "high-top",
+            "closure": "lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Tf2oIEhbYhk",
+        "name": "Chuck Taylor All Star Classic",
+        "brand": "Converse",
+        "description": "Timeless style, everyday comfort, iconic design.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1680419806925-ee1aae5abb86?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHwlNUNjb252ZXJzZSUyMHNuZWFrZXJzJTIyJTIwMTUlMjAxMjV8ZW58MHx8fHwxNzc2NjA4NDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "RjiqD3kEGxo",
+        "name": "Air Ascent IV 'A Ma Maniere'",
+        "brand": "Jordan",
+        "description": "Premium comfort and style, elevated design.",
+        "price": 48.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1684918652908-8c5b4a154781?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Off-White/Burgundy",
+            "material": "Leather/Suede",
+            "use_case": "Casual/Lifestyle",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "OX_en7CXMj4",
+        "name": "AirStride Velocity",
+        "brand": "Nike",
+        "description": "Stylish sneakers for everyday wear and performance.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multi-color",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "bYY9YkqMf-c",
+        "name": "Skyline Elevate High",
+        "brand": "Nike",
+        "description": "Classic high-top sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1610386779613-0e6495c16ad8?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "hhC7SAz4Teo",
+        "name": "ShadowStride Velocity",
+        "brand": "Apex Athletics",
+        "description": "Sleek black and white shoes for versatile style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1645833889386-2782e290ee3b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "iP00EzjNIAI",
+        "name": "Air Fire Fusion 5",
+        "brand": "Jordan",
+        "description": "Iconic style meets modern comfort in this sneaker.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1643223669135-c3d63d27ede8?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/Sail",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "syJVsEvoHUc",
+        "name": "Skybound Velocity Runner",
+        "brand": "Apex Athletics",
+        "description": "Stylish sneakers for everyday comfort and performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1634320498239-62f0fddfe877?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Grey",
+            "material": "Mesh/Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "RA1bZn8MNu8",
+        "name": "Air Zoom Velocity Orange",
+        "brand": "Nike",
+        "description": "Orange and white sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1628508006102-00bf9a30bf1c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Orange/White",
+            "material": "Mesh/Rubber",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "8Z-GEDwhzMo",
+        "name": "Skybound Retro IV",
+        "brand": "AirStride",
+        "description": "Classic blue and white sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1750180393167-270e20b0e788?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/White",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "nqG1q-kyssc",
+        "name": "Shadowstrike Velocity",
+        "brand": "Apex Athletics",
+        "description": "Black and purple sneakers for ultimate performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1634320498229-0b8c7d009fe7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxqb3JkYW4lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDkzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Purple",
+            "material": "Synthetic",
+            "use_case": "Performance",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "zajmpkdDLR0",
+        "name": "Air Fire 5 Retro",
+        "brand": "Jordan",
+        "description": "Classic white sneaker with vibrant red accents.",
+        "price": 55.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1643223646513-50ab92191304?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Qk_EQcfA4X0",
+        "name": "Air Fire Rivals",
+        "brand": "Jordan",
+        "description": "Classic style meets modern fire.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1643223654986-b5303a57c33f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/White/Sail",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "KeAJ36SRgdw",
+        "name": "Air Fire Retro IV",
+        "brand": "Air Jordan",
+        "description": "Classic style and performance for everyday wear.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1610897600804-c36e2336ad3a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red/Black",
+            "material": "Leather/Mesh",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "JYkpX6E9if8",
+        "name": "Air Legacy One",
+        "brand": "Jordan",
+        "description": "Stylish Air Jordan 1 sneaker for everyday wear.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1744832982645-a875f05fced6?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "3vaM5m-3yAI",
+        "name": "Shadow Strike Basketball Shoe",
+        "brand": "Nike",
+        "description": "Black and white basketball shoes for peak performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1610386779657-e803bc4f9edd?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic Leather",
+            "use_case": "Basketball",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "sCt51Xhlu4A",
+        "name": "Air Elevate '96",
+        "brand": "Air Jordan",
+        "description": "Iconic red and white basketball shoes.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581068506097-9eb0677b95af?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/White",
+            "material": "Leather/Rubber",
+            "use_case": "Basketball",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "JuTeyNxVExA",
+        "name": "Air Legacy One",
+        "brand": "Nike",
+        "description": "Classic white sneakers, iconic style, ultimate comfort.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1723797935115-92b666c26e14?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNnx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Retro",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "lBhxU9ycdcs",
+        "name": "Air Elevate '96",
+        "brand": "Jordan",
+        "description": "Iconic style meets modern performance.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581068503354-ac305d7cc399?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxN3x8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/White",
+            "material": "Leather/Synthetic",
+            "use_case": "Basketball/Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "D6MU_uu4bI8",
+        "name": "ShadowStride Runner",
+        "brand": "Apex Athletics",
+        "description": "Sleek black and white shoe for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1704311875950-c9b90ffc5148?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOHx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "-vgEpoCLPMA",
+        "name": "Air Legacy Retro",
+        "brand": "Nike",
+        "description": "Classic red and white sneaker for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1565321590372-09331b9dd1eb?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOXx8am9yZGFuJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/White",
+            "material": "Leather/Rubber",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "k-ottH-yojk",
+        "name": "Carnaby Ace Leather Sneakers",
+        "brand": "Lacoste",
+        "description": "Classic white sneakers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489291789-394a53ad954d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "zq_ekF0l8eM",
+        "name": "Lacoste Carnaby Set White",
+        "brand": "Lacoste",
+        "description": "Classic white sneakers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489291846-0bc130eac071?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "LnP6U_grkjQ",
+        "name": "Carnaby Ace Leather Sneaker",
+        "brand": "Lacoste",
+        "description": "Classic white and green trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489292294-426912777649?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Green",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "-YE65Y0kgws",
+        "name": "Lacoste Carnaby Ace",
+        "brand": "Lacoste",
+        "description": "Classic white sneaker with signature green stripe.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489291778-cb2a414d6ee0?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "xqPMQCP0TiU",
+        "name": "Carnaby Set White Leather Sneakers",
+        "brand": "Lacoste",
+        "description": "Classic white sneakers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489291997-9aff86799ae5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "0Xu_fMEc_iw",
+        "name": "Carnaby Ace Leather Sneaker",
+        "brand": "Lacoste",
+        "description": "Classic white tennis shoe for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489291844-b7ef817e10d5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "hdjN_9CJAjE",
+        "name": "Lacoste Carnaby Set White Leather",
+        "brand": "Lacoste",
+        "description": "Classic leather trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1722489292298-d809c370aef5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "vsDTDkRvnzo",
+        "name": "Powercourt Leather Trainer",
+        "brand": "Lacoste",
+        "description": "Classic white leather trainers for everyday style.",
+        "price": 55.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718802323268-3c9838e00efd?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "vYOth0QbPvA",
+        "name": "Powercourt Leather Trainer",
+        "brand": "Lacoste",
+        "description": "Classic white leather trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718802322789-531327e98b0d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxsYWNvc3RlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "EtJO5VH6ID8",
+        "name": "Lacoste Suede Baseshot Trainer",
+        "brand": "Lacoste",
+        "description": "Premium suede trainers for everyday style and comfort.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718882703813-5b18d074242a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Neutral",
+            "material": "Suede",
+            "use_case": "Casual",
+            "style": "Trainer",
+            "closure_type": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "fM2HkAMYiw8",
+        "name": "Powercourt Leather Trainer",
+        "brand": "Lacoste",
+        "description": "Classic white leather trainers for everyday style.",
+        "price": 55.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718802323158-b32c0330ad4a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "lVRHDFoMJpQ",
+        "name": "Powercourt Leather Ace",
+        "brand": "Lacoste",
+        "description": "Classic white leather trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718802323237-5614c74b3e54?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "EQR0tX_cI1M",
+        "name": "Lacoste Baseshot Suede Classic",
+        "brand": "Lacoste",
+        "description": "Premium suede trainers with iconic crocodile detail.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718882704099-1c6853cff17d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Green/White",
+            "material": "Suede",
+            "use_case": "Casual",
+            "style": "Trainer",
+            "features": "Crocodile Logo"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "-3QyVl_Ezdg",
+        "name": "Lacoste Baseshot Suede",
+        "brand": "Lacoste",
+        "description": "Premium suede trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718882704207-067806784758?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Green",
+            "material": "Suede",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "UYvkkWPfBhw",
+        "name": "Lacoste Baseshot Suede",
+        "brand": "Lacoste",
+        "description": "Premium suede trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718932352846-5bb71c20bd5e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Neutral",
+            "material": "Suede",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "yoqj1aZbUv0",
+        "name": "Lacoste Suede Baseshot Classic",
+        "brand": "Lacoste",
+        "description": "Premium suede trainers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1718882707232-a1c6a8484b0f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNnx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Neutral",
+            "material": "Suede",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "EgN1AQ37AuU",
+        "name": "Lacoste Baseshot Tonal",
+        "brand": "Lacoste",
+        "description": "White leather sneakers for everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1727061180303-d91cdeca6f9c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOHx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "UZiVRCRHFpY",
+        "name": "Lacoste Baseline Ace",
+        "brand": "Lacoste",
+        "description": "Tonal leather sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1727061180275-c270d80445fa?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOXx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers",
+            "gender": "Female"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Wn61sdp7OKs",
+        "name": "Lacoste Baseshot Tonal White",
+        "brand": "Lacoste",
+        "description": "Stylish white leather sneakers for everyday wear.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1727061180294-ae2c6511eb63?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyMHx8bGFjb3N0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "eTOvMQVgrag",
+        "name": "Velocity White Runners",
+        "brand": "Nike",
+        "description": "White athletic shoes for performance and style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1622741046749-cfee71d611ff?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxmaWxhJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "white",
+            "material": "synthetic",
+            "use_case": "athletic",
+            "style": "running"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "SzVXG6FFh0Q",
+        "name": "Fila Disruptor Classic White",
+        "brand": "Fila",
+        "description": "Iconic platform sneakers for bold, everyday style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1579446565308-427218a2c60e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxmaWxhJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Platform Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "7WRaJmvTJLQ",
+        "name": "Fila Velocity Jump",
+        "brand": "Fila",
+        "description": "White sneakers for jumping and active lifestyles.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1557161187-634f1a92a569?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxmaWxhJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "white",
+            "material": "synthetic",
+            "use_case": "casual",
+            "style": "athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "b-fkcjhW3lc",
+        "name": "CloudStride Levitate Trainer",
+        "brand": "Fila",
+        "description": "Lightweight trainers for everyday comfort and style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1557161187-fba28578f4ed?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxmaWxhJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Trainer"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "oD5JxhSlt6Q",
+        "name": "Fila Velocity Runner",
+        "brand": "Fila",
+        "description": "White running shoes for optimal performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1567709816966-a1f1d1af8a3f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxmaWxhJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "white",
+            "material": "mesh",
+            "use_case": "running",
+            "style": "athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "T9dYclSnBzg",
+        "name": "Fila RetroStride Classic",
+        "brand": "Fila",
+        "description": "Stylish sneakers with classic black and white design.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1709820462353-2f8936da41a6?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxmaWxhJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Retro"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "yBZP24EG5wQ",
+        "name": "Fila Hoopshot Classic",
+        "brand": "Fila",
+        "description": "Retro style sneakers with basketball-inspired design.",
+        "price": 45.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1635770997852-57b433492848?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8ZmlsYSUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTUwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red/Blue",
+            "material": "Leather/Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "4VtM4lWBsdo",
+        "name": "CloudStride Walker",
+        "brand": "Apex Footwear",
+        "description": "Comfortable white shoes for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1669916913295-9d7c018da4ae?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxsb3VpcyUyMHZ1aXR0b24lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "JWXwLnL9cuw",
+        "name": "Skyline High-Top Sneakers",
+        "brand": "Nike",
+        "description": "Classic high-top style for everyday wear.",
+        "price": 45.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1605059363977-54b461bc6f85?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxsb3VpcyUyMHZ1aXR0b24lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "9pehc2pT9qw",
+        "name": "Desert Trekker Boot",
+        "brand": "YZY Footwear",
+        "description": "Durable boot for all-terrain adventures.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1587270613476-a53af834a385?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxsb3VpcyUyMHZ1aXR0b24lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown/Black",
+            "material": "Leather/Textile",
+            "use_case": "Hiking/Casual",
+            "style": "Boot"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "kU9IVnbKTgQ",
+        "name": "Chromatic Threads Runner",
+        "brand": "Apex Footwear",
+        "description": "Vibrant, comfortable sneakers for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1577990780770-3676301d8760?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxsb3VpcyUyMHZ1aXR0b24lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multicolor",
+            "material": "Yarn/Synthetic",
+            "use_case": "Casual",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "im4ewz-fytc",
+        "name": "Checkered Low-Top Classics",
+        "brand": "Vans",
+        "description": "Iconic checkered sneakers for everyday style.",
+        "price": 45.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1629439612315-b69e9236c8e1?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxsb3VpcyUyMHZ1aXR0b24lMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Canvas",
+            "use_case": "Casual",
+            "style": "Low Top",
+            "pattern": "Checkered"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Q3z5_vh0NTw",
+        "name": "AirStride Velocity One",
+        "brand": "Nike",
+        "description": "Classic black and white sneaker for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1609011809547-fec587101c8d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8bG91aXMlMjB2dWl0dG9uJTIwc25lYWtlcnN8ZW58MHx8fHwxNzc2NjA5NTUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Kw-fFTfEahk",
+        "name": "SkyBound Elevate High-Tops",
+        "brand": "Nike",
+        "description": "Classic high-top style for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1721767642708-4b082d03334b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "HSqfNud9TjE",
+        "name": "Air Force 1 High GORE-TEX",
+        "brand": "Nike",
+        "description": "Durable high-top sneaker with GORE-TEX protection.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581000197533-d6e5083b3201?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Blue",
+            "material": "Leather/GORE-TEX",
+            "use_case": "Casual",
+            "style": "High-Top",
+            "features": "Waterproof"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "8GuJ3GzA3nQ",
+        "name": "Air Force 1 High GTX",
+        "brand": "Nike",
+        "description": "Waterproof high-top sneaker for all-weather wear.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581000197508-b761abef93d1?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "GORE-TEX, Leather",
+            "use_case": "Casual, All-Weather",
+            "style": "High-Top Sneaker",
+            "features": "Waterproof"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "xlER8AuygUI",
+        "name": "Air Legacy High",
+        "brand": "Jordan",
+        "description": "Classic high-top sneakers for style and comfort.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1771711381792-2f03ea850c6b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "3ude8dhQjMQ",
+        "name": "Air Legacy Elevate",
+        "brand": "Nike",
+        "description": "Classic high-top style with iconic red accents.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1767440557966-219b4b09b34f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "2Ey4PlQ7MoA",
+        "name": "Air Zoom Elevate Yellow",
+        "brand": "Nike",
+        "description": "Iconic high-top sneakers in taxi yellow.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1672622012959-45355279c93e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Yellow/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "eBW4S-S9DtQ",
+        "name": "Air Legacy Elevate",
+        "brand": "Nike",
+        "description": "Classic high-top style for everyday wear.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1578610685400-e64dca5ca6f9?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "IPozalW4Qgg",
+        "name": "Air Legacy High OG",
+        "brand": "Jordan",
+        "description": "Retro high-top sneakers for iconic style.",
+        "price": 52.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1771711286856-765bdbca923f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxuaWtlJTIwaGlnaCUyMHRvcCUyMHNuZWFrZXJzfGVufDB8fHx8MTc3NjYwOTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multicolor",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top",
+            "closure": "Lace-Up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "RxpBlyF40k8",
+        "name": "AirStride Palomino High-Tops",
+        "brand": "Air Jordan",
+        "description": "Stylish brown and black high-top sneakers.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1765140644434-44f65bb4a263?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown/Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "MTJmuNTSMLw",
+        "name": "Air Ascent Elite",
+        "brand": "Nike",
+        "description": "Orange basketball shoes for peak performance on the court.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1772116278423-732c1f32c1a7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "orange",
+            "material": "synthetic",
+            "use_case": "basketball",
+            "style": "high top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "YXFNk27wwP8",
+        "name": "Air Legacy Chateau Rouge",
+        "brand": "Nike",
+        "description": "Bold high-top sneakers with unique color accents.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1771446489790-0c57c77d3fb5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multi-colored",
+            "material": "Leather/Textile",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "xvIIreXSGXE",
+        "name": "Skybound Ascent High-Top",
+        "brand": "Nike",
+        "description": "Elevated style and comfort for everyday wear.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1767684807239-56bf9d81be4a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Grey",
+            "material": "Leather/Synthetic",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "XGJH7Xgd1x4",
+        "name": "Blazer Heritage High-Tops",
+        "brand": "Nike",
+        "description": "Classic high-top sneakers for style and comfort.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1591370409347-2fd43b7842de?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown/Black",
+            "material": "Leather/Suede",
+            "use_case": "Casual",
+            "style": "High-Top",
+            "closure_type": "Lace-Up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "NzGEDnDf3Fo",
+        "name": "Blazer SB Heritage High",
+        "brand": "Nike",
+        "description": "Classic high-top sneaker for style and comfort.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1596644882941-2c7645aa4e5e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown/Black",
+            "material": "Leather/Suede",
+            "use_case": "Casual/Skateboarding",
+            "style": "High-Top",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "n77cc3SaNq0",
+        "name": "Air Majesty Elite",
+        "brand": "Nike",
+        "description": "Black and gold high-top sneakers for style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1710472171218-da46dce3faf9?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNnx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Gold",
+            "material": "Leather/Synthetic",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "SxAXphIPWeg",
+        "name": "AirStride Elevation",
+        "brand": "Nike",
+        "description": "Classic white high-top sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxN3x8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "1EeS8ZVNbpY",
+        "name": "Air Reign Supreme",
+        "brand": "Nike",
+        "description": "Black and gold high-top sneakers for style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1710317958830-0553afbfc9a2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOHx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Gold",
+            "material": "Leather/Synthetic",
+            "use_case": "Casual",
+            "style": "High-Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "p42I6laJ1Qo",
+        "name": "Air Force Ember High",
+        "brand": "Nike",
+        "description": "Classic high-top style with bold color accents.",
+        "price": 52.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1593699087197-b0bdd6be9f3b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOXx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and Orange",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "High Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "PZBBTazSsqY",
+        "name": "Blazer SB Crimson Tide",
+        "brand": "Nike",
+        "description": "Classic high-top sneaker with iconic style.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1596541206879-ab6842a21df0?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyMHx8bmlrZSUyMGhpZ2glMjB0b3AlMjBzbmVha2Vyc3xlbnwwfHx8fDE3NzY2MDk1OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Red",
+            "material": "Leather/Suede",
+            "use_case": "Casual/Skateboarding",
+            "style": "High-Top",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "IWOIL6d-N_4",
+        "name": "Agility Pro Cleat",
+        "brand": "Adidas",
+        "description": "White soccer cleats for peak performance on the field.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1774346865420-ac98ef6cb531?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxhZGlkYXMlMjBwZXJmb3JtYW5jZSUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTY2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic",
+            "use_case": "Soccer",
+            "style": "Cleats"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "lhYWZzph34c",
+        "name": "Adidas SwiftRun Lite",
+        "brand": "Adidas",
+        "description": "White low-top sneakers for everyday performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1618545647089-da834ede280c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxhZGlkYXMlMjBwZXJmb3JtYW5jZSUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTY2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Low Top",
+            "activity": "Performance"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "biQIK_Xrbxo",
+        "name": "Velocity X Trainer",
+        "brand": "Adidas",
+        "description": "High-performance shoe for ultimate athletic performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1656057903797-175389ce695d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxhZGlkYXMlMjBwZXJmb3JtYW5jZSUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTY2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic",
+            "use_case": "Performance",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "wodKMXpXsMA",
+        "name": "AlphaBounce Velocity Knit",
+        "brand": "Adidas",
+        "description": "Responsive cushioning for ultimate performance and comfort.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1547586877-0351a7143cbe?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxhZGlkYXMlMjBwZXJmb3JtYW5jZSUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTY2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Knit",
+            "use_case": "Performance",
+            "style": "Low-Top",
+            "features": "Responsive Cushioning"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "cy2zajvyj0A",
+        "name": "SprintWave Velocity",
+        "brand": "Adidas",
+        "description": "Black and white sneakers for performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1624196742995-fe4ec25be0a5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxhZGlkYXMlMjBwZXJmb3JtYW5jZSUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTY2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic",
+            "use_case": "Performance",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "GWTnBqB7HdU",
+        "name": "Adizero Lumina Runner",
+        "brand": "Adidas",
+        "description": "Illuminated sneaker for high-performance training.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1691067951700-138ca8f4841f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8YWRpZGFzJTIwcGVyZm9ybWFuY2UlMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk2NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Red/Blue",
+            "material": "Synthetic",
+            "use_case": "Performance",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "i0-01GMx_Cw",
+        "name": "Adizero Velocity Runner",
+        "brand": "Adidas",
+        "description": "Blue and white running shoes for peak performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581078837150-f20e5a101e7b?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8YWRpZGFzJTIwcGVyZm9ybWFuY2UlMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk2NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "oHseySTLtWE",
+        "name": "ClimaCool Vento Boost Stealth",
+        "brand": "Adidas",
+        "description": "Triple black running shoe for peak performance.",
+        "price": 48.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1594639581948-12c7dacc830d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8YWRpZGFzJTIwcGVyZm9ybWFuY2UlMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk2NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Mesh, Boost",
+            "use_case": "Running",
+            "style": "Athletic",
+            "technology": "ClimaCool"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "hC20r0puSVE",
+        "name": "Adizero SwiftRun Trainer",
+        "brand": "Adidas",
+        "description": "Performance shoe for ultimate comfort and style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1529958592265-f90d3c909796?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxOXx8YWRpZGFzJTIwcGVyZm9ybWFuY2UlMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk2NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Brown",
+            "material": "Mesh/Synthetic",
+            "use_case": "Performance",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "3gwJG-GPMEg",
+        "name": "AM4LDN Velocity Runner",
+        "brand": "Adidas",
+        "description": "Responsive running shoe for urban exploration.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1581078836184-ce63e9052a1d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyMHx8YWRpZGFzJTIwcGVyZm9ybWFuY2UlMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk2NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Blue/White",
+            "material": "Synthetic",
+            "use_case": "Running",
+            "style": "Athletic",
+            "technology": "Boost Cushioning"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "NUoPWImmjCU",
+        "name": "Velocity Drift Racer",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for ultimate street style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "7Uwh8QXYdXQ",
+        "name": "Velocity Drift Racer",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for ultimate performance.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1608379894453-c6b729b05596?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Driving",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Loc-QNoO4KQ",
+        "name": "Drift Velocity Racer",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for ultimate street style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1608380272894-b3617f04b463?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "F7riTzdqTNU",
+        "name": "Velocity Racer 2.0",
+        "brand": "Puma",
+        "description": "Sleek sneaker for speed and style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715693754067-8a0b8fc4c230?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Red",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "AY-2cYxTVw8",
+        "name": "Velocity Racer White",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for everyday style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1715694031146-34f5b50a4438?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "mLozl0hPL_c",
+        "name": "Puma Drift Cat Ultra",
+        "brand": "Puma",
+        "description": "Sleek motorsport-inspired shoes for everyday style.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1714396692931-56bc0661850f?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "b9e8ffVw5XY",
+        "name": "Velocity Drift Racer",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for ultimate street style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1608230164697-c791326d284c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Low Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "A8HaTLON5Gg",
+        "name": "Velocity Drift Racer",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for ultimate performance.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1608229751021-ed4bd8677753?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxwdW1hJTIwZHJpZnQlMjBjYXR8ZW58MHx8fHwxNzc2NjA5NzEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Motorsport",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "QvZX2MPrv_E",
+        "name": "Velocity Racer White",
+        "brand": "Puma",
+        "description": "Sleek white sneakers for ultimate street style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1632993819204-3ad5253a4a72?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8cHVtYSUyMGRyaWZ0JTIwY2F0fGVufDB8fHx8MTc3NjYwOTcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "IJjfPInzmdk",
+        "name": "Puma Drift Cat Decima",
+        "brand": "Puma",
+        "description": "Sleek black suede shoes for everyday style.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1545289414-1c3cb1c06238?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8cHVtYSUyMGRyaWZ0JTIwY2F0fGVufDB8fHx8MTc3NjYwOTcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "black",
+            "material": "suede",
+            "use_case": "casual",
+            "style": "sneakers"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "PUcvfu_yytM",
+        "name": "DriftCat Racer White",
+        "brand": "Puma",
+        "description": "Sleek, low-profile sneakers for everyday style.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1608230616491-5d696aa9fe52?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8cHVtYSUyMGRyaWZ0JTIwY2F0fGVufDB8fHx8MTc3NjYwOTcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White",
+            "material": "Synthetic Leather",
+            "use_case": "Casual",
+            "style": "Sneaker"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "_Wm_mTuyUDo",
+        "name": "Velocity Racer Drift",
+        "brand": "Puma",
+        "description": "Sleek white and green sneakers for ultimate performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1632993819240-7739e7b6959a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNXx8cHVtYSUyMGRyaWZ0JTIwY2F0fGVufDB8fHx8MTc3NjYwOTcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Green",
+            "material": "Synthetic Leather",
+            "use_case": "Driving",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "oXPhwpiEELQ",
+        "name": "AirStride Velocity",
+        "brand": "Nike",
+        "description": "Stylish comfort for everyday walking and workouts.",
+        "price": 52.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1625515921520-ca6f70457641?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxza2VjaGVycyUyMHdhbGtpbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/White/Red",
+            "material": "Mesh/Synthetic",
+            "use_case": "Walking",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "jXrDq0wj3lg",
+        "name": "Velocity Runner X",
+        "brand": "Nike",
+        "description": "Performance shoe for ultimate comfort and support.",
+        "price": 49.99,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1625515921533-c9195ff2a7e2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxza2VjaGVycyUyMHdhbGtpbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/White/Red",
+            "material": "Mesh/Synthetic",
+            "use_case": "Walking",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "APKtyf7MDR4",
+        "name": "AirStride Velocity",
+        "brand": "Nike",
+        "description": "Black and white air max for everyday wear.",
+        "price": 45.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1625515922308-56dcaa45351c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxza2VjaGVycyUyMHdhbGtpbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Mesh and Rubber",
+            "use_case": "Walking",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Ce61h5obKHw",
+        "name": "Velocity Strider 1.0",
+        "brand": "Skechers",
+        "description": "Colorful running shoes for ultimate performance.",
+        "price": 42.5,
+        "category_id": 107,
+        "image_url": "https://images.unsplash.com/photo-1496579538151-212636d0b01c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxza2VjaGVycyUyMHdhbGtpbmclMjBzaG9lc3xlbnwwfHx8fDE3NzY2MDk3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Multi-Color",
+            "material": "Mesh",
+            "use_case": "Walking",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "fq_ZFTLoxhA",
+        "name": "Dr. Martens 1460 Mono Black",
+        "brand": "Dr. Martens",
+        "description": "Classic black boots on a clean white surface.",
+        "price": 52.99,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1747083996241-3d86d9dbab11?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxkciUyMG1hcnRlbnMlMjBib290c3xlbnwwfHx8fDE3NzY2MDk3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boot",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "kqWUL7Y2ow8",
+        "name": "Airwair Heritage Boot",
+        "brand": "Dr. Martens",
+        "description": "Durable leather boot with iconic Airwair cushioning.",
+        "price": 45.99,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1551109988-2387d9439af7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxkciUyMG1hcnRlbnMlMjBib290c3xlbnwwfHx8fDE3NzY2MDk3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boot",
+            "features": "Air-cushioned sole"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "AcqzusMJGcQ",
+        "name": "UrbanStride Chukka Boot",
+        "brand": "Artisan Crafted",
+        "description": "Classic leather chukka boots for everyday style.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1548768707-d1fc5712d7fc?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxkciUyMG1hcnRlbnMlMjBib290c3xlbnwwfHx8fDE3NzY2MDk3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Chukka",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "-dt_OH0fs-0",
+        "name": "Rebel Tread Black Boots",
+        "brand": "Dr. Martens",
+        "description": "Cool black boots for everyday wear.",
+        "price": 45.99,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1664246310534-cf20bacd75eb?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxkciUyMG1hcnRlbnMlMjBib290c3xlbnwwfHx8fDE3NzY2MDk3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "black",
+            "material": "leather",
+            "use_case": "casual",
+            "style": "boots"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "BuU1O0P-sHg",
+        "name": "Urban Tread Black Boots",
+        "brand": "Apex Footwear",
+        "description": "Durable black boots for everyday wear.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1642081927380-89bd85d7a697?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHxkciUyMG1hcnRlbnMlMjBib290c3xlbnwwfHx8fDE3NzY2MDk3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boot"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "C0UND5259wU",
+        "name": "Ironclad Tread Boot",
+        "brand": "Blackstone Outfitters",
+        "description": "Durable black boots for everyday wear.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1642081918182-c943d2300416?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxkciUyMG1hcnRlbnMlMjBib290c3xlbnwwfHx8fDE3NzY2MDk3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boot"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "BPqbiGyHEbs",
+        "name": "Storm Stride Leather Boots",
+        "brand": "Everwear",
+        "description": "Durable black leather boots for everyday wear.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1620683834571-fe8bdb306daf?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8ZHIlMjBtYXJ0ZW5zJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5Nzg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boots",
+            "closure": "Lace-up"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "TNOB8IFpxFk",
+        "name": "Vintage Rebel Leather Boots",
+        "brand": "Heritage Footwear",
+        "description": "Classic leather boots with vintage style.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1612954982299-aab96f133885?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8ZHIlMjBtYXJ0ZW5zJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5Nzg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boots"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "JVlREHYPaCM",
+        "name": "Shadow Stride Leather Boot",
+        "brand": "Blackstone",
+        "description": "Classic black leather boot for everyday wear.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1551111293-20c9c0ae923c?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8ZHIlMjBtYXJ0ZW5zJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5Nzg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Boot"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "MtTp6mfSHJk",
+        "name": "La Crosse Gray Timberland Work Boots",
+        "brand": "Timberland",
+        "description": "Iconic gray work boots for urban adventures.",
+        "price": 45.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1520472475098-8e72973f5462?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHx0aW1iZXJsYW5kJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5ODMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "gray",
+            "material": "leather",
+            "use_case": "work",
+            "style": "boots"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "nMl5E1pVmsQ",
+        "name": "TerraStride Leather Sandal",
+        "brand": "Timberland",
+        "description": "Durable leather sandals for comfortable everyday wear.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1610290101403-ef44f4fc467a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHx0aW1iZXJsYW5kJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5ODMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "brown",
+            "material": "leather",
+            "use_case": "casual",
+            "style": "sandal"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "F52-xlEh1lw",
+        "name": "TerraStride Leather Hiker",
+        "brand": "Timberland",
+        "description": "Durable leather boot for everyday adventures.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1628014376659-ca1dd41f765a?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHx0aW1iZXJsYW5kJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5ODMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "brown",
+            "material": "leather",
+            "use_case": "hiking",
+            "style": "casual boots"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "h_8DhbFH1Vk",
+        "name": "Timberland Summer Hiker",
+        "brand": "Timberland",
+        "description": "Brown leather boots for summer adventures.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1622747729390-7e26a62a6830?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHx0aW1iZXJsYW5kJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5ODMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown",
+            "material": "Leather",
+            "use_case": "Hiking",
+            "style": "Boots"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "s9W5RtsOiSU",
+        "name": "TerraStride Winter Walker",
+        "brand": "Timberland",
+        "description": "Durable boots for snowy winter adventures.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1547474601-78f5ba6061d5?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw4fHx0aW1iZXJsYW5kJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5ODMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown",
+            "material": "Leather",
+            "use_case": "Winter, Hiking",
+            "style": "Boots"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "uNv3qJSnK7Y",
+        "name": "TerraStride Winter Hiker",
+        "brand": "Timberland",
+        "description": "Durable winter boots for warmth and traction.",
+        "price": 42.5,
+        "category_id": 106,
+        "image_url": "https://images.unsplash.com/photo-1611193876764-7611520c8582?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHx0aW1iZXJsYW5kJTIwYm9vdHN8ZW58MHx8fHwxNzc2NjA5ODMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Tan",
+            "material": "Leather",
+            "use_case": "Winter",
+            "style": "Boots",
+            "closure": "Lace-up",
+            "height": "High Top"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "n_oodAjbSWI",
+        "name": "Urban Slide Sandal",
+        "brand": "ComfortStride",
+        "description": "Black and white slide sandals for everyday comfort.",
+        "price": 34.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1612778570039-103d26280b47?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxiaXJrZW5zdG9jayUyMHNhbmRhbHN8ZW58MHx8fHwxNzc2NjA5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and White",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Slide"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "sNkpa8TLeFs",
+        "name": "TerraStride Leather Sandals",
+        "brand": "TerraStride",
+        "description": "Comfortable leather sandals for everyday wear.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1594520770886-6910adf052c6?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxiaXJrZW5zdG9jayUyMHNhbmRhbHN8ZW58MHx8fHwxNzc2NjA5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Brown",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sandals"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "WzncgWs3RJ4",
+        "name": "TerraStride Comfort Slides",
+        "brand": "Alpine Footwear",
+        "description": "Comfortable slide sandals, perfect for everyday wear.",
+        "price": 38.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1603487742131-4160ec999306?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxiaXJrZW5zdG9jayUyMHNhbmRhbHN8ZW58MHx8fHwxNzc2NjA5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown/Gray",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Slide Sandals"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Tywm5q3KXb4",
+        "name": "Cozy Comfort Slide",
+        "brand": "Birkenstock",
+        "description": "Comfortable and stylish slip-on sandal.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1603487742293-ccb3eafe20ea?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxiaXJrZW5zdG9jayUyMHNhbmRhbHN8ZW58MHx8fHwxNzc2NjA5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray/Brown",
+            "material": "Textile",
+            "use_case": "Casual",
+            "style": "Sandal",
+            "closure_type": "Slip-on"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "LnR6-7P2YNk",
+        "name": "Ebony Stride Leather Sandals",
+        "brand": "TerraFlex",
+        "description": "Black leather sandals for everyday comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1596523027665-9da35ced2388?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxiaXJrZW5zdG9jayUyMHNhbmRhbHN8ZW58MHx8fHwxNzc2NjA5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "black",
+            "material": "leather",
+            "use_case": "casual",
+            "style": "sandals",
+            "toe_style": "open toe"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "_ftLDRDE3bk",
+        "name": "Coastal Drift Sandal",
+        "brand": "Birkenstock",
+        "description": "Classic comfort for sandy shores and sunny days.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1630331010250-7524271ed506?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw5fHxiaXJrZW5zdG9jayUyMHNhbmRhbHN8ZW58MHx8fHwxNzc2NjA5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/Brown",
+            "material": "Leather/Cork",
+            "use_case": "Casual",
+            "style": "Sandal"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "MGUW0azI4lM",
+        "name": "Beachcomber Sandal",
+        "brand": "Coastal Comfort",
+        "description": "Relaxed sandals perfect for beach days.",
+        "price": 34.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1635867823142-a8e897d63557?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMHx8Ymlya2Vuc3RvY2slMjBzYW5kYWxzfGVufDB8fHx8MTc3NjYwOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Sand",
+            "material": "Synthetic",
+            "use_case": "Casual",
+            "style": "Sandal"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "R9xUbWtieoc",
+        "name": "Cloud Step Comfort Sandals",
+        "brand": "Birkenstock",
+        "description": "Comfortable sandals perfect for everyday wear.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1643068471105-570be3332ec0?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8Ymlya2Vuc3RvY2slMjBzYW5kYWxzfGVufDB8fHx8MTc3NjYwOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Beige",
+            "material": "Suede",
+            "use_case": "Casual",
+            "style": "Sandals"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "fVTvdPMkkgo",
+        "name": "Cloud Step Comfort Slides",
+        "brand": "CloudWalk",
+        "description": "Comfortable white slides for everyday wear.",
+        "price": 34.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1651782500354-c907f5e69b71?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8Ymlya2Vuc3RvY2slMjBzYW5kYWxzfGVufDB8fHx8MTc3NjYwOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "white",
+            "material": "synthetic",
+            "use_case": "casual",
+            "style": "slides"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "NvHjjFCjGsA",
+        "name": "TerraStride Comfort Sandals",
+        "brand": "Birkenstock",
+        "description": "Classic comfort for everyday wear.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1666013098189-39dc54d8caba?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8Ymlya2Vuc3RvY2slMjBzYW5kYWxzfGVufDB8fHx8MTc3NjYwOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Brown",
+            "material": "Leather",
+            "use_case": "Casual",
+            "style": "Sandals"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Rdcovxqew58",
+        "name": "Hyperion Velocity Max",
+        "brand": "Brooks",
+        "description": "Fast running shoe with maximum energy return.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1708214837995-36503925f5a2?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxfHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Dark",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "46NEqXYEGCg",
+        "name": "Velocity Max Run",
+        "brand": "Brooks",
+        "description": "Hyper-responsive running shoe for peak performance.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1708214837981-1a2c1abd5464?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwyfHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Yellow/Black",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "7vqbIo8kSrE",
+        "name": "Hyperion Velocity Max",
+        "brand": "Brooks",
+        "description": "Lightweight running shoe for peak performance.",
+        "price": 45.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1708214837986-c3c3592c7a3e?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwzfHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Yellow/Black",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "v3pMpLmqkds",
+        "name": "Ghost Max Velocity",
+        "brand": "Brooks",
+        "description": "Black and orange running shoes for maximum comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1708216428891-49073383829d?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw0fHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black and Orange",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "P8V7AFmYdyw",
+        "name": "Ghost Max Velocity",
+        "brand": "Brooks",
+        "description": "Maximum cushion running shoe for ultimate comfort.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1708216428895-548639bcafcf?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw1fHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Neutral",
+            "material": "Mesh",
+            "use_case": "running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ahrORbT62XU",
+        "name": "Brooks Velocity Max",
+        "brand": "Brooks",
+        "description": "Responsive running shoe for optimal performance.",
+        "price": 49.99,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1628394855484-efb64875e508?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw2fHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Gray/Red",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "bKFElRyntbI",
+        "name": "Velocity Strider White",
+        "brand": "Brooks",
+        "description": "White running shoes for optimal performance.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1770177132209-e67de0b6dad8?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHw3fHxicm9va3MlMjBydW5uaW5nJTIwc2hvZXN8ZW58MHx8fHwxNzc2NjA5OTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "white",
+            "material": "mesh",
+            "use_case": "running",
+            "style": "athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "ngIzt2DHJ7A",
+        "name": "Ravenna Velocity 8",
+        "brand": "Brooks",
+        "description": "Responsive running shoe with enhanced stability.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1602578558883-f9d4d00aace4?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMXx8YnJvb2tzJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTk1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Black/White/Red",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic",
+            "activity": "Road Running"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "b4-8rKDhh3g",
+        "name": "Ravenna Velocity 8",
+        "brand": "Brooks",
+        "description": "Responsive running shoe with enhanced stability.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1602578558883-a40f8c22b3a0?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxMnx8YnJvb2tzJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTk1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "White/Black",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "Sbg0TEwWSI4",
+        "name": "Ravenna 8 Velocity Runner",
+        "brand": "Brooks",
+        "description": "Responsive running shoe with enhanced stability.",
+        "price": 42.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1602578558878-ef763e4ea4c7?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxM3x8YnJvb2tzJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTk1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/White",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    },
+    {
+        "external_id": "H8UCq78DQ7Q",
+        "name": "Velocity Racer X",
+        "brand": "Brooks",
+        "description": "Red and blue running shoe for optimal performance.",
+        "price": 45.5,
+        "category_id": 125,
+        "image_url": "https://images.unsplash.com/photo-1612942229342-da46ec44e500?cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY4NDR8MHwxfHNlYXJjaHwxNHx8YnJvb2tzJTIwcnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc3NjYwOTk1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "attributes": {
+            "color": "Red/Blue",
+            "material": "Mesh",
+            "use_case": "Running",
+            "style": "Athletic"
+        },
+        "is_prominent": true
+    }
+]
